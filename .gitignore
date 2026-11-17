@@ -1,0 +1,16 @@
+# Dipendenze e build (Astro, Node)
+node_modules/
+dist/
+.astro/
+
+# Segreti e impostazioni locali: mai su GitHub
+.env
+.env.*
+!.env.example
+.claude/settings.local.json
+
+# File di sistema e temporanei
+Thumbs.db
+desktop.ini
+.DS_Store
+~$*
