@@ -2,7 +2,7 @@
 
 Avvio: 17/11/2026. Pagine di progetto (si aprono nel browser, con internet: 3D e caratteri vengono dalla rete):
 
-- [`design/home.html`](design/home.html): **la home di adesso** (18/11). Si apre con un tunnel: la frase al centro, attorno i cinque principi, ognuno con il suo simbolo moldavo o giapponese; alla fine la frase diventa una maschera sulla pagina chiara, in stile linear.app. La grafica sta sulla tela Claude Design «Hinotech · deschiderea» (https://claude.ai/artifact/95NipTVRzS7wjLaswWmKFp, privata).
+- [`design/home.html`](design/home.html): **la home di adesso** (18/11). Si apre con un tunnel: la frase al centro, attorno i cinque principi, ognuno con il suo simbolo moldavo o giapponese; alla fine la frase diventa una maschera sulla pagina chiara, in stile linear.app. La grafica sta sulla tela Claude Design «Hinotech · deschiderea» (https://claude.ai/artifact/95NipTVRzS7wjLaswWmKFp, privata); il ritmo compatto del 19/11 sta sull'altra tela con lo stesso nome (https://claude.ai/artifact/7VHuB1hZBpUND2eoWt5W32, tavola «Tunelul · ritm compact (19/11)»).
 - [`design/apertura.html`](design/apertura.html), [`design/home-otel.html`](design/home-otel.html), [`design/home-fereastra.html`](design/home-fereastra.html): le prove del 18/11 da cui è nata la home.
 - [`design/sat.html`](design/sat.html): il villaggio di notte (17–18/11), messo da parte il 18/11.
 - [`design/proposte.html`](design/proposte.html): le tre proposte da cui è stata scelta (A villaggio, B cantiere di hinoki, C corte coreana).
@@ -174,15 +174,22 @@ sinistra → in alto a destra, 5 in alto al centro → in basso al centro. L'equ
 centro. Posizioni in frazioni dello schermo nel codice (`COMP`), uguali a quelle della tela; sul telefono le
 stesse diagonali in verticale.
 
-**Come si muove**: la frase si stringe al centro e resta lì. Un principio ogni **1,2 schermi di scroll**:
-la composizione arriva dal fondo del tunnel, si ferma, il nome si accende parola per parola e subito dopo il
-simbolo si cuce punto per punto (moldavi) o si disegna (giapponesi). Questa parte va a tempo, due secondi,
-così si completa anche se ci si ferma a leggere; il resto segue lo scroll. Poi la composizione passa accanto a
-chi guarda mentre arriva la successiva. Alla fine i cinque simboli tornano piccoli attorno alla frase, ognuno
-dalla parte in cui si era cucito, ed entrano in lei; la frase diventa una maschera (tre strati fissi: nero con
-le lettere bianche in moltiplica, il colore del tunnel in schiarisci, il bordo delle lettere). Dentro le
-lettere sale la pagina chiara e si entra dalla «l» di «clare»; lo zoom finisce quando la pagina arriva in
-alto (8,6 schermi). Con «riduci movimento» i cinque stanno fermi, in griglia.
+**Come si muove** (ritmo compatto, 19/11). Il founder, 19/11: si scorreva troppo e non invogliava a leggere;
+le scritte e i simboli devono partire più dal centro; non uno, poi il vuoto, poi il successivo, ma uno dopo
+l'altro, più compatti («quando si avvia la terza scritta far sparire completamente la prima»); il nome grande
+circa il doppio. Ora la frase si stringe al centro e resta lì. Un principio ogni **mezzo schermo di scroll**:
+la composizione parte vicino al centro (al 30 % della sua distanza; prima compariva già al 55–70 %), arriva
+nel suo angolo, si ferma, poi passa accanto a chi guarda. Il successivo parte mentre il precedente è ancora
+fermo; quando parte il terzo, il primo è già sparito. Il nome è il doppio di prima (68 px sul computer,
+adattato allo schermo come prima; 44 px sul telefono invece di 24) e si accende parola per parola mentre
+arriva; il simbolo si cuce punto per punto (moldavi) o si disegna (giapponesi). Questa parte va a tempo, poco
+più di un secondo, così si completa anche se ci si ferma; con lo scroll veloce non resta indietro, perché
+quando la composizione si ferma nel suo angolo il disegno è già finito. Alla fine i cinque simboli tornano
+piccoli attorno alla frase, ognuno dalla parte in cui si era cucito, ed entrano in lei; la frase diventa una
+maschera (tre strati fissi: nero con le lettere bianche in moltiplica, il colore del tunnel in schiarisci, il
+bordo delle lettere). Dentro le lettere sale la pagina chiara e si entra dalla «l» di «clare»; lo zoom
+finisce quando la pagina arriva in alto: **4,75 schermi** (il tunnel è 575vh; prima 960vh, 8,6 schermi). Con
+«riduci movimento» i cinque stanno fermi, in griglia.
 
 **Il lampo bianco** (il founder: «si nota molto quando lo scroll è veloce»). La maschera segue lo scroll con
 il piccolo ritardo di tutto il tunnel; la pagina chiara invece segue lo scroll vero. Con una spinta forte la
@@ -195,7 +202,7 @@ alla pagina, senza tornare indietro; sulla versione precedente lo stesso test mo
 **La pagina sotto la maschera**: la sezione 1.0 parte più in basso (34vh), così quando la maschera si apre
 del tutto la frase «Regulile care decid ce construim…» sta a metà schermo. Le sue parole partono
 chiarissime e si scuriscono una dopo l'altra mentre si scorre, da quando la pagina è quasi tutta visibile
-(8,35 schermi) fino a 8,9: la prima frase diventa inchiostro, il resto quasi nero.
+(4,5 schermi) fino a 5,05: la prima frase diventa inchiostro, il resto quasi nero.
 
 **Il menu** (il founder, 18/11): il menu in alto con il logo sparisce appena si comincia a scorrere e
 ricompare solo scorrendo all'insù, in cima alla pagina o arrivandoci con la tastiera.
