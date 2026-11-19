@@ -1,0 +1,1060 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hinotech Software — sei aperture</title>
+<meta name="description" content="Sei proposte per la prima pagina di Hinotech Software, con le regole dei siti delle software house SaaS: Înainte, Oțel, Bauhaus, Motorul, Cerneală, Fereastra.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Inter:wght@400;500;600&family=Jost:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@1,400&family=Shippori+Mincho:wght@700&display=swap">
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
+</script>
+<style>
+:root{
+  --n-000:#FBFAF8;--n-050:#F1EEE9;--n-100:#E7E2D9;--n-150:#D9D2C6;--n-200:#C8C1B4;--n-300:#B3ADA2;
+  --n-400:#948E83;--n-500:#7A756D;--n-600:#5F5A52;--n-700:#463F38;--n-800:#2B2A28;--n-900:#141311;
+  --rust:#9C4A38;--ochre:#A67C44;--fjord:#4A6472;--moss:#5A6B54;
+  --sans:"IBM Plex Sans",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --inter:"Inter",system-ui,sans-serif;
+  --jost:"Jost","IBM Plex Sans",sans-serif;
+  --jp:"Shippori Mincho",serif;
+  --ease:cubic-bezier(.2,.6,.2,1);
+  --pad:clamp(16px,3.2vw,48px);
+}
+*{box-sizing:border-box}
+html{background:var(--n-000)}
+body{margin:0;background:var(--n-000);color:var(--n-900);font:400 15px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+p{margin:0}
+
+/* ── la pagina delle proposte ── */
+.intro{max-width:1280px;margin:0 auto;padding:clamp(56px,13vh,140px) var(--pad) clamp(40px,8vh,90px)}
+.eyebrow{font:500 11.5px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--n-500)}
+.intro h1{margin:18px 0 0;font:500 clamp(48px,7.6vw,116px)/.95 var(--sans);letter-spacing:-.045em}
+.lead{margin-top:26px;max-width:48em;font-size:clamp(15px,1.2vw,18px);color:var(--n-700)}
+.lead q{quotes:"«" "»";color:var(--n-900);font-weight:500}
+.toc{display:flex;flex-wrap:wrap;gap:10px;margin:32px 0 0;padding:0;list-style:none}
+.toc a{display:inline-flex;gap:10px;align-items:baseline;padding:10px 16px;border:1px solid var(--n-150);border-radius:999px;font-size:14px;color:var(--n-700);transition:border-color .18s var(--ease),background-color .18s var(--ease)}
+.toc a:hover{border-color:var(--n-400);background:var(--n-050)}
+.toc b{font:500 12px/1 var(--mono);color:var(--n-900)}
+.toc i{font:italic 400 13px/1 var(--sans);color:var(--n-500)}
+
+.prop{position:relative;height:360vh}
+.pin{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;gap:14px;padding:16px var(--pad) 18px}
+.head{display:flex;gap:16px;align-items:flex-start;width:100%;max-width:1280px;margin:0 auto}
+.tag{flex:none;display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--n-200);border-radius:50%;font:500 13px/1 var(--mono)}
+.head h2{margin:0;font:500 clamp(20px,1.8vw,27px)/1.15 var(--sans);letter-spacing:-.02em}
+.head h2 em{margin-left:.5em;font:italic 400 .8em/1 var(--sans);color:var(--n-500)}
+.head p{margin-top:6px;max-width:78em;font-size:14.5px;line-height:1.55;color:var(--n-600)}
+.stage{flex:1;min-height:0;container-type:size;display:grid;place-items:center}
+.frame{position:relative;width:min(100cqw,calc(100cqh * 16 / 9));aspect-ratio:16/9;border-radius:12px;overflow:hidden;isolation:isolate;container-type:size;box-shadow:0 0 0 1px rgba(20,19,17,.08),0 28px 70px -40px rgba(20,19,17,.45);touch-action:pan-y}
+@media (max-aspect-ratio:1/1){.frame{width:100cqw;height:100cqh;aspect-ratio:auto}}
+.fx{position:absolute;inset:0;--u:1cqw;overflow:hidden}
+@container (max-aspect-ratio:1/1){.fx{--u:2.15cqw}}
+.fx canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.foot{max-width:1280px;margin:0 auto;padding:12vh var(--pad) 16vh;font-size:14px;color:var(--n-600)}
+.foot p{max-width:56em}
+
+/* ── l'interfaccia SaaS comune: menu, pillola, pulsanti ── */
+.nv{position:absolute;left:4.2%;right:4.2%;top:4.6%;z-index:6;display:flex;align-items:center;gap:calc(var(--u)*2.2);font:400 max(10.5px,calc(var(--u)*.9))/1 var(--sans);pointer-events:none}
+.nv .lg{display:flex;align-items:center;gap:calc(var(--u)*.75);font-weight:600;font-size:max(12px,calc(var(--u)*1.05));letter-spacing:-.015em;white-space:nowrap}
+.seal{display:grid;place-items:center;width:max(19px,calc(var(--u)*1.9));aspect-ratio:1;border-radius:calc(var(--u)*.38);background:var(--rust);color:#FBFAF8;font:700 max(10px,calc(var(--u)*1.02))/1 var(--jp);font-style:normal}
+.nv nav{display:flex;gap:calc(var(--u)*2);margin-left:auto;white-space:nowrap;opacity:.72}
+.nv .mn{display:none;margin-left:auto;font:500 max(10px,calc(var(--u)*.8))/1 var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.bt{display:inline-flex;align-items:center;justify-content:center;gap:.5em;height:max(26px,calc(var(--u)*2.65));padding:0 max(11px,calc(var(--u)*1.25));border-radius:999px;font:500 max(10.5px,calc(var(--u)*.9))/1 var(--sans);white-space:nowrap}
+.pill{display:inline-flex;align-items:center;gap:calc(var(--u)*.6);height:max(22px,calc(var(--u)*2.15));padding:0 calc(var(--u)*1) 0 calc(var(--u)*.75);border-radius:999px;font:500 max(9.5px,calc(var(--u)*.78))/1 var(--sans);white-space:nowrap}
+.pill i{width:max(6px,calc(var(--u)*.5));aspect-ratio:1;border-radius:50%;background:var(--rust)}
+.cue{position:absolute;left:50%;bottom:4.5%;transform:translateX(-50%);z-index:6;font:500 max(9px,calc(var(--u)*.7))/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;opacity:var(--cue,1)}
+@container (max-aspect-ratio:1/1){
+  .nv{top:3.4%;left:6%;right:6%}
+  .nv nav,.nv .bt{display:none}
+  .nv .mn{display:block}
+}
+
+/* ══ 1 · Înainte ══ */
+.f1{background:#FBFAF8;color:var(--n-900)}
+.f1-bg{position:absolute;inset:0;background:radial-gradient(ellipse 58% 62% at 50% 50%,rgba(251,250,248,0) 0 30%,#FBFAF8 92%),radial-gradient(circle,rgba(20,19,17,.14) 0 1px,transparent 1.4px) 0 0/calc(var(--u)*1.7) calc(var(--u)*1.7),#FBFAF8}
+.f1-view{position:absolute;inset:0;overflow:hidden}
+.f1-world{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d}
+.f1 .z{position:absolute;left:0;top:0;visibility:hidden;will-change:transform,opacity}
+.f1-ring{border:1px solid rgba(122,117,109,.32);border-radius:calc(var(--u)*2.2)}
+.f1-card{width:calc(var(--u)*14.5);padding:calc(var(--u)*1.05) calc(var(--u)*1.15);background:#fff;border:1px solid var(--n-100);border-radius:calc(var(--u)*.9);box-shadow:0 calc(var(--u)*.9) calc(var(--u)*2.6) rgba(20,19,17,.09)}
+.f1-card i{display:block;font:500 max(8px,calc(var(--u)*.6))/1 var(--mono);letter-spacing:.14em;color:var(--n-400);font-style:normal}
+.f1-card b{display:block;margin-top:calc(var(--u)*.55);font:500 max(10px,calc(var(--u)*1.2))/1.2 var(--sans);letter-spacing:-.01em}
+.f1-card.shot{width:calc(var(--u)*21);padding:calc(var(--u)*.45)}
+.f1-card.shot img{display:block;width:100%;border-radius:calc(var(--u)*.55)}
+.f1-card.shot span{display:flex;align-items:baseline;gap:calc(var(--u)*.7);padding:calc(var(--u)*.7) calc(var(--u)*.6) calc(var(--u)*.3)}
+.f1-card.shot span b{margin:0}
+.f1-hero,.f1-beat{display:flex;flex-direction:column;align-items:center;text-align:center;width:calc(var(--u)*68)}
+.f1 .pill{background:#fff;box-shadow:inset 0 0 0 1px var(--n-100);color:var(--n-700)}
+.f1 .h{margin-top:calc(var(--u)*1.7);font:500 calc(var(--u)*4.7)/1.02 var(--sans);letter-spacing:-.04em;text-wrap:balance}
+.f1 .sub{margin-top:calc(var(--u)*1.4);max-width:calc(var(--u)*40);font:400 max(11px,calc(var(--u)*1.12))/1.5 var(--sans);color:var(--n-600);text-wrap:balance}
+.f1 .ctas{display:flex;gap:calc(var(--u)*.8);margin-top:calc(var(--u)*2.2)}
+.f1 .bt-d{background:var(--n-900);color:#FBFAF8}
+.f1 .bt-g{background:#fff;color:var(--n-900);box-shadow:inset 0 0 0 1px var(--n-150)}
+.f1 .lbl{font:500 max(9px,calc(var(--u)*.7))/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--rust)}
+.f1 .h2{margin-top:calc(var(--u)*1.3);font:500 calc(var(--u)*4.4)/1.04 var(--sans);letter-spacing:-.04em;text-wrap:balance}
+.f1-beat img{width:calc(var(--u)*40);margin-bottom:calc(var(--u)*.6);mix-blend-mode:multiply;-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 62%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 62%,transparent 100%)}
+.f1-beat .cap{margin-top:calc(var(--u)*.8);font:400 max(8px,calc(var(--u)*.62))/1 var(--mono);letter-spacing:.1em;color:var(--n-400);text-transform:uppercase}
+.f1 .nv{color:var(--n-900)}
+.f1 .nv .bt{background:var(--n-900);color:#FBFAF8}
+.f1 .cue{color:var(--n-500)}
+@container (max-aspect-ratio:1/1){
+  .f1-hero,.f1-beat{width:calc(var(--u)*42)}
+  .f1 .h{font-size:calc(var(--u)*4.1)}
+  .f1 .h2{font-size:calc(var(--u)*3.6)}
+  .f1 .sub{max-width:calc(var(--u)*38);font-size:calc(var(--u)*1.25)}
+  .f1-card{width:calc(var(--u)*11)}
+  .f1-card.shot{width:calc(var(--u)*15)}
+  .f1-beat img{width:calc(var(--u)*38)}
+}
+
+/* ══ 2 · Oțel ══ */
+.f2{background:#08090A;color:#F7F8F8}
+.f2 .fx{font-family:var(--inter)}
+.f2-glow{position:absolute;inset:0;background:radial-gradient(ellipse 70% 45% at 30% -5%,rgba(255,255,255,.07),transparent 70%);pointer-events:none}
+.f2 .nv{font-family:var(--inter);color:#F7F8F8}
+.f2 .nv nav{color:#8A8F98;opacity:1}
+.f2 .nv .bt{background:#F7F8F8;color:#08090A;font-family:var(--inter)}
+.f2-hero{position:absolute;left:5.2%;top:19%;width:56%;will-change:transform,opacity}
+.f2 .pill{background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(255,255,255,.09);color:#B4B8BF;font-family:var(--inter)}
+.f2 .h{margin-top:calc(var(--u)*1.6);font:500 calc(var(--u)*4.9)/1.0 var(--inter);letter-spacing:-.05em;text-wrap:balance}
+.f2 .sub{margin-top:calc(var(--u)*1.5);max-width:calc(var(--u)*36);font:400 max(11px,calc(var(--u)*1.1))/1.5 var(--inter);color:#8A8F98}
+.f2 .ctas{display:flex;align-items:center;gap:calc(var(--u)*1.6);margin-top:calc(var(--u)*2.2)}
+.f2 .bt-w{background:#F7F8F8;color:#08090A;font-family:var(--inter)}
+.f2 .lnk{font:500 max(10.5px,calc(var(--u)*.9))/1 var(--inter);color:#D0D3D8}
+.f2-shot{position:absolute;left:50%;top:16%;width:76%;transform-origin:50% 0;will-change:transform,opacity}
+.f2-shot img{display:block;width:100%;-webkit-mask-image:radial-gradient(ellipse 62% 70% at 50% 48%,#000 58%,transparent 100%);mask-image:radial-gradient(ellipse 62% 70% at 50% 48%,#000 58%,transparent 100%)}
+.f2-shot .cap{position:absolute;right:16%;bottom:9%;font:400 max(8px,calc(var(--u)*.6))/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#4B4F57}
+.f2-stmt{position:absolute;left:5.2%;top:27%;width:76%;font:500 calc(var(--u)*3.05)/1.16 var(--inter);letter-spacing:-.035em;opacity:0;will-change:opacity,transform}
+.f2-stmt small{display:block;margin-bottom:calc(var(--u)*1.6);font:500 max(9px,calc(var(--u)*.68))/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#4B4F57}
+.f2-figs{position:absolute;left:5.2%;right:5.2%;top:19%;display:grid;grid-template-columns:repeat(3,1fr);border-left:1px solid #1D1F23;opacity:0}
+.f2-figs .fig{padding:0 calc(var(--u)*1.6);border-right:1px solid #1D1F23}
+.f2-figs small{font:500 max(8px,calc(var(--u)*.6))/1 var(--mono);letter-spacing:.14em;color:#4B4F57}
+.f2-figs svg{display:block;width:100%;height:calc(var(--u)*17);margin:calc(var(--u)*1.4) 0 calc(var(--u)*1.2)}
+.f2-figs svg .ln{fill:#08090A;stroke:#C9CDD3;stroke-width:1;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.f2-figs svg .hi{fill:#08090A;stroke:#9C4A38}
+.f2-figs b{display:block;font:500 max(10.5px,calc(var(--u)*1.05))/1.25 var(--inter)}
+.f2-figs p{margin-top:calc(var(--u)*.5);font:400 max(9.5px,calc(var(--u)*.88))/1.5 var(--inter);color:#8A8F98}
+.f2 .cue{color:#4B4F57}
+@container (max-aspect-ratio:1/1){
+  .f2-hero{left:7%;top:12%;width:86%}
+  .f2 .h{font-size:calc(var(--u)*4.3)}
+  .f2 .sub{max-width:none;font-size:calc(var(--u)*1.3)}
+  .f2-shot{top:12%;width:150%}
+  .f2-stmt{left:7%;width:86%;top:18%;font-size:calc(var(--u)*2.7)}
+  .f2-figs{left:7%;right:7%;top:12%;grid-template-columns:1fr;border-left:0}
+  .f2-figs .fig{border-right:0;border-top:1px solid #1D1F23;padding:calc(var(--u)*.8) 0;display:grid;grid-template-columns:40% 1fr;column-gap:calc(var(--u)*1.2);align-items:center}
+  .f2-figs svg{grid-row:span 3;height:calc(var(--u)*9);margin:0}
+}
+
+/* ══ 3 · Bauhaus ══ */
+.f3{background:#F1EEE9;color:var(--n-900)}
+.f3 .fx{font-family:var(--jost)}
+.f3-grid{position:absolute;inset:0 4.2%;background:repeating-linear-gradient(90deg,rgba(20,19,17,.07) 0 1px,transparent 1px calc(100%/12));pointer-events:none}
+.f3 .nv{font-family:var(--jost);text-transform:lowercase;font-size:max(11px,calc(var(--u)*1))}
+.f3 .nv .lg{font-family:var(--jost);font-weight:600;font-size:max(12px,calc(var(--u)*1.15));gap:calc(var(--u)*.9)}
+.f3 .mk{display:flex;align-items:flex-end;gap:calc(var(--u)*.22);height:max(16px,calc(var(--u)*1.5))}
+.f3 .mk i{display:block;width:max(9px,calc(var(--u)*.85));height:max(9px,calc(var(--u)*.85))}
+.f3 .mk i:nth-child(1){background:var(--fjord);border-radius:50%}
+.f3 .mk i:nth-child(2){background:var(--rust)}
+.f3 .mk i:nth-child(3){background:var(--ochre);clip-path:polygon(50% 0,100% 100%,0 100%)}
+.f3 .nv nav{opacity:.85}
+.f3 .nv .bt{border-radius:0;background:var(--n-900);color:#F1EEE9;font-family:var(--jost);text-transform:lowercase;font-size:max(11px,calc(var(--u)*1))}
+.f3-t{position:absolute;left:5.6%;top:23%;width:43%;opacity:0;will-change:opacity,transform}
+.f3-t .rule{width:calc(var(--u)*6);height:calc(var(--u)*.85);background:var(--n-900);margin-bottom:calc(var(--u)*1.8)}
+.f3-t .kick{font:500 max(9px,calc(var(--u)*.8))/1 var(--jost);letter-spacing:.22em;text-transform:uppercase;margin-bottom:calc(var(--u)*1.2)}
+.f3 .h{font:600 calc(var(--u)*4.9)/.98 var(--jost);letter-spacing:-.025em;text-transform:lowercase;text-wrap:balance}
+.f3 .sub{margin-top:calc(var(--u)*1.6);max-width:calc(var(--u)*32);font:400 max(11px,calc(var(--u)*1.15))/1.45 var(--jost);color:var(--n-700)}
+.f3 .ctas{display:flex;gap:calc(var(--u)*.9);margin-top:calc(var(--u)*2.3)}
+.f3 .bb{display:inline-flex;align-items:center;height:max(28px,calc(var(--u)*3));padding:0 calc(var(--u)*1.5);border:2px solid var(--n-900);font:500 max(11px,calc(var(--u)*1))/1 var(--jost);text-transform:lowercase}
+.f3 .bb.solid{background:var(--n-900);color:#F1EEE9}
+.f3-sh{position:absolute;left:0;top:0;width:10px;height:10px;will-change:transform}
+.f3-sh.c{background:var(--fjord);border-radius:50%}
+.f3-sh.s{background:var(--rust)}
+.f3-sh.t{background:var(--ochre);clip-path:polygon(50% 0,100% 100%,0 100%)}
+.f3-sh.b{background:var(--n-900)}
+.f3-sh.m{background:var(--n-900)}
+.f3-lab{position:absolute;left:0;top:0;font:500 max(8px,calc(var(--u)*.72))/1 var(--jost);letter-spacing:.12em;text-transform:lowercase;white-space:nowrap;opacity:0;will-change:transform,opacity}
+.f3-num{position:absolute;left:5.6%;bottom:6%;font:700 calc(var(--u)*7)/1 var(--jost);color:transparent;-webkit-text-stroke:1.2px var(--n-900);opacity:0}
+@container (max-aspect-ratio:1/1){
+  .f3-t{left:7%;top:12%;width:86%}
+  .f3 .h{font-size:calc(var(--u)*4.2)}
+  .f3 .sub{max-width:none;font-size:calc(var(--u)*1.3)}
+  .f3-num{display:none}
+}
+
+/* ══ 4 · Motorul ══ */
+.f4{background:#FBFAF8;color:var(--n-900)}
+.f4-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 70% 55%,rgba(251,250,248,0) 0 20%,#FBFAF8 85%),repeating-linear-gradient(0deg,rgba(20,19,17,.055) 0 1px,transparent 1px calc(var(--u)*3)),repeating-linear-gradient(90deg,rgba(20,19,17,.055) 0 1px,transparent 1px calc(var(--u)*3)),#FBFAF8}
+.f4 .nv{color:var(--n-900)}
+.f4 .nv .bt{background:var(--n-900);color:#FBFAF8}
+.f4-t{position:absolute;left:5.6%;top:24%;width:40%;opacity:0;will-change:opacity,transform}
+.f4 .pill{background:#fff;box-shadow:inset 0 0 0 1px var(--n-100);color:var(--n-700)}
+.f4 .lbl{font:500 max(9px,calc(var(--u)*.7))/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--rust)}
+.f4 .h{margin-top:calc(var(--u)*1.6);font:500 calc(var(--u)*4.1)/1.03 var(--sans);letter-spacing:-.04em;text-wrap:balance}
+.f4 .h2{margin-top:calc(var(--u)*1.2);font:500 calc(var(--u)*3)/1.08 var(--sans);letter-spacing:-.035em;text-wrap:balance}
+.f4 .sub{margin-top:calc(var(--u)*1.4);max-width:calc(var(--u)*33);font:400 max(11px,calc(var(--u)*1.08))/1.5 var(--sans);color:var(--n-600)}
+.f4 .ctas{display:flex;gap:calc(var(--u)*.8);margin-top:calc(var(--u)*2.1)}
+.f4 .bt-d{background:var(--n-900);color:#FBFAF8}
+.f4 .bt-g{background:#fff;box-shadow:inset 0 0 0 1px var(--n-150)}
+.f4-iso{position:absolute;left:69%;top:61%;width:0;height:0;transform-style:preserve-3d;--S:260px;--t:12px}
+.f4 .pl{position:absolute;left:0;top:0;width:var(--S);height:var(--S);transform-style:preserve-3d;background:#fff;box-shadow:inset 0 0 0 1px var(--n-150);will-change:transform}
+.f4 .pl > .eb{position:absolute;left:0;top:100%;width:100%;height:var(--t);transform-origin:0 0;transform:rotateX(-90deg);background:var(--n-100);box-shadow:inset 0 0 0 1px var(--n-150)}
+.f4 .pl > .el{position:absolute;left:0;top:0;width:var(--t);height:100%;transform-origin:0 0;transform:rotateY(90deg);background:var(--n-150);box-shadow:inset 0 0 0 1px var(--n-200)}
+.f4 .pl-data{display:grid;grid-template-columns:repeat(3,1fr);gap:calc(var(--S)*.035);padding:calc(var(--S)*.07)}
+.f4 .cell{position:relative;box-shadow:inset 0 0 0 1px var(--n-150);background:var(--n-050);display:grid;place-items:end start;padding:calc(var(--S)*.035);font:500 calc(var(--S)*.04)/1 var(--mono);letter-spacing:.06em;color:var(--n-500)}
+.f4 .cell::before{content:"";position:absolute;left:50%;top:38%;width:calc(var(--S)*.06);height:calc(var(--S)*.05);transform:translate(-50%,-50%);border:1.5px solid var(--n-400);border-radius:2px;box-shadow:0 calc(var(--S)*-.028) 0 calc(var(--S)*-.012) var(--n-050),0 calc(var(--S)*-.03) 0 calc(var(--S)*-.006) var(--n-400)}
+.f4 .pl-eng{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:calc(var(--S)*.03);padding:calc(var(--S)*.07)}
+.f4 .tile{display:grid;place-items:center;box-shadow:inset 0 0 0 1px var(--n-150);font:500 calc(var(--S)*.045)/1 var(--mono);letter-spacing:.04em;color:var(--n-600);transition:background-color .3s var(--ease),color .3s var(--ease)}
+.f4 .tile.on{background:var(--n-900);color:#FBFAF8;box-shadow:none}
+.f4 .pl-pb{width:calc(var(--S)*.48);padding:calc(var(--S)*.03);background:#fff}
+.f4 .pl-pb img{display:block;width:100%;height:100%;object-fit:cover;object-position:left top}
+.f4 .pl-pb.lit{box-shadow:inset 0 0 0 2px var(--rust)}
+.f4 .pl-next{width:calc(var(--S)*.48);background:rgba(251,250,248,.6);box-shadow:none;outline:1px dashed var(--n-400);outline-offset:-1px}
+.f4 .pl-next > .eb,.f4 .pl-next > .el{display:none}
+.f4 .ptag{position:absolute;left:calc(var(--S)*.04);bottom:calc(var(--S)*.04);padding:calc(var(--S)*.018) calc(var(--S)*.03);background:var(--n-900);color:#FBFAF8;font:500 calc(var(--S)*.04)/1 var(--sans)}
+.f4 .pl-next .ptag{background:transparent;color:var(--n-500);font-family:var(--mono)}
+.f4 .plab{position:absolute;right:calc(var(--S)*.03);top:calc(var(--S)*-.075);font:500 calc(var(--S)*.042)/1 var(--mono);letter-spacing:.08em;color:var(--n-500);white-space:nowrap}
+.f4 .scan{position:absolute;left:0;top:0;width:var(--S);height:var(--S);box-shadow:inset 0 0 0 1.5px var(--rust);background:rgba(156,74,56,.07);opacity:0;will-change:transform,opacity}
+.f4 .shadow{position:absolute;left:0;top:0;width:var(--S);height:var(--S);background:radial-gradient(closest-side,rgba(20,19,17,.2),rgba(20,19,17,0));filter:blur(6px)}
+@container (max-aspect-ratio:1/1){
+  .f4-t{left:7%;top:12%;width:86%}
+  .f4 .h{font-size:calc(var(--u)*3.9)}
+  .f4 .h2{font-size:calc(var(--u)*3)}
+  .f4 .sub{max-width:none;font-size:calc(var(--u)*1.25)}
+  .f4-iso{left:57%;top:72%}
+}
+
+/* ══ 5 · Cerneală ══ */
+.f5{background:#F6F2EA;color:var(--n-900)}
+.f5 .nv{color:var(--n-900)}
+.f5 .nv .bt{background:var(--n-900);color:#FBFAF8}
+.f5-t{position:absolute;left:5.6%;top:25%;width:40%;opacity:0;will-change:opacity,transform}
+.f5 .pill{background:rgba(255,255,255,.7);box-shadow:inset 0 0 0 1px var(--n-100);color:var(--n-700)}
+.f5 .lbl{font:500 max(9px,calc(var(--u)*.7))/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--rust)}
+.f5 .h{margin-top:calc(var(--u)*1.6);font:500 calc(var(--u)*4.2)/1.03 var(--sans);letter-spacing:-.04em;text-wrap:balance}
+.f5 .h2{margin-top:calc(var(--u)*1.2);font:500 calc(var(--u)*3.4)/1.06 var(--sans);letter-spacing:-.035em;text-wrap:balance}
+.f5 .sub{margin-top:calc(var(--u)*1.4);max-width:calc(var(--u)*32);font:400 max(11px,calc(var(--u)*1.08))/1.5 var(--sans);color:var(--n-600)}
+.f5 .ctas{display:flex;gap:calc(var(--u)*.8);margin-top:calc(var(--u)*2.1)}
+.f5 .bt-d{background:var(--n-900);color:#FBFAF8}
+.f5 .bt-g{background:rgba(255,255,255,.75);box-shadow:inset 0 0 0 1px var(--n-150)}
+.f5 .cue{color:var(--n-500)}
+@container (max-aspect-ratio:1/1){
+  .f5-t{left:7%;top:12%;width:86%}
+  .f5 .h{font-size:calc(var(--u)*4)}
+  .f5 .h2{font-size:calc(var(--u)*3.2)}
+  .f5 .sub{max-width:none;font-size:calc(var(--u)*1.25)}
+}
+
+/* ══ 6 · Fereastra ══ */
+.f6{background:#F2E6D2;color:var(--n-900)}
+.f6-light{position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 50% 52%,#FFF9EE 0%,#F6E9D4 55%,#E9D9BF 100%)}
+.f6-view{position:absolute;inset:0;overflow:hidden}
+.f6-world{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d;will-change:transform}
+.f6 .lay{position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d;will-change:transform,opacity}
+.f6 .sheet{position:absolute;background-size:100% 100%;background-repeat:no-repeat}
+.f6 .lt{position:absolute;width:calc(var(--u)*36)}
+.f6 .pill{background:rgba(255,255,255,.6);box-shadow:inset 0 0 0 1px rgba(20,19,17,.1);color:var(--n-700)}
+.f6 .lbl{font:500 max(9px,calc(var(--u)*.7))/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--rust)}
+.f6 .h{margin-top:calc(var(--u)*1.6);font:500 calc(var(--u)*4.2)/1.03 var(--sans);letter-spacing:-.04em;text-wrap:balance}
+.f6 .h2{margin-top:calc(var(--u)*1.2);font:500 calc(var(--u)*3.3)/1.06 var(--sans);letter-spacing:-.035em;text-wrap:balance}
+.f6 .sub{margin-top:calc(var(--u)*1.4);max-width:calc(var(--u)*31);font:400 max(11px,calc(var(--u)*1.08))/1.5 var(--sans);color:var(--n-600)}
+.f6 .ctas{display:flex;gap:calc(var(--u)*.8);margin-top:calc(var(--u)*2.1)}
+.f6 .bt-d{background:var(--n-900);color:#FBFAF8}
+.f6 .bt-g{background:rgba(255,255,255,.6);box-shadow:inset 0 0 0 1px rgba(20,19,17,.14)}
+.f6 .back img{display:block;width:calc(var(--u)*46);mix-blend-mode:multiply;-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 60%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 60%,transparent 100%)}
+.f6 .nv{color:var(--n-900)}
+.f6 .nv .bt{background:var(--n-900);color:#FBFAF8}
+.f6 .cue{color:var(--n-600)}
+@container (max-aspect-ratio:1/1){
+  .f6 .lt{width:calc(var(--u)*40)}
+  .f6 .h{font-size:calc(var(--u)*3.8)}
+  .f6 .h2{font-size:calc(var(--u)*3)}
+  .f6 .sub{font-size:calc(var(--u)*1.2)}
+  .f6 .back img{width:calc(var(--u)*40)}
+}
+</style>
+</head>
+<body>
+
+<header class="intro">
+  <p class="eyebrow">Hinotech Software · la prima pagina · 18/11/2026</p>
+  <h1>Sei aperture</h1>
+  <p class="lead">Stile nuovo da capo, con le regole dei siti delle software house SaaS: un menu, una frase forte, due pulsanti, il prodotto in vista. Pochi elementi su fondi puliti, ognuno legato a che cosa è Hinotech Software. La frase è la stessa in tutte e sei, <q>Soluții software simple, clare, făcute să dureze.</q>, e le frasi che seguono vengono dai nostri documenti. Ogni riquadro si anima con lo scroll e torna indietro se risali.</p>
+  <ul class="toc">
+    <li><a href="#s1"><b>1</b> Înainte <i>il sito va avanti</i></a></li>
+    <li><a href="#s2"><b>2</b> Oțel <i>Linear e metallo</i></a></li>
+    <li><a href="#s3"><b>3</b> Bauhaus <i>forma e funzione</i></a></li>
+    <li><a href="#s4"><b>4</b> Motorul <i>la mia proposta</i></a></li>
+    <li><a href="#s5"><b>5</b> Cerneală <i>sfondo d'artista</i></a></li>
+    <li><a href="#s6"><b>6</b> Fereastra <i>la sintesi</i></a></li>
+  </ul>
+</header>
+
+<!-- ═══════════════ 1 · Înainte ═══════════════ -->
+<section class="prop" id="s1">
+  <div class="pin">
+    <div class="head"><span class="tag">1</span><div>
+      <h2>Înainte<em>il sito va avanti, non giù</em></h2>
+      <p>Lo scroll non fa scendere la pagina: ti porta avanti, dentro un corridoio di cornici. I pezzi del motore (clienti, ruoli, versioni, registri, termini, giornale) arrivano su una spirale con l'angolo aureo, come le foglie su un ramo, e ti passano accanto; ogni fermata è una frase. Colori del design system: carta, inchiostro, un punto di ruggine.</p>
+    </div></div>
+    <div class="stage"><div class="frame f1"><div class="fx">
+      <div class="f1-bg"></div>
+      <div class="f1-view"><div class="f1-world">
+        <div class="z f1-hero" data-kind="hero" data-z="0">
+          <span class="pill"><i></i>Primul nostru produs: PrivacyBox →</span>
+          <p class="h">Soluții software simple, clare, făcute să dureze.</p>
+          <p class="sub">O firmă tehnologică din Republica Moldova, cu produse în română și în rusă.</p>
+          <div class="ctas"><span class="bt bt-d">Produsele noastre</span><span class="bt bt-g">Despre noi</span></div>
+        </div>
+        <div class="z f1-beat" data-kind="beat" data-z="-330">
+          <p class="lbl">Principiul 01 · Simplitate</p>
+          <p class="h2">Simplitatea ține totul.</p>
+          <p class="sub">Pentru fiecare problemă căutăm cea mai simplă soluție care funcționează și o explicăm clar.</p>
+        </div>
+        <div class="z f1-beat" data-kind="beat" data-z="-660">
+          <img src="img/devices-light-1200.webp" alt="PrivacyBox pe calculator, laptop și telefon">
+          <p class="h2">PrivacyBox.</p>
+          <p class="sub">Primul nostru produs: protecția datelor pentru firme, după Legea nr. 195/2024. Online din 3 octombrie 2026.</p>
+          <p class="cap">Date fictive</p>
+        </div>
+        <div class="z f1-beat" data-kind="beat" data-z="-990">
+          <p class="lbl">Principiul 03 · Dovada</p>
+          <p class="h2">Dovada, înaintea promisiunii.</p>
+          <p class="sub">Teste la fiecare livrare, datele fiecărui client izolate, rezultate pe care le poate verifica oricine.</p>
+          <div class="ctas"><span class="bt bt-d">Contact</span></div>
+        </div>
+      </div></div>
+      <header class="nv"><span class="lg"><i class="seal">檜</i>Hinotech Software</span><nav><a>Produse</a><a>Despre noi</a><a>Principii</a><a>Securitate</a><a>Carieră</a></nav><span class="bt">Contact</span><span class="mn">Meniu</span></header>
+      <p class="cue">Derulați · mergeți înainte</p>
+    </div></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════ 2 · Oțel ═══════════════ -->
+<section class="prop" id="s2">
+  <div class="pin">
+    <div class="head"><span class="tag">2</span><div>
+      <h2>Oțel<em>Linear, con un filo di metallo</em></h2>
+      <p>Fondo quasi nero, testo bianco e grigio, linee da un pixel e il prodotto vero in primo piano, come su Linear. Il tocco da designer è un nastro di linee metalliche disegnato da uno shader, con il riflesso che segue il puntatore: scorrendo il nastro si distende in linee parallele e la console si raddrizza; poi la frase si accende parola per parola e arrivano tre figure al tratto.</p>
+    </div></div>
+    <div class="stage"><div class="frame f2"><div class="fx">
+      <canvas aria-hidden="true"></canvas>
+      <div class="f2-glow"></div>
+      <div class="f2-hero">
+        <span class="pill"><i></i>Primul nostru produs: PrivacyBox →</span>
+        <p class="h">Soluții software simple, clare, făcute să dureze.</p>
+        <p class="sub">O firmă tehnologică din Republica Moldova, cu produse în română și în rusă.</p>
+        <div class="ctas"><span class="bt bt-w">Produsele noastre</span><span class="lnk">Despre noi →</span></div>
+      </div>
+      <div class="f2-shot"><img src="img/devices-dark-1200.webp" alt="PrivacyBox pe calculator, laptop și telefon"><span class="cap">Date fictive</span></div>
+      <div class="f2-stmt"><small>Arhitectura</small><p></p></div>
+      <div class="f2-figs">
+        <div class="fig"><small>FIG 0.1</small><svg viewBox="0 0 220 150" data-fig="1"></svg><b>Simplitate</b><p>Cea mai simplă soluție care funcționează, explicată clar.</p></div>
+        <div class="fig"><small>FIG 0.2</small><svg viewBox="0 0 220 150" data-fig="2"></svg><b>Un motor comun</b><p>Îl scriem o dată; fiecare produs nou îl folosește.</p></div>
+        <div class="fig"><small>FIG 0.3</small><svg viewBox="0 0 220 150" data-fig="3"></svg><b>Dovada</b><p>Teste la fiecare livrare, date izolate, rezultate verificabile.</p></div>
+      </div>
+      <header class="nv"><span class="lg"><i class="seal">檜</i>Hinotech Software</span><nav><a>Produse</a><a>Despre noi</a><a>Principii</a><a>Securitate</a><a>Carieră</a></nav><span class="bt">Contact</span><span class="mn">Meniu</span></header>
+      <p class="cue">Derulați</p>
+    </div></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════ 3 · Bauhaus ═══════════════ -->
+<section class="prop" id="s3">
+  <div class="pin">
+    <div class="head"><span class="tag">3</span><div>
+      <h2>Bauhaus<em>forma, funzione, tre colori</em></h2>
+      <p>Le tre forme del Bauhaus con i colori della console, nell'accoppiata di Kandinsky: triangolo ocra, quadrato ruggine, cerchio blu fiordo. Carta, griglia a dodici colonne in vista, testo in minuscolo, pulsanti squadrati. Scorrendo le forme si costruiscono: il quadrato regge tutto, il cerchio diventa il motore con i suoi sei moduli, alla fine ogni forma cade sulla griglia.</p>
+    </div></div>
+    <div class="stage"><div class="frame f3"><div class="fx">
+      <div class="f3-grid"></div>
+      <div class="f3-t" data-beat="0">
+        <div class="rule"></div>
+        <p class="h">Soluții software simple, clare, făcute să dureze.</p>
+        <p class="sub">O firmă tehnologică din Republica Moldova, cu produse în română și în rusă.</p>
+        <div class="ctas"><span class="bb solid">produsele noastre</span><span class="bb">despre noi</span></div>
+      </div>
+      <div class="f3-t" data-beat="1"><p class="kick">principiul 01</p><p class="h">Simplitatea ține totul.</p><p class="sub">Pentru fiecare problemă căutăm cea mai simplă soluție care funcționează și o explicăm clar.</p></div>
+      <div class="f3-t" data-beat="2"><p class="kick">arhitectura</p><p class="h">Un motor comun.</p><p class="sub">Ține clienții, rolurile, versiunile, registrele, termenele și jurnalul. Îl scriem o dată; fiecare produs nou îl folosește.</p></div>
+      <div class="f3-t" data-beat="3"><p class="kick">principiul 03</p><p class="h">Dovada, înaintea promisiunii.</p><p class="sub">Teste la fiecare livrare, datele fiecărui client izolate, rezultate pe care le poate verifica oricine.</p><div class="ctas"><span class="bb solid">contact</span></div></div>
+      <div class="f3-shapes"></div>
+      <p class="f3-num">01</p>
+      <header class="nv"><span class="lg"><span class="mk"><i></i><i></i><i></i></span>hinotech software</span><nav><a>produse</a><a>despre noi</a><a>principii</a><a>securitate</a><a>carieră</a></nav><span class="bt">contact</span><span class="mn">meniu</span></header>
+    </div></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════ 4 · Motorul ═══════════════ -->
+<section class="prop" id="s4">
+  <div class="pin">
+    <div class="head"><span class="tag">4</span><div>
+      <h2>Motorul<em>la mia proposta: un motore, molti prodotti</em></h2>
+      <p>Il disegno spiega l'azienda. In basso i dati di ogni cliente, separati; sopra il motore comune (clienti, ruoli, versioni, registri, termini, giornale); in cima i prodotti: PrivacyBox e il posto, tratteggiato, per il prossimo. Scorrendo la pila si apre come un esploso tecnico e gira appena; PrivacyBox si solleva; una linea di ruggine la attraversa tutta: i test a ogni consegna.</p>
+    </div></div>
+    <div class="stage"><div class="frame f4"><div class="fx">
+      <div class="f4-bg"></div>
+      <div class="f4-iso">
+        <div class="shadow"></div>
+        <div class="pl pl-data"><span class="plab">date izolate pe client</span><span class="cell">client A</span><span class="cell">client B</span><span class="cell">client C</span><i class="eb"></i><i class="el"></i></div>
+        <div class="pl pl-eng"><span class="plab">motorul comun</span><span class="tile">Clienți</span><span class="tile">Roluri</span><span class="tile">Versiuni</span><span class="tile">Registre</span><span class="tile">Termene</span><span class="tile">Jurnal</span><i class="eb"></i><i class="el"></i></div>
+        <div class="pl pl-pb"><img src="img/console-light.webp" alt=""><span class="ptag">PrivacyBox</span><i class="eb"></i><i class="el"></i></div>
+        <div class="pl pl-next"><span class="ptag">următorul produs</span></div>
+        <div class="scan"></div>
+      </div>
+      <div class="f4-t" data-beat="0">
+        <span class="pill"><i></i>Primul nostru produs: PrivacyBox →</span>
+        <p class="h">Soluții software simple, clare, făcute să dureze.</p>
+        <p class="sub">O firmă tehnologică din Republica Moldova, cu produse în română și în rusă.</p>
+        <div class="ctas"><span class="bt bt-d">Produsele noastre</span><span class="bt bt-g">Despre noi</span></div>
+      </div>
+      <div class="f4-t" data-beat="1"><p class="lbl">Arhitectura</p><p class="h2">Un motor comun, multe produse.</p><p class="sub">Un motor comun ține clienții, rolurile, versiunile, registrele, termenele și jurnalul. Îl scriem o dată; fiecare produs nou îl folosește.</p></div>
+      <div class="f4-t" data-beat="2"><p class="lbl">Primul produs</p><p class="h2">PrivacyBox.</p><p class="sub">Protecția datelor pentru firme, după Legea nr. 195/2024. Online din 3 octombrie 2026.</p></div>
+      <div class="f4-t" data-beat="3"><p class="lbl">Principiul 03</p><p class="h2">Dovada, înaintea promisiunii.</p><p class="sub">Teste la fiecare livrare, datele fiecărui client izolate, rezultate pe care le poate verifica oricine.</p><div class="ctas"><span class="bt bt-d">Contact</span></div></div>
+      <header class="nv"><span class="lg"><i class="seal">檜</i>Hinotech Software</span><nav><a>Produse</a><a>Despre noi</a><a>Principii</a><a>Securitate</a><a>Carieră</a></nav><span class="bt">Contact</span><span class="mn">Meniu</span></header>
+    </div></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════ 5 · Cerneală ═══════════════ -->
+<section class="prop" id="s5">
+  <div class="pin">
+    <div class="head"><span class="tag">5</span><div>
+      <h2>Cerneală<em>sfondo d'artista: suminagashi</em></h2>
+      <p>Lo sfondo è inchiostro che galleggia sull'acqua, la carta marmorizzata giapponese (墨流し), calcolata con la stessa geometria delle gocce vere: ogni goccia spinge le precedenti in anelli. Scorrendo cadono gocce nuove, una di ruggine, e deformano gli anelli: il mondo che si muove. Poi un pettine passa e li ordina in onde parallele. Il testo resta fermo e pulito.</p>
+    </div></div>
+    <div class="stage"><div class="frame f5"><div class="fx">
+      <canvas aria-hidden="true"></canvas>
+      <div class="f5-t" data-beat="0">
+        <span class="pill"><i></i>Primul nostru produs: PrivacyBox →</span>
+        <p class="h">Soluții software simple, clare, făcute să dureze.</p>
+        <p class="sub">O firmă tehnologică din Republica Moldova, cu produse în română și în rusă.</p>
+        <div class="ctas"><span class="bt bt-d">Produsele noastre</span><span class="bt bt-g">Despre noi</span></div>
+      </div>
+      <div class="f5-t" data-beat="1"><p class="lbl">Construit pentru schimbare</p><p class="h2">Când lumea se mișcă, clădirea rămâne în picioare.</p><p class="sub">Legi care se schimbă, clienți noi, dispozitive noi: totul din același cod, cu versiuni, verificat la fiecare livrare.</p></div>
+      <div class="f5-t" data-beat="2"><p class="lbl">Principiul 01</p><p class="h2">Simplitatea ține totul.</p><p class="sub">Pentru fiecare problemă căutăm cea mai simplă soluție care funcționează și o explicăm clar.</p><div class="ctas"><span class="bt bt-d">Contact</span></div></div>
+      <header class="nv"><span class="lg"><i class="seal">檜</i>Hinotech Software</span><nav><a>Produse</a><a>Despre noi</a><a>Principii</a><a>Securitate</a><a>Carieră</a></nav><span class="bt">Contact</span><span class="mn">Meniu</span></header>
+      <p class="cue">Derulați</p>
+    </div></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════ 6 · Fereastra ═══════════════ -->
+<section class="prop" id="s6">
+  <div class="pin">
+    <div class="head"><span class="tag">6</span><div>
+      <h2>Fereastra<em>la sintesi delle cinque</em></h2>
+      <p>Si va avanti come nella prima, ma attraverso fogli di carta ritagliata e illuminati da dietro: un cerchio, un quadrato, un triangolo (il Bauhaus della terza), la fessura del noren, con la carta marmorizzata della quinta e la tipografia nitida della seconda. Ogni foglio è un principio; in fondo, nella luce, il prodotto e il contatto, come nella quarta.</p>
+    </div></div>
+    <div class="stage"><div class="frame f6"><div class="fx">
+      <div class="f6-light"></div>
+      <div class="f6-view"><div class="f6-world"></div></div>
+      <header class="nv"><span class="lg"><i class="seal">檜</i>Hinotech Software</span><nav><a>Produse</a><a>Despre noi</a><a>Principii</a><a>Securitate</a><a>Carieră</a></nav><span class="bt">Contact</span><span class="mn">Meniu</span></header>
+      <p class="cue">Derulați · treceți prin fereastră</p>
+      <template class="f6-texts">
+        <div class="lt" data-l="0"><span class="pill"><i></i>Primul nostru produs: PrivacyBox →</span><p class="h">Soluții software simple, clare, făcute să dureze.</p><p class="sub">O firmă tehnologică din Republica Moldova, cu produse în română și în rusă.</p><div class="ctas"><span class="bt bt-d">Produsele noastre</span><span class="bt bt-g">Despre noi</span></div></div>
+        <div class="lt" data-l="1"><p class="lbl">Principiul 01</p><p class="h2">Simplitatea ține totul.</p><p class="sub">Pentru fiecare problemă căutăm cea mai simplă soluție care funcționează și o explicăm clar.</p></div>
+        <div class="lt" data-l="2"><p class="lbl">Arhitectura</p><p class="h2">Un motor comun, multe produse.</p><p class="sub">Îl scriem o dată; fiecare produs nou îl folosește.</p></div>
+        <div class="lt" data-l="3"><p class="lbl">Principiul 03</p><p class="h2">Dovada, înaintea promisiunii.</p><p class="sub">Teste la fiecare livrare, datele fiecărui client izolate, rezultate pe care le poate verifica oricine.</p></div>
+        <div class="lt back" data-l="4"><img src="img/devices-light-1200.webp" alt="PrivacyBox pe calculator, laptop și telefon"><p class="h2">PrivacyBox.</p><p class="sub">Primul nostru produs: protecția datelor pentru firme, după Legea nr. 195/2024.</p><div class="ctas"><span class="bt bt-d">Contact</span><span class="bt bt-g">Produsele noastre</span></div></div>
+      </template>
+    </div></div></div>
+  </div>
+</section>
+
+<footer class="foot">
+  <p>Prototipi per scegliere, non il sito. Le immagini della console vengono dal sito di PrivacyBox (dati fittizi); Three.js e i caratteri arrivano dalla rete, nel sito vero li serviamo dal nostro dominio. Le pagine interne restano tradizionali.</p>
+</footer>
+
+<script type="module">
+import * as THREE from 'three';
+
+window.hinoGL = true;
+const Q = new URLSearchParams(location.search);
+const STILL = Q.has('still');
+const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const DPR = Math.min(window.devicePixelRatio || 1, 2);
+const clamp01 = x => Math.min(1, Math.max(0, x));
+const win = (p, a, b) => clamp01((p - a) / (b - a));
+const sm = x => { const t = clamp01(x); return t * t * (3 - 2 * t); };
+const lerp = (a, b, t) => a + (b - a) * t;
+const easeIO = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+const fade = (p, a, b, c, d) => win(p, a, b) * (1 - win(p, c, d));
+const rng = seed => { let s = (seed >>> 0) || 1; return () => ((s = (Math.imul(s, 1664525) + 1013904223) >>> 0) / 4294967296); };
+/* chiavi [p, valore] con passaggi morbidi; due chiavi uguali di seguito = una sosta */
+function track(p, keys) {
+  if (p <= keys[0][0]) return keys[0][1];
+  for (let i = 1; i < keys.length; i++) {
+    if (p <= keys[i][0]) {
+      const [p0, v0] = keys[i - 1], [p1, v1] = keys[i];
+      const t = easeIO((p - p0) / ((p1 - p0) || 1));
+      return Array.isArray(v0) ? v0.map((a, k) => a + (v1[k] - a) * t) : v0 + (v1 - v0) * t;
+    }
+  }
+  return keys[keys.length - 1][1];
+}
+function unitOf(frame) {
+  const w = frame.clientWidth, h = frame.clientHeight, portrait = w / h < 1;
+  return { w, h, portrait, U: (portrait ? 0.0215 : 0.01) * w };
+}
+const FS_VS = `varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }`;
+
+/* ── il registro: ogni scena disegna solo quando qualcosa cambia ── */
+const scenes = [];
+let raf = 0, tPrev = 0;
+function kick() { if (!raf) raf = requestAnimationFrame(tick); }
+function tick(now) {
+  raf = 0;
+  const dt = tPrev ? Math.min(0.05, (now - tPrev) / 1000) : 1 / 60;
+  tPrev = now;
+  let again = false;
+  for (const s of scenes) {
+    if (!s.ready || !s.visible) continue;
+    const d = s.target - s.p;
+    if (Math.abs(d) > 1e-4) { s.p += d * (STILL ? 1 : 1 - Math.exp(-dt * 6.5)); s.dirty = true; again = true; }
+    else if (s.p !== s.target) { s.p = s.target; s.dirty = true; }
+    if (s.step && s.step(dt)) { s.dirty = true; again = true; }
+    if (s.dirty) { s.dirty = false; s.render(); }
+  }
+  if (again) kick(); else tPrev = 0;
+}
+function measure() {
+  for (const s of scenes) {
+    const r = s.sec.getBoundingClientRect();
+    const total = r.height - innerHeight;
+    let t = total > 0 ? clamp01(-r.top / total) : 0;
+    if (s.force != null) t = s.force;
+    if (REDUCE) t = 0;
+    s.target = t;
+  }
+  kick();
+}
+addEventListener('scroll', measure, { passive: true });
+addEventListener('resize', measure);
+function makeScene(id, build) {
+  const sec = document.getElementById(id);
+  const frame = sec.querySelector('.frame');
+  const s = { id, sec, frame, canvas: frame.querySelector('canvas'), p: 0, target: 0, visible: false, ready: false, dirty: true, started: false };
+  const f = Q.get(id);
+  if (f != null && f !== '') s.force = clamp01(parseFloat(f));
+  scenes.push(s);
+  new IntersectionObserver(es => {
+    for (const e of es) {
+      s.visible = e.isIntersecting;
+      if (s.visible && !s.started) {
+        s.started = true;
+        build(s).then(() => { measure(); s.p = s.target; if (s.resize) s.resize(); s.ready = true; s.dirty = true; kick(); })
+          .catch(err => console.error(id, err));
+      }
+      if (s.visible) { s.dirty = true; kick(); }
+    }
+  }, { rootMargin: '50% 0px' }).observe(sec);
+  new ResizeObserver(() => { if (s.resize && s.ready) { s.resize(); s.dirty = true; kick(); } }).observe(frame);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   1 · Înainte — il sito va avanti: la camera entra in profondità (CSS 3D).
+   ══════════════════════════════════════════════════════════════════════════ */
+makeScene('s1', async s => {
+  const f = s.frame, view = f.querySelector('.f1-view'), world = f.querySelector('.f1-world');
+  const items = [];
+  world.querySelectorAll('[data-z]').forEach(el => items.push({ el, kind: el.dataset.kind, z: +el.dataset.z }));
+  for (let i = 0; i < 20; i++) {
+    const el = document.createElement('div'); el.className = 'z f1-ring'; world.prepend(el);
+    items.push({ el, kind: 'ring', z: -(36 + i * 56) });
+  }
+  const CARDS = [['01', 'Clienți'], ['02', 'Roluri'], ['03', 'Versiuni'], ['04', 'Registre'], ['05', 'Termene'], ['06', 'Jurnal'],
+    ['', 'PrivacyBox', 1], ['07', 'Simplitate'], ['08', 'Claritate'], ['09', 'Durată'],
+    ['10', 'Teste la fiecare livrare'], ['11', 'Date izolate pe client'], ['12', 'Rezultate verificabile'], ['13', 'Română · Русский'], ['14', 'Coteala · Briceni'],
+    ['15', 'Același cod'], ['16', 'Pe orice dispozitiv'], ['17', 'Legi care se schimbă'], ['18', 'Fiecare livrare verificată'], ['19', 'Clienți noi'], ['20', 'Dispozitive noi']];
+  const r = rng(5), beats = [-330, -660, -990];
+  let z = -60;
+  CARDS.forEach((c, i) => {
+    while (beats.some(b => Math.abs(z - b) < 36)) z -= 18;
+    const el = document.createElement('div');
+    el.className = 'z f1-card' + (c[2] ? ' shot' : '');
+    el.innerHTML = c[2] ? `<img src="img/console-light.webp" alt=""><span><i>Produs</i><b>${c[1]}</b></span>` : `<i>${c[0]}</i><b>${c[1]}</b>`;
+    world.appendChild(el);
+    /* l'angolo aureo, come le foglie sul ramo */
+    items.push({ el, kind: 'card', z, th: i * 2.399963 + 0.5, rj: 0.9 + r() * 0.18, rot: (r() - 0.5) * 6 });
+    z -= 40;
+  });
+  let U = 10, W = 1000, H = 560, portrait = false, P = 900, R = 300, ky = 0.6;
+  s.resize = () => {
+    ({ U, w: W, h: H, portrait } = unitOf(f));
+    P = 90 * U * (portrait ? 0.48 : 1);
+    view.style.perspective = P + 'px';
+    R = portrait ? 0.38 * W : 0.43 * W; ky = portrait ? 1.3 : 0.6;
+    for (const it of items) if (it.kind === 'ring') { it.el.style.width = W * 0.86 + 'px'; it.el.style.height = H * 0.84 + 'px'; }
+  };
+  const KEYS = [[0, 0], [0.08, 0], [0.32, 330], [0.4, 330], [0.62, 660], [0.7, 660], [0.92, 990], [1, 990]];
+  s.render = () => {
+    const k = P / 90;                       /* unità di profondità in pixel */
+    const cam = track(s.p, KEYS) * k;
+    let textO = 0;
+    for (const it of items) {
+      const zr = it.z * k + cam;
+      let o;
+      if (it.kind === 'hero') { o = 1 - sm((zr - 12 * k) / (30 * k)); textO = Math.max(textO, o); }
+      else if (it.kind === 'beat') { o = sm((zr + 170 * k) / (115 * k)) * (1 - sm((zr - 12 * k) / (30 * k))); textO = Math.max(textO, o); }
+      else o = sm((zr + 600 * k) / (320 * k)) * (1 - sm((zr - 6 * k) / (44 * k))) * (it.kind === 'ring' ? 0.9 : 1);
+      let x = 0, y = 0;
+      if (it.kind === 'card') {
+        x = Math.cos(it.th) * R * it.rj; y = Math.sin(it.th) * R * it.rj * ky;
+        /* mentre c'è una frase le card restano fuori dalla sua zona; in volo escono dal centro */
+        const sc = P / Math.max(1, P - zr), sx = Math.abs(x) * sc / W, sy = Math.abs(y) * sc / H;
+        o *= 1 - textO * (1 - sm((Math.max(sx / 0.33, sy / 0.28) - 0.92) / 0.2));
+      }
+      if (zr > P * 0.86) o = 0;
+      const st = it.el.style;
+      if (o < 0.003) { if (st.visibility !== 'hidden') st.visibility = 'hidden'; continue; }
+      st.visibility = 'visible';
+      st.opacity = o.toFixed(3);
+      st.transform = `translate(-50%,-50%) translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,${zr.toFixed(1)}px)${it.rot ? ` rotate(${it.rot.toFixed(2)}deg)` : ''}`;
+    }
+    f.style.setProperty('--cue', (1 - win(s.p, 0.02, 0.08)).toFixed(3));
+  };
+});
+
+/* ══════════════════════════════════════════════════════════════════════════
+   2 · Oțel — lo stile di Linear; un nastro di linee metalliche (shader).
+   ══════════════════════════════════════════════════════════════════════════ */
+const S2_FS = `precision highp float;
+varying vec2 vUv;
+uniform float uP, uAspect, uPortrait;
+uniform vec2 uM;
+float hash(vec2 p){ p = fract(p * vec2(234.34, 435.345)); p += dot(p, p + 34.23); return fract(p.x * p.y); }
+void main(){
+  vec2 q = (vUv - 0.5) * vec2(uAspect, 1.0);
+  float x = q.x * (uPortrait > 0.5 ? 2.4 : 1.0);
+  float st = smoothstep(0.02, 0.5, uP);                       /* il nastro si distende */
+  float ph = uP * 2.6;                                         /* e scorre */
+  float amp = mix(0.15, 0.006, st);
+  float base = uPortrait > 0.5 ? mix(-0.22, -0.34, st) : mix(-0.15, -0.31, st);
+  float yc = base + amp * (sin(x * 2.2 + 0.7 + ph) + 0.5 * sin(x * 3.9 - 1.3 + ph * 1.6));
+  float tw = sin(x * 1.55 + 2.1 + ph * 0.7);                   /* la torsione: dove gira, si stringe */
+  float hw = mix(0.03 + 0.08 * abs(tw), 0.085, st);
+  float v = (q.y - yc) / hw;
+  float inR = 1.0 - smoothstep(0.86, 1.0, abs(v));
+  float fl = (v * 0.5 + 0.5) * 24.0;
+  float w = max(fwidth(fl), 1e-4);
+  float lc = clamp(1.05 - abs(fract(fl) - 0.5) / w, 0.0, 1.0);
+  lc = mix(lc, 0.42, smoothstep(0.22, 0.6, w));               /* fitte: diventano lamiera lucida */
+  /* il metallo: il riflesso dipende dalla torsione e segue il puntatore */
+  float ang = tw * 2.6 + v * 0.9 + (uM.x - 0.5) * 3.2 + (uM.y - 0.5) * 1.2;
+  float refl = 0.5 + 0.5 * cos(ang);
+  float spec = pow(refl, 7.0);
+  vec3 steel = mix(vec3(0.26, 0.28, 0.32), vec3(0.90, 0.92, 0.96), refl) + spec * vec3(0.30, 0.30, 0.32);
+  steel = mix(steel, steel * vec3(1.06, 0.98, 0.94), 0.5 + 0.5 * sin(x * 1.3 + 0.4));
+  vec3 bg = vec3(0.031, 0.035, 0.039);
+  bg += 0.022 * smoothstep(1.0, 0.0, length((vUv - vec2(0.3, 1.05)) * vec2(1.1, 2.4)));
+  float dim = mix(1.0, 0.55, smoothstep(0.32, 0.44, uP)) * mix(1.0, 0.5, smoothstep(0.62, 0.8, uP));
+  float edge = smoothstep(-0.5 * uAspect, -0.3 * uAspect, q.x) * smoothstep(0.5 * uAspect, 0.38 * uAspect, q.x);
+  vec3 col = bg + inR * dim * edge * (lc * steel * 0.92 + (0.02 + 0.08 * spec) * steel);
+  col += (hash(gl_FragCoord.xy) - 0.5) / 255.0;
+  gl_FragColor = vec4(col, 1.0);
+}`;
+/* le figure al tratto, in assonometria: scatole con le facce nascoste */
+function isoFig(svg, kind) {
+  const s = 9, cx = 110, cy = 92;
+  const P = (x, y, z) => [cx + (x - y) * 0.866 * s, cy + (x + y) * 0.5 * s - z * s];
+  const poly = pts => pts.map(p => p.map(v => v.toFixed(1)).join(',')).join(' ');
+  const box = (x0, y0, z0, a, b, c, cls = 'ln') => {
+    const x1 = x0 + a, y1 = y0 + b, z1 = z0 + c;
+    return `<polygon class="${cls}" pathLength="1" points="${poly([P(x1, y0, z0), P(x1, y1, z0), P(x1, y1, z1), P(x1, y0, z1)])}"/>`
+      + `<polygon class="${cls}" pathLength="1" points="${poly([P(x0, y1, z0), P(x1, y1, z0), P(x1, y1, z1), P(x0, y1, z1)])}"/>`
+      + `<polygon class="${cls}" pathLength="1" points="${poly([P(x0, y0, z1), P(x1, y0, z1), P(x1, y1, z1), P(x0, y1, z1)])}"/>`;
+  };
+  let out = '';
+  if (kind === 1) { out = box(-4, -4, 0, 8, 8, 1.2); for (let i = 1; i < 4; i++) out += box(-4 + i * 2, -4, 1.2, 0.01, 8, 0.01); }
+  if (kind === 2) { for (let i = 0; i < 5; i++) out += box(-4.5, -4.5, i * 1.6, 9, 9, 0.5, i === 4 ? 'ln hi' : 'ln'); }
+  if (kind === 3) {
+    for (let gx = 0; gx < 3; gx++) for (let gy = 0; gy < 3; gy++) out += box(-4.6 + gx * 3.3, -4.6 + gy * 3.3, 0, 2.6, 2.6, gx === 2 && gy === 2 ? 3.2 : 1.4, gx === 2 && gy === 2 ? 'ln hi' : 'ln');
+  }
+  svg.innerHTML = out;
+  return [...svg.querySelectorAll('polygon')];
+}
+makeScene('s2', async s => {
+  const f = s.frame, canvas = s.canvas;
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(DPR);
+  const scene = new THREE.Scene(), cam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  const U2 = { uP: { value: 0 }, uM: { value: new THREE.Vector2(0.62, 0.4) }, uAspect: { value: 1.78 }, uPortrait: { value: 0 } };
+  scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({ uniforms: U2, vertexShader: FS_VS, fragmentShader: S2_FS })));
+  const hero = f.querySelector('.f2-hero'), shot = f.querySelector('.f2-shot'), stmt = f.querySelector('.f2-stmt'), figs = f.querySelector('.f2-figs');
+  /* la frase in due toni, parola per parola */
+  const S1 = 'Un motor comun ține clienții, rolurile, versiunile, registrele, termenele și jurnalul.', S2 = 'Îl scriem o dată; fiecare produs nou îl folosește.';
+  const sp = stmt.querySelector('p');
+  sp.innerHTML = S1.split(' ').map(w => `<span data-c="1">${w}</span>`).join(' ') + ' ' + S2.split(' ').map(w => `<span data-c="2">${w}</span>`).join(' ');
+  const words = [...sp.querySelectorAll('span')];
+  const strokes = [];
+  figs.querySelectorAll('svg').forEach(svg => strokes.push(isoFig(svg, +svg.dataset.fig)));
+  const mT = new THREE.Vector2(0.62, 0.4);
+  f.addEventListener('pointermove', e => { const r = f.getBoundingClientRect(); mT.set((e.clientX - r.left) / r.width, 1 - (e.clientY - r.top) / r.height); kick(); });
+  s.step = dt => {
+    const m = U2.uM.value, d = mT.clone().sub(m);
+    if (d.lengthSq() < 1e-7) return false;
+    m.addScaledVector(d, 1 - Math.exp(-dt * 4));
+    return true;
+  };
+  let portrait = false;
+  s.resize = () => {
+    const { w, h, portrait: pt } = unitOf(f); portrait = pt;
+    renderer.setSize(w, h, false);
+    U2.uAspect.value = w / h; U2.uPortrait.value = portrait ? 1 : 0;
+  };
+  const mixc = (a, b, t) => `rgb(${a.map((v, i) => Math.round(v + (b[i] - v) * t)).join(',')})`;
+  s.render = () => {
+    const p = s.p;
+    U2.uP.value = p;
+    renderer.render(scene, cam);
+    const a = easeIO(win(p, 0.04, 0.3));
+    hero.style.transform = `translateY(${(-easeIO(win(p, 0.0, 0.18)) * 16).toFixed(2)}cqh)`;
+    hero.style.opacity = (1 - win(p, 0.03, 0.14)).toFixed(3);
+    const out = easeIO(win(p, 0.32, 0.46));
+    const y0 = portrait ? 58 : 44;
+    shot.style.transform = `translateX(-50%) translateY(${(lerp(y0, portrait ? 22 : 0, a) - out * 90).toFixed(2)}cqh) perspective(1400px) rotateX(${lerp(28, 0, a).toFixed(2)}deg) scale(${lerp(0.93, 1, a).toFixed(4)})`;
+    shot.style.opacity = (1 - win(p, 0.4, 0.47)).toFixed(3);
+    const so = fade(p, 0.36, 0.42, 0.66, 0.72);
+    stmt.style.opacity = so.toFixed(3);
+    stmt.style.transform = `translateY(${((1 - win(p, 0.36, 0.44)) * 3 - win(p, 0.66, 0.72) * 4).toFixed(2)}cqh)`;
+    const n = words.length;
+    words.forEach((el, i) => {
+      const t = win(p, 0.4 + 0.22 * i / n, 0.4 + 0.22 * (i + 2) / n);
+      el.style.color = mixc([44, 47, 53], el.dataset.c === '1' ? [247, 248, 248] : [138, 143, 152], t);
+    });
+    figs.style.opacity = win(p, 0.72, 0.78).toFixed(3);
+    strokes.forEach((list, k) => {
+      const t = win(p, 0.74 + k * 0.045, 0.9 + k * 0.03);
+      for (const el of list) el.style.strokeDasharray = `${t.toFixed(3)} 1`;
+    });
+    f.style.setProperty('--cue', (1 - win(p, 0.02, 0.08)).toFixed(3));
+  };
+});
+
+/* ══════════════════════════════════════════════════════════════════════════
+   3 · Bauhaus — cerchio, quadrato, triangolo: si costruiscono con lo scroll.
+   ══════════════════════════════════════════════════════════════════════════ */
+makeScene('s3', async s => {
+  const f = s.frame, box = f.querySelector('.f3-shapes');
+  const mk = (cls) => { const el = document.createElement('div'); el.className = 'f3-sh ' + cls; box.appendChild(el); return el; };
+  const C = mk('c'), Sq = mk('s'), T = mk('t'), B = mk('b');
+  const MODS = ['clienți', 'roluri', 'versiuni', 'registre', 'termene', 'jurnal'];
+  const mods = MODS.map(() => mk('m'));
+  const labs = MODS.map(t => { const el = document.createElement('span'); el.className = 'f3-lab'; el.textContent = t; box.appendChild(el); return el; });
+  const texts = [...f.querySelectorAll('.f3-t')], num = f.querySelector('.f3-num');
+  /* le composizioni, in unità attorno a un punto d'appoggio: [dx, dy, larghezza, altezza, rotazione] */
+  const K = {
+    c: [[-3, -9, 18, 18, 0], [0, -13.5, 9, 9, 0], [0, 0, 16, 16, 0], [-13, 0, 10, 10, 0]],
+    s: [[10, 7, 15, 15, 0], [0, 11.5, 17, 17, 0], [0, 0, 0.01, 0.01, 45], [0, 0, 10, 10, 0]],
+    t: [[-10, 9, 15, 13, 0], [0, -3, 15, 12, 0], [-16, 0, 5, 4.4, 90], [13, 0, 10, 8.7, 0]],
+    b: [[16, -4, 1.3, 30, 0], [0, 20.6, 28, 1.2, 0], [0, 0, 0.01, 0.01, 0], [0, 7.4, 38, 1.1, 0]]
+  };
+  const modK = i => {
+    const a = i / 6 * Math.PI * 2 - Math.PI / 2;
+    return [[10, 7, 0.01, 0.01, 0], [0, 11.5, 0.01, 0.01, 0], [Math.cos(a) * 14, Math.sin(a) * 14, 4.2, 4.2, 0], [-14 + i * 5.6, 12.2, 2.6, 2.6, 0]];
+  };
+  const PK = [0, 0.08, 0.3, 0.38, 0.6, 0.68, 0.9, 1];
+  const keysOf = arr => PK.map((p, i) => [p, arr[Math.floor(i / 2)]]);
+  const KS = { c: keysOf(K.c), s: keysOf(K.s), t: keysOf(K.t), b: keysOf(K.b) };
+  const MK = MODS.map((_, i) => keysOf(modK(i)));
+  let U = 10, W = 1000, H = 560, portrait = false, ax = 700, ay = 280;
+  s.resize = () => { ({ U, w: W, h: H, portrait } = unitOf(f)); ax = portrait ? W * 0.5 : W * 0.72; ay = portrait ? H * 0.7 : H * 0.53; };
+  const place = (el, v) => {
+    const sc = portrait ? 0.82 : 1;
+    const x = ax + v[0] * U * sc, y = ay + v[1] * U * sc;
+    el.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px) translate(-50%,-50%) rotate(${v[4].toFixed(2)}deg) scale(${(v[2] * U * sc / 10).toFixed(4)},${(v[3] * U * sc / 10).toFixed(4)})`;
+  };
+  s.render = () => {
+    const p = s.p;
+    place(C, track(p, KS.c)); place(Sq, track(p, KS.s)); place(T, track(p, KS.t)); place(B, track(p, KS.b));
+    const lo = fade(p, 0.52, 0.6, 0.7, 0.78);
+    mods.forEach((el, i) => {
+      const v = track(p, MK[i]); place(el, v);
+      const sc = portrait ? 0.82 : 1;
+      const a = i / 6 * Math.PI * 2 - Math.PI / 2;
+      const lx = ax + (v[0] + Math.cos(a) * 5.2) * U * sc, ly = ay + (v[1] + Math.sin(a) * 4.2) * U * sc;
+      labs[i].style.transform = `translate(${lx.toFixed(1)}px,${ly.toFixed(1)}px) translate(-50%,-50%)`;
+      labs[i].style.opacity = lo.toFixed(3);
+    });
+    const ops = [fade(p, -1, 0, 0.12, 0.2), fade(p, 0.22, 0.3, 0.42, 0.5), fade(p, 0.52, 0.6, 0.72, 0.8), fade(p, 0.82, 0.9, 2, 3)];
+    texts.forEach((el, i) => { el.style.opacity = ops[i].toFixed(3); el.style.transform = `translateY(${((1 - ops[i]) * 1.6).toFixed(2)}cqh)`; el.style.visibility = ops[i] > 0.01 ? 'visible' : 'hidden'; });
+    const bi = ops.indexOf(Math.max(...ops));
+    num.textContent = '0' + (bi + 1);
+    num.style.opacity = (Math.max(...ops) * 0.9).toFixed(3);
+  };
+});
+
+/* ══════════════════════════════════════════════════════════════════════════
+   4 · Motorul — la pila: dati, motore, prodotti; si apre come un esploso.
+   ══════════════════════════════════════════════════════════════════════════ */
+makeScene('s4', async s => {
+  const f = s.frame, iso = f.querySelector('.f4-iso');
+  const plD = f.querySelector('.pl-data'), plE = f.querySelector('.pl-eng'), plP = f.querySelector('.pl-pb'), plN = f.querySelector('.pl-next'), scan = f.querySelector('.scan'), shadow = f.querySelector('.f4-iso .shadow');
+  const tiles = [...plE.querySelectorAll('.tile')], texts = [...f.querySelectorAll('.f4-t')];
+  let U = 10, S = 260, T = 12, portrait = false;
+  s.resize = () => {
+    const u = unitOf(f); U = u.U; portrait = u.portrait;
+    S = (portrait ? 19 : 21.5) * U; T = S * 0.045;
+    iso.style.setProperty('--S', S + 'px'); iso.style.setProperty('--t', T + 'px');
+  };
+  s.render = () => {
+    const p = s.p;
+    const ex = easeIO(win(p, 0.1, 0.42)) * (1 - 0.3 * easeIO(win(p, 0.86, 1)));
+    const gap = lerp(0.05, 0.36, ex) * S;
+    const zE = T + gap, zP = 2 * (T + gap);
+    const lift = easeIO(win(p, 0.55, 0.66)) * (1 - easeIO(win(p, 0.86, 1))) * 0.2 * S;
+    const rz = lerp(-40, -29, easeIO(win(p, 0.1, 0.5))) + lerp(0, -6, easeIO(win(p, 0.86, 1)));
+    iso.style.transform = `rotateX(57deg) rotateZ(${rz.toFixed(2)}deg)`;
+    shadow.style.transform = `translate3d(${(-S * 0.62).toFixed(1)}px,${(-S * 0.58).toFixed(1)}px,-2px) scale(1.25)`;
+    plD.style.transform = `translate3d(${-S / 2}px,${-S / 2}px,0px)`;
+    plE.style.transform = `translate3d(${-S / 2}px,${-S / 2}px,${zE.toFixed(1)}px)`;
+    plP.style.transform = `translate3d(${-S / 2}px,${-S / 2}px,${(zP + lift).toFixed(1)}px)`;
+    plN.style.transform = `translate3d(${(S * 0.02).toFixed(1)}px,${-S / 2}px,${zP.toFixed(1)}px)`;
+    plP.classList.toggle('lit', p > 0.55 && p < 0.88);
+    tiles.forEach((el, i) => el.classList.toggle('on', p > 0.24 + i * 0.035 && p < 0.97));
+    const sc = easeIO(win(p, 0.72, 0.93));
+    scan.style.transform = `translate3d(${-S / 2}px,${-S / 2}px,${lerp(-T, zP + T + S * 0.06, sc).toFixed(1)}px)`;
+    scan.style.opacity = fade(p, 0.72, 0.75, 0.93, 0.97).toFixed(3);
+    const ops = [fade(p, -1, 0, 0.1, 0.17), fade(p, 0.2, 0.26, 0.5, 0.55), fade(p, 0.56, 0.6, 0.7, 0.74), fade(p, 0.76, 0.8, 2, 3)];
+    texts.forEach((el, i) => { el.style.opacity = ops[i].toFixed(3); el.style.transform = `translateY(${((1 - ops[i]) * 1.6).toFixed(2)}cqh)`; el.style.visibility = ops[i] > 0.01 ? 'visible' : 'hidden'; });
+  };
+});
+
+/* ══════════════════════════════════════════════════════════════════════════
+   5 · Cerneală — suminagashi: gocce d'inchiostro e pettine, con la geometria
+   vera della carta marmorizzata (ogni goccia sposta le precedenti).
+   ══════════════════════════════════════════════════════════════════════════ */
+const S5_FS = `precision highp float;
+varying vec2 vUv;
+uniform float uAspect, uPortrait, uInvH;
+uniform vec4 uOp[48]; uniform vec4 uMeta[48]; uniform int uN;
+uniform vec3 uPal[7];
+float hash(vec2 p){ p = fract(p * vec2(234.34, 435.345)); p += dot(p, p + 34.23); return fract(p.x * p.y); }
+float vnoise(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
+  return mix(mix(hash(i), hash(i + vec2(1, 0)), f.x), mix(hash(i + vec2(0, 1)), hash(i + vec2(1, 1)), f.x), f.y); }
+vec3 inkAt(vec2 x){
+  for (int j = 47; j >= 0; j--) {
+    if (j >= uN) continue;
+    vec4 o = uOp[j]; vec4 m = uMeta[j];
+    if (m.x < 0.5) {
+      float r = o.z;
+      if (r <= 0.0005) continue;
+      vec2 d = x - o.xy; float L2 = max(dot(d, d), 1e-9); float r2 = r * r;
+      if (L2 < r2) return uPal[int(m.y)];
+      x = o.xy + d * sqrt(1.0 - r2 / L2);
+    } else if (m.x < 1.5) {
+      x.x -= o.z * sin(o.w * x.y + m.z);
+    } else {
+      x.y -= o.z * sin(o.w * x.x + m.z);
+    }
+  }
+  return uPal[6];
+}
+void main(){
+  vec2 q = (vUv - 0.5) * vec2(uAspect, 1.0);
+  float d = uInvH;
+  vec3 col = 0.5 * (inkAt(q + vec2(-0.25, -0.25) * d) + inkAt(q + vec2(0.25, 0.25) * d));
+  /* la carta: fibre e un velo pulito dove sta il testo */
+  float fib = vnoise(q * vec2(520.0, 140.0)) * 0.6 + vnoise(q * 90.0) * 0.4;
+  col *= 0.975 + 0.04 * fib;
+  float veil = uPortrait > 0.5 ? smoothstep(-0.02, 0.2, q.y) * 0.9 : smoothstep(0.02, -0.42 * uAspect, q.x) * 0.88;
+  col = mix(col, uPal[6], veil);
+  col += (hash(gl_FragCoord.xy) - 0.5) / 255.0;
+  gl_FragColor = vec4(col, 1.0);
+}`;
+makeScene('s5', async s => {
+  const f = s.frame;
+  const renderer = new THREE.WebGLRenderer({ canvas: s.canvas, antialias: false, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(Math.min(DPR, 1.25));
+  const scene = new THREE.Scene(), cam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  const hex = h => { const c = parseInt(h.slice(1), 16); return new THREE.Vector3((c >> 16 & 255) / 255, (c >> 8 & 255) / 255, (c & 255) / 255); };
+  const NOPS = 48;
+  /* inchiostro diluito (0), inchiostro pieno (1), acqua (2), blu fiordo (3), ruggine (4), ocra (5), carta (6) */
+  const U5 = {
+    uAspect: { value: 1.78 }, uPortrait: { value: 0 }, uInvH: { value: 1 / 700 },
+    uOp: { value: Array.from({ length: NOPS }, () => new THREE.Vector4()) }, uMeta: { value: Array.from({ length: NOPS }, () => new THREE.Vector4()) }, uN: { value: 0 },
+    uPal: { value: [hex('#6E6A64'), hex('#3A3734'), hex('#ECE7DE'), hex('#5E7684'), hex('#9C4A38'), hex('#A67C44'), hex('#F6F2EA')] }
+  };
+  scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({ uniforms: U5, vertexShader: FS_VS, fragmentShader: S5_FS })));
+  const texts = [...f.querySelectorAll('.f5-t')];
+  let ops = [], portrait = false;
+  function build(pt) {
+    ops = [];
+    /* campi di gocce concentriche: inchiostro e acqua alternati, come nel suminagashi vero */
+    const field = (cx, cy, n, r, inks) => { for (let i = 0; i < n; i++) ops.push({ k: 0, x: cx, y: cy, r, c: i % 2 ? 2 : inks[(i >> 1) % inks.length] }); };
+    if (pt) {
+      field(0.02, -0.22, 14, 0.032, [0, 0, 1]);
+      field(-0.17, -0.42, 8, 0.026, [3, 0]);
+      field(0.2, -0.06, 6, 0.022, [0, 1]);
+      field(-0.2, 0.0, 4, 0.018, [0]);
+    } else {
+      field(0.42, 0.04, 14, 0.048, [0, 0, 1]);
+      field(0.72, 0.2, 8, 0.036, [3, 0]);
+      field(0.06, -0.34, 8, 0.034, [0, 1]);
+      field(0.8, -0.3, 6, 0.028, [0, 3]);
+    }
+    /* il mondo che si muove: gocce nuove, una di ruggine, spingono gli anelli */
+    const C2 = pt ? [-0.08, -0.3] : [0.2, -0.02], sc = pt ? 0.65 : 1;
+    [[4, 0.046], [2, 0.04], [0, 0.056], [2, 0.044], [3, 0.05], [2, 0.04]].forEach(([c, r], i) =>
+      ops.push({ k: 0, x: C2[0], y: C2[1], r: r * sc, c, t0: 0.22 + i * 0.05, t1: 0.3 + i * 0.05 }));
+    /* il pettine: due passate, prima orizzontale poi verticale, ordinano tutto in onde */
+    ops.push({ k: 1, amp: 0.042 * sc, w: pt ? 30 : 22, ph: 0.3, t0: 0.58, t1: 0.8 });
+    ops.push({ k: 2, amp: 0.026 * sc, w: pt ? 22 : 15, ph: 1.1, t0: 0.74, t1: 0.95 });
+    U5.uN.value = Math.min(ops.length, NOPS);
+  }
+  s.resize = () => {
+    const { w, h, portrait: pt } = unitOf(f);
+    renderer.setSize(w, h, false);
+    U5.uAspect.value = w / h; U5.uPortrait.value = pt ? 1 : 0; U5.uInvH.value = 1 / (h * renderer.getPixelRatio());
+    if (pt !== portrait || !ops.length) { portrait = pt; build(pt); }
+  };
+  s.render = () => {
+    const p = s.p;
+    ops.forEach((o, i) => {
+      if (o.k === 0) {
+        const r = o.t0 == null ? o.r : o.r * Math.sqrt(sm((p - o.t0) / (o.t1 - o.t0)));
+        U5.uOp.value[i].set(o.x, o.y, r, 0); U5.uMeta.value[i].set(0, o.c, 0, 0);
+      } else {
+        U5.uOp.value[i].set(0, 0, o.amp * easeIO(win(p, o.t0, o.t1)), o.w); U5.uMeta.value[i].set(o.k, 0, o.ph, 0);
+      }
+    });
+    renderer.render(scene, cam);
+    const tops = [fade(p, -1, 0, 0.14, 0.22), fade(p, 0.26, 0.34, 0.52, 0.58), fade(p, 0.62, 0.7, 2, 3)];
+    texts.forEach((el, i) => { el.style.opacity = tops[i].toFixed(3); el.style.transform = `translateY(${((1 - tops[i]) * 1.6).toFixed(2)}cqh)`; el.style.visibility = tops[i] > 0.01 ? 'visible' : 'hidden'; });
+    f.style.setProperty('--cue', (1 - win(p, 0.02, 0.08)).toFixed(3));
+  };
+});
+
+/* ══════════════════════════════════════════════════════════════════════════
+   6 · Fereastra — fogli di carta ritagliata, illuminati da dietro; si passa
+   attraverso cerchio, quadrato, triangolo e la fessura del noren.
+   ══════════════════════════════════════════════════════════════════════════ */
+function marblingURL(w, h) {
+  /* la stessa marmorizzazione della quinta, calcolata una volta su un canvas */
+  const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+  const g = cv.getContext('2d'), img = g.createImageData(w, h), d = img.data;
+  const drops = [];
+  for (let i = 0; i < 9; i++) drops.push([0.0, 0.0, 0.07, i % 2]);
+  drops.push([0.42, -0.3, 0.06, 0], [0.42, -0.3, 0.04, 1], [-0.38, 0.28, 0.05, 0]);
+  const asp = w / h;
+  for (let py = 0; py < h; py++) for (let px = 0; px < w; px++) {
+    let x = (px / w - 0.5) * asp, y = (py / h - 0.5), c = -1;
+    x -= 0.03 * Math.sin(20 * y);
+    for (let j = drops.length - 1; j >= 0; j--) {
+      const [cx, cy, r, col] = drops[j], dx = x - cx, dy = y - cy, L2 = dx * dx + dy * dy || 1e-9;
+      if (L2 < r * r) { c = col; break; }
+      const k = Math.sqrt(1 - r * r / L2); x = cx + dx * k; y = cy + dy * k;
+    }
+    const o = (py * w + px) * 4;
+    const a = c === 0 ? 20 : c === 1 ? 6 : 0;
+    d[o] = 46; d[o + 1] = 44; d[o + 2] = 42; d[o + 3] = a;
+  }
+  g.putImageData(img, 0, 0);
+  return cv.toDataURL('image/png');
+}
+makeScene('s6', async s => {
+  const f = s.frame, view = f.querySelector('.f6-view'), world = f.querySelector('.f6-world');
+  const tpl = f.querySelector('.f6-texts');
+  const marb = marblingURL(800, 450);
+  /* i fogli: colore, forma del foro, centro del foro (frazioni del riquadro), dove sta il testo;
+     davanti la carta è più in ombra, verso il fondo prende la luce */
+  const LAY = [
+    { col: '#D9D2C6', hole: 'circle', at: [0.68, 0.52], size: 0.27, text: [0.07, 0.5] },
+    { col: '#E5DFD5', hole: 'square', at: [0.72, 0.5], size: 0.44, text: [0.07, 0.5] },
+    { col: '#EEE9E1', hole: 'tri', at: [0.7, 0.53], size: 0.56, text: [0.07, 0.5], marb: true },
+    { col: '#F6F2EA', hole: 'slit', at: [0.68, 0.5], size: 0.64, text: [0.07, 0.5] },
+    { col: null, hole: null, at: [0.5, 0.5], size: 0, text: [0.5, 0.5] }
+  ];
+  const layers = LAY.map((L, i) => {
+    const el = document.createElement('div'); el.className = 'lay';
+    const sheet = document.createElement('div'); sheet.className = 'sheet'; el.appendChild(sheet);
+    const t = tpl.content.querySelector(`[data-l="${i}"]`).cloneNode(true); el.appendChild(t);
+    world.appendChild(el);
+    return { ...L, el, sheet, t, url: null };
+  });
+  let U = 10, W = 1000, H = 560, portrait = false, P = 900, D = 1100;
+  const svgFor = (L, w, h, ox, oy) => {
+    /* il foglio è più grande del riquadro: il foro sta in (ox, oy) */
+    const cx = ox + L.at[0] * W, cy = oy + L.at[1] * H, sz = L.size * H;
+    let hole = '';
+    if (L.hole === 'circle') hole = `M ${cx - sz} ${cy} a ${sz} ${sz} 0 1 0 ${2 * sz} 0 a ${sz} ${sz} 0 1 0 ${-2 * sz} 0 Z`;
+    if (L.hole === 'square') hole = `M ${cx - sz / 2} ${cy - sz / 2} h ${sz} v ${sz} h ${-sz} Z`;
+    if (L.hole === 'tri') { const hh = sz * 0.866; hole = `M ${cx} ${cy - hh * 0.62} L ${cx + sz / 2} ${cy + hh * 0.38} L ${cx - sz / 2} ${cy + hh * 0.38} Z`; }
+    if (L.hole === 'slit') { const sw = Math.max(W * 0.05, 18); hole = `M ${cx - sw / 2} ${cy - sz / 2} h ${sw} v ${sz} h ${-sw} Z`; }
+    const blur = (U * 1.4).toFixed(1), stroke = (U * 2.2).toFixed(1);
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+      <defs>
+        <mask id="m"><rect width="${w}" height="${h}" fill="#fff"/><path d="${hole}" fill="#000"/></mask>
+        <filter id="b" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="${blur}"/></filter>
+        <filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="${(L.at[0] * 97) | 0}"/><feColorMatrix values="0 0 0 0 0.08  0 0 0 0 0.07  0 0 0 0 0.06  0 0 0 0.09 0"/></filter>
+        <radialGradient id="g" cx="${(ox + L.at[0] * W) / w}" cy="${(oy + L.at[1] * H) / h}" r="0.3"><stop offset="0" stop-color="#FFF8EA" stop-opacity="0.55"/><stop offset="1" stop-color="#FFF8EA" stop-opacity="0"/></radialGradient>
+      </defs>
+      <g mask="url(#m)">
+        <rect width="${w}" height="${h}" fill="${L.col}"/>
+        <rect width="${w}" height="${h}" fill="url(#g)"/>
+        ${L.marb ? `<image href="${marb}" x="${ox}" y="${oy}" width="${W}" height="${H}" preserveAspectRatio="none" opacity="0.9"/>` : ''}
+        <rect width="${w}" height="${h}" filter="url(#n)"/>
+        <path d="${hole}" fill="none" stroke="#2A2620" stroke-opacity="0.32" stroke-width="${stroke}" filter="url(#b)"/>
+        <path d="${hole}" fill="none" stroke="#FFF6E2" stroke-opacity="0.9" stroke-width="1.2"/>
+      </g>
+    </svg>`;
+  };
+  s.resize = () => {
+    ({ U, w: W, h: H, portrait } = unitOf(f));
+    P = 90 * U * (portrait ? 0.48 : 1); D = P * 1.22;
+    view.style.perspective = P + 'px';
+    const sw = W * 2.6, sh = H * 2.6, ox = (sw - W) / 2, oy = (sh - H) / 2;
+    for (const L of layers) {
+      if (portrait && L.hole) { L.at = [0.5, L.hole === 'slit' ? 0.62 : 0.66]; L.size = L.hole === 'slit' ? 0.4 : L.hole === 'circle' ? 0.16 : L.hole === 'square' ? 0.3 : 0.36; L.text = [0.07, 0.25]; }
+      if (L.hole) {
+        if (L.url) URL.revokeObjectURL(L.url);
+        L.url = URL.createObjectURL(new Blob([svgFor(L, sw, sh, ox, oy)], { type: 'image/svg+xml' }));
+        Object.assign(L.sheet.style, { left: -sw / 2 + 'px', top: -sh / 2 + 'px', width: sw + 'px', height: sh + 'px', backgroundImage: `url(${L.url})` });
+      } else Object.assign(L.sheet.style, { left: -sw / 2 + 'px', top: -sh / 2 + 'px', width: sw + 'px', height: sh + 'px', background: 'radial-gradient(ellipse 22% 26% at 50% 50%, #FFFBF3 0%, #F7ECD9 60%, #EEDFC6 100%)' });
+      const tx = (L.text[0] - 0.5) * W, ty = (L.text[1] - 0.5) * H;
+      L.t.style.left = tx + 'px'; L.t.style.top = ty + 'px';
+      L.t.style.transform = L.hole === null ? 'translate(-50%,-50%)' : 'translateY(-50%)';
+      if (L.hole === null) { L.t.style.textAlign = 'center'; L.t.style.display = 'flex'; L.t.style.flexDirection = 'column'; L.t.style.alignItems = 'center'; }
+    }
+  };
+  /* la camera: sosta davanti a ogni foglio, poi passa dal suo foro */
+  const HOLD = [[0, 0.06], [0.24, 0.3], [0.48, 0.54], [0.72, 0.78], [0.96, 1]];
+  s.render = () => {
+    const p = s.p;
+    const zKeys = [], xKeys = [], yKeys = [];
+    HOLD.forEach(([a, b], k) => {
+      zKeys.push([a, k * D], [b, k * D]);
+      xKeys.push([a, 0], [b, 0]); yKeys.push([a, 0], [b, 0]);
+      if (k < HOLD.length - 1) {
+        const m = b + (HOLD[k + 1][0] - b) * 0.55, L = layers[k];
+        xKeys.push([m, (L.at[0] - 0.5) * W]); yKeys.push([m, (L.at[1] - 0.5) * H]);
+      }
+    });
+    zKeys.sort((a, b) => a[0] - b[0]); xKeys.sort((a, b) => a[0] - b[0]); yKeys.sort((a, b) => a[0] - b[0]);
+    const cz = track(p, zKeys), cx = track(p, xKeys), cy = track(p, yKeys);
+    world.style.transform = `translate3d(${(-cx).toFixed(1)}px,${(-cy).toFixed(1)}px,0px)`;
+    layers.forEach((L, k) => {
+      const zr = -k * D + cz;
+      const st = L.el.style;
+      if (zr > P * 0.9) { st.visibility = 'hidden'; return; }
+      st.visibility = 'visible';
+      st.transform = `translate3d(0px,0px,${zr.toFixed(1)}px)`;
+      /* il testo di un foglio appare solo quando quel foglio è il presente */
+      L.t.style.opacity = (sm((zr + 0.4 * D) / (0.25 * D)) * (1 - sm((zr - 4 * U) / (20 * U)))).toFixed(3);
+    });
+    f.style.setProperty('--cue', (1 - win(p, 0.02, 0.08)).toFixed(3));
+  };
+});
+
+window.__scenes = scenes;
+window.__kick = kick;
+window.__measure = measure;
+measure();
+</script>
+</body>
+</html>

@@ -1,0 +1,999 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hinotech Software — Soluții software simple, clare, făcute să dureze</title>
+<meta name="description" content="O firmă tehnologică din Republica Moldova, cu produse în română și în rusă.">
+<meta name="theme-color" content="#141311">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Hinotech Software · la home (grafica decisa sulla tela Claude Design «Hinotech · deschiderea»).
+   1 · l'apertura scura: un tunnel con una frase al centro; attorno, in senso orario, arrivano uno alla
+       volta i nomi dei cinque principi, e subito dopo ognuno il suo simbolo (tre motivi moldoveni
+       cuciti a punto croce, due wagara giapponesi in un medaglione). Alla fine la frase centrale si
+       rivela una maschera: dentro le lettere sale la pagina chiara, poi si entra dalla «l» di «clare».
+   2 · da lì le sezioni si animano come su linear.app: testo che si accende, disegni al tratto.
+   Nel menu, «Software»: al clic scende PrivacyBox, che apre la sua pagina (privacybox.html, stile linear.app).
+   Lo scroll resta quello del browser: niente rotella bloccata. Prototipo locale: caratteri da
+   Google Fonts e due foto collegate dalla rete; nel sito vero li serviamo dal nostro dominio. */
+:root{
+  --ink:#141311;--ink2:#2B2A28;--ink3:#5F5A52;--ink4:#8A847B;--ink5:#B9B2A7;
+  --paper:#FBFAF8;--paper2:#F4F1EC;--paper3:#ECE7DF;--warm:#F6F1E9;
+  --l1:rgba(20,19,17,.08);--l2:rgba(20,19,17,.12);--l3:rgba(20,19,17,.2);
+  --d1:#F4F1EC;--d2:#CFC9BF;--d3:#948E84;--d4:#5E5952;--dl:rgba(255,255,255,.09);
+  --rust:#9C4A38;--rust-n:#C06B54;
+  --inter:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"Cascadia Mono",monospace;
+  --ease:cubic-bezier(.2,.65,.2,1);
+  --wrap:1200px;--pad:clamp(20px,4.4vw,56px);--nav:64px;
+}
+*{box-sizing:border-box}
+html{background:var(--ink);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ink);color:var(--ink);font:400 16px/1.6 var(--inter);font-optical-sizing:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4,p,ul,figure{margin:0}
+ul{padding:0;list-style:none}
+img{display:block;max-width:100%;height:auto}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--rust-n);outline-offset:3px;border-radius:6px}
+::selection{background:rgba(192,107,84,.3)}
+.wrap{width:min(var(--wrap),100% - 2*var(--pad));margin-inline:auto}
+.skip{position:fixed;left:12px;top:-60px;z-index:100;padding:10px 14px;border-radius:8px;background:var(--paper);color:var(--ink);font-weight:500}
+.skip:focus{top:12px}
+section{position:relative}
+[id]{scroll-margin-top:var(--nav)}
+
+/* ── elementi comuni ── */
+.mark{display:block;flex:none;width:28px;height:28px}
+.brand{display:inline-flex;align-items:center;gap:11px;font-weight:600;font-size:15px;letter-spacing:-.015em;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 18px;border-radius:10px;font:500 15px/1 var(--inter);letter-spacing:-.01em;white-space:nowrap;transition:background-color .18s var(--ease),box-shadow .18s var(--ease),transform .18s var(--ease),color .18s}
+.btn:active{transform:translateY(1px)}
+.btn span{display:inline-block;transition:transform .22s var(--ease)}
+.btn:hover span{transform:translateX(3px)}
+.btn-l{background:var(--d1);color:var(--ink)}
+.btn-l:hover{background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.08)}
+.btn-gl{background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);color:var(--d1)}
+.btn-gl:hover{background:rgba(255,255,255,.1)}
+.btn-d{background:var(--ink);color:var(--paper)}
+.btn-d:hover{background:#2B2A28;box-shadow:0 10px 24px -12px rgba(20,19,17,.6)}
+.btn-g{background:#fff;box-shadow:inset 0 0 0 1px var(--l2);color:var(--ink)}
+.btn-g:hover{box-shadow:inset 0 0 0 1px var(--l3)}
+.btn-s{height:34px;padding:0 14px;font-size:14px;border-radius:8px}
+.lnk{display:inline-flex;align-items:center;gap:6px;font-weight:500;transition:color .18s var(--ease)}
+.lnk span{display:inline-block;transition:transform .22s var(--ease)}
+.lnk:hover span{transform:translateX(3px)}
+.lbl{display:inline-flex;align-items:center;gap:10px;font:500 14px/1 var(--inter);color:var(--ink3)}
+.lbl i{width:8px;height:8px;border-radius:2px;background:var(--rust)}
+.mono{font:400 12.5px/1.55 var(--mono);letter-spacing:.04em;color:var(--ink4)}
+.h2{font:600 clamp(32px,4.2vw,56px)/1.04 var(--inter);letter-spacing:-.04em;text-wrap:balance;color:var(--ink)}
+.sec{padding:clamp(96px,15vh,170px) 0}
+.sec-h{display:grid;gap:22px;margin-bottom:clamp(44px,7vh,72px)}
+.sec-h.split{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:end;column-gap:64px}
+.sec-p{font-size:17px;line-height:1.6;color:var(--ink3);max-width:30em}
+.note{font:400 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink5)}
+
+/* ── menu: chiaro sul tunnel scuro, scuro sulla pagina chiara; sparisce appena si scorre in giù e torna solo scorrendo in su ── */
+.nav{position:fixed;inset:0 0 auto;z-index:50;height:var(--nav);color:var(--d1);transition:transform .38s var(--ease),background-color .3s var(--ease),box-shadow .3s var(--ease),color .3s var(--ease)}
+.nav.up{transform:translateY(calc(-100% - 2px))}
+.nav.on-dark{background:rgba(20,19,17,.55);backdrop-filter:saturate(1.3) blur(14px);-webkit-backdrop-filter:saturate(1.3) blur(14px);box-shadow:0 1px 0 var(--dl)}
+.nav.on-light{color:var(--ink);background:rgba(251,250,248,.82);backdrop-filter:saturate(1.3) blur(14px);-webkit-backdrop-filter:saturate(1.3) blur(14px);box-shadow:0 1px 0 var(--l1)}
+.nav-in{display:flex;align-items:center;gap:28px;height:100%}
+.links{display:flex;align-items:center;gap:4px;margin-left:auto;font-size:14px}
+.links>a,.sw-b{padding:8px 12px;border-radius:8px;color:var(--d3);transition:color .15s var(--ease),background-color .15s var(--ease)}
+.links>a:hover,.links>a.on,.sw-b:hover,.sw-b[aria-expanded="true"]{color:var(--d1)}
+.links>a:hover,.sw-b:hover{background:rgba(255,255,255,.05)}
+.nav.on-light .links>a,.nav.on-light .sw-b{color:var(--ink3)}
+.nav.on-light .links>a:hover,.nav.on-light .links>a.on,.nav.on-light .sw-b:hover,.nav.on-light .sw-b[aria-expanded="true"]{color:var(--ink)}
+.nav.on-light .links>a:hover,.nav.on-light .sw-b:hover{background:rgba(20,19,17,.04)}
+/* «Software»: al clic scende un pannello con i prodotti (per ora PrivacyBox); scuro sul tunnel, chiaro sulla pagina chiara */
+.sw{position:relative}
+.sw-b{display:inline-flex;align-items:center;gap:7px;font-size:14px;line-height:1.6}
+.sw-b[aria-expanded="true"]{background:rgba(255,255,255,.08)}
+.nav.on-light .sw-b[aria-expanded="true"]{background:rgba(20,19,17,.06)}
+.chev{flex:none;width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.75;transition:transform .22s var(--ease)}
+.sw-b[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.sw-p{position:absolute;left:-6px;top:calc(100% + 12px);width:372px;padding:6px;border-radius:14px;background:rgba(23,22,20,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 0 0 1px rgba(255,255,255,.09),0 26px 50px -14px rgba(0,0,0,.7);color:var(--d1);opacity:0;transform:translateY(-6px) scale(.98);transform-origin:28px 0;transition:opacity .16s var(--ease),transform .24s var(--ease)}
+.sw-p.open{opacity:1;transform:none}
+.sw-p[hidden]{display:none}
+.sw-i{display:grid;grid-template-columns:40px minmax(0,1fr);align-items:center;column-gap:14px;padding:12px;border-radius:10px;transition:background-color .15s var(--ease)}
+.sw-i:hover{background:rgba(255,255,255,.05)}
+.sw-ic{display:block;width:40px;height:40px;border-radius:10px;box-shadow:0 0 0 1px rgba(255,255,255,.12)}
+.sw-tx b{display:block;font:500 14.5px/1.3 var(--inter);letter-spacing:-.01em}
+.sw-tx>span{display:block;margin-top:3px;font-size:13.5px;line-height:1.45;color:var(--d3)}
+.nav.on-light .sw-p{background:rgba(251,250,248,.98);box-shadow:0 0 0 1px var(--l2),0 26px 50px -18px rgba(20,19,17,.25);color:var(--ink)}
+.nav.on-light .sw-i:hover{background:rgba(20,19,17,.04)}
+.nav.on-light .sw-tx>span{color:var(--ink3)}
+.nav .btn-c{background:var(--d1);color:var(--ink)}
+.nav.on-light .btn-c{background:var(--ink);color:var(--paper)}
+.menu-b{display:none;margin-left:auto;height:34px;padding:0 14px;border-radius:8px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2);font-size:14px;font-weight:500}
+.nav.on-light .menu-b{box-shadow:inset 0 0 0 1px var(--l3)}
+.menu{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;padding:calc(var(--nav) + 24px) var(--pad) 32px;background:rgba(251,250,248,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);color:var(--ink)}
+.menu[hidden]{display:none}
+.menu a{padding:12px 0;border-bottom:1px solid var(--l1);font:600 28px/1.2 var(--inter);letter-spacing:-.03em}
+.menu .btn{margin-top:28px;height:50px;font-size:16px;border:0}
+.menu-x{position:absolute;right:var(--pad);top:15px;height:34px;padding:0 14px;border-radius:8px;box-shadow:inset 0 0 0 1px var(--l3);font-size:14px;font-weight:500}
+/* nel menu del telefono «Software» è una riga che si apre con il «+» */
+.menu-sw{display:flex;align-items:center;justify-content:space-between;width:100%;padding:12px 0;border-bottom:1px solid var(--l1);font:600 28px/1.2 var(--inter);letter-spacing:-.03em;text-align:left}
+.pm{position:relative;flex:none;width:14px;height:14px;transition:transform .25s var(--ease)}
+.pm::before,.pm::after{content:"";position:absolute;left:0;top:6.4px;width:14px;height:1.4px;border-radius:1px;background:currentColor}
+.pm::after{transform:rotate(90deg)}
+.menu-sw[aria-expanded="true"] .pm{transform:rotate(45deg)}
+.menu-sw-p{padding:8px 0 10px;border-bottom:1px solid var(--l1)}
+.menu-sw-p[hidden]{display:none}
+.menu .sw-i{padding:10px 0;border-bottom:0;font:inherit;letter-spacing:normal}
+.menu .sw-i:hover{background:none}
+.menu .sw-tx>span{color:var(--ink3)}
+
+/* ══ 1 · l'apertura: il tunnel ══ */
+.tunnel{height:960vh;background:var(--ink);color:var(--d1)}
+.tun-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.tun-pin.fin{background:var(--paper)}
+.tun-pin.fin>*{visibility:hidden}
+.tun-glow{position:absolute;inset:0;background:radial-gradient(ellipse 46% 42% at 50% 50%,rgba(255,236,208,.1),transparent 72%),radial-gradient(ellipse 30% 26% at 50% 54%,rgba(192,107,84,.11),transparent 70%)}
+.tun-view{position:absolute;inset:0}
+.tun-world{position:absolute;left:50%;top:50%;width:0;height:0}
+.tun-title{position:absolute;left:0;top:0;z-index:1000;width:min(900px,88vw);display:flex;flex-direction:column;align-items:center;text-align:center;transform-origin:0 0;will-change:transform}
+.tlabel{font:500 12px/1 var(--mono);letter-spacing:.32em;text-transform:uppercase;color:var(--rust-n)}
+.tun-title .th{margin-top:22px}
+/* la frase centrale: le stesse righe nel titolo e nella maschera */
+.hl{margin:0;font:650 clamp(42px,6.2vw,92px)/.98 var(--inter);letter-spacing:-.05em;white-space:nowrap;text-align:center}
+.tun-title h1{background:linear-gradient(180deg,#FFFFFF 0%,#F4F1EC 45%,rgba(244,241,236,.42) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tlead{margin-top:22px;max-width:34em;font-size:clamp(15px,1.25vw,18px);line-height:1.55;color:var(--d3)}
+.tun-title .ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:30px}
+/* un principio: il nome in un angolo, il simbolo nell'angolo opposto, nessuna linea tra loro */
+.pr{position:absolute;left:0;top:0;margin:0;visibility:hidden;transform-origin:0 0;will-change:transform,opacity;pointer-events:none}
+.pr .q{position:absolute;left:0;top:0;margin:0;font:600 34px/1.1 var(--inter);letter-spacing:-.032em;color:#F4F1EC;text-wrap:balance}
+.pr-fig{position:absolute;left:0;top:0;width:200px;margin:0}
+.pr-fig svg{display:block;width:100%;height:auto;overflow:visible}
+.pr.ring .q{opacity:0!important}
+.tun-cue{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;font:500 11px/1 var(--mono);letter-spacing:.3em;text-transform:uppercase;color:var(--d3);opacity:var(--cue,1);pointer-events:none}
+.tun-cue i{width:1px;height:26px;background:linear-gradient(to bottom,var(--rust-n),transparent)}
+/* la maschera: tre strati fissi. Il primo moltiplica (nero, lettere bianche: dentro le lettere si vede ciò che
+   sta sotto), il secondo schiarisce il nero fino al colore del tunnel, il terzo disegna il bordo delle lettere */
+.mk{display:none}
+.mk.on,.mk.pre,.mk.measure{display:block}
+.mk.measure{visibility:hidden}
+.mk.pre:not(.on) .mk-l{opacity:.002}   /* quasi zero ma disegnati: all'arrivo non c'è un fotogramma vuoto */
+.mk-l{position:fixed;inset:0;z-index:45;display:flex;align-items:center;justify-content:center;overflow:hidden;pointer-events:none}
+.mk-mul{background:#000;mix-blend-mode:multiply}
+.mk-mul .mk-t{color:#fff}
+.mk-lit{background:radial-gradient(ellipse 46% 42% at 50% 50%,#28241F,#141311 72%);mix-blend-mode:lighten}
+.mk-edge .mk-t{color:transparent;-webkit-text-stroke:1px rgba(244,241,236,.55)}
+
+/* ══ 2 · la pagina chiara: sale sotto la maschera, poi si scorre ══ */
+.page-light{position:relative;z-index:3;margin-top:-100vh;background:var(--paper)}
+
+/* principi: una frase ferma, tre figure al tratto in tre pannelli */
+.lx-sec{padding:clamp(110px,15vh,160px) 0 0}
+.lx-first{padding-top:34vh}   /* quando la maschera si apre del tutto, la frase sta a metà schermo */
+.lx-cap{display:flex;align-items:center;gap:12px;font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink4)}
+.lx-cap b{font-weight:500;color:var(--ink)}
+.lx-stmt{margin-top:30px;max-width:27em;font:500 clamp(26px,2.8vw,40px)/1.13 var(--inter);letter-spacing:-.025em;color:var(--ink4);text-wrap:pretty}
+.lx-stmt b{font-weight:500;color:var(--ink)}
+.lx-ch-h{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:64px;row-gap:22px;margin-top:30px}
+.lx-h2{font:500 clamp(36px,3.6vw,52px)/1.02 var(--inter);letter-spacing:-.032em;color:var(--ink)}
+.lx-lead{font:400 clamp(17px,1.4vw,20px)/1.5 var(--inter);letter-spacing:-.012em;color:var(--ink3);max-width:27em;padding-top:4px}
+.lx-more{display:inline-flex;align-items:center;gap:8px;margin-top:26px;font:500 15px/1 var(--inter);color:var(--ink)}
+.lx-more i{font-style:normal;color:var(--ink4);transition:transform .22s var(--ease)}
+.lx-more:hover i{transform:translate(2px,-2px)}
+.lx-figs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:clamp(56px,8vh,80px)}
+.lx-fig{display:flex;flex-direction:column;min-height:470px;padding:22px 28px 30px;border-radius:16px;background:var(--paper2);box-shadow:inset 0 0 0 1px var(--l1)}
+.lx-fig .n{font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink4)}
+.lx-fig svg{display:block;width:100%;height:240px;margin:30px 0 auto;overflow:visible}
+.lx-fig h3{margin-top:30px;font:500 17px/1.3 var(--inter);letter-spacing:-.015em}
+.lx-fig p:not(.n){margin-top:6px;font-size:15px;line-height:1.55;color:var(--ink3);max-width:23em}
+.iso polygon,.iso path,.iso line{fill:var(--paper2);stroke:var(--ink);stroke-width:1;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.iso .hi polygon{stroke:var(--rust)}
+.iso .dim polygon{stroke:var(--ink5)}
+.iso .ghost polygon{fill:none;stroke:var(--ink4);stroke-dasharray:3 4}
+.iso .hidden-e{fill:none;stroke:var(--ink4);stroke-dasharray:3 4}
+.iso text{font:500 11px/1 var(--mono);letter-spacing:.06em;fill:var(--ink4);stroke:none}
+
+/* il palco delle finestre: disegnato su 1440 px, scalato sotto quella larghezza; i bordi escono dallo schermo */
+.lx-stage{position:relative;height:calc(var(--sh) * var(--s,1));margin-top:clamp(56px,8vh,80px);overflow-x:clip}
+.lx-canvas{position:absolute;left:50%;top:0;width:1440px;height:var(--sh);transform:translateX(-50%) scale(var(--s,1));transform-origin:50% 0}
+.lx-win{position:absolute;border-radius:14px;background:linear-gradient(180deg,#1C1B19,#141311 60%);color:var(--d1);overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),0 70px 120px -60px rgba(20,19,17,.65),0 26px 44px -26px rgba(20,19,17,.45)}
+/* un bagliore caldo fermo rispetto allo schermo, e un filo di luce sul bordo che segue lo scroll */
+.lx-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 55% 300px at 72% var(--gy,120px),rgba(255,236,208,.075),transparent 70%)}
+.lx-shine{position:absolute;inset:0;z-index:3;border-radius:inherit;pointer-events:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.36);-webkit-mask-image:radial-gradient(ellipse 260px 260px at var(--mx,30%) var(--my,0%),#000 0%,rgba(0,0,0,.55) 30%,rgba(0,0,0,.18) 50%,transparent 70%);mask-image:radial-gradient(ellipse 260px 260px at var(--mx,30%) var(--my,0%),#000 0%,rgba(0,0,0,.55) 30%,rgba(0,0,0,.18) 50%,transparent 70%)}
+.lx-bar{position:relative;display:flex;align-items:center;gap:10px;height:46px;padding:0 18px;border-bottom:1px solid rgba(255,255,255,.06);font:400 12px/1 var(--mono);letter-spacing:.03em;color:var(--d3)}
+.lx-bar>span:not(.t):not(.r){min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.lx-bar .t{flex:none;font:500 13.5px/1 var(--inter);letter-spacing:-.005em;color:var(--d1)}
+.lx-bar .r{margin-left:auto;display:flex;gap:6px}
+.lx-bar .r i{width:9px;height:9px;border-radius:3px;background:rgba(255,255,255,.1)}
+.lx-bar>svg{flex:none;width:16px;height:16px}
+.w-eng{left:120px;top:0;width:640px;height:452px}
+.w-pb{left:700px;top:156px;width:560px;height:330px}
+.g-next{left:1100px;top:24px;width:320px;height:250px}
+.w-jr{left:120px;top:0;width:780px;height:390px}
+.w-rel{left:860px;top:130px;width:460px;height:316px}
+.lx-mods{position:relative;padding:6px 0}
+.lx-mod{display:grid;grid-template-columns:16px 104px minmax(0,1fr);align-items:center;column-gap:14px;height:54px;padding:0 20px;border-top:1px solid rgba(255,255,255,.05)}
+.lx-mod:first-child{border-top:0}
+.lx-mod svg{width:16px;height:16px;fill:none;stroke:var(--d2);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.lx-mod b{font:500 15px/1 var(--inter);letter-spacing:-.01em;color:var(--d1)}
+.lx-mod span{font:400 12.5px/1.3 var(--mono);color:var(--d3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lx-foot{position:absolute;left:0;right:0;bottom:0;height:44px;display:flex;align-items:center;padding:0 20px;border-top:1px solid rgba(255,255,255,.06);font:400 12px/1 var(--mono);color:var(--d4)}
+.lx-k{font:500 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--d4)}
+.lx-pb{position:relative;padding:22px 22px 0}
+.lx-chips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}
+.lx-chip{display:flex;align-items:center;gap:9px;height:40px;padding:0 12px;border-radius:9px;background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);font:500 13.5px/1 var(--inter);color:var(--d1)}
+.lx-chip svg,.lx-chk svg{flex:none;width:14px;height:14px;fill:none;stroke:var(--rust-n);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.lx-spec{display:flex;align-items:center;gap:10px;height:44px;margin-top:14px;padding:0 14px;border-radius:9px;background:rgba(192,107,84,.1);box-shadow:inset 0 0 0 1px rgba(192,107,84,.28);font:500 13.5px/1 var(--inter)}
+.lx-spec i{width:8px;height:8px;border-radius:2px;background:var(--rust-n)}
+.lx-ghost{position:absolute;padding:22px;border-radius:14px;border:1px dashed var(--l3);background:rgba(244,241,236,.7)}
+.lx-ghost .k{font:500 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink4)}
+.lx-ghost .t{margin-top:12px;font:500 17px/1.3 var(--inter);letter-spacing:-.015em;color:var(--ink3)}
+.lx-ghost .gc{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:22px}
+.lx-ghost .gc i{height:34px;border-radius:9px;border:1px dashed var(--l2)}
+.lx-jr{display:grid;grid-template-columns:56px minmax(0,1fr) 84px 84px;align-items:center;column-gap:16px;height:56px;padding:0 20px;border-top:1px solid rgba(255,255,255,.05);font:400 14px/1.3 var(--inter);color:var(--d1)}
+.lx-jr.h{height:38px;border-top:0;font:500 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--d4)}
+.lx-jr time,.lx-jr code{font:400 12.5px/1 var(--mono);color:var(--d3)}
+.lx-jr code.p{color:var(--d4)}
+.lx-jr code.x{color:var(--d1)}
+.lx-chain{position:absolute;left:0;top:0;pointer-events:none;fill:none;stroke:var(--rust-n);stroke-width:1.1;stroke-linecap:round;opacity:.75}
+.lx-story [data-k="draw"]{stroke-dasharray:1 1}
+.lx-chks{padding-top:6px}
+.lx-chk{display:grid;grid-template-columns:16px minmax(0,1fr) auto;align-items:center;column-gap:12px;height:52px;padding:0 20px;border-top:1px solid rgba(255,255,255,.05);font:400 14px/1.3 var(--inter);color:var(--d1)}
+.lx-chk:first-child{border-top:0}
+.lx-chk b{font-weight:400}
+.lx-chk span{font:400 12px/1 var(--mono);color:var(--d3)}
+.lx-rel-f{padding:16px 20px 0;font:400 12px/1 var(--mono);color:var(--d4)}
+/* le storie delle finestre: fino a quando non entrano, il contenuto aspetta */
+.js:not(.rm) .lx-story:not(.on) [data-s]{opacity:0}
+.js:not(.rm) .lx-story:not(.on) [data-k="draw"]{stroke-dashoffset:1}
+
+/* sicurezza: quattro garanzie in fila */
+.lx-g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:clamp(56px,8vh,80px);border-top:1px solid var(--l1)}
+.lx-g4 .cell{padding:30px 28px 6px;border-right:1px solid var(--l1)}
+.lx-g4 .cell:first-child{padding-left:0}
+.lx-g4 .cell:last-child{border-right:0;padding-right:0}
+.lx-g4 svg{display:block;width:40px;height:40px;margin-bottom:34px;overflow:visible}
+.lx-g4 svg *{fill:none;stroke:var(--ink);stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.lx-g4 svg .hi{stroke:var(--rust)}
+.lx-g4 h3{font:500 16px/1.3 var(--inter);letter-spacing:-.015em}
+.lx-g4 p{margin-top:8px;font-size:14.5px;line-height:1.55;color:var(--ink3)}
+
+/* chi siamo */
+.lx-about{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:clamp(56px,8vh,72px)}
+.lx-box{padding:28px 30px 14px;border-radius:16px}
+.lx-box h3{margin-bottom:14px;font:500 11.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.lx-box li{padding:14px 0;border-top:1px solid var(--l1);font-size:15.5px;line-height:1.5}
+.lx-box.yes{background:linear-gradient(180deg,#1C1B19,#141311 60%);color:var(--d1);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),0 50px 80px -46px rgba(20,19,17,.6)}
+.lx-box.yes h3{color:var(--rust-n)}
+.lx-box.yes li{border-color:rgba(255,255,255,.08)}
+.lx-box.no{border:1px dashed var(--l3);color:var(--ink3)}
+.lx-box.no h3{color:var(--ink4)}
+.lx-name{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;column-gap:48px;row-gap:14px;margin-top:12px;padding:26px 30px;border-radius:16px;background:var(--paper2);box-shadow:inset 0 0 0 1px var(--l1)}
+.lx-name h3{font:500 17px/1.3 var(--inter);letter-spacing:-.015em}
+.lx-name div p{margin-top:6px;font-size:15px;line-height:1.6;color:var(--ink3);max-width:52em}
+.lx-name .pl{font:400 12.5px/1.6 var(--mono);color:var(--ink4);text-align:right}
+
+/* il contatto e il piè di pagina nero */
+.lx-close{padding:clamp(130px,18vh,170px) 0 clamp(120px,16vh,150px);text-align:center}
+.lx-close .lx-cap{justify-content:center}
+.lx-close h2{margin-top:26px;font:500 clamp(34px,3.6vw,52px)/1.06 var(--inter);letter-spacing:-.032em;text-wrap:balance}
+.lx-close .wrap>p:not(.lx-cap){margin-top:20px;font-size:17px;color:var(--ink3)}
+.lx-ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:34px}
+.lx-ft{background:var(--ink);color:var(--d2);padding:72px 0 36px;font-size:14px}
+.lx-ft-in{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(4,minmax(0,1fr));column-gap:32px;row-gap:36px}
+.lx-ft .brand{color:var(--d1)}
+.lx-ft-b p{margin-top:16px;max-width:20em;color:var(--d3)}
+.lx-ft h4{margin-bottom:14px;font:500 13px/1 var(--inter);color:var(--d1)}
+.lx-ft-c a,.lx-ft-c span{display:block;padding:5px 0;color:var(--d3);transition:color .15s var(--ease)}
+.lx-ft-c a:hover{color:var(--d1)}
+.lx-ft-c .soon{color:var(--d4)}
+.lx-ft-bot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 20px;margin-top:64px;padding-top:22px;border-top:1px solid var(--dl);font:400 12.5px/1 var(--mono);color:var(--d4)}
+.lx-ft-bot b{font-weight:500;color:var(--d1)}
+
+/* ── comparsa al primo caricamento (una volta) ── */
+.js .intro{opacity:0;transform:translateY(14px);filter:blur(6px)}
+.js.ready .intro{opacity:1;transform:none;filter:none;transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease);transition-delay:calc(var(--d,0) * 1ms)}
+.js .nav{opacity:0}
+.js.ready .nav{opacity:1;transition:opacity .8s var(--ease) .1s,transform .38s var(--ease),background-color .3s var(--ease),box-shadow .3s var(--ease),color .3s var(--ease)}
+.rm .nav,.js.ready.rm .nav,.rm .sw-p{transition:none}
+
+/* ── telefono e tablet ── */
+@media (max-width:900px){
+  .links,.nav .btn-c{display:none}
+  .menu-b{display:inline-flex;align-items:center}
+  .lx-ch-h{grid-template-columns:1fr}
+  .lx-figs{grid-template-columns:1fr}
+  .lx-fig{min-height:0}
+  .lx-fig svg{height:200px;margin:18px 0 6px}
+  /* le finestre una sotto l'altra, alla larghezza della colonna */
+  .lx-stage{height:auto;padding:0 var(--pad);overflow:visible}
+  .lx-canvas{position:relative;left:auto;top:auto;width:auto;height:auto;transform:none;display:flex;flex-direction:column;gap:14px}
+  .lx-canvas>*{position:relative!important;left:auto!important;top:auto!important;width:auto!important;height:auto!important}
+  .lx-foot{position:relative}
+  .w-eng{order:1}.w-pb{order:2}.g-next{order:3}
+  .lx-g4{grid-template-columns:1fr 1fr}
+  .lx-g4 .cell{padding:28px 20px 30px 0!important;border-right:0;border-bottom:1px solid var(--l1)}
+  .lx-g4 .cell:nth-child(odd){padding-right:20px!important;border-right:1px solid var(--l1)}
+  .lx-g4 .cell:nth-child(even){padding-left:20px!important}
+  .lx-g4 .cell:nth-last-child(-n+2){border-bottom:0}
+  .lx-about{grid-template-columns:1fr}
+  .lx-ft-in{grid-template-columns:1fr 1fr}
+  .lx-ft-b{grid-column:1/-1}
+}
+@media (max-width:720px){
+  .hl{font-size:clamp(28px,8.6vw,44px)}
+  .tlabel{letter-spacing:.22em;font-size:10.5px}
+  .tlead{font-size:15px}
+  .lx-mod{grid-template-columns:16px 78px minmax(0,1fr);column-gap:10px;padding:0 14px}
+  .lx-mod b{font-size:14px}
+  .lx-mod span{font-size:11.5px}
+  .lx-chips{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lx-jr{grid-template-columns:40px minmax(0,1fr) 58px;column-gap:10px;height:auto;min-height:52px;padding:10px 14px;font-size:13px}
+  .lx-jr .p,.lx-jr.h span:nth-child(3),.lx-chain{display:none}
+  .lx-chk{padding:0 14px;font-size:13.5px}
+  .lx-g4{grid-template-columns:1fr}
+  .lx-g4 .cell,.lx-g4 .cell:nth-child(odd),.lx-g4 .cell:nth-child(even){padding:26px 0!important;border-right:0!important;border-bottom:1px solid var(--l1)!important}
+  .lx-g4 .cell:last-child{border-bottom:0!important}
+  .lx-g4 svg{margin-bottom:22px}
+  .lx-name{grid-template-columns:1fr}
+  .lx-name .pl{text-align:left}
+  .lx-ft-bot{flex-direction:column}
+}
+/* senza movimento: ogni scena nel suo stato finale, il testo si legge senza animazioni */
+.rm .tunnel{height:auto}
+.rm .tun-pin{position:relative;height:auto;padding:calc(var(--nav) + 12vh) var(--pad) 140px;transform:none!important}
+.rm .tun-view{position:relative}
+.rm .tun-cue,.rm .mk{display:none!important}
+.rm .tun-world{position:relative;left:auto;top:auto;width:auto;height:auto;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:56px 64px;align-items:center}
+.rm .tun-title{position:relative;width:100%;grid-column:1/-1;transform:none!important;margin-bottom:40px}
+.rm .hl{white-space:normal}
+.rm .pr{position:relative;visibility:visible;opacity:1!important;transform:none!important;display:flex;align-items:center;gap:24px}
+.rm .pr .q{position:static;font-size:28px}
+.rm .pr-fig{position:static;flex:none;width:140px}
+@media (max-width:720px){.rm .tun-world{grid-template-columns:1fr}}
+.rm .page-light{margin-top:0}
+.rm .lx-story [data-s]{opacity:1!important;filter:none!important;transform:none!important;stroke-dashoffset:0!important}
+</style>
+</head>
+<body>
+<a class="skip" href="#principii">Sari la conținut</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="Hinotech Software, începutul paginii">
+      <svg class="mark" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7.5" fill="#9C4A38"/><path d="M9.3 7.6v12.8M18.7 7.6v12.8M9.3 14.6h9.4" fill="none" stroke="#FBFAF8" stroke-width="2.8" stroke-linecap="round"/></svg>
+      <span>Hinotech Software</span></a>
+    <nav class="links" aria-label="Secțiuni">
+      <div class="sw">
+        <button class="sw-b" type="button" aria-expanded="false" aria-controls="sw-p">Software<svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.6l3 3 3-3"/></svg></button>
+        <div class="sw-p" id="sw-p" hidden>
+          <a class="sw-i" href="privacybox.html">
+            <svg class="sw-ic" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7.16" fill="#141311"/><g fill="#FBFAF8"><polygon points="11.65,7.07 24.31,9.20 22.80,10.55 12.91,8.77"/><polygon points="24.31,9.20 23.81,23.54 22.47,21.74 22.80,10.55"/><polygon points="23.81,23.54 11.90,20.31 13.05,19.27 22.47,21.74"/><polygon points="11.90,20.31 11.65,7.07 12.91,8.77 13.05,19.27"/><polygon points="8.01,8.28 21.08,10.67 19.53,12.08 9.33,10.09"/><polygon points="21.08,10.67 20.75,25.77 19.35,23.85 19.53,12.08"/><polygon points="20.75,25.77 8.48,22.16 9.64,21.10 19.35,23.85"/><polygon points="8.48,22.16 8.01,8.28 9.33,10.09 9.64,21.10"/></g></svg>
+            <span class="sw-tx"><b>PrivacyBox</b><span>Protecția datelor pentru firme, după Legea nr. 195/2024.</span></span>
+          </a>
+        </div>
+      </div>
+      <a href="#principii">Principii</a><a href="#arhitectura">Arhitectura</a><a href="#securitate">Securitate</a><a href="#despre">Despre noi</a>
+    </nav>
+    <a class="btn btn-c btn-s" href="#contact">Contact</a>
+    <button class="menu-b" type="button" aria-expanded="false" aria-controls="menu">Meniu</button>
+  </div>
+</header>
+<div class="menu" id="menu" hidden>
+  <button class="menu-x" type="button">Închide</button>
+  <button class="menu-sw" type="button" aria-expanded="false" aria-controls="menu-sw-p">Software<i class="pm" aria-hidden="true"></i></button>
+  <div class="menu-sw-p" id="menu-sw-p" hidden>
+    <a class="sw-i" href="privacybox.html">
+      <svg class="sw-ic" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7.16" fill="#141311"/><g fill="#FBFAF8"><polygon points="11.65,7.07 24.31,9.20 22.80,10.55 12.91,8.77"/><polygon points="24.31,9.20 23.81,23.54 22.47,21.74 22.80,10.55"/><polygon points="23.81,23.54 11.90,20.31 13.05,19.27 22.47,21.74"/><polygon points="11.90,20.31 11.65,7.07 12.91,8.77 13.05,19.27"/><polygon points="8.01,8.28 21.08,10.67 19.53,12.08 9.33,10.09"/><polygon points="21.08,10.67 20.75,25.77 19.35,23.85 19.53,12.08"/><polygon points="20.75,25.77 8.48,22.16 9.64,21.10 19.35,23.85"/><polygon points="8.48,22.16 8.01,8.28 9.33,10.09 9.64,21.10"/></g></svg>
+      <span class="sw-tx"><b>PrivacyBox</b><span>Protecția datelor pentru firme, după Legea nr. 195/2024.</span></span>
+    </a>
+  </div>
+  <a href="#principii">Principii</a><a href="#arhitectura">Arhitectura</a><a href="#securitate">Securitate</a><a href="#despre">Despre noi</a>
+  <a class="btn btn-d" href="#contact">Contact</a>
+</div>
+
+<main>
+<!-- ═══ 1 · l'apertura: il tunnel; la frase al centro, i cinque principi attorno, ognuno con il suo simbolo ═══ -->
+<section class="tunnel" id="top" aria-label="Hinotech Software">
+  <div class="tun-pin" id="tun-pin">
+    <div class="tun-glow"></div>
+    <div class="tun-view">
+      <div class="tun-world" id="tun-world">
+        <div class="tun-title" id="tun-title">
+          <div class="tf"><p class="tlabel intro" style="--d:60">Hinotech Software · Republica Moldova</p></div>
+          <div class="th" id="tun-h"><h1 class="hl intro" style="--d:160">Soluții software<br>simple, clare,<br>făcute să dureze.</h1></div>
+          <div class="tf"><p class="tlead intro" style="--d:300">O firmă tehnologică din Republica Moldova, cu produse în română și în rusă.</p>
+          <div class="ctas intro" style="--d:420"><a class="btn btn-l" href="#despre">Despre noi <span>→</span></a><a class="btn btn-gl" href="#contact">Contact</a></div></div>
+        </div>
+        <article class="pr" data-i="0"><p class="q">Tehnologie în serviciul omului</p><figure class="pr-fig"><svg class="sym sym-x" viewBox="0 0 226 226" role="img" aria-label="Cârligul ciobanului, motiv moldovenesc cusut în cruciuliță: bastonul păstorului cu cârligul lui"><path class="cs-grid" d="M8 8V218M8 8H218M18 8V218M8 18H218M28 8V218M8 28H218M38 8V218M8 38H218M48 8V218M8 48H218M58 8V218M8 58H218M68 8V218M8 68H218M78 8V218M8 78H218M88 8V218M8 88H218M98 8V218M8 98H218M108 8V218M8 108H218M118 8V218M8 118H218M128 8V218M8 128H218M138 8V218M8 138H218M148 8V218M8 148H218M158 8V218M8 158H218M168 8V218M8 168H218M178 8V218M8 178H218M188 8V218M8 188H218M198 8V218M8 198H218M208 8V218M8 208H218M218 8V218M8 218H218" fill="none" stroke="#2F2C28" stroke-width=".6"/><g fill="none" stroke="#E9E3D9" stroke-width="2.1" stroke-linecap="round"><path data-o="0.000" d="M10.1 10.1L15.9 15.9M15.9 10.1L10.1 15.9"/><path data-o="0.007" d="M30.1 10.1L35.9 15.9M35.9 10.1L30.1 15.9"/><path data-o="0.014" d="M50.1 10.1L55.9 15.9M55.9 10.1L50.1 15.9"/><path data-o="0.021" d="M70.1 10.1L75.9 15.9M75.9 10.1L70.1 15.9"/><path data-o="0.028" d="M90.1 10.1L95.9 15.9M95.9 10.1L90.1 15.9"/><path data-o="0.035" d="M110.1 10.1L115.9 15.9M115.9 10.1L110.1 15.9"/><path data-o="0.043" d="M130.1 10.1L135.9 15.9M135.9 10.1L130.1 15.9"/><path data-o="0.050" d="M150.1 10.1L155.9 15.9M155.9 10.1L150.1 15.9"/><path data-o="0.057" d="M170.1 10.1L175.9 15.9M175.9 10.1L170.1 15.9"/><path data-o="0.064" d="M190.1 10.1L195.9 15.9M195.9 10.1L190.1 15.9"/><path data-o="0.071" d="M210.1 10.1L215.9 15.9M215.9 10.1L210.1 15.9"/><path data-o="0.078" d="M210.1 30.1L215.9 35.9M215.9 30.1L210.1 35.9"/><path data-o="0.085" d="M210.1 50.1L215.9 55.9M215.9 50.1L210.1 55.9"/><path data-o="0.092" d="M210.1 70.1L215.9 75.9M215.9 70.1L210.1 75.9"/><path data-o="0.099" d="M210.1 90.1L215.9 95.9M215.9 90.1L210.1 95.9"/><path data-o="0.106" d="M210.1 110.1L215.9 115.9M215.9 110.1L210.1 115.9"/><path data-o="0.113" d="M210.1 130.1L215.9 135.9M215.9 130.1L210.1 135.9"/><path data-o="0.121" d="M210.1 150.1L215.9 155.9M215.9 150.1L210.1 155.9"/><path data-o="0.128" d="M210.1 170.1L215.9 175.9M215.9 170.1L210.1 175.9"/><path data-o="0.135" d="M210.1 190.1L215.9 195.9M215.9 190.1L210.1 195.9"/><path data-o="0.142" d="M210.1 210.1L215.9 215.9M215.9 210.1L210.1 215.9"/><path data-o="0.149" d="M190.1 210.1L195.9 215.9M195.9 210.1L190.1 215.9"/><path data-o="0.156" d="M170.1 210.1L175.9 215.9M175.9 210.1L170.1 215.9"/><path data-o="0.163" d="M150.1 210.1L155.9 215.9M155.9 210.1L150.1 215.9"/><path data-o="0.170" d="M130.1 210.1L135.9 215.9M135.9 210.1L130.1 215.9"/><path data-o="0.177" d="M110.1 210.1L115.9 215.9M115.9 210.1L110.1 215.9"/><path data-o="0.184" d="M90.1 210.1L95.9 215.9M95.9 210.1L90.1 215.9"/><path data-o="0.191" d="M70.1 210.1L75.9 215.9M75.9 210.1L70.1 215.9"/><path data-o="0.199" d="M50.1 210.1L55.9 215.9M55.9 210.1L50.1 215.9"/><path data-o="0.206" d="M30.1 210.1L35.9 215.9M35.9 210.1L30.1 215.9"/><path data-o="0.213" d="M10.1 210.1L15.9 215.9M15.9 210.1L10.1 215.9"/><path data-o="0.220" d="M10.1 190.1L15.9 195.9M15.9 190.1L10.1 195.9"/><path data-o="0.227" d="M10.1 170.1L15.9 175.9M15.9 170.1L10.1 175.9"/><path data-o="0.234" d="M10.1 150.1L15.9 155.9M15.9 150.1L10.1 155.9"/><path data-o="0.241" d="M10.1 130.1L15.9 135.9M15.9 130.1L10.1 135.9"/><path data-o="0.248" d="M10.1 110.1L15.9 115.9M15.9 110.1L10.1 115.9"/><path data-o="0.255" d="M10.1 90.1L15.9 95.9M15.9 90.1L10.1 95.9"/><path data-o="0.262" d="M10.1 70.1L15.9 75.9M15.9 70.1L10.1 75.9"/><path data-o="0.270" d="M10.1 50.1L15.9 55.9M15.9 50.1L10.1 55.9"/><path data-o="0.277" d="M10.1 30.1L15.9 35.9M15.9 30.1L10.1 35.9"/></g><g fill="none" stroke="#E9E3D9" stroke-width="2.1" stroke-linecap="round"><path data-o="0.284" d="M120.1 190.1L125.9 195.9M125.9 190.1L120.1 195.9"/><path data-o="0.291" d="M130.1 200.1L135.9 205.9M135.9 200.1L130.1 205.9"/><path data-o="0.298" d="M150.1 190.1L155.9 195.9M155.9 190.1L150.1 195.9"/><path data-o="0.305" d="M140.1 200.1L145.9 205.9M145.9 200.1L140.1 205.9"/><path data-o="0.312" d="M120.1 180.1L125.9 185.9M125.9 180.1L120.1 185.9"/><path data-o="0.319" d="M150.1 180.1L155.9 185.9M155.9 180.1L150.1 185.9"/><path data-o="0.326" d="M120.1 170.1L125.9 175.9M125.9 170.1L120.1 175.9"/><path data-o="0.333" d="M150.1 170.1L155.9 175.9M155.9 170.1L150.1 175.9"/><path data-o="0.340" d="M120.1 160.1L125.9 165.9M125.9 160.1L120.1 165.9"/><path data-o="0.348" d="M150.1 160.1L155.9 165.9M155.9 160.1L150.1 165.9"/><path data-o="0.355" d="M120.1 150.1L125.9 155.9M125.9 150.1L120.1 155.9"/><path data-o="0.362" d="M150.1 150.1L155.9 155.9M155.9 150.1L150.1 155.9"/><path data-o="0.369" d="M120.1 140.1L125.9 145.9M125.9 140.1L120.1 145.9"/><path data-o="0.376" d="M150.1 140.1L155.9 145.9M155.9 140.1L150.1 145.9"/><path data-o="0.383" d="M120.1 130.1L125.9 135.9M125.9 130.1L120.1 135.9"/><path data-o="0.390" d="M150.1 130.1L155.9 135.9M155.9 130.1L150.1 135.9"/><path data-o="0.397" d="M120.1 120.1L125.9 125.9M125.9 120.1L120.1 125.9"/><path data-o="0.404" d="M150.1 120.1L155.9 125.9M155.9 120.1L150.1 125.9"/><path data-o="0.411" d="M120.1 110.1L125.9 115.9M125.9 110.1L120.1 115.9"/><path data-o="0.418" d="M150.1 110.1L155.9 115.9M155.9 110.1L150.1 115.9"/><path data-o="0.426" d="M120.1 100.1L125.9 105.9M125.9 100.1L120.1 105.9"/><path data-o="0.433" d="M150.1 100.1L155.9 105.9M155.9 100.1L150.1 105.9"/><path data-o="0.440" d="M120.1 90.1L125.9 95.9M125.9 90.1L120.1 95.9"/><path data-o="0.447" d="M150.1 90.1L155.9 95.9M155.9 90.1L150.1 95.9"/><path data-o="0.454" d="M70.1 110.1L75.9 115.9M75.9 110.1L70.1 115.9"/><path data-o="0.461" d="M50.1 110.1L55.9 115.9M55.9 110.1L50.1 115.9"/><path data-o="0.468" d="M60.1 120.1L65.9 125.9M65.9 120.1L60.1 125.9"/><path data-o="0.475" d="M80.1 100.1L85.9 105.9M85.9 100.1L80.1 105.9"/><path data-o="0.482" d="M70.1 90.1L75.9 95.9M75.9 90.1L70.1 95.9"/><path data-o="0.489" d="M50.1 100.1L55.9 105.9M55.9 100.1L50.1 105.9"/><path data-o="0.496" d="M40.1 90.1L45.9 95.9M45.9 90.1L40.1 95.9"/><path data-o="0.504" d="M70.1 80.1L75.9 85.9M75.9 80.1L70.1 85.9"/><path data-o="0.511" d="M40.1 80.1L45.9 85.9M45.9 80.1L40.1 85.9"/><path data-o="0.518" d="M70.1 70.1L75.9 75.9M75.9 70.1L70.1 75.9"/><path data-o="0.525" d="M40.1 70.1L45.9 75.9M45.9 70.1L40.1 75.9"/><path data-o="0.532" d="M50.1 60.1L55.9 65.9M55.9 60.1L50.1 65.9"/><path data-o="0.539" d="M80.1 60.1L85.9 65.9M85.9 60.1L80.1 65.9"/><path data-o="0.546" d="M60.1 50.1L65.9 55.9M65.9 50.1L60.1 55.9"/><path data-o="0.553" d="M70.1 40.1L75.9 45.9M75.9 40.1L70.1 45.9"/><path data-o="0.560" d="M90.1 60.1L95.9 65.9M95.9 60.1L90.1 65.9"/><path data-o="0.567" d="M80.1 30.1L85.9 35.9M85.9 30.1L80.1 35.9"/><path data-o="0.574" d="M100.1 60.1L105.9 65.9M105.9 60.1L100.1 65.9"/><path data-o="0.582" d="M90.1 30.1L95.9 35.9M95.9 30.1L90.1 35.9"/><path data-o="0.589" d="M110.1 60.1L115.9 65.9M115.9 60.1L110.1 65.9"/><path data-o="0.596" d="M100.1 30.1L105.9 35.9M105.9 30.1L100.1 35.9"/><path data-o="0.603" d="M120.1 70.1L125.9 75.9M125.9 70.1L120.1 75.9"/><path data-o="0.610" d="M120.1 40.1L125.9 45.9M125.9 40.1L120.1 45.9"/><path data-o="0.617" d="M110.1 30.1L115.9 35.9M115.9 30.1L110.1 35.9"/><path data-o="0.624" d="M130.1 50.1L135.9 55.9M135.9 50.1L130.1 55.9"/><path data-o="0.631" d="M120.1 80.1L125.9 85.9M125.9 80.1L120.1 85.9"/><path data-o="0.638" d="M140.1 60.1L145.9 65.9M145.9 60.1L140.1 65.9"/><path data-o="0.645" d="M150.1 70.1L155.9 75.9M155.9 70.1L150.1 75.9"/><path data-o="0.652" d="M150.1 80.1L155.9 85.9M155.9 80.1L150.1 85.9"/></g><g fill="none" stroke="#C06B54" stroke-width="2.1" stroke-linecap="round"><path data-o="0.660" d="M130.1 190.1L135.9 195.9M135.9 190.1L130.1 195.9"/><path data-o="0.667" d="M140.1 190.1L145.9 195.9M145.9 190.1L140.1 195.9"/><path data-o="0.674" d="M130.1 180.1L135.9 185.9M135.9 180.1L130.1 185.9"/><path data-o="0.681" d="M140.1 180.1L145.9 185.9M145.9 180.1L140.1 185.9"/><path data-o="0.688" d="M130.1 170.1L135.9 175.9M135.9 170.1L130.1 175.9"/><path data-o="0.695" d="M140.1 170.1L145.9 175.9M145.9 170.1L140.1 175.9"/><path data-o="0.702" d="M130.1 160.1L135.9 165.9M135.9 160.1L130.1 165.9"/><path data-o="0.709" d="M140.1 160.1L145.9 165.9M145.9 160.1L140.1 165.9"/><path data-o="0.716" d="M130.1 150.1L135.9 155.9M135.9 150.1L130.1 155.9"/><path data-o="0.723" d="M140.1 150.1L145.9 155.9M145.9 150.1L140.1 155.9"/><path data-o="0.730" d="M130.1 140.1L135.9 145.9M135.9 140.1L130.1 145.9"/><path data-o="0.738" d="M140.1 140.1L145.9 145.9M145.9 140.1L140.1 145.9"/><path data-o="0.745" d="M130.1 130.1L135.9 135.9M135.9 130.1L130.1 135.9"/><path data-o="0.752" d="M140.1 130.1L145.9 135.9M145.9 130.1L140.1 135.9"/><path data-o="0.759" d="M130.1 120.1L135.9 125.9M135.9 120.1L130.1 125.9"/><path data-o="0.766" d="M140.1 120.1L145.9 125.9M145.9 120.1L140.1 125.9"/><path data-o="0.773" d="M130.1 110.1L135.9 115.9M135.9 110.1L130.1 115.9"/><path data-o="0.780" d="M140.1 110.1L145.9 115.9M145.9 110.1L140.1 115.9"/><path data-o="0.787" d="M130.1 100.1L135.9 105.9M135.9 100.1L130.1 105.9"/><path data-o="0.794" d="M140.1 100.1L145.9 105.9M145.9 100.1L140.1 105.9"/><path data-o="0.801" d="M130.1 90.1L135.9 95.9M135.9 90.1L130.1 95.9"/><path data-o="0.809" d="M140.1 90.1L145.9 95.9M145.9 90.1L140.1 95.9"/><path data-o="0.816" d="M60.1 110.1L65.9 115.9M65.9 110.1L60.1 115.9"/><path data-o="0.823" d="M70.1 100.1L75.9 105.9M75.9 100.1L70.1 105.9"/><path data-o="0.830" d="M60.1 100.1L65.9 105.9M65.9 100.1L60.1 105.9"/><path data-o="0.837" d="M60.1 90.1L65.9 95.9M65.9 90.1L60.1 95.9"/><path data-o="0.844" d="M50.1 90.1L55.9 95.9M55.9 90.1L50.1 95.9"/><path data-o="0.851" d="M60.1 80.1L65.9 85.9M65.9 80.1L60.1 85.9"/><path data-o="0.858" d="M50.1 80.1L55.9 85.9M55.9 80.1L50.1 85.9"/><path data-o="0.865" d="M60.1 70.1L65.9 75.9M65.9 70.1L60.1 75.9"/><path data-o="0.872" d="M50.1 70.1L55.9 75.9M55.9 70.1L50.1 75.9"/><path data-o="0.879" d="M70.1 60.1L75.9 65.9M75.9 60.1L70.1 65.9"/><path data-o="0.887" d="M60.1 60.1L65.9 65.9M65.9 60.1L60.1 65.9"/><path data-o="0.894" d="M80.1 50.1L85.9 55.9M85.9 50.1L80.1 55.9"/><path data-o="0.901" d="M70.1 50.1L75.9 55.9M75.9 50.1L70.1 55.9"/><path data-o="0.908" d="M90.1 50.1L95.9 55.9M95.9 50.1L90.1 55.9"/><path data-o="0.915" d="M80.1 40.1L85.9 45.9M85.9 40.1L80.1 45.9"/><path data-o="0.922" d="M100.1 50.1L105.9 55.9M105.9 50.1L100.1 55.9"/><path data-o="0.929" d="M90.1 40.1L95.9 45.9M95.9 40.1L90.1 45.9"/><path data-o="0.936" d="M110.1 50.1L115.9 55.9M115.9 50.1L110.1 55.9"/><path data-o="0.943" d="M100.1 40.1L105.9 45.9M105.9 40.1L100.1 45.9"/><path data-o="0.950" d="M120.1 60.1L125.9 65.9M125.9 60.1L120.1 65.9"/><path data-o="0.957" d="M110.1 40.1L115.9 45.9M115.9 40.1L110.1 45.9"/><path data-o="0.965" d="M130.1 70.1L135.9 75.9M135.9 70.1L130.1 75.9"/><path data-o="0.972" d="M120.1 50.1L125.9 55.9M125.9 50.1L120.1 55.9"/><path data-o="0.979" d="M130.1 80.1L135.9 85.9M135.9 80.1L130.1 85.9"/><path data-o="0.986" d="M130.1 60.1L135.9 65.9M135.9 60.1L130.1 65.9"/><path data-o="0.993" d="M140.1 70.1L145.9 75.9M145.9 70.1L140.1 75.9"/><path data-o="1.000" d="M140.1 80.1L145.9 85.9M145.9 80.1L140.1 85.9"/></g></svg></figure></article>
+        <article class="pr" data-i="1"><p class="q">Unificare, nu fragmentare</p><figure class="pr-fig"><svg class="sym sym-m sym-shippo" viewBox="0 0 226 226" role="img" aria-label="Shippō, model japonez: cercuri egale care se întrepătrund, fiecare legat de vecinii lui"><defs><clipPath id="cp-sh14"><circle cx="113" cy="113" r="101"/></clipPath></defs><circle class="m-disc" cx="113" cy="113" r="104" fill="#1B1A18"/><g clip-path="url(#cp-sh14)" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle data-o="0.908" data-i="-3" data-j="-1" cx="2.7" cy="76.2" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.862" data-i="-3" data-j="0" cx="2.7" cy="113.0" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.908" data-i="-3" data-j="1" cx="2.7" cy="149.8" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.813" data-i="-2" data-j="-2" cx="39.5" cy="39.5" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.642" data-i="-2" data-j="-1" cx="39.5" cy="76.2" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.642" data-i="-2" data-j="1" cx="39.5" cy="149.8" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.813" data-i="-2" data-j="2" cx="39.5" cy="186.5" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.908" data-i="-1" data-j="-3" cx="76.2" cy="2.7" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.642" data-i="-1" data-j="-2" cx="76.2" cy="39.5" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.406" data-i="-1" data-j="-1" cx="76.2" cy="76.2" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.406" data-i="-1" data-j="1" cx="76.2" cy="149.8" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.642" data-i="-1" data-j="2" cx="76.2" cy="186.5" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.908" data-i="-1" data-j="3" cx="76.2" cy="223.3" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.862" data-i="0" data-j="-3" cx="113.0" cy="2.7" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.575" data-i="0" data-j="-2" cx="113.0" cy="39.5" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.287" data-i="0" data-j="-1" cx="113.0" cy="76.2" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.287" data-i="0" data-j="1" cx="113.0" cy="149.8" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.575" data-i="0" data-j="2" cx="113.0" cy="186.5" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.862" data-i="0" data-j="3" cx="113.0" cy="223.3" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.908" data-i="1" data-j="-3" cx="149.8" cy="2.7" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.642" data-i="1" data-j="-2" cx="149.8" cy="39.5" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.406" data-i="1" data-j="-1" cx="149.8" cy="76.2" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.406" data-i="1" data-j="1" cx="149.8" cy="149.8" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.642" data-i="1" data-j="2" cx="149.8" cy="186.5" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.908" data-i="1" data-j="3" cx="149.8" cy="223.3" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.813" data-i="2" data-j="-2" cx="186.5" cy="39.5" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.642" data-i="2" data-j="-1" cx="186.5" cy="76.2" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.642" data-i="2" data-j="1" cx="186.5" cy="149.8" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.813" data-i="2" data-j="2" cx="186.5" cy="186.5" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.908" data-i="3" data-j="-1" cx="223.3" cy="76.2" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.862" data-i="3" data-j="0" cx="223.3" cy="113.0" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.908" data-i="3" data-j="1" cx="223.3" cy="149.8" r="26" stroke="#E9E3D9" stroke-width="1.15" pathLength="1"/><circle data-o="0.000" data-i="0" data-j="0" cx="113.0" cy="113.0" r="26" stroke="#C06B54" stroke-width="1.7" pathLength="1"/><circle data-o="0.575" data-i="-2" data-j="0" cx="39.5" cy="113.0" r="26" stroke="#C06B54" stroke-width="1.7" pathLength="1"/><circle data-o="0.287" data-i="-1" data-j="0" cx="76.2" cy="113.0" r="26" stroke="#C06B54" stroke-width="1.7" pathLength="1"/><circle data-o="0.287" data-i="1" data-j="0" cx="149.8" cy="113.0" r="26" stroke="#C06B54" stroke-width="1.7" pathLength="1"/><circle data-o="0.575" data-i="2" data-j="0" cx="186.5" cy="113.0" r="26" stroke="#C06B54" stroke-width="1.7" pathLength="1"/></g><circle class="m-rim" cx="113" cy="113" r="104" fill="none" stroke="#E9E3D9" stroke-width="1.3" pathLength="1"/></svg></figure></article>
+        <article class="pr" data-i="2"><p class="q">Transparență și ușurință</p><figure class="pr-fig"><svg class="sym sym-x" viewBox="0 0 226 226" role="img" aria-label="Șănătăul, motiv moldovenesc în linie văluroasă: apa, valurile apei"><path class="cs-grid" d="M8 8V218M8 8H218M18 8V218M8 18H218M28 8V218M8 28H218M38 8V218M8 38H218M48 8V218M8 48H218M58 8V218M8 58H218M68 8V218M8 68H218M78 8V218M8 78H218M88 8V218M8 88H218M98 8V218M8 98H218M108 8V218M8 108H218M118 8V218M8 118H218M128 8V218M8 128H218M138 8V218M8 138H218M148 8V218M8 148H218M158 8V218M8 158H218M168 8V218M8 168H218M178 8V218M8 178H218M188 8V218M8 188H218M198 8V218M8 198H218M208 8V218M8 208H218M218 8V218M8 218H218" fill="none" stroke="#2F2C28" stroke-width=".6"/><g fill="none" stroke="#E9E3D9" stroke-width="2.1" stroke-linecap="round"><path data-o="0.000" d="M10.1 10.1L15.9 15.9M15.9 10.1L10.1 15.9"/><path data-o="0.011" d="M30.1 10.1L35.9 15.9M35.9 10.1L30.1 15.9"/><path data-o="0.022" d="M50.1 10.1L55.9 15.9M55.9 10.1L50.1 15.9"/><path data-o="0.033" d="M70.1 10.1L75.9 15.9M75.9 10.1L70.1 15.9"/><path data-o="0.044" d="M90.1 10.1L95.9 15.9M95.9 10.1L90.1 15.9"/><path data-o="0.056" d="M110.1 10.1L115.9 15.9M115.9 10.1L110.1 15.9"/><path data-o="0.067" d="M130.1 10.1L135.9 15.9M135.9 10.1L130.1 15.9"/><path data-o="0.078" d="M150.1 10.1L155.9 15.9M155.9 10.1L150.1 15.9"/><path data-o="0.089" d="M170.1 10.1L175.9 15.9M175.9 10.1L170.1 15.9"/><path data-o="0.100" d="M190.1 10.1L195.9 15.9M195.9 10.1L190.1 15.9"/><path data-o="0.111" d="M210.1 10.1L215.9 15.9M215.9 10.1L210.1 15.9"/><path data-o="0.122" d="M210.1 30.1L215.9 35.9M215.9 30.1L210.1 35.9"/><path data-o="0.133" d="M210.1 50.1L215.9 55.9M215.9 50.1L210.1 55.9"/><path data-o="0.144" d="M210.1 70.1L215.9 75.9M215.9 70.1L210.1 75.9"/><path data-o="0.156" d="M210.1 90.1L215.9 95.9M215.9 90.1L210.1 95.9"/><path data-o="0.167" d="M210.1 110.1L215.9 115.9M215.9 110.1L210.1 115.9"/><path data-o="0.178" d="M210.1 130.1L215.9 135.9M215.9 130.1L210.1 135.9"/><path data-o="0.189" d="M210.1 150.1L215.9 155.9M215.9 150.1L210.1 155.9"/><path data-o="0.200" d="M210.1 170.1L215.9 175.9M215.9 170.1L210.1 175.9"/><path data-o="0.211" d="M210.1 190.1L215.9 195.9M215.9 190.1L210.1 195.9"/><path data-o="0.222" d="M210.1 210.1L215.9 215.9M215.9 210.1L210.1 215.9"/><path data-o="0.233" d="M190.1 210.1L195.9 215.9M195.9 210.1L190.1 215.9"/><path data-o="0.244" d="M170.1 210.1L175.9 215.9M175.9 210.1L170.1 215.9"/><path data-o="0.256" d="M150.1 210.1L155.9 215.9M155.9 210.1L150.1 215.9"/><path data-o="0.267" d="M130.1 210.1L135.9 215.9M135.9 210.1L130.1 215.9"/><path data-o="0.278" d="M110.1 210.1L115.9 215.9M115.9 210.1L110.1 215.9"/><path data-o="0.289" d="M90.1 210.1L95.9 215.9M95.9 210.1L90.1 215.9"/><path data-o="0.300" d="M70.1 210.1L75.9 215.9M75.9 210.1L70.1 215.9"/><path data-o="0.311" d="M50.1 210.1L55.9 215.9M55.9 210.1L50.1 215.9"/><path data-o="0.322" d="M30.1 210.1L35.9 215.9M35.9 210.1L30.1 215.9"/><path data-o="0.333" d="M10.1 210.1L15.9 215.9M15.9 210.1L10.1 215.9"/><path data-o="0.344" d="M10.1 190.1L15.9 195.9M15.9 190.1L10.1 195.9"/><path data-o="0.356" d="M10.1 170.1L15.9 175.9M15.9 170.1L10.1 175.9"/><path data-o="0.367" d="M10.1 150.1L15.9 155.9M15.9 150.1L10.1 155.9"/><path data-o="0.378" d="M10.1 130.1L15.9 135.9M15.9 130.1L10.1 135.9"/><path data-o="0.389" d="M10.1 110.1L15.9 115.9M15.9 110.1L10.1 115.9"/><path data-o="0.400" d="M10.1 90.1L15.9 95.9M15.9 90.1L10.1 95.9"/><path data-o="0.411" d="M10.1 70.1L15.9 75.9M15.9 70.1L10.1 75.9"/><path data-o="0.422" d="M10.1 50.1L15.9 55.9M15.9 50.1L10.1 55.9"/><path data-o="0.433" d="M10.1 30.1L15.9 35.9M15.9 30.1L10.1 35.9"/></g><g fill="none" stroke="#C06B54" stroke-width="2.1" stroke-linecap="round"><path data-o="0.444" d="M30.1 50.1L35.9 55.9M35.9 50.1L30.1 55.9"/><path data-o="0.456" d="M40.1 40.1L45.9 45.9M45.9 40.1L40.1 45.9"/><path data-o="0.467" d="M50.1 40.1L55.9 45.9M55.9 40.1L50.1 45.9"/><path data-o="0.478" d="M60.1 50.1L65.9 55.9M65.9 50.1L60.1 55.9"/><path data-o="0.489" d="M70.1 60.1L75.9 65.9M75.9 60.1L70.1 65.9"/><path data-o="0.500" d="M80.1 70.1L85.9 75.9M85.9 70.1L80.1 75.9"/><path data-o="0.511" d="M90.1 80.1L95.9 85.9M95.9 80.1L90.1 85.9"/><path data-o="0.522" d="M100.1 80.1L105.9 85.9M105.9 80.1L100.1 85.9"/><path data-o="0.533" d="M110.1 70.1L115.9 75.9M115.9 70.1L110.1 75.9"/><path data-o="0.544" d="M120.1 60.1L125.9 65.9M125.9 60.1L120.1 65.9"/><path data-o="0.556" d="M130.1 50.1L135.9 55.9M135.9 50.1L130.1 55.9"/><path data-o="0.567" d="M140.1 40.1L145.9 45.9M145.9 40.1L140.1 45.9"/><path data-o="0.578" d="M150.1 40.1L155.9 45.9M155.9 40.1L150.1 45.9"/><path data-o="0.589" d="M160.1 50.1L165.9 55.9M165.9 50.1L160.1 55.9"/><path data-o="0.600" d="M170.1 60.1L175.9 65.9M175.9 60.1L170.1 65.9"/><path data-o="0.611" d="M180.1 70.1L185.9 75.9M185.9 70.1L180.1 75.9"/><path data-o="0.622" d="M190.1 80.1L195.9 85.9M195.9 80.1L190.1 85.9"/></g><g fill="none" stroke="#E9E3D9" stroke-width="2.1" stroke-linecap="round"><path data-o="0.633" d="M30.1 100.1L35.9 105.9M35.9 100.1L30.1 105.9"/><path data-o="0.644" d="M40.1 90.1L45.9 95.9M45.9 90.1L40.1 95.9"/><path data-o="0.656" d="M50.1 90.1L55.9 95.9M55.9 90.1L50.1 95.9"/><path data-o="0.667" d="M60.1 100.1L65.9 105.9M65.9 100.1L60.1 105.9"/><path data-o="0.678" d="M70.1 110.1L75.9 115.9M75.9 110.1L70.1 115.9"/><path data-o="0.689" d="M80.1 120.1L85.9 125.9M85.9 120.1L80.1 125.9"/><path data-o="0.700" d="M90.1 130.1L95.9 135.9M95.9 130.1L90.1 135.9"/><path data-o="0.711" d="M100.1 130.1L105.9 135.9M105.9 130.1L100.1 135.9"/><path data-o="0.722" d="M110.1 120.1L115.9 125.9M115.9 120.1L110.1 125.9"/><path data-o="0.733" d="M120.1 110.1L125.9 115.9M125.9 110.1L120.1 115.9"/><path data-o="0.744" d="M130.1 100.1L135.9 105.9M135.9 100.1L130.1 105.9"/><path data-o="0.756" d="M140.1 90.1L145.9 95.9M145.9 90.1L140.1 95.9"/><path data-o="0.767" d="M150.1 90.1L155.9 95.9M155.9 90.1L150.1 95.9"/><path data-o="0.778" d="M160.1 100.1L165.9 105.9M165.9 100.1L160.1 105.9"/><path data-o="0.789" d="M170.1 110.1L175.9 115.9M175.9 110.1L170.1 115.9"/><path data-o="0.800" d="M180.1 120.1L185.9 125.9M185.9 120.1L180.1 125.9"/><path data-o="0.811" d="M190.1 130.1L195.9 135.9M195.9 130.1L190.1 135.9"/></g><g fill="none" stroke="#C06B54" stroke-width="2.1" stroke-linecap="round"><path data-o="0.822" d="M30.1 150.1L35.9 155.9M35.9 150.1L30.1 155.9"/><path data-o="0.833" d="M40.1 140.1L45.9 145.9M45.9 140.1L40.1 145.9"/><path data-o="0.844" d="M50.1 140.1L55.9 145.9M55.9 140.1L50.1 145.9"/><path data-o="0.856" d="M60.1 150.1L65.9 155.9M65.9 150.1L60.1 155.9"/><path data-o="0.867" d="M70.1 160.1L75.9 165.9M75.9 160.1L70.1 165.9"/><path data-o="0.878" d="M80.1 170.1L85.9 175.9M85.9 170.1L80.1 175.9"/><path data-o="0.889" d="M90.1 180.1L95.9 185.9M95.9 180.1L90.1 185.9"/><path data-o="0.900" d="M100.1 180.1L105.9 185.9M105.9 180.1L100.1 185.9"/><path data-o="0.911" d="M110.1 170.1L115.9 175.9M115.9 170.1L110.1 175.9"/><path data-o="0.922" d="M120.1 160.1L125.9 165.9M125.9 160.1L120.1 165.9"/><path data-o="0.933" d="M130.1 150.1L135.9 155.9M135.9 150.1L130.1 155.9"/><path data-o="0.944" d="M140.1 140.1L145.9 145.9M145.9 140.1L140.1 145.9"/><path data-o="0.956" d="M150.1 140.1L155.9 145.9M155.9 140.1L150.1 145.9"/><path data-o="0.967" d="M160.1 150.1L165.9 155.9M165.9 150.1L160.1 155.9"/><path data-o="0.978" d="M170.1 160.1L175.9 165.9M175.9 160.1L170.1 165.9"/><path data-o="0.989" d="M180.1 170.1L185.9 175.9M185.9 170.1L180.1 175.9"/><path data-o="1.000" d="M190.1 180.1L195.9 185.9M195.9 180.1L190.1 185.9"/></g></svg></figure></article>
+        <article class="pr" data-i="3"><p class="q">Securitatea datelor</p><figure class="pr-fig"><svg class="sym sym-m sym-kikko" viewBox="0 0 226 226" role="img" aria-label="Kikkō, model japonez în hexagoane: carapacea țestoasei"><defs><clipPath id="cp-kk"><circle cx="113" cy="113" r="101"/></clipPath></defs><circle class="m-disc" cx="113" cy="113" r="104" fill="#1B1A18"/><g clip-path="url(#cp-kk)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path data-o="0" d="M126.3 113.0L119.7 124.5L106.4 124.5L99.7 113.0L106.3 101.5L119.7 101.5Z" fill="#C06B54" stroke="none" class="k-core"/><path data-o="0.000" d="M132.0 113.0L122.5 129.5L103.5 129.5L94.0 113.0L103.5 96.5L122.5 96.5Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.000" d="M126.3 113.0L119.7 124.5L106.4 124.5L99.7 113.0L106.3 101.5L119.7 101.5Z" stroke="#C06B54" stroke-width="1.4" stroke-opacity="1" pathLength="1"/><path data-o="0.263" d="M132.0 80.1L122.5 96.5L103.5 96.5L94.0 80.1L103.5 63.6L122.5 63.6Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.263" d="M126.3 80.1L119.7 91.6L106.4 91.6L99.7 80.1L106.3 68.6L119.7 68.6Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.263" d="M132.0 145.9L122.5 162.4L103.5 162.4L94.0 145.9L103.5 129.5L122.5 129.5Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.263" d="M126.3 145.9L119.7 157.4L106.4 157.4L99.7 145.9L106.3 134.4L119.7 134.4Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.263" d="M103.5 96.5L94.0 113.0L75.0 113.0L65.5 96.5L75.0 80.1L94.0 80.1Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.263" d="M97.8 96.5L91.2 108.1L77.9 108.1L71.2 96.5L77.8 85.0L91.2 85.0Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.263" d="M160.5 96.5L151.0 113.0L132.0 113.0L122.5 96.5L132.0 80.1L151.0 80.1Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.263" d="M154.8 96.5L148.2 108.1L134.8 108.1L128.2 96.5L134.8 85.0L148.2 85.0Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.263" d="M103.5 129.5L94.0 145.9L75.0 145.9L65.5 129.5L75.0 113.0L94.0 113.0Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.263" d="M97.8 129.5L91.2 141.0L77.9 141.0L71.2 129.5L77.8 117.9L91.2 117.9Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.263" d="M160.5 129.5L151.0 145.9L132.0 145.9L122.5 129.5L132.0 113.0L151.0 113.0Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.263" d="M154.8 129.5L148.2 141.0L134.8 141.0L128.2 129.5L134.8 117.9L148.2 117.9Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.456" d="M75.0 113.0L65.5 129.5L46.5 129.5L37.0 113.0L46.5 96.5L65.5 96.5Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.456" d="M69.3 113.0L62.6 124.5L49.4 124.5L42.7 113.0L49.3 101.5L62.6 101.5Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.456" d="M103.5 63.6L94.0 80.1L75.0 80.1L65.5 63.6L75.0 47.2L94.0 47.2Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.456" d="M97.8 63.6L91.2 75.2L77.9 75.2L71.2 63.6L77.8 52.1L91.2 52.1Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.456" d="M103.5 162.4L94.0 178.8L75.0 178.8L65.5 162.4L75.0 145.9L94.0 145.9Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.456" d="M97.8 162.4L91.2 173.9L77.9 173.9L71.2 162.4L77.8 150.8L91.2 150.8Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.456" d="M160.5 63.6L151.0 80.1L132.0 80.1L122.5 63.6L132.0 47.2L151.0 47.2Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.456" d="M154.8 63.6L148.2 75.2L134.8 75.2L128.2 63.6L134.8 52.1L148.2 52.1Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.456" d="M160.5 162.4L151.0 178.8L132.0 178.8L122.5 162.4L132.0 145.9L151.0 145.9Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.456" d="M154.8 162.4L148.2 173.9L134.8 173.9L128.2 162.4L134.8 150.8L148.2 150.8Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.456" d="M189.0 113.0L179.5 129.5L160.5 129.5L151.0 113.0L160.5 96.5L179.5 96.5Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.456" d="M183.3 113.0L176.7 124.5L163.3 124.5L156.7 113.0L163.3 101.5L176.7 101.5Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.527" d="M132.0 178.8L122.5 195.3L103.5 195.3L94.0 178.8L103.5 162.4L122.5 162.4Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.527" d="M126.3 178.8L119.7 190.3L106.4 190.3L99.7 178.8L106.3 167.3L119.7 167.3Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.527" d="M75.0 80.1L65.5 96.5L46.5 96.5L37.0 80.1L46.5 63.6L65.5 63.6Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.527" d="M69.3 80.1L62.6 91.6L49.4 91.6L42.7 80.1L49.3 68.6L62.6 68.6Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.527" d="M75.0 145.9L65.5 162.4L46.5 162.4L37.0 145.9L46.5 129.5L65.5 129.5Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.527" d="M69.3 145.9L62.6 157.4L49.4 157.4L42.7 145.9L49.3 134.4L62.6 134.4Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.527" d="M132.0 47.2L122.5 63.6L103.5 63.6L94.0 47.2L103.5 30.7L122.5 30.7Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.527" d="M126.3 47.2L119.7 58.7L106.4 58.7L99.7 47.2L106.3 35.7L119.7 35.7Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.527" d="M189.0 80.1L179.5 96.5L160.5 96.5L151.0 80.1L160.5 63.6L179.5 63.6Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.527" d="M183.3 80.1L176.7 91.6L163.3 91.6L156.7 80.1L163.3 68.6L176.7 68.6Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.527" d="M189.0 145.9L179.5 162.4L160.5 162.4L151.0 145.9L160.5 129.5L179.5 129.5Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.527" d="M183.3 145.9L176.7 157.4L163.3 157.4L156.7 145.9L163.3 134.4L176.7 134.4Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.697" d="M75.0 178.8L65.5 195.3L46.5 195.3L37.0 178.8L46.5 162.4L65.5 162.4Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.697" d="M69.3 178.8L62.6 190.3L49.4 190.3L42.7 178.8L49.3 167.3L62.6 167.3Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.697" d="M189.0 178.8L179.5 195.3L160.5 195.3L151.0 178.8L160.5 162.4L179.5 162.4Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.697" d="M183.3 178.8L176.7 190.3L163.3 190.3L156.7 178.8L163.3 167.3L176.7 167.3Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.697" d="M46.5 96.5L37.0 113.0L18.0 113.0L8.5 96.5L18.0 80.1L37.0 80.1Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.697" d="M40.8 96.5L34.1 108.1L20.9 108.1L14.2 96.5L20.8 85.0L34.1 85.0Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.697" d="M46.5 129.5L37.0 145.9L18.0 145.9L8.5 129.5L18.0 113.0L37.0 113.0Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.697" d="M40.8 129.5L34.1 141.0L20.9 141.0L14.2 129.5L20.8 117.9L34.1 117.9Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.697" d="M75.0 47.2L65.5 63.6L46.5 63.6L37.0 47.2L46.5 30.7L65.5 30.7Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.697" d="M69.3 47.2L62.6 58.7L49.4 58.7L42.7 47.2L49.3 35.7L62.6 35.7Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.697" d="M103.5 195.3L94.0 211.7L75.0 211.7L65.5 195.3L75.0 178.8L94.0 178.8Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.697" d="M97.8 195.3L91.2 206.8L77.9 206.8L71.2 195.3L77.8 183.8L91.2 183.8Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.697" d="M160.5 195.3L151.0 211.7L132.0 211.7L122.5 195.3L132.0 178.8L151.0 178.8Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.697" d="M154.8 195.3L148.2 206.8L134.8 206.8L128.2 195.3L134.8 183.8L148.2 183.8Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.697" d="M189.0 47.2L179.5 63.6L160.5 63.6L151.0 47.2L160.5 30.7L179.5 30.7Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.697" d="M183.3 47.2L176.7 58.7L163.3 58.7L156.7 47.2L163.3 35.7L176.7 35.7Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.697" d="M217.5 96.5L208.0 113.0L189.0 113.0L179.5 96.5L189.0 80.1L208.0 80.1Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.697" d="M211.8 96.5L205.2 108.1L191.8 108.1L185.2 96.5L191.8 85.0L205.2 85.0Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.697" d="M217.5 129.5L208.0 145.9L189.0 145.9L179.5 129.5L189.0 113.0L208.0 113.0Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.697" d="M211.8 129.5L205.2 141.0L191.8 141.0L185.2 129.5L191.8 117.9L205.2 117.9Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.697" d="M103.5 30.7L94.0 47.2L75.0 47.2L65.5 30.7L75.0 14.3L94.0 14.3Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.697" d="M97.8 30.7L91.2 42.2L77.9 42.2L71.2 30.7L77.8 19.2L91.2 19.2Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.697" d="M160.5 30.7L151.0 47.2L132.0 47.2L122.5 30.7L132.0 14.3L151.0 14.3Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.697" d="M154.8 30.7L148.2 42.2L134.8 42.2L128.2 30.7L134.8 19.2L148.2 19.2Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.790" d="M46.5 63.6L37.0 80.1L18.0 80.1L8.5 63.6L18.0 47.2L37.0 47.2Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.790" d="M40.8 63.6L34.1 75.2L20.9 75.2L14.2 63.6L20.8 52.1L34.1 52.1Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.790" d="M46.5 162.4L37.0 178.8L18.0 178.8L8.5 162.4L18.0 145.9L37.0 145.9Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.790" d="M40.8 162.4L34.1 173.9L20.9 173.9L14.2 162.4L20.8 150.8L34.1 150.8Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.790" d="M132.0 14.3L122.5 30.7L103.5 30.7L94.0 14.3L103.5 -2.2L122.5 -2.2Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.790" d="M126.3 14.3L119.7 25.8L106.4 25.8L99.7 14.3L106.3 2.8L119.7 2.8Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.790" d="M132.0 211.7L122.5 228.2L103.5 228.2L94.0 211.7L103.5 195.3L122.5 195.3Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.790" d="M126.3 211.7L119.7 223.2L106.4 223.2L99.7 211.7L106.3 200.2L119.7 200.2Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.790" d="M217.5 63.6L208.0 80.1L189.0 80.1L179.5 63.6L189.0 47.2L208.0 47.2Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.790" d="M211.8 63.6L205.2 75.2L191.8 75.2L185.2 63.6L191.8 52.1L205.2 52.1Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.790" d="M217.5 162.4L208.0 178.8L189.0 178.8L179.5 162.4L189.0 145.9L208.0 145.9Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.790" d="M211.8 162.4L205.2 173.9L191.8 173.9L185.2 162.4L191.8 150.8L205.2 150.8Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.912" d="M18.0 113.0L8.5 129.5L-10.5 129.5L-20.0 113.0L-10.5 96.5L8.5 96.5Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.912" d="M12.3 113.0L5.7 124.5L-7.6 124.5L-14.3 113.0L-7.7 101.5L5.7 101.5Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.912" d="M75.0 14.3L65.5 30.7L46.5 30.7L37.0 14.3L46.5 -2.2L65.5 -2.2Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.912" d="M69.3 14.3L62.6 25.8L49.4 25.8L42.7 14.3L49.3 2.8L62.6 2.8Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.912" d="M75.0 211.7L65.5 228.2L46.5 228.2L37.0 211.7L46.5 195.3L65.5 195.3Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.912" d="M69.3 211.7L62.6 223.2L49.4 223.2L42.7 211.7L49.3 200.2L62.6 200.2Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.912" d="M189.0 14.3L179.5 30.7L160.5 30.7L151.0 14.3L160.5 -2.2L179.5 -2.2Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.912" d="M183.3 14.3L176.7 25.8L163.3 25.8L156.7 14.3L163.3 2.8L176.7 2.8Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.912" d="M189.0 211.7L179.5 228.2L160.5 228.2L151.0 211.7L160.5 195.3L179.5 195.3Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.912" d="M183.3 211.7L176.7 223.2L163.3 223.2L156.7 211.7L163.3 200.2L176.7 200.2Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.912" d="M246.0 113.0L236.5 129.5L217.5 129.5L208.0 113.0L217.5 96.5L236.5 96.5Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.912" d="M240.3 113.0L233.7 124.5L220.3 124.5L213.7 113.0L220.3 101.5L233.7 101.5Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.949" d="M46.5 195.3L37.0 211.7L18.0 211.7L8.5 195.3L18.0 178.8L37.0 178.8Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.949" d="M40.8 195.3L34.1 206.8L20.9 206.8L14.2 195.3L20.8 183.8L34.1 183.8Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.949" d="M217.5 195.3L208.0 211.7L189.0 211.7L179.5 195.3L189.0 178.8L208.0 178.8Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.949" d="M211.8 195.3L205.2 206.8L191.8 206.8L185.2 195.3L191.8 183.8L205.2 183.8Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.949" d="M18.0 80.1L8.5 96.5L-10.5 96.5L-20.0 80.1L-10.5 63.6L8.5 63.6Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.949" d="M12.3 80.1L5.7 91.6L-7.6 91.6L-14.3 80.1L-7.7 68.6L5.7 68.6Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.949" d="M18.0 145.9L8.5 162.4L-10.5 162.4L-20.0 145.9L-10.5 129.5L8.5 129.5Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.949" d="M12.3 145.9L5.7 157.4L-7.6 157.4L-14.3 145.9L-7.7 134.4L5.7 134.4Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.949" d="M46.5 30.7L37.0 47.2L18.0 47.2L8.5 30.7L18.0 14.3L37.0 14.3Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.949" d="M40.8 30.7L34.1 42.2L20.9 42.2L14.2 30.7L20.8 19.2L34.1 19.2Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.949" d="M103.5 -2.2L94.0 14.3L75.0 14.3L65.5 -2.2L75.0 -18.6L94.0 -18.6Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.949" d="M97.8 -2.2L91.2 9.3L77.9 9.3L71.2 -2.2L77.8 -13.7L91.2 -13.7Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.949" d="M160.5 -2.2L151.0 14.3L132.0 14.3L122.5 -2.2L132.0 -18.6L151.0 -18.6Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.949" d="M154.8 -2.2L148.2 9.3L134.8 9.3L128.2 -2.2L134.8 -13.7L148.2 -13.7Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.949" d="M217.5 30.7L208.0 47.2L189.0 47.2L179.5 30.7L189.0 14.3L208.0 14.3Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.949" d="M211.8 30.7L205.2 42.2L191.8 42.2L185.2 30.7L191.8 19.2L205.2 19.2Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.949" d="M246.0 80.1L236.5 96.5L217.5 96.5L208.0 80.1L217.5 63.6L236.5 63.6Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.949" d="M240.3 80.1L233.7 91.6L220.3 91.6L213.7 80.1L220.3 68.6L233.7 68.6Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.949" d="M246.0 145.9L236.5 162.4L217.5 162.4L208.0 145.9L217.5 129.5L236.5 129.5Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.949" d="M240.3 145.9L233.7 157.4L220.3 157.4L213.7 145.9L220.3 134.4L233.7 134.4Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.949" d="M103.5 228.2L94.0 244.6L75.0 244.6L65.5 228.2L75.0 211.7L94.0 211.7Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.949" d="M97.8 228.2L91.2 239.7L77.9 239.7L71.2 228.2L77.8 216.7L91.2 216.7Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/><path data-o="0.949" d="M160.5 228.2L151.0 244.6L132.0 244.6L122.5 228.2L132.0 211.7L151.0 211.7Z" stroke="#E9E3D9" stroke-width="1.25" pathLength="1"/><path data-o="0.949" d="M154.8 228.2L148.2 239.7L134.8 239.7L128.2 228.2L134.8 216.7L148.2 216.7Z" stroke="#E9E3D9" stroke-width="0.8" stroke-opacity="0.55" pathLength="1"/></g><circle class="m-rim" cx="113" cy="113" r="104" fill="none" stroke="#E9E3D9" stroke-width="1.3" pathLength="1"/></svg></figure></article>
+        <article class="pr" data-i="4"><p class="q">Siguranță juridică</p><figure class="pr-fig"><svg class="sym sym-x" viewBox="0 0 226 226" role="img" aria-label="Dinții de lup, motiv moldovenesc folosit ca chenar: dinți care încadrează mijlocul"><path class="cs-grid" d="M8 8V218M8 8H218M18 8V218M8 18H218M28 8V218M8 28H218M38 8V218M8 38H218M48 8V218M8 48H218M58 8V218M8 58H218M68 8V218M8 68H218M78 8V218M8 78H218M88 8V218M8 88H218M98 8V218M8 98H218M108 8V218M8 108H218M118 8V218M8 118H218M128 8V218M8 128H218M138 8V218M8 138H218M148 8V218M8 148H218M158 8V218M8 158H218M168 8V218M8 168H218M178 8V218M8 178H218M188 8V218M8 188H218M198 8V218M8 198H218M208 8V218M8 208H218M218 8V218M8 218H218" fill="none" stroke="#2F2C28" stroke-width=".6"/><g fill="none" stroke="#E9E3D9" stroke-width="2.1" stroke-linecap="round"><path data-o="0.000" d="M20.1 20.1L25.9 25.9M25.9 20.1L20.1 25.9"/><path data-o="0.005" d="M30.1 20.1L35.9 25.9M35.9 20.1L30.1 25.9"/><path data-o="0.009" d="M40.1 20.1L45.9 25.9M45.9 20.1L40.1 25.9"/><path data-o="0.014" d="M50.1 20.1L55.9 25.9M55.9 20.1L50.1 25.9"/><path data-o="0.019" d="M60.1 20.1L65.9 25.9M65.9 20.1L60.1 25.9"/><path data-o="0.024" d="M70.1 20.1L75.9 25.9M75.9 20.1L70.1 25.9"/><path data-o="0.028" d="M80.1 20.1L85.9 25.9M85.9 20.1L80.1 25.9"/><path data-o="0.033" d="M90.1 20.1L95.9 25.9M95.9 20.1L90.1 25.9"/><path data-o="0.038" d="M100.1 20.1L105.9 25.9M105.9 20.1L100.1 25.9"/><path data-o="0.042" d="M110.1 20.1L115.9 25.9M115.9 20.1L110.1 25.9"/><path data-o="0.047" d="M120.1 20.1L125.9 25.9M125.9 20.1L120.1 25.9"/><path data-o="0.052" d="M130.1 20.1L135.9 25.9M135.9 20.1L130.1 25.9"/><path data-o="0.057" d="M140.1 20.1L145.9 25.9M145.9 20.1L140.1 25.9"/><path data-o="0.061" d="M150.1 20.1L155.9 25.9M155.9 20.1L150.1 25.9"/><path data-o="0.066" d="M160.1 20.1L165.9 25.9M165.9 20.1L160.1 25.9"/><path data-o="0.071" d="M170.1 20.1L175.9 25.9M175.9 20.1L170.1 25.9"/><path data-o="0.075" d="M180.1 20.1L185.9 25.9M185.9 20.1L180.1 25.9"/><path data-o="0.080" d="M190.1 20.1L195.9 25.9M195.9 20.1L190.1 25.9"/><path data-o="0.085" d="M200.1 20.1L205.9 25.9M205.9 20.1L200.1 25.9"/><path data-o="0.090" d="M200.1 30.1L205.9 35.9M205.9 30.1L200.1 35.9"/><path data-o="0.094" d="M200.1 40.1L205.9 45.9M205.9 40.1L200.1 45.9"/><path data-o="0.099" d="M200.1 50.1L205.9 55.9M205.9 50.1L200.1 55.9"/><path data-o="0.104" d="M200.1 60.1L205.9 65.9M205.9 60.1L200.1 65.9"/><path data-o="0.108" d="M200.1 70.1L205.9 75.9M205.9 70.1L200.1 75.9"/><path data-o="0.113" d="M200.1 80.1L205.9 85.9M205.9 80.1L200.1 85.9"/><path data-o="0.118" d="M200.1 90.1L205.9 95.9M205.9 90.1L200.1 95.9"/><path data-o="0.123" d="M200.1 100.1L205.9 105.9M205.9 100.1L200.1 105.9"/><path data-o="0.127" d="M200.1 110.1L205.9 115.9M205.9 110.1L200.1 115.9"/><path data-o="0.132" d="M200.1 120.1L205.9 125.9M205.9 120.1L200.1 125.9"/><path data-o="0.137" d="M200.1 130.1L205.9 135.9M205.9 130.1L200.1 135.9"/><path data-o="0.142" d="M200.1 140.1L205.9 145.9M205.9 140.1L200.1 145.9"/><path data-o="0.146" d="M200.1 150.1L205.9 155.9M205.9 150.1L200.1 155.9"/><path data-o="0.151" d="M200.1 160.1L205.9 165.9M205.9 160.1L200.1 165.9"/><path data-o="0.156" d="M200.1 170.1L205.9 175.9M205.9 170.1L200.1 175.9"/><path data-o="0.160" d="M200.1 180.1L205.9 185.9M205.9 180.1L200.1 185.9"/><path data-o="0.165" d="M200.1 190.1L205.9 195.9M205.9 190.1L200.1 195.9"/><path data-o="0.170" d="M200.1 200.1L205.9 205.9M205.9 200.1L200.1 205.9"/><path data-o="0.175" d="M190.1 200.1L195.9 205.9M195.9 200.1L190.1 205.9"/><path data-o="0.179" d="M180.1 200.1L185.9 205.9M185.9 200.1L180.1 205.9"/><path data-o="0.184" d="M170.1 200.1L175.9 205.9M175.9 200.1L170.1 205.9"/><path data-o="0.189" d="M160.1 200.1L165.9 205.9M165.9 200.1L160.1 205.9"/><path data-o="0.193" d="M150.1 200.1L155.9 205.9M155.9 200.1L150.1 205.9"/><path data-o="0.198" d="M140.1 200.1L145.9 205.9M145.9 200.1L140.1 205.9"/><path data-o="0.203" d="M130.1 200.1L135.9 205.9M135.9 200.1L130.1 205.9"/><path data-o="0.208" d="M120.1 200.1L125.9 205.9M125.9 200.1L120.1 205.9"/><path data-o="0.212" d="M110.1 200.1L115.9 205.9M115.9 200.1L110.1 205.9"/><path data-o="0.217" d="M100.1 200.1L105.9 205.9M105.9 200.1L100.1 205.9"/><path data-o="0.222" d="M90.1 200.1L95.9 205.9M95.9 200.1L90.1 205.9"/><path data-o="0.226" d="M80.1 200.1L85.9 205.9M85.9 200.1L80.1 205.9"/><path data-o="0.231" d="M70.1 200.1L75.9 205.9M75.9 200.1L70.1 205.9"/><path data-o="0.236" d="M60.1 200.1L65.9 205.9M65.9 200.1L60.1 205.9"/><path data-o="0.241" d="M50.1 200.1L55.9 205.9M55.9 200.1L50.1 205.9"/><path data-o="0.245" d="M40.1 200.1L45.9 205.9M45.9 200.1L40.1 205.9"/><path data-o="0.250" d="M30.1 200.1L35.9 205.9M35.9 200.1L30.1 205.9"/><path data-o="0.255" d="M20.1 200.1L25.9 205.9M25.9 200.1L20.1 205.9"/><path data-o="0.259" d="M20.1 190.1L25.9 195.9M25.9 190.1L20.1 195.9"/><path data-o="0.264" d="M20.1 180.1L25.9 185.9M25.9 180.1L20.1 185.9"/><path data-o="0.269" d="M20.1 170.1L25.9 175.9M25.9 170.1L20.1 175.9"/><path data-o="0.274" d="M20.1 160.1L25.9 165.9M25.9 160.1L20.1 165.9"/><path data-o="0.278" d="M20.1 150.1L25.9 155.9M25.9 150.1L20.1 155.9"/><path data-o="0.283" d="M20.1 140.1L25.9 145.9M25.9 140.1L20.1 145.9"/><path data-o="0.288" d="M20.1 130.1L25.9 135.9M25.9 130.1L20.1 135.9"/><path data-o="0.292" d="M20.1 120.1L25.9 125.9M25.9 120.1L20.1 125.9"/><path data-o="0.297" d="M20.1 110.1L25.9 115.9M25.9 110.1L20.1 115.9"/><path data-o="0.302" d="M20.1 100.1L25.9 105.9M25.9 100.1L20.1 105.9"/><path data-o="0.307" d="M20.1 90.1L25.9 95.9M25.9 90.1L20.1 95.9"/><path data-o="0.311" d="M20.1 80.1L25.9 85.9M25.9 80.1L20.1 85.9"/><path data-o="0.316" d="M20.1 70.1L25.9 75.9M25.9 70.1L20.1 75.9"/><path data-o="0.321" d="M20.1 60.1L25.9 65.9M25.9 60.1L20.1 65.9"/><path data-o="0.325" d="M20.1 50.1L25.9 55.9M25.9 50.1L20.1 55.9"/><path data-o="0.330" d="M20.1 40.1L25.9 45.9M25.9 40.1L20.1 45.9"/><path data-o="0.335" d="M20.1 30.1L25.9 35.9M25.9 30.1L20.1 35.9"/></g><g fill="none" stroke="#C06B54" stroke-width="2.1" stroke-linecap="round"><path data-o="0.340" d="M40.1 30.1L45.9 35.9M45.9 30.1L40.1 35.9"/><path data-o="0.344" d="M50.1 30.1L55.9 35.9M55.9 30.1L50.1 35.9"/><path data-o="0.349" d="M60.1 30.1L65.9 35.9M65.9 30.1L60.1 35.9"/><path data-o="0.354" d="M70.1 30.1L75.9 35.9M75.9 30.1L70.1 35.9"/><path data-o="0.358" d="M80.1 30.1L85.9 35.9M85.9 30.1L80.1 35.9"/><path data-o="0.363" d="M90.1 30.1L95.9 35.9M95.9 30.1L90.1 35.9"/><path data-o="0.368" d="M100.1 30.1L105.9 35.9M105.9 30.1L100.1 35.9"/><path data-o="0.373" d="M50.1 40.1L55.9 45.9M55.9 40.1L50.1 45.9"/><path data-o="0.377" d="M60.1 40.1L65.9 45.9M65.9 40.1L60.1 45.9"/><path data-o="0.382" d="M70.1 40.1L75.9 45.9M75.9 40.1L70.1 45.9"/><path data-o="0.387" d="M80.1 40.1L85.9 45.9M85.9 40.1L80.1 45.9"/><path data-o="0.392" d="M90.1 40.1L95.9 45.9M95.9 40.1L90.1 45.9"/><path data-o="0.396" d="M60.1 50.1L65.9 55.9M65.9 50.1L60.1 55.9"/><path data-o="0.401" d="M70.1 50.1L75.9 55.9M75.9 50.1L70.1 55.9"/><path data-o="0.406" d="M80.1 50.1L85.9 55.9M85.9 50.1L80.1 55.9"/><path data-o="0.410" d="M70.1 60.1L75.9 65.9M75.9 60.1L70.1 65.9"/><path data-o="0.415" d="M120.1 30.1L125.9 35.9M125.9 30.1L120.1 35.9"/><path data-o="0.420" d="M130.1 30.1L135.9 35.9M135.9 30.1L130.1 35.9"/><path data-o="0.425" d="M140.1 30.1L145.9 35.9M145.9 30.1L140.1 35.9"/><path data-o="0.429" d="M150.1 30.1L155.9 35.9M155.9 30.1L150.1 35.9"/><path data-o="0.434" d="M160.1 30.1L165.9 35.9M165.9 30.1L160.1 35.9"/><path data-o="0.439" d="M170.1 30.1L175.9 35.9M175.9 30.1L170.1 35.9"/><path data-o="0.443" d="M180.1 30.1L185.9 35.9M185.9 30.1L180.1 35.9"/><path data-o="0.448" d="M130.1 40.1L135.9 45.9M135.9 40.1L130.1 45.9"/><path data-o="0.453" d="M140.1 40.1L145.9 45.9M145.9 40.1L140.1 45.9"/><path data-o="0.458" d="M150.1 40.1L155.9 45.9M155.9 40.1L150.1 45.9"/><path data-o="0.462" d="M160.1 40.1L165.9 45.9M165.9 40.1L160.1 45.9"/><path data-o="0.467" d="M170.1 40.1L175.9 45.9M175.9 40.1L170.1 45.9"/><path data-o="0.472" d="M140.1 50.1L145.9 55.9M145.9 50.1L140.1 55.9"/><path data-o="0.476" d="M150.1 50.1L155.9 55.9M155.9 50.1L150.1 55.9"/><path data-o="0.481" d="M160.1 50.1L165.9 55.9M165.9 50.1L160.1 55.9"/><path data-o="0.486" d="M150.1 60.1L155.9 65.9M155.9 60.1L150.1 65.9"/><path data-o="0.491" d="M190.1 40.1L195.9 45.9M195.9 40.1L190.1 45.9"/><path data-o="0.495" d="M190.1 50.1L195.9 55.9M195.9 50.1L190.1 55.9"/><path data-o="0.500" d="M190.1 60.1L195.9 65.9M195.9 60.1L190.1 65.9"/><path data-o="0.505" d="M190.1 70.1L195.9 75.9M195.9 70.1L190.1 75.9"/><path data-o="0.509" d="M190.1 80.1L195.9 85.9M195.9 80.1L190.1 85.9"/><path data-o="0.514" d="M190.1 90.1L195.9 95.9M195.9 90.1L190.1 95.9"/><path data-o="0.519" d="M190.1 100.1L195.9 105.9M195.9 100.1L190.1 105.9"/><path data-o="0.524" d="M180.1 50.1L185.9 55.9M185.9 50.1L180.1 55.9"/><path data-o="0.528" d="M180.1 60.1L185.9 65.9M185.9 60.1L180.1 65.9"/><path data-o="0.533" d="M180.1 70.1L185.9 75.9M185.9 70.1L180.1 75.9"/><path data-o="0.538" d="M180.1 80.1L185.9 85.9M185.9 80.1L180.1 85.9"/><path data-o="0.542" d="M180.1 90.1L185.9 95.9M185.9 90.1L180.1 95.9"/><path data-o="0.547" d="M170.1 60.1L175.9 65.9M175.9 60.1L170.1 65.9"/><path data-o="0.552" d="M170.1 70.1L175.9 75.9M175.9 70.1L170.1 75.9"/><path data-o="0.557" d="M170.1 80.1L175.9 85.9M175.9 80.1L170.1 85.9"/><path data-o="0.561" d="M160.1 70.1L165.9 75.9M165.9 70.1L160.1 75.9"/><path data-o="0.566" d="M190.1 120.1L195.9 125.9M195.9 120.1L190.1 125.9"/><path data-o="0.571" d="M190.1 130.1L195.9 135.9M195.9 130.1L190.1 135.9"/><path data-o="0.575" d="M190.1 140.1L195.9 145.9M195.9 140.1L190.1 145.9"/><path data-o="0.580" d="M190.1 150.1L195.9 155.9M195.9 150.1L190.1 155.9"/><path data-o="0.585" d="M190.1 160.1L195.9 165.9M195.9 160.1L190.1 165.9"/><path data-o="0.590" d="M190.1 170.1L195.9 175.9M195.9 170.1L190.1 175.9"/><path data-o="0.594" d="M190.1 180.1L195.9 185.9M195.9 180.1L190.1 185.9"/><path data-o="0.599" d="M180.1 130.1L185.9 135.9M185.9 130.1L180.1 135.9"/><path data-o="0.604" d="M180.1 140.1L185.9 145.9M185.9 140.1L180.1 145.9"/><path data-o="0.608" d="M180.1 150.1L185.9 155.9M185.9 150.1L180.1 155.9"/><path data-o="0.613" d="M180.1 160.1L185.9 165.9M185.9 160.1L180.1 165.9"/><path data-o="0.618" d="M180.1 170.1L185.9 175.9M185.9 170.1L180.1 175.9"/><path data-o="0.623" d="M170.1 140.1L175.9 145.9M175.9 140.1L170.1 145.9"/><path data-o="0.627" d="M170.1 150.1L175.9 155.9M175.9 150.1L170.1 155.9"/><path data-o="0.632" d="M170.1 160.1L175.9 165.9M175.9 160.1L170.1 165.9"/><path data-o="0.637" d="M160.1 150.1L165.9 155.9M165.9 150.1L160.1 155.9"/><path data-o="0.642" d="M180.1 190.1L185.9 195.9M185.9 190.1L180.1 195.9"/><path data-o="0.646" d="M170.1 190.1L175.9 195.9M175.9 190.1L170.1 195.9"/><path data-o="0.651" d="M160.1 190.1L165.9 195.9M165.9 190.1L160.1 195.9"/><path data-o="0.656" d="M150.1 190.1L155.9 195.9M155.9 190.1L150.1 195.9"/><path data-o="0.660" d="M140.1 190.1L145.9 195.9M145.9 190.1L140.1 195.9"/><path data-o="0.665" d="M130.1 190.1L135.9 195.9M135.9 190.1L130.1 195.9"/><path data-o="0.670" d="M120.1 190.1L125.9 195.9M125.9 190.1L120.1 195.9"/><path data-o="0.675" d="M170.1 180.1L175.9 185.9M175.9 180.1L170.1 185.9"/><path data-o="0.679" d="M160.1 180.1L165.9 185.9M165.9 180.1L160.1 185.9"/><path data-o="0.684" d="M150.1 180.1L155.9 185.9M155.9 180.1L150.1 185.9"/><path data-o="0.689" d="M140.1 180.1L145.9 185.9M145.9 180.1L140.1 185.9"/><path data-o="0.693" d="M130.1 180.1L135.9 185.9M135.9 180.1L130.1 185.9"/><path data-o="0.698" d="M160.1 170.1L165.9 175.9M165.9 170.1L160.1 175.9"/><path data-o="0.703" d="M150.1 170.1L155.9 175.9M155.9 170.1L150.1 175.9"/><path data-o="0.708" d="M140.1 170.1L145.9 175.9M145.9 170.1L140.1 175.9"/><path data-o="0.712" d="M150.1 160.1L155.9 165.9M155.9 160.1L150.1 165.9"/><path data-o="0.717" d="M100.1 190.1L105.9 195.9M105.9 190.1L100.1 195.9"/><path data-o="0.722" d="M90.1 190.1L95.9 195.9M95.9 190.1L90.1 195.9"/><path data-o="0.726" d="M80.1 190.1L85.9 195.9M85.9 190.1L80.1 195.9"/><path data-o="0.731" d="M70.1 190.1L75.9 195.9M75.9 190.1L70.1 195.9"/><path data-o="0.736" d="M60.1 190.1L65.9 195.9M65.9 190.1L60.1 195.9"/><path data-o="0.741" d="M50.1 190.1L55.9 195.9M55.9 190.1L50.1 195.9"/><path data-o="0.745" d="M40.1 190.1L45.9 195.9M45.9 190.1L40.1 195.9"/><path data-o="0.750" d="M90.1 180.1L95.9 185.9M95.9 180.1L90.1 185.9"/><path data-o="0.755" d="M80.1 180.1L85.9 185.9M85.9 180.1L80.1 185.9"/><path data-o="0.759" d="M70.1 180.1L75.9 185.9M75.9 180.1L70.1 185.9"/><path data-o="0.764" d="M60.1 180.1L65.9 185.9M65.9 180.1L60.1 185.9"/><path data-o="0.769" d="M50.1 180.1L55.9 185.9M55.9 180.1L50.1 185.9"/><path data-o="0.774" d="M80.1 170.1L85.9 175.9M85.9 170.1L80.1 175.9"/><path data-o="0.778" d="M70.1 170.1L75.9 175.9M75.9 170.1L70.1 175.9"/><path data-o="0.783" d="M60.1 170.1L65.9 175.9M65.9 170.1L60.1 175.9"/><path data-o="0.788" d="M70.1 160.1L75.9 165.9M75.9 160.1L70.1 165.9"/><path data-o="0.792" d="M30.1 180.1L35.9 185.9M35.9 180.1L30.1 185.9"/><path data-o="0.797" d="M30.1 170.1L35.9 175.9M35.9 170.1L30.1 175.9"/><path data-o="0.802" d="M30.1 160.1L35.9 165.9M35.9 160.1L30.1 165.9"/><path data-o="0.807" d="M30.1 150.1L35.9 155.9M35.9 150.1L30.1 155.9"/><path data-o="0.811" d="M30.1 140.1L35.9 145.9M35.9 140.1L30.1 145.9"/><path data-o="0.816" d="M30.1 130.1L35.9 135.9M35.9 130.1L30.1 135.9"/><path data-o="0.821" d="M30.1 120.1L35.9 125.9M35.9 120.1L30.1 125.9"/><path data-o="0.825" d="M40.1 170.1L45.9 175.9M45.9 170.1L40.1 175.9"/><path data-o="0.830" d="M40.1 160.1L45.9 165.9M45.9 160.1L40.1 165.9"/><path data-o="0.835" d="M40.1 150.1L45.9 155.9M45.9 150.1L40.1 155.9"/><path data-o="0.840" d="M40.1 140.1L45.9 145.9M45.9 140.1L40.1 145.9"/><path data-o="0.844" d="M40.1 130.1L45.9 135.9M45.9 130.1L40.1 135.9"/><path data-o="0.849" d="M50.1 160.1L55.9 165.9M55.9 160.1L50.1 165.9"/><path data-o="0.854" d="M50.1 150.1L55.9 155.9M55.9 150.1L50.1 155.9"/><path data-o="0.858" d="M50.1 140.1L55.9 145.9M55.9 140.1L50.1 145.9"/><path data-o="0.863" d="M60.1 150.1L65.9 155.9M65.9 150.1L60.1 155.9"/><path data-o="0.868" d="M30.1 100.1L35.9 105.9M35.9 100.1L30.1 105.9"/><path data-o="0.873" d="M30.1 90.1L35.9 95.9M35.9 90.1L30.1 95.9"/><path data-o="0.877" d="M30.1 80.1L35.9 85.9M35.9 80.1L30.1 85.9"/><path data-o="0.882" d="M30.1 70.1L35.9 75.9M35.9 70.1L30.1 75.9"/><path data-o="0.887" d="M30.1 60.1L35.9 65.9M35.9 60.1L30.1 65.9"/><path data-o="0.892" d="M30.1 50.1L35.9 55.9M35.9 50.1L30.1 55.9"/><path data-o="0.896" d="M30.1 40.1L35.9 45.9M35.9 40.1L30.1 45.9"/><path data-o="0.901" d="M40.1 90.1L45.9 95.9M45.9 90.1L40.1 95.9"/><path data-o="0.906" d="M40.1 80.1L45.9 85.9M45.9 80.1L40.1 85.9"/><path data-o="0.910" d="M40.1 70.1L45.9 75.9M45.9 70.1L40.1 75.9"/><path data-o="0.915" d="M40.1 60.1L45.9 65.9M45.9 60.1L40.1 65.9"/><path data-o="0.920" d="M40.1 50.1L45.9 55.9M45.9 50.1L40.1 55.9"/><path data-o="0.925" d="M50.1 80.1L55.9 85.9M55.9 80.1L50.1 85.9"/><path data-o="0.929" d="M50.1 70.1L55.9 75.9M55.9 70.1L50.1 75.9"/><path data-o="0.934" d="M50.1 60.1L55.9 65.9M55.9 60.1L50.1 65.9"/><path data-o="0.939" d="M60.1 70.1L65.9 75.9M65.9 70.1L60.1 75.9"/></g><g fill="none" stroke="#E9E3D9" stroke-width="2.1" stroke-linecap="round"><path data-o="0.943" d="M110.1 80.1L115.9 85.9M115.9 80.1L110.1 85.9"/><path data-o="0.948" d="M120.1 90.1L125.9 95.9M125.9 90.1L120.1 95.9"/><path data-o="0.953" d="M130.1 100.1L135.9 105.9M135.9 100.1L130.1 105.9"/><path data-o="0.958" d="M140.1 110.1L145.9 115.9M145.9 110.1L140.1 115.9"/><path data-o="0.962" d="M130.1 120.1L135.9 125.9M135.9 120.1L130.1 125.9"/><path data-o="0.967" d="M120.1 130.1L125.9 135.9M125.9 130.1L120.1 135.9"/><path data-o="0.972" d="M110.1 140.1L115.9 145.9M115.9 140.1L110.1 145.9"/><path data-o="0.976" d="M100.1 130.1L105.9 135.9M105.9 130.1L100.1 135.9"/><path data-o="0.981" d="M90.1 120.1L95.9 125.9M95.9 120.1L90.1 125.9"/><path data-o="0.986" d="M80.1 110.1L85.9 115.9M85.9 110.1L80.1 115.9"/><path data-o="0.991" d="M90.1 100.1L95.9 105.9M95.9 100.1L90.1 105.9"/><path data-o="0.995" d="M100.1 90.1L105.9 95.9M105.9 90.1L100.1 95.9"/></g><g fill="none" stroke="#C06B54" stroke-width="2.1" stroke-linecap="round"><path data-o="1.000" d="M110.1 110.1L115.9 115.9M115.9 110.1L110.1 115.9"/></g></svg></figure></article>
+      </div>
+    </div>
+    <p class="tun-cue">Derulați<i></i></p>
+  </div>
+</section>
+<!-- la maschera finale: la frase, ritagliata nel buio sopra la pagina chiara -->
+<div class="mk" id="mk" aria-hidden="true">
+  <div class="mk-l mk-mul"><p class="hl mk-t">Soluții software<br>simple, c<span class="mk-f">l</span>are,<br>făcute să dureze.</p></div>
+  <div class="mk-l mk-lit"></div>
+  <div class="mk-l mk-edge"><p class="hl mk-t">Soluții software<br>simple, clare,<br>făcute să dureze.</p></div>
+</div>
+
+<!-- ═══ 2 · la pagina chiara ═══ -->
+<div class="page-light" id="light">
+
+<!-- 1.0 · i principi: una frase ferma e tre figure al tratto -->
+<section class="lx-sec lx-first" id="principii">
+  <div class="wrap">
+    <p class="lx-cap"><b>1.0</b>Principii</p>
+    <h2 class="lx-stmt"><b>Regulile care decid ce construim.</b> Pentru fiecare problemă, cea mai simplă soluție care funcționează; explicată clar, în română și în rusă; făcută din același cod, cu versiuni, verificată la fiecare livrare.</h2>
+    <div class="lx-figs" id="figs">
+      <article class="lx-fig"><p class="n">Fig 0.1</p><svg class="iso" viewBox="0 0 260 180" aria-hidden="true"></svg><h3>Simple</h3><p>Pentru fiecare problemă căutăm cea mai simplă soluție care funcționează.</p></article>
+      <article class="lx-fig"><p class="n">Fig 0.2</p><svg class="iso" viewBox="0 0 260 180" aria-hidden="true"></svg><h3>Clare</h3><p>O explicăm clar, în română și în rusă, cu rang egal.</p></article>
+      <article class="lx-fig"><p class="n">Fig 0.3</p><svg class="iso" viewBox="0 0 260 180" aria-hidden="true"></svg><h3>Făcute să dureze</h3><p>Totul din același cod, cu versiuni, verificat la fiecare livrare.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- 2.0 · il motore comune: due finestre nere che si compongono entrando -->
+<section class="lx-sec" id="arhitectura">
+  <div class="wrap">
+    <p class="lx-cap"><b>2.0</b>Arhitectura</p>
+    <div class="lx-ch-h"><h2 class="lx-h2">Un motor<br>comun</h2><p class="lx-lead">Clienții, rolurile, versiunile, registrele, termenele și jurnalul sunt scrise o singură dată. Fiecare produs nou pornește de la ele.</p></div>
+  </div>
+  <div class="lx-stage" id="motor" style="--sh:520px">
+    <div class="lx-canvas lx-story" data-story><div class="lx-ghost g-next" data-s="17" data-k="up"><p class="k">Următorul produs</p><p class="t">Pe același motor.</p><div class="gc" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="lx-win w-eng" data-mx="30%" role="img" aria-label="Motorul comun: clienți, roluri, versiuni, registre, termene, jurnal"><div class="lx-glow"></div><div class="lx-bar"><svg viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7.5" fill="#9C4A38"/><path d="M9.3 7.6v12.8M18.7 7.6v12.8M9.3 14.6h9.4" fill="none" stroke="#FBFAF8" stroke-width="2.8" stroke-linecap="round"/></svg><span class="t">motor</span><span>comun · 6 module</span><span class="r" aria-hidden="true"><i></i><i></i><i></i></span></div><div class="lx-mods"><div class="lx-mod" data-s="1"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 14V3.5h7V14M10 7h3v7M5.2 6h2.6M5.2 8.6h2.6M5.2 11.2h2.6M2 14h12"/></svg><b>Clienți</b><span>datele fiecărui client, izolate</span></div><div class="lx-mod" data-s="2"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 2.5h9v11h-9zM6 10.5h4M6.5 5h3v3h-3z"/></svg><b>Roluri</b><span>cine vede, cine modifică</span></div><div class="lx-mod" data-s="3"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2l6 3-6 3-6-3zM2 8l6 3 6-3M2 11l6 3 6-3"/></svg><b>Versiuni</b><span>emise o dată, neschimbate</span></div><div class="lx-mod" data-s="4"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 2.5h11v11h-11zM2.5 6h11M2.5 9.7h11M6.5 2.5v11"/></svg><b>Registre</b><span>evidențe ținute la zi</span></div><div class="lx-mod" data-s="5"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 4h11v9.5h-11zM2.5 7h11M5.5 2.5v3M10.5 2.5v3"/></svg><b>Termene</b><span>alerte înainte de scadență</span></div><div class="lx-mod" data-s="6"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 5.5h4a2.5 2.5 0 0 1 0 5h-4a2.5 2.5 0 0 1 0-5zM8.5 5.5h4a2.5 2.5 0 0 1 0 5h-4"/></svg><b>Jurnal</b><span>lanț de hash, cu marcaje de timp</span></div></div><p class="lx-foot" data-s="7">Scris o singură dată · folosit de fiecare produs</p><div class="lx-shine"></div></div><div class="lx-win w-pb" data-s="8" data-k="up" data-mx="70%" role="img" aria-label="PrivacyBox folosește cele șase module ale motorului"><div class="lx-glow"></div><div class="lx-bar"><span class="t">PrivacyBox</span><span>folosește motorul</span><span class="r" aria-hidden="true"><i></i><i></i><i></i></span></div><div class="lx-pb"><p class="lx-k">Din motor</p><div class="lx-chips"><div class="lx-chip" data-s="10"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3l6-7"/></svg>Clienți</div><div class="lx-chip" data-s="11"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3l6-7"/></svg>Roluri</div><div class="lx-chip" data-s="12"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3l6-7"/></svg>Versiuni</div><div class="lx-chip" data-s="13"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3l6-7"/></svg>Registre</div><div class="lx-chip" data-s="14"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3l6-7"/></svg>Termene</div><div class="lx-chip" data-s="15"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3l6-7"/></svg>Jurnal</div></div><p class="lx-k" style="margin-top:24px">Specific produsului</p><div class="lx-spec" data-s="16"><i></i>Protecția datelor · Legea nr. 195/2024</div></div><div class="lx-shine"></div></div></div>
+  </div>
+</section>
+
+<!-- (la sezione «Produse» con la console di PrivacyBox è passata nella pagina privacybox.html, menu «Software») -->
+
+<!-- 3.0 · la sicurezza: il jurnal e la livrare, poi le quattro garanzie -->
+<section class="lx-sec" id="securitate">
+  <div class="wrap">
+    <p class="lx-cap"><b>3.0</b>Securitate</p>
+    <div class="lx-ch-h"><h2 class="lx-h2">Dovada,<br>înaintea promisiunii.</h2><p class="lx-lead">Produsul trebuie să reziste în fața unui inspector, nu doar a unui utilizator.</p></div>
+  </div>
+  <div class="lx-stage" id="sec" style="--sh:470px">
+    <div class="lx-canvas lx-story" data-story><div class="lx-win w-jr" data-mx="28%" role="img" aria-label="Jurnal de evenimente: fiecare rând poartă hash-ul rândului precedent"><div class="lx-glow"></div><div class="lx-bar"><span class="t">Jurnal de evenimente</span><span>lanț de hash · date fictive</span><span class="r" aria-hidden="true"><i></i><i></i><i></i></span></div><div class="lx-jr h"><span>Ora</span><span>Eveniment</span><span>Precedent</span><span>Hash</span></div><div class="lx-jr" data-s="1"><time>09:12</time><span>Registru actualizat · Client A</span><code class="p">2b90·1f</code><code class="x">7c1e·a4</code></div><div class="lx-jr" data-s="3"><time>09:14</time><span>Document emis · versiunea 3</span><code class="p">7c1e·a4</code><code class="x">a91f·0c</code></div><div class="lx-jr" data-s="5"><time>09:20</time><span>Rol schimbat · contabil → cititor</span><code class="p">a91f·0c</code><code class="x">3d42·e8</code></div><div class="lx-jr" data-s="7"><time>09:31</time><span>Termen respectat · cerere de acces</span><code class="p">3d42·e8</code><code class="x">f06b·57</code></div><div class="lx-jr" data-s="9"><time>09:40</time><span>Copie exportată · PDF/A</span><code class="p">f06b·57</code><code class="x">81c3·d9</code></div><svg class="lx-chain" width="780" height="390" viewBox="0 0 780 390" aria-hidden="true"><path pathLength="1" data-s="2" data-k="draw" d="M670 120L630 160"/><path pathLength="1" data-s="4" data-k="draw" d="M670 176L630 216"/><path pathLength="1" data-s="6" data-k="draw" d="M670 232L630 272"/><path pathLength="1" data-s="8" data-k="draw" d="M670 288L630 328"/></svg><div class="lx-shine"></div></div><div class="lx-win w-rel" data-s="10" data-k="up" data-mx="72%" role="img" aria-label="O livrare: aceleași verificări de fiecare dată"><div class="lx-glow"></div><div class="lx-bar"><span class="t">Livrare</span><span>versiunea 1.4 · date fictive</span><span class="r" aria-hidden="true"><i></i><i></i><i></i></span></div><div class="lx-chks"><div class="lx-chk" data-s="11"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3l6-7"/></svg><b>Teste automate</b><span>trec</span></div><div class="lx-chk" data-s="12"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3l6-7"/></svg><b>Datele fiecărui client</b><span>izolate</span></div><div class="lx-chk" data-s="13"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3l6-7"/></svg><b>Jurnalul de evenimente</b><span>lanț intact</span></div><div class="lx-chk" data-s="14"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3l6-7"/></svg><b>Versiunea emisă</b><span>nu se mai schimbă</span></div></div><p class="lx-rel-f" data-s="15">Fiecare livrare, aceleași verificări.</p><div class="lx-shine"></div></div></div>
+  </div>
+  <div class="wrap"><div class="lx-g4" id="grid4"><div class="cell"><svg viewBox="0 0 44 44" aria-hidden="true"><rect x="5" y="5" width="34" height="34" rx="7" pathLength="1"/><path class="hi" d="M14 22.5l5.5 5.5L31 16.5" pathLength="1"/></svg><h3>Teste la fiecare livrare</h3><p>Versiuni care, odată emise, nu se mai schimbă.</p></div><div class="cell"><svg viewBox="0 0 44 44" aria-hidden="true"><rect x="3" y="12" width="10" height="20" rx="2.5" pathLength="1"/><rect x="17" y="12" width="10" height="20" rx="2.5" pathLength="1"/><rect class="hi" x="31" y="12" width="10" height="20" rx="2.5" pathLength="1"/></svg><h3>Datele fiecărui client, izolate</h3><p>Găzduite în Spațiul Economic European, criptate, cât mai puține.</p></div><div class="cell"><svg viewBox="0 0 44 44" aria-hidden="true"><rect x="2" y="17" width="14" height="10" rx="5" pathLength="1"/><rect x="15" y="17" width="14" height="10" rx="5" pathLength="1"/><rect class="hi" x="28" y="17" width="14" height="10" rx="5" pathLength="1"/></svg><h3>Rezultate verificabile de oricine</h3><p>Un jurnal de evenimente legat printr-un lanț de hash, cu marcaje de timp.</p></div><div class="cell"><svg viewBox="0 0 44 44" aria-hidden="true"><rect x="6" y="6" width="32" height="32" rx="7" pathLength="1"/><path class="hi" d="M11.5 32.5l21-21" pathLength="1"/></svg><h3>Acest site, ca exemplu</h3><p>Niciun tracker, niciun cookie inutil, deci niciun banner.</p></div></div></div>
+</section>
+
+<!-- 4.0 · chi siamo -->
+<section class="lx-sec" id="despre">
+  <div class="wrap">
+    <p class="lx-cap"><b>4.0</b>Despre noi</p>
+    <h2 class="lx-stmt"><b>Un producător de software din Republica Moldova.</b> Transformăm obligații legale care se repetă în procese digitale ghidate, în română și în rusă, și le distribuim prin profesioniștii care consiliază deja companiile mici.</h2>
+    <div class="lx-about">
+      <div class="lx-box yes"><h3>Ce suntem</h3><ul><li>Producător de software de produs.</li><li>Un produs care se vinde de multe ori, nu ore care se vând o dată.</li><li>Vândut prin contabili, avocați și consultanți, sub marca lor.</li></ul></div>
+      <div class="lx-box no"><h3>Ce nu suntem</h3><ul><li>Nu suntem o agenție de dezvoltare la comandă.</li><li>Nu vindem ore de consultanță.</li><li>Nu revindem software-ul altcuiva: motorul este scris aici.</li></ul></div>
+    </div>
+    <div class="lx-name"><div><h3>De unde vine numele</h3><p>Hinotech vine de la hinoki, chiparosul japonez din care se construiesc templele. Stâlpul central al pagodei Hōryū-ji, din hinoki, a fost tăiat în anul 594; pagoda stă și azi în picioare.</p></div><p class="pl">Coteala, raionul Briceni<br>Republica Moldova</p></div>
+  </div>
+</section>
+
+<!-- il contatto, come la chiusa di linear.app: due righe e due bottoni -->
+<section class="lx-close" id="contact">
+  <div class="wrap">
+    <p class="lx-cap">Contact</p>
+    <h2>Software făcut să dureze.<br>Scrieți-ne.</h2>
+    <p>Pentru parteneri, instituții, investitori și viitori colegi.</p>
+    <div class="lx-ctas"><a class="btn btn-d" href="mailto:contact@hinotech.md">Scrieți-ne <span>→</span></a><a class="btn btn-g" href="mailto:contact@hinotech.md">contact@hinotech.md</a></div>
+  </div>
+</section>
+
+<footer class="ft lx-ft">
+  <div class="wrap">
+    <div class="lx-ft-in">
+      <div class="lx-ft-b"><a class="brand" href="#top"><svg class="mark" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7.5" fill="#9C4A38"/><path d="M9.3 7.6v12.8M18.7 7.6v12.8M9.3 14.6h9.4" fill="none" stroke="#FBFAF8" stroke-width="2.8" stroke-linecap="round"/></svg><span>Hinotech Software</span></a><p>Soluții software simple, clare, făcute să dureze.</p></div>
+      <nav class="lx-ft-c" aria-label="Software"><h4>Software</h4><a href="privacybox.html">PrivacyBox</a></nav>
+      <nav class="lx-ft-c" aria-label="Companie"><h4>Companie</h4><a href="#despre">Despre noi</a><a href="#principii">Principii</a><a href="#contact">Carieră</a></nav>
+      <nav class="lx-ft-c" aria-label="Securitate"><h4>Securitate</h4><a href="#securitate">Securitate</a><span class="soon">Confidențialitate</span><span class="soon">Cookie-uri</span></nav>
+      <div class="lx-ft-c"><h4>Contact</h4><a href="mailto:contact@hinotech.md">contact@hinotech.md</a><span>Coteala, raionul Briceni</span><span>Republica Moldova</span></div>
+    </div>
+    <div class="lx-ft-bot"><span>© 2026 Hinotech Software</span><span><b>RO</b> / RU</span></div>
+  </div>
+</footer>
+</div>
+</main>
+
+<script>
+(() => {
+const Q = new URLSearchParams(location.search);
+const STILL = Q.has('still');
+const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FINE = matchMedia('(pointer: fine)').matches;
+const root = document.documentElement;
+root.classList.add('js');
+if (REDUCE) root.classList.add('rm');
+const clamp01 = x => Math.min(1, Math.max(0, x));
+const win = (p, a, b) => clamp01((p - a) / (b - a));
+const sm = x => { const t = clamp01(x); return t * t * (3 - 2 * t); };
+const lerp = (a, b, t) => a + (b - a) * t;
+const easeIO = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+const easeOut = t => 1 - Math.pow(1 - clamp01(t), 3);
+const fade = (p, a, b, c, d) => win(p, a, b) * (1 - win(p, c, d));
+const keys = (t, xs, ys) => { if (t <= xs[0]) return ys[0]; for (let i = 1; i < xs.length; i++) if (t <= xs[i]) return lerp(ys[i - 1], ys[i], (t - xs[i - 1]) / (xs[i] - xs[i - 1])); return ys[ys.length - 1]; };
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const isPhone = () => innerWidth <= 720;
+
+/* ── motore comune: lo scroll resta del browser; ogni parte lo segue con un piccolo ritardo
+   e si ridisegna solo quando cambia (nessun ciclo a vuoto) ── */
+const parts = [];
+let raf = 0, last = 0;
+function part(o) { Object.assign(o, { p: 0, target: 0, dirty: true, visible: true }); parts.push(o); return o; }
+function progressOf(o) {
+  const r = o.el.getBoundingClientRect(), vh = innerHeight;
+  if (o.mode === 'pin') { const tot = r.height - vh * (o.cover ? 2 : 1); return tot > 0 ? clamp01(-r.top / tot) : 0; }
+  const a = o.a ?? 0.92, b = o.b ?? 0.38;
+  return clamp01((vh * a - r.top) / (vh * (a - b)));
+}
+function measure() {
+  for (const o of parts) {
+    const f = Q.get(o.key);
+    o.target = (f != null && f !== '') ? (o.prog ? +f : clamp01(+f)) : REDUCE ? (o.rm ?? 1) : o.prog ? o.prog() : progressOf(o);
+    if (o.prog && Math.abs(o.target - o.p) > 3) { o.p = o.target; o.dirty = true; }   /* un salto (menu, Fine): niente corsa nel tunnel */
+  }
+  kick();
+}
+function kick() { if (!raf) raf = requestAnimationFrame(tick); }
+function tick(now) {
+  raf = 0;
+  const dt = last ? Math.min(0.05, (now - last) / 1000) : 1 / 60;
+  last = now;
+  let again = false;
+  for (const o of parts) {
+    const d = o.target - o.p;
+    if (Math.abs(d) > 1e-4) { o.p += d * (STILL || REDUCE ? 1 : 1 - Math.exp(-dt * (o.k || 7))); o.dirty = true; again = true; }
+    else if (o.p !== o.target) { o.p = o.target; o.dirty = true; }
+    if (o.step && o.step(dt)) { o.dirty = true; again = true; }
+    if (o.dirty && o.visible) { o.dirty = false; o.render(o.p); }
+  }
+  if (again) kick(); else last = 0;
+}
+const io = new IntersectionObserver(es => { for (const e of es) for (const o of parts) if (o.el === e.target) { o.visible = e.isIntersecting; if (o.visible) { o.dirty = true; kick(); } } }, { rootMargin: '30% 0px' });
+addEventListener('scroll', measure, { passive: true });
+addEventListener('resize', () => { for (const o of parts) if (o.resize) o.resize(); for (const o of parts) o.dirty = true; measure(); });
+
+/* ═════════════ menu: chiaro sul tunnel, scuro sulla pagina chiara ═════════════ */
+const nav = $('#nav'), light = $('#light');
+let maskDark = false;
+const onNav = () => {
+  const lt = light.getBoundingClientRect().top;
+  const onLight = lt <= 64 && $('.ft').getBoundingClientRect().top > 64 && !maskDark;
+  nav.classList.toggle('on-light', onLight);
+  nav.classList.toggle('on-dark', !onLight && scrollY > 8);
+};
+addEventListener('scroll', onNav, { passive: true }); addEventListener('resize', onNav); onNav();
+const spy = new IntersectionObserver(es => {
+  for (const e of es) if (e.isIntersecting) $$('.links>a').forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id));
+}, { rootMargin: '-45% 0px -50% 0px' });
+['principii', 'arhitectura', 'securitate', 'despre'].forEach(id => spy.observe(document.getElementById(id)));
+/* «Software»: si apre e si chiude al clic; Esc, un clic fuori o lo scroll in giù lo chiudono */
+const swB = $('.sw-b'), swP = $('#sw-p');
+let swT = 0;
+const swOpen = () => swB.getAttribute('aria-expanded') === 'true';
+const setSw = on => {
+  if (on === swOpen()) return;
+  swB.setAttribute('aria-expanded', on);
+  clearTimeout(swT);
+  if (on) { swP.hidden = false; requestAnimationFrame(() => requestAnimationFrame(() => swP.classList.add('open'))); }
+  else { swP.classList.remove('open'); swT = setTimeout(() => { swP.hidden = true; }, REDUCE ? 0 : 240); }
+};
+swB.addEventListener('click', () => setSw(!swOpen()));
+document.addEventListener('click', e => { if (!e.target.closest('.sw')) setSw(false); });
+$('.sw').addEventListener('focusout', e => { if (!e.relatedTarget || !e.relatedTarget.closest('.sw')) setSw(false); });
+/* il menu del telefono, con la stessa tendina «Software» */
+const menu = $('#menu'), mb = $('.menu-b'), msB = $('.menu-sw'), msP = $('#menu-sw-p');
+msB.addEventListener('click', () => { const on = msB.getAttribute('aria-expanded') !== 'true'; msB.setAttribute('aria-expanded', on); msP.hidden = !on; });
+const setMenu = on => {
+  menu.hidden = !on; mb.setAttribute('aria-expanded', on); document.body.style.overflow = on ? 'hidden' : '';
+  if (on) msB.focus(); else { msB.setAttribute('aria-expanded', 'false'); msP.hidden = true; }
+};
+mb.addEventListener('click', () => setMenu(true));
+$('.menu-x').addEventListener('click', () => setMenu(false));
+$$('a', menu).forEach(a => a.addEventListener('click', () => setMenu(false)));
+addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  if (swOpen()) { setSw(false); swB.focus(); }
+  else if (!menu.hidden) { setMenu(false); mb.focus(); }
+});
+/* il menu con il logo sparisce appena si comincia a scorrere in giù e ricompare solo scorrendo in su
+   (o in cima alla pagina, o quando ci si arriva con la tastiera); la tendina si chiude con lui */
+let lastY = Math.max(0, scrollY);
+addEventListener('scroll', () => {
+  const y = Math.max(0, scrollY), dy = y - lastY;
+  lastY = y;
+  if (!menu.hidden) return;
+  if (y <= 4 || dy < 0) nav.classList.toggle('up', false);
+  else if (dy > 0) { nav.classList.toggle('up', true); setSw(false); }
+}, { passive: true });
+nav.addEventListener('focusin', () => nav.classList.toggle('up', false));
+
+/* ═════════════ 1 · il tunnel ═════════════
+   s = quanti schermi si sono scorsi dentro il tunnel (con il piccolo ritardo di tutto il resto).
+   0 → 0,45   il titolo perde riga, frase e bottoni e si stringe al centro: è il nocciolo;
+   0,45 → 6,7 i cinque principi, uno ogni 1,2 schermi, in senso orario attorno alla frase: ognuno arriva dal
+              fondo, si ferma, si accende parola per parola; poi il simbolo, che si cuce o si disegna
+              (questa parte va a tempo, così il simbolo si completa anche se ci si ferma a leggere);
+   6,75 → 7,35 i cinque simboli tornano piccoli attorno alla frase, che torna grande, ed entrano in lei;
+   7,35       la frase passa alla maschera (tre strati fissi con le stesse righe): dentro le lettere c'è carta;
+   7,6 → 8,6  sotto sale la pagina chiara e la si vede nelle lettere;
+   7,7 → 8,95 si entra nella «l» di «clare», finché la pagina riempie lo schermo.
+   Tutto torna indietro scorrendo all'insù. Niente scorre da solo. */
+{
+  const el = $('.tunnel'), pin = $('#tun-pin'), title = $('#tun-title'), hw = $('#tun-h');
+  const fades = $$('.tun-title .tf');
+  const mk = $('#mk'), mkT = $$('#mk .mk-t'), mkEdge = $('#mk .mk-edge'), mkF = $('#mk .mk-f');
+  const S0 = 0.45, SP = 1.2, DUR = 1.45, R0 = 6.75, R1 = 7.35, M0 = 7.35, Z0 = 7.55, Z1 = 8.6;
+  const RING = [40, 140, -140, -40, 90].map(a => a * Math.PI / 180);   /* ognuno dalla parte in cui si era cucito */
+  const pairs = $$('.pr', el).map((n, i) => {
+    const q = $('.q', n);
+    q.innerHTML = q.textContent.trim().split(/\s+/).map(w => `<span>${w}</span>`).join(' ');
+    const fig = $('.pr-fig', n), sv = $('svg', fig);
+    const P = { n, i, q, words: $$('span', q), fig,
+      rv: 0, rvT: 0, drawn: -1, size: 200, sc: [0, 0] };
+    if (sv.classList.contains('sym-x')) {
+      P.kind = 'x'; P.grid = $('.cs-grid', sv);
+      P.st = $$('[data-o]', sv).map(e => [e, +e.dataset.o]);
+    } else {
+      P.kind = sv.classList.contains('sym-shippo') ? 'sh' : 'kk';
+      P.disc = $('.m-disc', sv); P.rim = $('.m-rim', sv);
+      P.el = $$('[data-o]', sv).map(e => ({ e, o: +e.dataset.o, hi: e.getAttribute('stroke') === '#C06B54', core: e.classList.contains('k-core'),
+        c: e.tagName === 'circle' ? [+e.getAttribute('cx') - 113, +e.getAttribute('cy') - 113] : null }));
+    }
+    return P;
+  });
+  const geo = { W: 1, H: 1, tw: 1, th: 1, hc: 0, hh: 1, kmax: 200 };
+  function layout() {
+    geo.W = innerWidth; geo.H = innerHeight;
+    geo.tw = title.offsetWidth; geo.th = title.offsetHeight;
+    geo.hc = hw.offsetTop + hw.offsetHeight / 2; geo.hh = hw.offsetHeight;
+    /* il punto da cui si entra: il centro dell'asta della «l», misurato sul carattere vero */
+    if (REDUCE) return;
+    layoutPairs();
+    mk.classList.add('measure');
+    mkT.forEach(t => { t.style.transform = 'none'; });
+    const t0 = mkT[0].getBoundingClientRect(), f = mkF.getBoundingClientRect();
+    const fs = parseFloat(getComputedStyle(mkT[0]).fontSize);
+    const g = document.createElement('canvas').getContext('2d');
+    g.font = `650 ${fs}px Inter`;
+    const m = g.measureText('l'), inkL = -m.actualBoundingBoxLeft, inkR = m.actualBoundingBoxRight;
+    const stemW = Math.max(2, inkR - inkL);
+    const fx = f.left - t0.left + (inkL + inkR) / 2, fy = f.top - t0.top + f.height / 2;
+    mkT.forEach(t => { t.style.transformOrigin = `${fx.toFixed(2)}px ${fy.toFixed(2)}px`; });
+    const fxs = t0.left + fx, fys = t0.top + fy;   /* dove sta la «l» sullo schermo */
+    geo.kmax = 1.15 * Math.max(2 * Math.max(fxs, geo.W - fxs) / stemW, 2 * Math.max(fys, geo.H - fys) / (fs * 0.62));
+    mk.classList.remove('measure');
+  }
+  const mob = () => geo.W < 720;
+  const coreS = () => (mob() ? 0.62 : 0.58);
+  /* le composizioni: il nome in un angolo, il simbolo nell'angolo opposto, mai sulla stessa riga; ogni principio ha
+     la sua diagonale (↘ ↙ ↖ ↗, poi la verticale). Nome: [x, y, allineamento, ancorato in basso]; simbolo: [x, y] del
+     centro; tutto in frazioni dello schermo. */
+  const COMP = {
+    d: [{ n: [0.085, 0.16, 'l', 0], s: [0.733, 0.70] }, { n: [0.915, 0.17, 'r', 0], s: [0.265, 0.69] },
+        { n: [0.915, 0.86, 'r', 1], s: [0.25, 0.30] }, { n: [0.085, 0.86, 'l', 1], s: [0.745, 0.31] },
+        { n: [0.5, 0.15, 'c', 0], s: [0.5, 0.76] }],
+    m: [{ n: [0.06, 0.15, 'l', 0], s: [0.66, 0.73] }, { n: [0.94, 0.15, 'r', 0], s: [0.34, 0.73] },
+        { n: [0.94, 0.86, 'r', 1], s: [0.34, 0.27] }, { n: [0.06, 0.86, 'l', 1], s: [0.66, 0.27] },
+        { n: [0.5, 0.14, 'c', 0], s: [0.5, 0.74] }]
+  };
+  const f1 = v => v.toFixed(1);
+  function layoutPairs() {
+    const W = geo.W, H = geo.H, mo = mob();
+    const k = mo ? 1 : Math.min(1, Math.max(0.62, Math.min(H / 900, W / 1440)));
+    const fs = mo ? 24 : 34 * k, nw = mo ? Math.min(240, W * 0.62) : 330 * k, size = mo ? 130 : 220 * k;
+    for (const P of pairs) {
+      const C = COMP[mo ? 'm' : 'd'][P.i], n = P.n, q = P.q;
+      n.style.width = W + 'px'; n.style.height = H + 'px'; n.style.transform = 'none';
+      q.style.fontSize = fs.toFixed(1) + 'px'; q.style.width = nw.toFixed(0) + 'px';
+      q.style.textAlign = C.n[2] === 'r' ? 'right' : C.n[2] === 'c' ? 'center' : 'left';
+      const qh = q.offsetHeight;
+      q.style.left = f1(C.n[2] === 'l' ? C.n[0] * W : C.n[2] === 'r' ? C.n[0] * W - nw : C.n[0] * W - nw / 2) + 'px';
+      q.style.top = f1(C.n[3] ? C.n[1] * H - qh : C.n[1] * H) + 'px';
+      P.size = size; P.sc = [C.s[0] * W, C.s[1] * H];
+      P.fig.style.width = f1(size) + 'px'; P.fig.style.left = f1(P.sc[0] - size / 2) + 'px'; P.fig.style.top = f1(P.sc[1] - size / 2) + 'px';
+    }
+  }
+  /* il cammino in profondità: arriva rallentando, resta, poi passa accanto accelerando; la velocità non salta */
+  const depth = (t, farZ, nearZ) => t < 0.3 ? farZ * (1 - easeOut(t / 0.3))
+    : t < 0.8 ? 40 * sm((t - 0.3) / 0.5)
+    : 40 + (nearZ - 40) * Math.pow((t - 0.8) / 0.2, 2.2);
+  /* la comparsa di un principio, da 0 a 1 in due secondi: il nome parola per parola, poi il simbolo */
+  function draw(P) {
+    const rv = P.rv;
+    if (Math.abs(rv - P.drawn) < 1e-4) return;
+    P.drawn = rv;
+    const pw = clamp01(rv / 0.3), ps = clamp01((rv - 0.28) / 0.64);
+    const nw = P.words.length;
+    P.words.forEach((w, i) => { w.style.opacity = (0.12 + 0.88 * clamp01((pw - (i / nw) * 0.6) / 0.4)).toFixed(3); });
+    if (P.kind === 'x') {                      /* punto croce: un punto dopo l'altro, come l'ago */
+      P.grid.style.opacity = clamp01(ps / 0.15).toFixed(3);
+      for (const [e, o] of P.st) e.style.opacity = clamp01((ps - 0.08 - o * 0.84) / 0.06).toFixed(3);
+      return;
+    }
+    P.disc.style.opacity = clamp01(ps / 0.15).toFixed(3);
+    const r = clamp01(ps / 0.35);
+    P.rim.style.strokeDasharray = r >= 0.999 ? 'none' : `${r.toFixed(3)} 1`;
+    P.rim.style.opacity = r > 0 ? '1' : '0';
+    for (const x of P.el) {
+      if (P.kind === 'sh') {                   /* shippō: i cerchi arrivano sparsi e si incastrano */
+        const b = x.hi ? 0.55 + x.o * 0.12 : 0.1 + x.o * 0.45;
+        const e = easeOut(clamp01((ps - b) / 0.3)), k = (1 - e) * 0.6;
+        x.e.setAttribute('transform', k > 0.002 ? `translate(${(x.c[0] * k).toFixed(1)} ${(x.c[1] * k).toFixed(1)})` : '');
+        x.e.style.opacity = e.toFixed(3);
+      } else if (x.core) {                     /* kikkō: per ultima la cella ruggine */
+        x.e.style.opacity = clamp01((ps - 0.8) / 0.18).toFixed(3);
+      } else {                                 /* kikkō: le celle si chiudono dal bordo verso il centro */
+        const b = x.hi ? 0.72 : 0.1 + (1 - x.o) * 0.55;
+        const e = clamp01((ps - b) / 0.22);
+        x.e.style.strokeDasharray = e >= 0.999 ? 'none' : `${e.toFixed(3)} 1`;
+        x.e.style.opacity = e > 0 ? '1' : '0';
+      }
+    }
+  }
+  /* la frase della sezione 1.0: ogni parola parte chiarissima e diventa scura mentre si scorre */
+  const stmt = $('#principii .lx-stmt'), SW = [];
+  for (const node of [...stmt.childNodes]) {
+    const b = node.nodeType === 1, frag = document.createDocumentFragment();
+    node.textContent.split(/(\s+)/).forEach(tok => {
+      if (!tok) return;
+      if (/^\s+$/.test(tok)) { frag.appendChild(document.createTextNode(tok)); return; }
+      const sp = document.createElement('span'); sp.textContent = tok; frag.appendChild(sp); SW.push([sp, b]);
+    });
+    node.replaceWith(frag);
+  }
+  const ST0 = [229, 223, 213], STB = [20, 19, 17], STR = [43, 42, 40];
+  let stmtP = -1;
+  function paintStmt(p) {
+    const n = SW.length;
+    SW.forEach(([sp, b], i) => {
+      const d = sm(clamp01((p - (i / n) * 0.75) / 0.25)), F = b ? STB : STR;
+      sp.style.color = `rgb(${Math.round(lerp(ST0[0], F[0], d))},${Math.round(lerp(ST0[1], F[1], d))},${Math.round(lerp(ST0[2], F[2], d))})`;
+    });
+  }
+  if (REDUCE) paintStmt(1);
+  const mT = [0, 0], m = [0, 0];
+  if (FINE && !REDUCE) addEventListener('pointermove', e => { mT[0] = (e.clientX / innerWidth - 0.5) * 2; mT[1] = (e.clientY / innerHeight - 0.5) * 2; kick(); }, { passive: true });
+  part({
+    el, key: 'tun', k: 5, prog: () => -el.getBoundingClientRect().top / innerHeight, resize: layout,
+    step(dt) {
+      let moved = false;
+      for (const P of pairs) {
+        if (P.rv === P.rvT) continue;
+        if (STILL || REDUCE) P.rv = P.rvT;
+        else if (P.rvT > P.rv) P.rv = Math.min(P.rvT, P.rv + dt / 2.0);
+        else P.rv = Math.max(P.rvT, P.rv - dt / 0.55);
+        moved = true;
+      }
+      const dx = mT[0] - m[0], dy = mT[1] - m[1];
+      if (dx * dx + dy * dy > 1e-6) { m[0] += dx * (1 - Math.exp(-dt * 3.2)); m[1] += dy * (1 - Math.exp(-dt * 3.2)); moved = true; }
+      return moved;
+    },
+    render(s) {
+      if (REDUCE) { for (const P of pairs) { P.rv = 1; draw(P); } return; }
+      this.k = s > 6.4 ? 9 : 5;   /* verso la fine la camera insegue lo scroll più da vicino */
+      const W = geo.W, H = geo.H, mo = mob();
+      const farZ = mo ? -1300 : -1800, nearZ = mo ? 380 : 560, PZ = mo ? 900 : 1200, pan = mo ? 0 : 34;
+      /* il titolo: eroe → nocciolo → di nuovo pieno; resta sempre centrato sulla frase */
+      const k1 = easeIO(win(s, 0.05, 0.45)), kR = easeIO(win(s, R0, R0 + 0.45));
+      const sc = lerp(1, coreS(), k1) + (1 - coreS()) * kR * k1;
+      const anchor = lerp(geo.th / 2, geo.hc, k1);
+      const mm = 1 - sm(win(s, 6.6, 7.2));
+      const mx = -m[0] * pan * 0.3 * mm, my = -m[1] * pan * 0.3 * mm;
+      title.style.transform = `translate3d(${mx.toFixed(1)}px,${my.toFixed(1)}px,0) scale(${sc.toFixed(4)}) translate(${(-geo.tw / 2).toFixed(1)}px,${(-anchor).toFixed(1)}px)`;
+      const fo = 1 - sm(win(s, 0.03, 0.26));
+      for (const f of fades) { f.style.opacity = fo.toFixed(3); f.style.visibility = fo < 0.01 ? 'hidden' : ''; }
+      hw.style.opacity = (s < R0 ? lerp(1, 0.42, sm(win(s, 0.28, 0.55))) : lerp(0.42, 1, kR)).toFixed(3);
+      pin.style.setProperty('--cue', (1 - win(s, 0.008, 0.05)).toFixed(3));
+      /* i principi */
+      const inRing = s >= R0 && s < R1 + 0.05;
+      for (const P of pairs) {
+        const a = S0 + SP * P.i, t = (s - a) / DUR;
+        let rvT = P.rvT;
+        if (inRing) {
+          rvT = 1; P.rv = 1;
+          const r = (s - R0) / (R1 - R0);
+          const e = easeOut(clamp01((r - P.i * 0.07) / 0.42)), c = sm(clamp01((s - (R1 - 0.2)) / 0.2));
+          const RX = mo ? W * 0.36 : Math.min(W * 0.4, 600), RY = mo ? H * 0.28 : H * 0.34;
+          const x = Math.cos(RING[P.i]) * RX * (1 - c), y = Math.sin(RING[P.i]) * RY * (1 - c);
+          const sR = (mo ? 64 : 96) / P.size * (1 - 0.8 * c), z = lerp(-900, 0, e), op = e * (1 - c);
+          P.n.classList.add('ring');
+          P.n.style.visibility = op > 0.003 ? 'visible' : 'hidden';
+          P.n.style.opacity = op.toFixed(3);
+          P.n.style.transform = `perspective(${PZ}px) translate3d(${(x - P.sc[0] * sR).toFixed(1)}px,${(y - P.sc[1] * sR).toFixed(1)}px,${z.toFixed(1)}px) scale(${sR.toFixed(4)})`;
+          P.n.style.zIndex = '901';
+        } else {
+          P.n.classList.remove('ring');
+          if (t <= 0 || t >= 1) {
+            P.n.style.visibility = 'hidden';
+            if (t <= 0) rvT = 0;
+          } else {
+            if (t < 0.2) rvT = 0; else if (t > 0.24) rvT = 1;
+            const z = depth(t, farZ, nearZ);
+            const op = keys(t, [0, 0.1, 0.84, 0.97], [0, 1, 1, 0]) * (0.3 + 0.7 * sm((z - farZ) / (-300 - farZ)));
+            P.n.style.visibility = op > 0.003 ? 'visible' : 'hidden';
+            P.n.style.opacity = op.toFixed(3);
+            P.n.style.transform = `perspective(${PZ}px) translate3d(${(-W / 2 + mx * 1.6).toFixed(1)}px,${(-H / 2 + my * 1.6).toFixed(1)}px,${z.toFixed(1)}px)`;
+            P.n.style.zIndex = String(900 + P.i);
+          }
+        }
+        if (rvT !== P.rvT) { P.rvT = rvT; kick(); }
+        draw(P);
+      }
+      /* la maschera */
+      const on = s >= M0 - 0.05 && s < Z1;   /* prima la maschera, poi la carta sotto */
+      pin.classList.toggle('fin', s >= M0);
+      /* la pagina chiara si mostra solo quando la maschera la copre già: con una spinta forte la pagina, che segue lo
+         scroll vero, arrivava prima della maschera, che lo segue con il piccolo ritardo, e lampeggiava bianca */
+      light.style.visibility = s >= M0 ? '' : 'hidden';
+      title.style.visibility = s >= M0 ? 'hidden' : '';
+      mk.classList.toggle('pre', s > 6.6 && s < Z1 + 0.3);   /* gli strati si preparano prima, senza scatti all'arrivo */
+      mk.classList.toggle('on', on);
+      let k = 1;
+      if (on) {
+        const u = clamp01((s - Z0) / (Z1 - Z0));
+        k = Math.exp(Math.log(geo.kmax) * sm(u));
+        mkT.forEach(t => { t.style.transform = k > 1.0005 ? `scale(${k.toFixed(4)})` : ''; });
+        mkEdge.style.opacity = (sm(win(s, M0, M0 + 0.14)) * (1 - sm(win(k, 1.6, 5)))).toFixed(3);
+      }
+      const dark = on && k < 25;
+      if (dark !== maskDark) { maskDark = dark; onNav(); }
+      const pS = clamp01((s - (Z1 - 0.25)) / 0.55);
+      if (Math.abs(pS - stmtP) > 1e-4) { stmtP = pS; paintStmt(pS); }
+    }
+  });
+}
+
+/* ═════════════ disegno assonometrico in SVG ═════════════ */
+const NS = 'http://www.w3.org/2000/svg';
+const mk = (tag, at, par) => { const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); if (par) par.appendChild(e); return e; };
+const isoP = (s, cx, cy) => (x, y, z) => [cx + (x - y) * 0.8660254 * s, cy + (x + y) * 0.5 * s - z * s];
+const pts = a => a.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+class Box {
+  constructor(par, cls = '') { this.g = mk('g', { class: cls }, par); this.f = [0, 1, 2].map(() => mk('polygon', { pathLength: 1 }, this.g)); }
+  set(P, x0, y0, z0, a, b, c) {
+    const x1 = x0 + a, y1 = y0 + b, z1 = z0 + c;
+    this.f[0].setAttribute('points', pts([P(x1, y0, z0), P(x1, y1, z0), P(x1, y1, z1), P(x1, y0, z1)]));
+    this.f[1].setAttribute('points', pts([P(x0, y1, z0), P(x1, y1, z0), P(x1, y1, z1), P(x0, y1, z1)]));
+    this.f[2].setAttribute('points', pts([P(x0, y0, z1), P(x1, y0, z1), P(x1, y1, z1), P(x0, y1, z1)]));
+    return this;
+  }
+  draw(t) { const d = t >= 0.999 ? 'none' : `${t.toFixed(3)} 1`; for (const f of this.f) f.style.strokeDasharray = d; return this; }
+  show(o) { this.g.style.opacity = o.toFixed(3); this.g.style.display = o <= 0.001 ? 'none' : ''; return this; }
+}
+
+/* ═════════════ i principi: tre figure al tratto ═════════════ */
+function figSimple(svg) {
+  /* nove colonne di altezze diverse (le opzioni) si abbassano in una lastra; ne resta una: la soluzione */
+  const P = isoP(10.5, 130, 92), Hh = [2.4, 4.6, 1.2, 3.4, 0.8, 5.2, 2.0, 3.0, 1.6];
+  const boxes = [];
+  for (let gx = 0; gx < 3; gx++) for (let gy = 0; gy < 3; gy++) boxes.push({ gx, gy, h: Hh[gx * 3 + gy] });
+  boxes.sort((a, b) => (a.gx + a.gy) - (b.gx + b.gy) || a.gx - b.gx);
+  for (const o of boxes) o.b = new Box(svg, o.gx === 2 && o.gy === 2 ? 'hi' : '');
+  return t => {
+    const d = easeIO(win(t, 0, 0.45)), f = easeIO(win(t, 0.4, 0.95));
+    for (const o of boxes) {
+      const keep = o.gx === 2 && o.gy === 2;
+      o.b.set(P, -4.2 + o.gx * 2.9, -4.2 + o.gy * 2.9, 0, 2.5, 2.5, keep ? lerp(o.h, 2.6, f) : lerp(o.h, 0.5, f)).draw(d);
+    }
+  };
+}
+function figClear(svg) {
+  /* una scatola che diventa trasparente: dentro si vede la soluzione, gli spigoli nascosti tratteggiati */
+  const P = isoP(10.5, 130, 106);
+  const inner = new Box(svg, 'hi'), hid = mk('path', { class: 'hidden-e' }, svg), outer = new Box(svg, '');
+  const S = 8.4, Hh = 5.6;
+  outer.set(P, -4.2, -4.2, 0, S, S, Hh); inner.set(P, -1.5, -1.5, 0, 3, 3, 3);
+  const A = P(-4.2, -4.2, 0), B = P(-4.2 + S, -4.2, 0), C = P(-4.2, -4.2 + S, 0), D = P(-4.2, -4.2, Hh);
+  const f1 = q => q[0].toFixed(1) + ',' + q[1].toFixed(1);
+  hid.setAttribute('d', `M${f1(A)} L${f1(B)} M${f1(A)} L${f1(C)} M${f1(A)} L${f1(D)}`);
+  return t => {
+    const d = easeIO(win(t, 0, 0.45)), f = easeIO(win(t, 0.42, 0.9));
+    outer.draw(d);
+    for (const q of outer.f) q.style.fillOpacity = (1 - f).toFixed(3);
+    inner.draw(f > 0 ? 1 : 0).show(f);
+    hid.style.opacity = f.toFixed(3);
+  };
+}
+function figDurable(svg) {
+  /* le versioni si posano una sull'altra; l'ultima, quella in uso, è in ruggine */
+  const P = isoP(10.5, 130, 128), N = 5, slabs = [], tags = [];
+  for (let i = 0; i < N; i++) slabs.push(new Box(svg, i === N - 1 ? 'hi' : ''));
+  for (let i = 0; i < N; i++) { const [X, Y] = P(4.2, -4.2, i * 1.25 + 0.3); const tx = mk('text', { x: (X + 12).toFixed(1), y: (Y + 4).toFixed(1) }, svg); tx.textContent = 'v' + (i + 1); tags.push(tx); }
+  return t => {
+    for (let i = 0; i < N; i++) {
+      const e = easeOut(win(t, 0.08 + i * 0.15, 0.3 + i * 0.15));
+      slabs[i].set(P, -4.2, -4.2, i * 1.25 + (1 - e) * 4.2, 8.4, 8.4, 0.62).draw(1).show(e);
+      tags[i].style.opacity = (e * (i === N - 1 ? 1 : 0.7)).toFixed(3);
+      if (i === N - 1) tags[i].style.fill = 'var(--rust)';
+    }
+  };
+}
+{
+  const figs = $$('#figs svg');
+  const fns = [figSimple(figs[0]), figClear(figs[1]), figDurable(figs[2])];
+  part({ el: $('#figs'), key: 'figs', mode: 'enter', a: 0.95, b: 0.25, render(p) { fns.forEach((f, i) => f(clamp01((p - i * 0.07) / 0.86))); } });
+  io.observe($('#figs'));
+}
+
+/* ═════════════ le finestre nere, come su linear.app ═════════════
+   Misurato su linear.app il 18/11/2026: i titoli restano fermi; quando una finestra entra nello
+   schermo il suo contenuto si compone in sequenza (opacità 0, sfocatura 2 px, 8 px più in basso,
+   300 ms con una molla); quando esce del tutto si azzera, e la volta dopo la storia riparte.
+   Un filo di luce scorre sul bordo seguendo lo scroll; dentro, un bagliore resta fermo rispetto
+   allo schermo mentre la finestra passa. Nessun ciclo infinito. */
+{
+  /* il palco è disegnato su 1440 px: sotto quella larghezza si rimpicciolisce un poco e i bordi escono */
+  let S = 1;
+  const fit = () => { S = innerWidth >= 1440 ? 1 : Math.max(0.74, innerWidth / 1440); root.style.setProperty('--s', S.toFixed(4)); };
+  fit(); addEventListener('resize', fit);
+  /* una molla senza rimbalzo (smorzamento critico) scritta come curva CSS */
+  const SPRING = (() => {
+    const n = 30, w = 9.2, pts = [];
+    for (let i = 0; i <= n; i++) { const t = i / n; pts.push(i === n ? '1' : (1 - (1 + w * t) * Math.exp(-w * t)).toFixed(4)); }
+    const c = `linear(${pts.join(', ')})`;
+    return CSS.supports('transition-timing-function', c) ? c : 'cubic-bezier(.2,.65,.2,1)';
+  })();
+  const KIND = {
+    in: [{ opacity: 0, filter: 'blur(2px)', transform: 'translateY(8px)' }, { opacity: 1, filter: 'blur(0px)', transform: 'none' }, 300, SPRING],
+    up: [{ opacity: 0, transform: 'translateY(28px)' }, { opacity: 1, transform: 'none' }, 700, SPRING],
+    img: [{ opacity: 0, filter: 'blur(8px)', transform: 'scale(1.015)' }, { opacity: 1, filter: 'blur(0px)', transform: 'none' }, 700, SPRING],
+    draw: [{ strokeDashoffset: 1, opacity: 1 }, { strokeDashoffset: 0, opacity: 1 }, 420, 'cubic-bezier(.3,.7,.2,1)']
+  };
+  const STEP = 110;
+  const stories = $$('[data-story]').map(st => ({ st, items: $$('[data-s]', st), anims: [], on: false }));
+  const play = o => {
+    o.on = true; o.st.classList.add('on');
+    if (REDUCE || STILL) return;
+    o.anims = o.items.map(n => { const [a, b, dur, ease] = KIND[n.dataset.k || 'in']; return n.animate([a, b], { duration: dur, delay: +n.dataset.s * STEP, easing: ease, fill: 'backwards' }); });
+  };
+  const reset = o => { o.anims.forEach(a => a.cancel()); o.anims = []; o.on = false; o.st.classList.remove('on'); };
+  const sio = new IntersectionObserver(es => {
+    for (const e of es) {
+      const o = stories.find(x => x.st === e.target);
+      if (!o) continue;
+      if (e.isIntersecting && e.intersectionRatio >= 0.25 && !o.on) play(o);
+      else if (!e.isIntersecting && o.on) reset(o);
+    }
+  }, { threshold: [0, 0.25] });
+  stories.forEach(o => { if (REDUCE || STILL) play(o); else sio.observe(o.st); });
+  /* la luce: il filo scende lungo il bordo mentre la finestra sale nello schermo */
+  $$('.lx-win').forEach((w, i) => {
+    w.style.setProperty('--mx', w.dataset.mx || (i % 2 ? '70%' : '30%'));
+    part({ el: w, key: 'shine', mode: 'enter', a: 1.0, b: -0.6, k: 8, render(p) {
+      w.style.setProperty('--my', lerp(-30, 130, p).toFixed(1) + '%');
+      w.style.setProperty('--gy', Math.round((innerHeight * 0.35 - w.getBoundingClientRect().top) / S) + 'px');
+    } });
+    io.observe(w);
+  });
+}
+
+/* ═════════════ sicurezza: le icone si disegnano ═════════════ */
+$$('#grid4 .cell').forEach((c, i) => {
+  const lines = $$('svg *', c);
+  part({ el: c, key: 'icons', mode: 'enter', a: 0.95, b: 0.5, render(p) {
+    const t = easeIO(clamp01((p - i * 0.08) / 0.8));
+    lines.forEach((l, j) => { const tt = clamp01((t - j * 0.12) / 0.7); l.style.strokeDasharray = tt >= 0.999 ? 'none' : `${tt.toFixed(3)} 1`; });
+  } });
+  io.observe(c);
+});
+
+for (const o of parts) o.resize && o.resize();
+measure();
+for (const o of parts) { o.p = o.target; o.dirty = true; }
+kick();
+const go = () => requestAnimationFrame(() => root.classList.add('ready'));
+if (STILL || REDUCE) root.classList.add('ready');
+else if (document.fonts && document.fonts.ready) Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 900))]).then(go); else go();
+window.__parts = parts; window.__measure = measure; window.__kick = kick;
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { for (const o of parts) { if (o.resize) o.resize(); o.dirty = true; } kick(); });
+})();
+</script>
+</body>
+</html>

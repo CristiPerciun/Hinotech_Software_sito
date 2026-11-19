@@ -1,0 +1,855 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hinotech Software — Soluții software simple, clare, făcute să dureze</title>
+<meta name="description" content="O firmă tehnologică din Republica Moldova, cu produse în română și în rusă. Primul nostru produs: PrivacyBox.">
+<meta name="theme-color" content="#F6F1E9">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Shippori+Mincho:wght@700&display=swap">
+<style>
+/* Hinotech Software · home «Fereastra»: si entra attraverso fogli di carta ritagliata e illuminata
+   da dietro (cerchio, quadrato, triangolo, la fessura del noren); in fondo la luce e il prodotto.
+   Prototipo locale: i caratteri vengono da Google Fonts, nel sito vero dal nostro dominio. */
+:root{
+  --paper:#F6F1E9;--paper-2:#EFE9DF;--paper-3:#E6DFD3;--card:#FBF8F3;
+  --ink:#141311;--ink-2:#463F38;--ink-3:#6B655C;--ink-4:#9A948A;
+  --l1:rgba(20,19,17,.08);--l2:rgba(20,19,17,.14);
+  --rust:#9C4A38;--ochre:#A67C44;--fjord:#4A6472;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"Cascadia Mono",monospace;
+  --jp:"Shippori Mincho","Yu Mincho",serif;
+  --ease:cubic-bezier(.2,.65,.2,1);
+  --wrap:1200px;--pad:clamp(20px,4.4vw,56px);--nav:68px;
+}
+*{box-sizing:border-box}
+html{background:var(--paper);scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4,p,ul,figure{margin:0}
+ul{padding:0;list-style:none}
+img{display:block;max-width:100%;height:auto}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--rust);outline-offset:3px;border-radius:6px}
+::selection{background:rgba(156,74,56,.22)}
+.wrap{width:min(var(--wrap),100% - 2*var(--pad));margin-inline:auto}
+.skip{position:fixed;left:12px;top:-60px;z-index:100;padding:10px 14px;border-radius:999px;background:var(--ink);color:var(--paper);font-weight:500}
+.skip:focus{top:12px}
+section{position:relative}
+[id]{scroll-margin-top:var(--nav)}
+.anchor{position:absolute;left:0;width:1px;height:1px;scroll-margin-top:0}
+
+/* ── elementi comuni ── */
+.seal{display:grid;place-items:center;flex:none;width:28px;height:28px;border-radius:7px;background:var(--rust);color:#FBFAF8;font:700 16px/1 var(--jp);font-style:normal;box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+.brand{display:inline-flex;align-items:center;gap:11px;font-weight:600;font-size:15.5px;letter-spacing:-.015em;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;padding:0 22px;border-radius:999px;font:500 15px/1 var(--sans);white-space:nowrap;transition:background-color .2s var(--ease),box-shadow .2s var(--ease),transform .2s var(--ease)}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn-d{background:var(--ink);color:#FBFAF8}
+.btn-d:hover{background:#2B2A28;box-shadow:0 10px 24px -12px rgba(20,19,17,.55)}
+.btn-g{background:rgba(255,255,255,.62);box-shadow:inset 0 0 0 1px var(--l2);color:var(--ink)}
+.btn-g:hover{background:#fff}
+.btn-s{height:38px;padding:0 17px;font-size:14px}
+.btn span{display:inline-block;transition:transform .22s var(--ease)}
+.btn:hover span{transform:translateX(3px)}
+.lbl{font:500 12px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--rust)}
+.mono{font:400 13px/1.55 var(--mono);letter-spacing:.04em;color:var(--ink-3)}
+.h2{font:500 clamp(32px,4vw,54px)/1.06 var(--sans);letter-spacing:-.035em;text-wrap:balance}
+.sec{padding:clamp(96px,16vh,170px) 0}
+.sec-h{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);align-items:end;column-gap:64px;row-gap:20px;margin-bottom:clamp(44px,7vh,70px)}
+.sec-h .h2{margin-top:20px}
+.sec-p{font-size:17.5px;line-height:1.6;color:var(--ink-3);max-width:30em}
+.note{font:400 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4)}
+
+/* ── menu ── */
+.nav{position:fixed;inset:0 0 auto;z-index:50;height:var(--nav);transition:background-color .3s var(--ease),box-shadow .3s var(--ease)}
+.nav.solid{background:rgba(246,241,233,.78);backdrop-filter:saturate(1.3) blur(14px);-webkit-backdrop-filter:saturate(1.3) blur(14px);box-shadow:0 1px 0 var(--l1)}
+.nav-in{display:flex;align-items:center;gap:28px;height:100%}
+.links{display:flex;gap:2px;margin-left:auto;font-size:14.5px}
+.links a{padding:8px 13px;border-radius:999px;color:var(--ink-3);transition:color .15s var(--ease),background-color .15s var(--ease)}
+.links a:hover,.links a.on{color:var(--ink)}
+.links a:hover{background:rgba(20,19,17,.045)}
+.menu-b{display:none;margin-left:auto;height:38px;padding:0 17px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--l2);font-size:14px;font-weight:500;background:rgba(255,255,255,.5)}
+.menu{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;padding:calc(var(--nav) + 24px) var(--pad) 32px;background:rgba(246,241,233,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.menu[hidden]{display:none}
+.menu a{padding:12px 0;border-bottom:1px solid var(--l1);font:500 28px/1.2 var(--sans);letter-spacing:-.03em}
+.menu .btn{margin-top:28px;height:52px;font-size:16px;border:0}
+.menu-x{position:absolute;right:var(--pad);top:15px;height:38px;padding:0 17px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--l2);font-size:14px;font-weight:500}
+
+/* ── 1 · l'apertura: attraverso la carta ── */
+.hero{height:520vh}
+.hero-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:#E3DED6}
+.gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.lt{position:absolute;left:0;top:0;width:0;height:0;transform-origin:0 0;will-change:transform,opacity}
+.lt .in{position:absolute;left:0;top:0;width:min(39vw,600px);transform:translateY(-50%)}
+.lt.back .in{width:min(64vw,780px);transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;text-align:center}
+.pill{display:inline-flex;align-items:center;gap:10px;height:34px;padding:0 15px 0 13px;border-radius:999px;background:rgba(255,255,255,.55);box-shadow:inset 0 0 0 1px var(--l2);font-size:13.5px;font-weight:500;color:var(--ink-2);transition:background-color .2s var(--ease)}
+.pill i{width:7px;height:7px;border-radius:50%;background:var(--rust)}
+.pill span{color:var(--ink-4);transition:transform .22s var(--ease),color .2s}
+.pill:hover{background:#fff}
+.pill:hover span{transform:translateX(3px);color:var(--ink-2)}
+.h1{margin-top:24px;font:500 clamp(40px,4.2vw,64px)/1.02 var(--sans);letter-spacing:-.04em;text-wrap:balance}
+.lead{margin-top:22px;max-width:30em;font-size:clamp(16px,1.3vw,19px);line-height:1.55;color:var(--ink-3);text-wrap:pretty}
+.ctas{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:32px}
+.lt .lbl{display:block}
+.lt h2{margin-top:18px;font:500 clamp(34px,3.7vw,58px)/1.05 var(--sans);letter-spacing:-.035em;text-wrap:balance}
+.lt .lead{margin-top:18px}
+.back img{width:min(46vw,620px);mix-blend-mode:multiply;-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 60%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 60%,transparent 100%)}
+.back h2{margin-top:6px}
+.back .note{margin-top:22px}
+.cue{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);font:500 11px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap;opacity:var(--cue,1);pointer-events:none}
+
+/* ── 2 · il motore, in carta ── */
+.dio-sec{height:420vh}
+.dio-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.dio-t{position:absolute;left:max(var(--pad),calc((100% - var(--wrap)) / 2));top:50%;width:min(36vw,470px);transform:translateY(-50%);min-height:340px}
+.stg{position:absolute;left:0;right:0;top:0;opacity:0;will-change:opacity,transform}
+.stg .k{font:500 12.5px/1 var(--mono);letter-spacing:.1em;color:var(--ink-4)}
+.stg .k b{color:var(--ink);font-weight:500}
+.stg h3{margin-top:22px;font:500 clamp(28px,2.9vw,42px)/1.08 var(--sans);letter-spacing:-.035em;text-wrap:balance}
+.stg .h2{margin-top:18px}
+.stg p.lead{margin-top:18px;font-size:17px}
+.stg .mono{margin-top:20px}
+.dio{position:absolute;left:67%;top:60%;width:0;height:0;transform-style:preserve-3d;--S:400px;--t:14px;will-change:transform}
+.dio .pl{position:absolute;left:0;top:0;width:var(--S);height:var(--S);transform-style:preserve-3d;background:#F4EFE7;box-shadow:inset 0 0 0 1px rgba(20,19,17,.09);will-change:transform}
+.dio .pl::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 30% 25%,rgba(255,255,255,.55),rgba(255,255,255,0) 70%);pointer-events:none}
+.dio .pl > .eb{position:absolute;left:0;top:100%;width:100%;height:var(--t);transform-origin:0 0;transform:rotateX(-90deg);background:#E3DBCF;box-shadow:inset 0 0 0 1px rgba(20,19,17,.08)}
+.dio .pl > .el{position:absolute;left:0;top:0;width:var(--t);height:100%;transform-origin:0 0;transform:rotateY(90deg);background:#D7CEC0;box-shadow:inset 0 0 0 1px rgba(20,19,17,.08)}
+.grid{position:absolute;inset:8%;display:grid;gap:calc(var(--S)*.045)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g32{grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr)}
+.g2{grid-template-columns:1.15fr 1fr}
+.win{position:relative;display:grid;place-items:end start;padding:calc(var(--S)*.03);border-radius:calc(var(--S)*.012);background:#DDD5C8;box-shadow:inset 0 calc(var(--S)*.006) calc(var(--S)*.016) rgba(20,19,17,.22);font:500 calc(var(--S)*.036)/1.1 var(--mono);letter-spacing:.04em;color:rgba(20,19,17,.38);overflow:hidden;transition:background-color .5s var(--ease),box-shadow .5s var(--ease),color .5s var(--ease)}
+.win::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 50% 40%,#FFFCF4 0%,#FDEFD3 55%,#F6DCAE 100%);opacity:0;transition:opacity .5s var(--ease)}
+.win > *{position:relative}
+.win.on{color:rgba(20,19,17,.78);box-shadow:inset 0 0 0 1px rgba(166,124,68,.25),0 0 calc(var(--S)*.05) rgba(255,206,140,.55)}
+.win.on::before{opacity:1}
+.win.pb{place-items:stretch;padding:0;font-family:var(--sans);font-weight:600}
+.win.pb img{position:absolute;inset:7% 7% 20%;width:86%;height:73%;object-fit:cover;object-position:left top;border-radius:calc(var(--S)*.008);opacity:0;transition:opacity .5s var(--ease);box-shadow:0 2px 8px rgba(20,19,17,.15)}
+.win.pb.on img{opacity:1}
+.win.pb b{position:absolute;left:7%;bottom:6%;font:600 calc(var(--S)*.04)/1 var(--sans);letter-spacing:-.01em;color:rgba(20,19,17,.8)}
+.pencil{position:relative;display:grid;place-items:end start;padding:calc(var(--S)*.03);border-radius:calc(var(--S)*.012);border:calc(var(--S)*.0035) dashed rgba(70,63,56,.55);font:500 calc(var(--S)*.034)/1.1 var(--mono);letter-spacing:.04em;color:rgba(70,63,56,.7);opacity:0;transition:opacity .5s var(--ease)}
+.pencil.on{opacity:1}
+.dio .scan{position:absolute;left:0;top:0;width:var(--S);height:var(--S);background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(255,236,200,.5),rgba(255,236,200,.08));box-shadow:inset 0 0 0 1.5px var(--rust);opacity:0;will-change:transform,opacity}
+.dio .shadow{position:absolute;left:0;top:0;width:var(--S);height:var(--S);background:radial-gradient(closest-side,rgba(20,19,17,.22),rgba(20,19,17,0));filter:blur(10px)}
+.plab{position:absolute;right:0;top:calc(var(--S)*-.08);font:500 calc(var(--S)*.034)/1 var(--mono);letter-spacing:.08em;color:var(--ink-3);white-space:nowrap;text-transform:uppercase}
+
+/* ── 3 · sicurezza: icone ritagliate nella carta, che si accendono ── */
+.pcards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.pc{padding:30px 26px 32px;border-radius:22px;background:var(--card);box-shadow:inset 0 0 0 1px var(--l1),0 1px 0 rgba(255,255,255,.7) inset;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.pc:hover{transform:translateY(-3px);box-shadow:inset 0 0 0 1px var(--l2),0 22px 40px -28px rgba(20,19,17,.35)}
+.ico{position:relative;width:92px;height:92px;margin-bottom:34px;border-radius:18px;background:#EDE6DA;box-shadow:inset 0 0 0 1px rgba(20,19,17,.07),0 12px 26px -18px rgba(20,19,17,.4)}
+.ico .cut,.ico .lit{position:absolute;inset:0;-webkit-mask:var(--m) center/58% no-repeat;mask:var(--m) center/58% no-repeat}
+.ico .cut{background:#C9BFAF;box-shadow:inset 0 2px 4px rgba(0,0,0,.3)}
+.ico .glow{position:absolute;inset:0;filter:drop-shadow(0 0 7px rgba(255,196,120,.8));opacity:var(--on,0)}
+.ico .lit{background:radial-gradient(circle at 50% 45%,#FFFDF6,#FDEBC8 60%,#F4D29E)}
+.ico .lit.r{background:radial-gradient(circle at 50% 45%,#F3C4B2,#C8705A 70%,#9C4A38)}
+.pc h3{font:600 17.5px/1.3 var(--sans);letter-spacing:-.015em}
+.pc p{margin-top:9px;font-size:15px;line-height:1.55;color:var(--ink-3)}
+
+/* ── 4 · chi siamo ── */
+.about{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:56px 80px;margin-top:clamp(40px,6vh,64px)}
+.about-p{font-size:19px;line-height:1.6;color:var(--ink-2);max-width:30em}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.cols h3{font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4);margin-bottom:16px}
+.cols li{padding:12px 0;border-top:1px solid var(--l1);font-size:15.5px;line-height:1.5;color:var(--ink-2)}
+.cols .no li{color:var(--ink-3)}
+
+/* ── 5 · il nome, su carta marmorizzata ── */
+.marb{min-height:100vh;min-height:100svh;display:grid;align-items:center;overflow:hidden;background:#F6F2EA}
+.marb .gl{position:absolute;inset:0}
+.marb-in{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);gap:40px;align-items:start;max-width:760px}
+.marb .seal{width:96px;height:96px;border-radius:22px;font-size:58px;box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 18px 40px -20px rgba(156,74,56,.7)}
+.marb h2{margin-top:16px}
+.marb p.lead{margin-top:20px;font-size:18px;color:var(--ink-2)}
+.place{margin-top:28px;font:400 13px/1.6 var(--mono);letter-spacing:.06em;color:var(--ink-3)}
+
+/* ── 6 · contatto: la lanterna ── */
+.lant-sec{padding:clamp(80px,12vh,140px) 0 clamp(110px,16vh,180px)}
+.lant{position:relative;display:grid;place-items:center;width:min(78vmin,700px);aspect-ratio:1;margin:0 auto;border-radius:50%;will-change:transform}
+.lant::before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 50% 46%,#FFFCF5 0%,#FFF3DC 45%,#F7E1BA 78%,#EFD1A0 100%);opacity:var(--on,.25);box-shadow:0 0 calc(80px * var(--on,.25)) rgba(255,210,150,calc(.55 * var(--on,.25)))}
+.lant::after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 3px 10px rgba(20,19,17,.22),inset 0 0 0 1px rgba(20,19,17,.12);pointer-events:none}
+.lant-in{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12%}
+.lant h2{margin-top:20px;font:500 clamp(48px,6.4vw,92px)/.98 var(--sans);letter-spacing:-.045em}
+.lant p{margin-top:16px;font-size:17px;color:var(--ink-2);max-width:22em}
+.mail{display:inline-block;margin-top:24px;font:500 clamp(19px,1.9vw,24px)/1.2 var(--sans);letter-spacing:-.02em;color:var(--ink);border-bottom:1px solid rgba(20,19,17,.3);transition:border-color .18s var(--ease)}
+.mail:hover{border-color:var(--ink)}
+.lant .ctas{justify-content:center;margin-top:28px}
+
+/* ── piè di pagina ── */
+.ft{border-top:1px solid var(--l1);padding:64px 0 40px;font-size:14px;background:var(--paper)}
+.ft-in{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,3fr);gap:48px}
+.ft-brand p{margin-top:16px;color:var(--ink-3);max-width:18em}
+.ft-cols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+.ft-cols h4{margin-bottom:14px;font:600 13px/1 var(--sans);color:var(--ink)}
+.ft-cols a,.ft-cols span{display:block;padding:5px 0;color:var(--ink-3);transition:color .15s var(--ease)}
+.ft-cols a:hover{color:var(--ink)}
+.ft-cols .soon{color:var(--ink-4)}
+.ft-bot{display:flex;justify-content:space-between;gap:20px;margin-top:56px;padding-top:22px;border-top:1px solid var(--l1);color:var(--ink-4);font-size:13px}
+.lang b{color:var(--ink);font-weight:500}
+
+/* ── comparse ── */
+.js .intro{opacity:0;transform:translateY(14px)}
+.js.ready .intro{opacity:1;transform:none;transition:opacity 1s var(--ease),transform 1s var(--ease);transition-delay:calc(var(--d,0) * 1ms)}
+.js .nav{opacity:0}
+.js.ready .nav{opacity:1;transition:opacity .8s var(--ease) .15s,background-color .3s var(--ease),box-shadow .3s var(--ease)}
+.js [data-rv]{opacity:0}
+
+/* ── telefono ── */
+@media (max-width:900px){
+  .links,.nav .btn-s{display:none}
+  .menu-b{display:inline-flex;align-items:center}
+  .sec-h{grid-template-columns:1fr}
+  .pcards{grid-template-columns:1fr 1fr}
+  .about{grid-template-columns:1fr}
+  .cols{grid-template-columns:1fr}
+  .ft-in{grid-template-columns:1fr}
+  .ft-cols{grid-template-columns:1fr 1fr}
+  .dio-t{left:var(--pad);right:var(--pad);top:calc(var(--nav) + 18px);width:auto;transform:none;min-height:0}
+  .dio{left:50%;top:69%}
+  .marb-in{grid-template-columns:1fr;gap:26px}
+}
+@media (max-width:720px){
+  .hero{height:470vh}
+  .lt .in{width:calc(100vw - 2 * var(--pad));transform:none}
+  .lt.back .in{width:calc(100vw - 2 * var(--pad));transform:translate(-50%,-50%)}
+  .h1{margin-top:18px;font-size:clamp(34px,9.6vw,44px)}
+  .lead{margin-top:14px;font-size:16px}
+  .ctas{margin-top:22px}
+  .lt h2{font-size:clamp(28px,8.4vw,38px)}
+  .back img{width:86vw}
+  .pcards{grid-template-columns:1fr}
+  .ico{margin-bottom:24px}
+  .stg h3{font-size:clamp(25px,7.4vw,32px);margin-top:14px}
+  .stg .h2{font-size:clamp(26px,7.6vw,34px)}
+  .stg p.lead{font-size:15.5px;margin-top:12px}
+  .stg .mono{margin-top:12px;font-size:12px}
+  .ft-bot{flex-direction:column}
+}
+/* senza movimento: ogni scena resta nel suo stato finale */
+.rm .hero{height:auto}
+.rm .hero-pin{position:relative;height:auto;min-height:100vh;padding:calc(var(--nav) + 12vh) 0 90px;background:var(--paper)}
+.rm .hero-pin .gl,.rm .cue{display:none}
+.rm .lt{position:relative;width:auto;height:auto;transform:none!important;opacity:1!important;visibility:visible!important;margin:0 auto 90px;width:min(var(--wrap),100% - 2*var(--pad))}
+.rm .lt .in,.rm .lt.back .in{position:relative;transform:none;width:auto}
+.rm .dio-sec{height:auto}.rm .dio-pin{position:relative;height:auto;padding:110px 0 560px}
+.rm .dio-t{position:relative;left:auto;top:auto;transform:none;margin:0 auto;width:min(var(--wrap),100% - 2*var(--pad))}
+.rm .stg{position:static;opacity:1!important;transform:none!important;visibility:visible!important;margin-top:30px}
+.rm .dio{top:auto;bottom:240px}
+</style>
+</head>
+<body>
+<a class="skip" href="#arhitectura">Sari la conținut</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="Hinotech Software, începutul paginii"><i class="seal" aria-hidden="true">檜</i><span>Hinotech Software</span></a>
+    <nav class="links" aria-label="Secțiuni">
+      <a href="#principii">Principii</a><a href="#produse">Produse</a><a href="#arhitectura">Arhitectura</a><a href="#securitate">Securitate</a><a href="#despre">Despre noi</a>
+    </nav>
+    <a class="btn btn-d btn-s" href="#contact">Contact</a>
+    <button class="menu-b" type="button" aria-expanded="false" aria-controls="menu">Meniu</button>
+  </div>
+</header>
+<div class="menu" id="menu" hidden>
+  <button class="menu-x" type="button">Închide</button>
+  <a href="#principii">Principii</a><a href="#produse">Produse</a><a href="#arhitectura">Arhitectura</a><a href="#securitate">Securitate</a><a href="#despre">Despre noi</a>
+  <a class="btn btn-d" href="#contact">Contact</a>
+</div>
+
+<main>
+<!-- ═══ 1 · l'apertura: quattro fogli ritagliati, poi la luce ═══ -->
+<section class="hero" id="top" aria-label="Hinotech Software">
+  <div class="hero-pin">
+    <canvas class="gl" id="gl-hero" aria-hidden="true"></canvas>
+    <div class="lt" data-k="0"><div class="in">
+      <a class="pill intro" style="--d:120" href="#produse"><i></i>Primul nostru produs: PrivacyBox <span>→</span></a>
+      <h1 class="h1 intro" style="--d:220">Soluții software simple, clare, făcute să dureze.</h1>
+      <p class="lead intro" style="--d:360">O firmă tehnologică din Republica Moldova, cu produse în română și în rusă.</p>
+      <div class="ctas intro" style="--d:480"><a class="btn btn-d" href="#produse">Produsele noastre</a><a class="btn btn-g" href="#despre">Despre noi</a></div>
+    </div></div>
+    <div class="lt" data-k="1"><div class="in">
+      <p class="lbl">01 · Simple</p>
+      <h2>Simplitatea ține totul.</h2>
+      <p class="lead">Pentru fiecare problemă căutăm cea mai simplă soluție care funcționează.</p>
+    </div></div>
+    <div class="lt" data-k="2"><div class="in">
+      <p class="lbl">02 · Clare</p>
+      <h2>Clar, în română și în rusă.</h2>
+      <p class="lead">Fiecare soluție o explicăm clar, iar româna și rusa au rang egal.</p>
+    </div></div>
+    <div class="lt" data-k="3"><div class="in">
+      <p class="lbl">03 · Făcute să dureze</p>
+      <h2>Când lumea se mișcă, clădirea rămâne în picioare.</h2>
+      <p class="lead">Legi care se schimbă, clienți noi, dispozitive noi: totul din același cod, cu versiuni, verificat la fiecare livrare.</p>
+    </div></div>
+    <div class="lt back" data-k="4"><div class="in">
+      <img src="img/devices-light-1200.webp" width="1200" height="533" alt="PrivacyBox pe calculator, laptop și telefon, cu date fictive">
+      <p class="lbl">Primul nostru produs</p>
+      <h2>PrivacyBox.</h2>
+      <p class="lead">Protecția datelor pentru firme, după Legea nr. 195/2024. Online din 3 octombrie 2026.</p>
+      <div class="ctas"><a class="btn btn-d" href="https://privacybox.md" target="_blank" rel="noopener">privacybox.md <span>↗</span></a><a class="btn btn-g" href="#contact">Contact</a></div>
+      <p class="note">Un produs Hinotech Software · imagini cu date fictive</p>
+    </div></div>
+    <p class="cue">Derulați · treceți prin fereastră</p>
+  </div>
+  <span class="anchor" id="principii" style="top:calc(0.28 * (100% - 100vh))"></span>
+  <span class="anchor" id="produse" style="top:calc(0.995 * (100% - 100vh))"></span>
+</section>
+
+<!-- ═══ 2 · il motore, in carta: tre fogli che si aprono, finestre che si accendono ═══ -->
+<section class="dio-sec" id="arhitectura">
+  <div class="dio-pin">
+    <div class="dio-t">
+      <div class="stg"><p class="lbl">Arhitectura</p><h2 class="h2">Un motor, mai multe verticale.</h2><p class="lead">Un motor comun ține clienții, rolurile, versiunile, registrele, termenele și jurnalul. Îl scriem o dată; fiecare produs nou îl folosește.</p></div>
+      <div class="stg"><p class="k" aria-hidden="true"><b>01</b> / 04</p><h3>Datele fiecărui client, izolate.</h3><p class="mono">Client A · Client B · Client C</p></div>
+      <div class="stg"><p class="k" aria-hidden="true"><b>02</b> / 04</p><h3>Un motor comun.</h3><p class="mono">Clienți · Roluri · Versiuni · Registre · Termene · Jurnal</p></div>
+      <div class="stg"><p class="k" aria-hidden="true"><b>03</b> / 04</p><h3>Produse pe același motor.</h3><p class="mono">Fiecare produs nou se ridică pe același motor, numai când cel de dedesubt se susține singur.</p></div>
+      <div class="stg"><p class="k" aria-hidden="true"><b>04</b> / 04</p><h3>Verificat la fiecare livrare.</h3><p class="mono">Teste la fiecare livrare</p></div>
+    </div>
+    <div class="dio" id="dio" aria-hidden="true">
+      <div class="shadow"></div>
+      <div class="pl pl-a"><span class="plab">Date izolate</span><div class="grid g3"><span class="win">Client A</span><span class="win">Client B</span><span class="win">Client C</span></div><i class="eb"></i><i class="el"></i></div>
+      <div class="pl pl-b"><span class="plab">Motor comun</span><div class="grid g32"><span class="win">Clienți</span><span class="win">Roluri</span><span class="win">Versiuni</span><span class="win">Registre</span><span class="win">Termene</span><span class="win">Jurnal</span></div><i class="eb"></i><i class="el"></i></div>
+      <div class="pl pl-c"><span class="plab">Produse</span><div class="grid g2"><span class="win pb"><img src="img/pb-dashboard-light.webp" alt=""><b>PrivacyBox</b></span><span class="pencil">următorul produs</span></div><i class="eb"></i><i class="el"></i></div>
+      <div class="scan"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 3 · la sicurezza ═══ -->
+<section class="sec" id="securitate">
+  <div class="wrap">
+    <div class="sec-h">
+      <div><p class="lbl" data-rv>Securitate</p><h2 class="h2" data-rv>Dovada, înaintea promisiunii.</h2></div>
+      <p class="sec-p" data-rv>Produsul trebuie să reziste în fața unui inspector, nu doar a unui utilizator.</p>
+    </div>
+    <div class="pcards" id="pcards">
+      <article class="pc" data-rv><div class="ico" style="--m:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect x='5' y='5' width='38' height='38' rx='9' fill='none' stroke='%23000' stroke-width='4'/%3E%3Cpath d='M14 25l7 7 13-15' fill='none' stroke='%23000' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E&quot;)"><span class="cut"></span><span class="glow"><span class="lit"></span></span></div><h3>Teste la fiecare livrare</h3><p>Versiuni care, odată emise, nu se mai schimbă.</p></article>
+      <article class="pc" data-rv><div class="ico" style="--m:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect x='3' y='10' width='11' height='28' rx='3'/%3E%3Crect x='18.5' y='10' width='11' height='28' rx='3'/%3E%3Crect x='34' y='10' width='11' height='28' rx='3'/%3E%3C/svg%3E&quot;)"><span class="cut"></span><span class="glow"><span class="lit"></span></span></div><h3>Datele fiecărui client, izolate</h3><p>Găzduite în Spațiul Economic European, criptate, cât mai puține.</p></article>
+      <article class="pc" data-rv><div class="ico" style="--m:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect x='2' y='17' width='17' height='14' rx='7' fill='none' stroke='%23000' stroke-width='4'/%3E%3Crect x='15.5' y='17' width='17' height='14' rx='7' fill='none' stroke='%23000' stroke-width='4'/%3E%3Crect x='29' y='17' width='17' height='14' rx='7' fill='none' stroke='%23000' stroke-width='4'/%3E%3C/svg%3E&quot;)"><span class="cut"></span><span class="glow"><span class="lit"></span></span></div><h3>Rezultate verificabile de oricine</h3><p>Un jurnal de evenimente legat printr-un lanț de hash, cu marcaje de timp.</p></article>
+      <article class="pc" data-rv><div class="ico" style="--m:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='18' fill='none' stroke='%23000' stroke-width='4'/%3E%3Cpath d='M11.5 36.5L36.5 11.5' stroke='%23000' stroke-width='4.5' stroke-linecap='round'/%3E%3C/svg%3E&quot;)"><span class="cut"></span><span class="glow"><span class="lit r"></span></span></div><h3>Acest site, ca exemplu</h3><p>Niciun tracker, niciun cookie inutil, deci niciun banner.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 4 · chi siamo ═══ -->
+<section class="sec" id="despre" style="padding-top:clamp(40px,6vh,80px)">
+  <div class="wrap">
+    <p class="lbl" data-rv>Despre noi</p>
+    <h2 class="h2" data-rv style="margin-top:20px;max-width:17em">Construim produse pentru profesioniștii care țin în ordine companiile mici.</h2>
+    <div class="about">
+      <p class="about-p" data-rv>Suntem un producător de software din Republica Moldova. Transformăm obligații legale care se repetă în procese digitale ghidate, în română și în rusă, și le distribuim prin profesioniștii care consiliază deja companiile mici.</p>
+      <div class="cols" data-rv>
+        <div><h3>Ce suntem</h3><ul><li>Producător de software de produs.</li><li>Un produs care se vinde de multe ori, nu ore care se vând o dată.</li><li>Vândut prin contabili, avocați și consultanți, sub marca lor.</li></ul></div>
+        <div class="no"><h3>Ce nu suntem</h3><ul><li>Nu suntem o agenție de dezvoltare la comandă.</li><li>Nu vindem ore de consultanță.</li><li>Nu revindem software-ul altcuiva: motorul este scris aici.</li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 5 · il nome, su carta marmorizzata (suminagashi) ═══ -->
+<section class="marb" id="nume" aria-label="De unde vine numele">
+  <canvas class="gl" id="gl-marb" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="marb-in" data-rv>
+      <i class="seal" aria-hidden="true">檜</i>
+      <div>
+        <p class="lbl">De unde vine numele</p>
+        <h2 class="h2">Hinoki, lemnul templelor.</h2>
+        <p class="lead">Hinoki (檜) este chiparosul japonez din care se construiesc templele. Stâlpul central al pagodei Hōryū-ji, din hinoki, a fost tăiat în anul 594; pagoda stă și azi în picioare.</p>
+        <p class="place">Hinotech Software · Coteala, raionul Briceni · Republica Moldova</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 6 · contatto: la lanterna ═══ -->
+<section class="lant-sec" id="contact" aria-label="Contact">
+  <div class="lant" id="lant">
+    <div class="lant-in">
+      <p class="lbl">Contact</p>
+      <h2>Scrieți-ne.</h2>
+      <p>Pentru parteneri, instituții, investitori și viitori colegi.</p>
+      <a class="mail" href="mailto:contact@hinotech.md">contact@hinotech.md</a>
+      <div class="ctas"><a class="btn btn-d" href="mailto:contact@hinotech.md">Scrieți-ne <span>→</span></a></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="ft">
+  <div class="wrap ft-in">
+    <div class="ft-brand"><a class="brand" href="#top"><i class="seal" aria-hidden="true">檜</i><span>Hinotech Software</span></a><p>Soluții software simple, clare, făcute să dureze.</p></div>
+    <nav class="ft-cols" aria-label="Subsol">
+      <div><h4>Produse</h4><a href="https://privacybox.md" target="_blank" rel="noopener">PrivacyBox ↗</a></div>
+      <div><h4>Companie</h4><a href="#despre">Despre noi</a><a href="#principii">Principii</a><a href="#contact">Carieră</a></div>
+      <div><h4>Securitate</h4><a href="#securitate">Securitate</a><span class="soon">Confidențialitate</span><span class="soon">Cookie-uri</span></div>
+      <div><h4>Contact</h4><a href="mailto:contact@hinotech.md">contact@hinotech.md</a><span>Coteala, raionul Briceni</span><span>Republica Moldova</span></div>
+    </nav>
+  </div>
+  <div class="wrap ft-bot"><span>© 2026 Hinotech Software</span><span class="lang"><b>RO</b> / RU</span></div>
+</footer>
+
+<script>
+(() => {
+const Q = new URLSearchParams(location.search);
+const STILL = Q.has('still');
+const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FINE = matchMedia('(pointer: fine)').matches;
+const root = document.documentElement;
+root.classList.add('js');
+if (REDUCE) root.classList.add('rm');
+const clamp01 = x => Math.min(1, Math.max(0, x));
+const win = (p, a, b) => clamp01((p - a) / (b - a));
+const sm = x => { const t = clamp01(x); return t * t * (3 - 2 * t); };
+const lerp = (a, b, t) => a + (b - a) * t;
+const easeIO = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+const easeOut = t => 1 - Math.pow(1 - clamp01(t), 3);
+const fade = (p, a, b, c, d) => win(p, a, b) * (1 - win(p, c, d));
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+/* chiavi [p, valore] con passaggi morbidi; due chiavi uguali di seguito = una sosta */
+function track(p, keys) {
+  if (p <= keys[0][0]) return keys[0][1];
+  for (let i = 1; i < keys.length; i++) if (p <= keys[i][0]) { const [p0, v0] = keys[i - 1], [p1, v1] = keys[i]; return v0 + (v1 - v0) * easeIO((p - p0) / ((p1 - p0) || 1)); }
+  return keys[keys.length - 1][1];
+}
+
+/* ── motore comune: lo scroll resta del browser; ogni parte lo segue con un piccolo ritardo
+   e si ridisegna solo quando cambia (nessun ciclo a vuoto) ── */
+const parts = [];
+let raf = 0, last = 0;
+function part(o) { Object.assign(o, { p: 0, target: 0, dirty: true, visible: true }); parts.push(o); return o; }
+function progressOf(o) {
+  const r = o.el.getBoundingClientRect(), vh = innerHeight;
+  if (o.mode === 'pin') { const tot = r.height - vh; return tot > 0 ? clamp01(-r.top / tot) : 0; }
+  if (o.mode === 'through') return clamp01((vh - r.top) / (vh + r.height));
+  const a = o.a ?? 0.92, b = o.b ?? 0.38;
+  return clamp01((vh * a - r.top) / (vh * (a - b)));
+}
+function measure() {
+  for (const o of parts) { const f = Q.get(o.key); o.target = (f != null && f !== '') ? clamp01(+f) : REDUCE ? (o.rm ?? 1) : progressOf(o); }
+  kick();
+}
+function kick() { if (!raf) raf = requestAnimationFrame(tick); }
+function tick(now) {
+  raf = 0;
+  const dt = last ? Math.min(0.05, (now - last) / 1000) : 1 / 60;
+  last = now;
+  let again = false;
+  for (const o of parts) {
+    const d = o.target - o.p;
+    if (Math.abs(d) > 1e-4) { o.p += d * (STILL || REDUCE ? 1 : 1 - Math.exp(-dt * (o.k || 7))); o.dirty = true; again = true; }
+    else if (o.p !== o.target) { o.p = o.target; o.dirty = true; }
+    if (o.step && o.step(dt)) { o.dirty = true; again = true; }
+    if (o.dirty && o.visible) { o.dirty = false; o.render(o.p); }
+  }
+  if (again) kick(); else last = 0;
+}
+const io = new IntersectionObserver(es => { for (const e of es) for (const o of parts) if (o.el === e.target) { o.visible = e.isIntersecting; if (o.visible) { o.dirty = true; kick(); } } }, { rootMargin: '30% 0px' });
+addEventListener('scroll', measure, { passive: true });
+addEventListener('resize', () => { for (const o of parts) if (o.resize) o.resize(); for (const o of parts) o.dirty = true; measure(); });
+
+function makeGL(canvas, fs) {
+  const gl = canvas.getContext('webgl2', { antialias: false, alpha: false, depth: false, stencil: false, powerPreference: 'high-performance' });
+  if (!gl) return null;
+  const vs = `#version 300 es
+in vec2 aP; out vec2 vUv; void main(){ vUv = aP * 0.5 + 0.5; gl_Position = vec4(aP, 0.0, 1.0); }`;
+  const sh = (t, src) => { const s = gl.createShader(t); gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); return s; };
+  const pr = gl.createProgram();
+  gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(pr);
+  if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(pr));
+  const vao = gl.createVertexArray(); gl.bindVertexArray(vao);
+  const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(pr, 'aP'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  const U = {}; const n = gl.getProgramParameter(pr, gl.ACTIVE_UNIFORMS);
+  for (let i = 0; i < n; i++) { const inf = gl.getActiveUniform(pr, i); U[inf.name.replace(/\[0\]$/, '')] = gl.getUniformLocation(pr, inf.name); }
+  const fit = (max) => { const dpr = Math.min(devicePixelRatio || 1, max), w = canvas.clientWidth, h = canvas.clientHeight; canvas.width = Math.max(1, Math.round(w * dpr)); canvas.height = Math.max(1, Math.round(h * dpr)); return w / Math.max(1, h); };
+  const draw = () => { gl.viewport(0, 0, canvas.width, canvas.height); gl.drawArrays(gl.TRIANGLES, 0, 3); };
+  gl.useProgram(pr);
+  return { gl, U, fit, draw };
+}
+
+/* ═════════════ 0 · menu ═════════════ */
+const nav = $('#nav');
+const onNav = () => nav.classList.toggle('solid', scrollY > 8);
+addEventListener('scroll', onNav, { passive: true }); onNav();
+const spyIds = ['arhitectura', 'securitate', 'despre'];
+const spy = new IntersectionObserver(es => {
+  for (const e of es) if (e.isIntersecting) $$('.links a').forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id));
+}, { rootMargin: '-45% 0px -50% 0px' });
+spyIds.forEach(id => spy.observe(document.getElementById(id)));
+const menu = $('#menu'), mb = $('.menu-b');
+const setMenu = on => { menu.hidden = !on; mb.setAttribute('aria-expanded', on); document.body.style.overflow = on ? 'hidden' : ''; if (on) $('a', menu).focus(); };
+mb.addEventListener('click', () => setMenu(true));
+$('.menu-x').addEventListener('click', () => setMenu(false));
+$$('a', menu).forEach(a => a.addEventListener('click', () => setMenu(false)));
+addEventListener('keydown', e => { if (e.key === 'Escape' && !menu.hidden) { setMenu(false); mb.focus(); } });
+
+/* ═════════════ 1 · l'apertura: i fogli calcolati in uno shader ═════════════
+   Per ogni pixel un raggio parte dalla camera e incontra i fogli dal più vicino; dove c'è carta si
+   ferma, dove c'è un foro prosegue fino al muro di luce. La carta è illuminata da davanti (la
+   stanza) e da dietro (la lampada): la luce di dietro passa dai fori dei fogli successivi, sempre
+   più sfumata con la distanza, e attraversa la carta con le sue fibre. Così il primo foglio porta
+   già, in trasparenza, le forme che verranno. */
+const HERO_FS = `#version 300 es
+precision highp float;
+in vec2 vUv; out vec4 o;
+uniform float uAspect, uD0, uTau;
+uniform vec3 uCam, uLamp;
+uniform vec4 uH[4];
+uniform float uT[4];
+uniform float uZ[5];
+uniform vec3 uAlb[4];
+float hash(vec2 p){ p = fract(p * vec2(234.34, 435.345)); p += dot(p, p + 34.23); return fract(p.x * p.y); }
+float vnoise(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
+  return mix(mix(hash(i), hash(i + vec2(1, 0)), f.x), mix(hash(i + vec2(0, 1)), hash(i + vec2(1, 1)), f.x), f.y); }
+float sdBox(vec2 p, vec2 b){ vec2 d = abs(p) - b; return length(max(d, 0.0)) + min(max(d.x, d.y), 0.0); }
+float sdTri(vec2 p, float r){ const float k = 1.7320508; p.x = abs(p.x) - r; p.y = p.y + r / k;
+  if (p.x + k * p.y > 0.0) p = vec2(p.x - k * p.y, -k * p.x - p.y) / 2.0;
+  p.x -= clamp(p.x, -2.0 * r, 0.0); return -length(p) * sign(p.y); }
+float sdHole(int i, vec2 p){
+  vec4 h = uH[i]; vec2 q = p - h.xy; float t = uT[i];
+  if (t < 0.5) return length(q) - h.z;
+  if (t < 1.5) return sdBox(q, vec2(h.z - 0.006)) - 0.006;
+  if (t < 2.5) return sdTri(q, h.z);
+  return sdBox(q, vec2(h.z, h.w) - 0.01) - 0.01;
+}
+float fibres(vec2 p, float s){
+  float f = 0.0;
+  vec2 wp = p + 0.045 * vec2(vnoise(p * 7.0 + s), vnoise(p * 7.0 - s + 3.1));
+  for (int i = 0; i < 4; i++) {
+    float an = s * 1.7 + float(i) * 1.57 + 0.4;
+    vec2 d = vec2(cos(an), sin(an));
+    vec2 q = vec2(dot(wp, d), dot(wp, vec2(-d.y, d.x)));
+    f += smoothstep(0.66, 0.96, vnoise(q * vec2(16.0, 130.0) + s * 13.1 + float(i) * 7.7));
+  }
+  return clamp(f * 0.42 + vnoise(p * 260.0 + s * 3.3) * 0.2, 0.0, 1.0);
+}
+/* il suminagashi sul terzo foglio: gocce d'inchiostro e d'acqua alternate, poi un pettine leggero */
+float marb(vec2 x){
+  x.x -= 0.014 * sin(16.0 * x.y + 0.4);
+  vec2 cB = uH[2].xy + vec2(-0.08, 0.36); float rB = 0.03;
+  for (int i = 6; i >= 0; i--) { vec2 d = x - cB; float L2 = max(dot(d, d), 1e-9); if (L2 < rB * rB) return (i % 2 == 0) ? 1.0 : 0.0; x = cB + d * sqrt(1.0 - rB * rB / L2); }
+  vec2 cA = uH[2].xy + vec2(0.34, -0.12); float rA = 0.045;
+  for (int i = 11; i >= 0; i--) { vec2 d = x - cA; float L2 = max(dot(d, d), 1e-9); if (L2 < rA * rA) return (i % 2 == 0) ? (i == 4 ? 2.0 : 1.0) : 0.0; x = cA + d * sqrt(1.0 - rA * rA / L2); }
+  return 0.0;
+}
+vec3 paper(int k, vec2 p, float sd, float w, float t){
+  float L = 1.0;
+  for (int j = 0; j < 4; j++) {
+    if (j <= k) continue;
+    float dz = uZ[k] - uZ[j];
+    float bl = 0.012 + dz * 0.03;
+    L *= mix(uTau, 1.0, 1.0 - smoothstep(-bl, bl, sdHole(j, p)));
+  }
+  vec2 dl = p - uLamp.xy;
+  float lamp = uLamp.z * (0.3 + 0.7 * exp(-dot(dl, dl) / 0.35));
+  float fib = fibres(p, float(k) + 1.0);
+  float tr = clamp(L * lamp * (1.0 - 0.35 * fib), 0.0, 1.0);
+  float A = mix(1.0, 0.88, smoothstep(1.5, 9.0, t));            /* la luce della stanza arriva meno in fondo */
+  vec3 base = uAlb[k] * 0.955 * A * (0.99 + 0.02 * fib);
+  vec3 col = mix(base, vec3(1.0, 0.935, 0.83), 0.85 * tr);       /* la luce di dietro scalda la carta */
+  float rim = 1.0 - smoothstep(0.5 * w, 2.4 * w, sd);
+  col = mix(col, vec3(1.0, 0.975, 0.92), rim * (0.2 + 0.55 * lamp * L));
+  col *= 1.0 - 0.06 * (1.0 - smoothstep(0.0, 0.03, sd)) * (1.0 - rim);
+  return col;
+}
+vec3 wall(vec2 p){
+  /* il muro di luce: più chiaro di qualsiasi carta, così ogni foro si accende; ai bordi torna il colore della pagina */
+  vec2 dl = p - uLamp.xy;
+  float g = exp(-dot(dl, dl) / 0.45) * clamp(uLamp.z, 0.0, 1.0) * (1.0 - smoothstep(0.2, 0.5, abs(p.y - uLamp.y)));
+  return mix(vec3(0.965, 0.945, 0.914), vec3(1.0, 0.995, 0.98), g);
+}
+void main(){
+  vec3 dir = vec3((vUv.x - 0.5) * uAspect / uD0, (vUv.y - 0.5) / uD0, -1.0);
+  float sd[4]; float fw[4]; vec2 hp[4]; float tt[4];
+  for (int k = 0; k < 4; k++) { tt[k] = uCam.z - uZ[k]; hp[k] = uCam.xy + dir.xy * tt[k]; sd[k] = sdHole(k, hp[k]); fw[k] = max(fwidth(sd[k]), 1e-5); }
+  vec3 acc = vec3(0.0); float a = 0.0, shade = 1.0;
+  for (int k = 0; k < 4; k++) {
+    if (tt[k] <= 0.002 || a > 0.996) continue;
+    float cov = smoothstep(-0.7 * fw[k], 0.7 * fw[k], sd[k]);
+    /* l'ombra interna del taglio: guardando dentro un foro vicino al bordo, ciò che sta dietro è in ombra */
+    float shw = uT[k] > 2.5 ? 0.25 * uH[k].z : 0.05;              /* nella fessura stretta l'ombra è sottile */
+    float sh = 1.0 - 0.16 * (1.0 - smoothstep(0.0, shw, -sd[k]));
+    if (cov <= 0.0) { shade *= sh; continue; }
+    vec3 c = paper(k, hp[k], sd[k], fw[k], tt[k]) * shade;
+    if (k == 2) {
+      vec2 e = vec2(fw[k] * 0.35, 0.0);
+      float m1 = marb(hp[k] + e), m2 = marb(hp[k] - e);
+      float ink = 0.5 * (step(0.5, m1) + step(0.5, m2)), rust = 0.5 * (step(1.5, m1) + step(1.5, m2));
+      c = mix(c, vec3(0.42, 0.40, 0.38), 0.15 * (ink - rust));
+      c = mix(c, vec3(0.61, 0.29, 0.22), 0.32 * rust);
+    }
+    acc += (1.0 - a) * cov * c;
+    a += (1.0 - a) * cov;
+    shade *= sh;
+  }
+  float tw = uCam.z - uZ[4];
+  acc += (1.0 - a) * wall(uCam.xy + dir.xy * tw) * shade;
+  acc += (hash(gl_FragCoord.xy) - 0.5) / 255.0;
+  o = vec4(acc, 1.0);
+}`;
+{
+  const el = $('.hero'), canvas = $('#gl-hero'), lts = $$('.hero .lt'), pin = $('.hero-pin');
+  let G = null;
+  try { G = makeGL(canvas, HERO_FS); } catch (e) { console.error(e); }
+  const D0 = 1.4, D = 2.0, Z = [0, -D, -2 * D, -3 * D, -4 * D];
+  const HOLD = [[0, 0.07], [0.25, 0.31], [0.49, 0.55], [0.73, 0.79], [0.97, 1]];
+  let A = 1.6, W = 1440, H = 900, pt = false, holes = [], holds = [], anchors = [], lampB = [0, 0];
+  let intro = STILL || REDUCE ? 1 : 0;
+  const mT = [0.5, 0.5], m = [0.5, 0.5];
+  function lay() {
+    W = pin.clientWidth; H = pin.clientHeight; A = W / Math.max(1, H); pt = A < 1;
+    if (G) A = G.fit(1.25);
+    /* il bordo sinistro del testo coincide con quello del menu */
+    const leftPx = Math.max(Math.min(56, Math.max(20, W * 0.044)), (W - 1200) / 2);
+    if (!pt) {
+      holes = [{ t: 0, x: 0.21 * A, y: -0.02, a: 0.25, b: 0 }, { t: 1, x: 0.23 * A, y: 0.0, a: 0.2, b: 0 }, { t: 2, x: 0.22 * A, y: -0.035, a: 0.27, b: 0 }, { t: 3, x: 0.21 * A, y: 0.0, a: 0.03, b: 0.32 }];
+      holds = [0, 1, 2, 3].map(() => ({ x: 0.05 * A, y: 0 })); holds.push({ x: 0.21 * A, y: 0 });
+      anchors = holds.slice(0, 4).map(h => ({ x: h.x - 0.5 * A + leftPx / H, y: h.y })); anchors.push({ x: holds[4].x, y: 0.0 });
+      lampB = [0.22 * A, 0];
+    } else {
+      holes = [{ t: 0, x: 0, y: -0.24, a: 0.13, b: 0 }, { t: 1, x: 0, y: -0.23, a: 0.115, b: 0 }, { t: 2, x: 0, y: -0.25, a: 0.155, b: 0 }, { t: 3, x: 0, y: -0.23, a: 0.022, b: 0.19 }];
+      holds = [0, 1, 2, 3].map(() => ({ x: 0, y: 0 })); holds.push({ x: 0, y: -0.23 });
+      anchors = holds.slice(0, 4).map(h => ({ x: h.x - 0.5 * A + leftPx / H, y: h.y + 0.39 })); anchors.push({ x: holds[4].x, y: -0.2 });
+      lampB = [0, -0.24];
+    }
+    root.classList.toggle('pt', pt);
+  }
+  if (G) {
+    const { gl, U } = G;
+    gl.uniform1f(U.uD0, D0); gl.uniform1f(U.uTau, 0.36);
+    gl.uniform1fv(U.uZ, new Float32Array(Z));
+    gl.uniform3fv(U.uAlb, new Float32Array([0.952, 0.935, 0.905, 0.957, 0.94, 0.911, 0.961, 0.945, 0.917, 0.965, 0.949, 0.921]));
+  }
+  if (G && FINE) pin.addEventListener('pointermove', e => { mT[0] = e.clientX / innerWidth; mT[1] = 1 - e.clientY / innerHeight; kick(); });
+  const zKeys = [];
+  HOLD.forEach(([a, b], k) => { const z = (k < 4 ? Z[k] : Z[4]) + D0; zKeys.push([a, z], [b, z]); });
+  /* la camera passa dal centro di ogni foro: tra due soste lo spostamento laterale dipende da z */
+  function camAt(cz) {
+    for (let k = 0; k < 4; k++) {
+      const zs = Z[k] + D0, ze = (k < 3 ? Z[k + 1] : Z[4]) + D0;
+      if (cz <= zs + 1e-6 && cz >= ze - 1e-6) {
+        const u = (zs - cz) / (zs - ze), uc = D0 / (zs - ze), h = holes[k], a = holds[k], b = holds[k + 1];
+        if (u < uc) { const w = sm(u / uc); return [lerp(a.x, h.x, w), lerp(a.y, h.y, w)]; }
+        const w = sm((u - uc) / (1 - uc)); return [lerp(h.x, b.x, w), lerp(h.y, b.y, w)];
+      }
+    }
+    return cz > Z[0] + D0 ? [holds[0].x, holds[0].y] : [holds[4].x, holds[4].y];
+  }
+  const o = part({
+    el, key: 'hero', mode: 'pin', rm: 0, k: 5.5,
+    resize: lay,
+    step(dt) {
+      let moving = false;
+      if (intro < 1) { intro = Math.min(1, intro + dt / 2.2); moving = true; }
+      const dx = mT[0] - m[0], dy = mT[1] - m[1];
+      if (dx * dx + dy * dy > 1e-7) { m[0] += dx * (1 - Math.exp(-dt * 3.5)); m[1] += dy * (1 - Math.exp(-dt * 3.5)); moving = true; }
+      return moving;
+    },
+    render(p) {
+      if (REDUCE) return;
+      const cz = track(p, zKeys), [cx, cy] = camAt(cz);
+      if (G) {
+        const { gl, U } = G;
+        gl.uniform1f(U.uAspect, A);
+        gl.uniform3f(U.uCam, cx, cy, cz);
+        gl.uniform4fv(U.uH, new Float32Array(holes.flatMap(h => [h.x, h.y, h.a, h.b])));
+        gl.uniform1fv(U.uT, new Float32Array(holes.map(h => h.t)));
+        gl.uniform3f(U.uLamp, lampB[0] + (m[0] - 0.5) * 0.12, lampB[1] + (m[1] - 0.5) * 0.08, lerp(0.12, 1, easeOut(intro)));
+        G.draw();
+      }
+      /* il testo sta sul suo foglio: si proietta con la stessa camera, e si vede solo quando quel foglio è il presente */
+      const px = H * D0;
+      lts.forEach((t, k) => {
+        const zk = Z[k], d = cz - zk, an = anchors[k];
+        if (d <= 0.05) { t.style.visibility = 'hidden'; return; }
+        const inn = k === 0 ? 1 : sm((Z[k - 1] - cz) / (0.35 * (D - D0)));
+        const out = k === 4 ? 1 : sm((d - 0.55 * D0) / (0.3 * D0));
+        const op = inn * out;
+        t.style.visibility = op < 0.01 ? 'hidden' : 'visible';
+        if (op < 0.01) return;
+        const X = W / 2 + (an.x - cx) * px / d, Y = H / 2 - (an.y - cy) * px / d, s = D0 / d;
+        t.style.opacity = op.toFixed(3);
+        t.style.transform = `translate3d(${X.toFixed(1)}px,${Y.toFixed(1)}px,0) scale(${s.toFixed(4)})`;
+      });
+      pin.style.setProperty('--cue', (1 - win(p, 0.01, 0.06)).toFixed(3));
+    }
+  });
+  lay();
+  io.observe(el);
+}
+
+/* ═════════════ 2 · il motore, in carta ═════════════ */
+{
+  const el = $('.dio-sec'), dio = $('#dio'), stg = $$('.dio-sec .stg');
+  const plA = $('.pl-a', dio), plB = $('.pl-b', dio), plC = $('.pl-c', dio), scan = $('.scan', dio), shadow = $('.shadow', dio);
+  const wA = $$('.win', plA), wB = $$('.win', plB), wPB = $('.win.pb', plC), pen = $('.pencil', plC);
+  let S = 400, T = 14;
+  const o = part({ el, key: 'dio', mode: 'pin', k: 6,
+    resize() {
+      const phone = innerWidth <= 900;
+      S = phone ? Math.min(innerWidth * 0.56, 300) : Math.min(innerWidth * 0.26, innerHeight * 0.42, 400);
+      T = S * 0.035;
+      dio.style.setProperty('--S', S + 'px'); dio.style.setProperty('--t', T + 'px');
+    },
+    render(p) {
+      /* cinque tappe di testo */
+      const B = [0, 0.18, 0.38, 0.58, 0.78, 1];
+      stg.forEach((n, i) => {
+        const a = B[i], b = B[i + 1];
+        const op = REDUCE ? 1 : i === 0 ? 1 - win(p, b - 0.03, b + 0.01) : i === 4 ? win(p, a - 0.01, a + 0.04) : fade(p, a - 0.01, a + 0.04, b - 0.03, b + 0.01);
+        n.style.opacity = op.toFixed(3);
+        n.style.transform = REDUCE ? '' : `translate3d(0,${((1 - op) * (p < a + 0.04 ? 16 : -16)).toFixed(1)}px,0)`;
+        n.style.visibility = op < 0.01 ? 'hidden' : 'visible';
+      });
+      /* la pila: chiusa, poi si apre come un esploso; alla fine si richiude un poco */
+      const ex = easeIO(win(p, 0.16, 0.34)) * (1 - 0.35 * easeIO(win(p, 0.92, 1)));
+      const gap = lerp(0.03, 0.28, ex) * S;
+      const zB = T + gap, zC = 2 * (T + gap);
+      const rz = lerp(-36, -28, easeIO(win(p, 0.1, 0.6))) + lerp(0, -5, easeIO(win(p, 0.86, 1)));
+      dio.style.transform = `rotateX(56deg) rotateZ(${rz.toFixed(2)}deg)`;
+      shadow.style.transform = `translate3d(${(-S * 0.6).toFixed(1)}px,${(-S * 0.56).toFixed(1)}px,-2px) scale(1.25)`;
+      plA.style.transform = `translate3d(${-S / 2}px,${-S / 2}px,0px)`;
+      plB.style.transform = `translate3d(${-S / 2}px,${-S / 2}px,${zB.toFixed(1)}px)`;
+      plC.style.transform = `translate3d(${-S / 2}px,${-S / 2}px,${zC.toFixed(1)}px)`;
+      /* le finestre si accendono: i clienti, poi i moduli uno a uno, poi PrivacyBox */
+      wA.forEach((w, i) => w.classList.toggle('on', p > 0.24 + i * 0.03));
+      wB.forEach((w, i) => w.classList.toggle('on', p > 0.42 + i * 0.022));
+      wPB.classList.toggle('on', p > 0.62);
+      pen.classList.toggle('on', p > 0.66);
+      const sc = easeIO(win(p, 0.8, 0.96));
+      scan.style.transform = `translate3d(${-S / 2}px,${-S / 2}px,${lerp(-T * 2, zC + T + S * 0.08, sc).toFixed(1)}px)`;
+      scan.style.opacity = fade(p, 0.79, 0.82, 0.95, 0.985).toFixed(3);
+    }
+  });
+  io.observe(el);
+}
+
+/* ═════════════ comparse: [data-rv] salgono e si accendono entrando ═════════════ */
+$$('[data-rv]').forEach(n => {
+  const sib = n.parentElement ? [...n.parentElement.querySelectorAll(':scope > [data-rv]')] : [n];
+  const i = Math.max(0, sib.indexOf(n));
+  part({ el: n, key: 'rv', mode: 'enter', a: 0.98, b: 0.62, k: 9, render(p) {
+    const e = easeOut(clamp01((p - i * 0.12) / 0.88));
+    n.style.opacity = e.toFixed(3);
+    n.style.transform = e >= 1 ? 'none' : `translate3d(0,${((1 - e) * 26).toFixed(1)}px,0)`;
+  } });
+  io.observe(n);
+});
+
+/* ═════════════ 3 · sicurezza: la luce si accende dietro ogni ritaglio ═════════════ */
+$$('#pcards .ico').forEach((ic, i) => {
+  part({ el: ic, key: 'icons', mode: 'enter', a: 0.9, b: 0.5, render(p) { ic.style.setProperty('--on', easeOut(clamp01((p - i * 0.1) / 0.75)).toFixed(3)); } });
+  io.observe(ic);
+});
+
+/* ═════════════ 5 · suminagashi: gocce e pettini, legati allo scroll ═════════════ */
+const MARB_FS = `#version 300 es
+precision highp float;
+in vec2 vUv; out vec4 o;
+uniform float uAspect, uPortrait, uInvH;
+uniform vec4 uOp[40]; uniform vec4 uMeta[40]; uniform int uN;
+uniform vec3 uPal[7];
+float hash(vec2 p){ p = fract(p * vec2(234.34, 435.345)); p += dot(p, p + 34.23); return fract(p.x * p.y); }
+float vnoise(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
+  return mix(mix(hash(i), hash(i + vec2(1, 0)), f.x), mix(hash(i + vec2(0, 1)), hash(i + vec2(1, 1)), f.x), f.y); }
+vec3 inkAt(vec2 x){
+  for (int j = 39; j >= 0; j--) {
+    if (j >= uN) continue;
+    vec4 op = uOp[j]; vec4 me = uMeta[j];
+    if (me.x < 0.5) {
+      float r = op.z;
+      if (r <= 0.0005) continue;
+      vec2 d = x - op.xy; float L2 = max(dot(d, d), 1e-9); float r2 = r * r;
+      if (L2 < r2) return uPal[int(me.y)];
+      x = op.xy + d * sqrt(1.0 - r2 / L2);
+    } else if (me.x < 1.5) { x.x -= op.z * sin(op.w * x.y + me.z); }
+    else { x.y -= op.z * sin(op.w * x.x + me.z); }
+  }
+  return uPal[6];
+}
+void main(){
+  vec2 q = (vUv - 0.5) * vec2(uAspect, 1.0);
+  float d = uInvH;
+  vec3 col = 0.5 * (inkAt(q + vec2(-0.25, -0.25) * d) + inkAt(q + vec2(0.25, 0.25) * d));
+  float fib = vnoise(q * vec2(520.0, 140.0)) * 0.6 + vnoise(q * 90.0) * 0.4;
+  col *= 0.975 + 0.04 * fib;
+  float veil = uPortrait > 0.5 ? smoothstep(-0.32, -0.02, q.y) * 0.9 : smoothstep(0.08, -0.36 * uAspect, q.x) * 0.9;
+  col = mix(col, uPal[6], veil);
+  col += (hash(gl_FragCoord.xy) - 0.5) / 255.0;
+  o = vec4(col, 1.0);
+}`;
+{
+  const el = $('#nume'), canvas = $('#gl-marb');
+  let G = null;
+  try { G = makeGL(canvas, MARB_FS); } catch (e) { console.error(e); }
+  if (G) {
+    const { gl, U } = G;
+    const hex = h => { const c = parseInt(h.slice(1), 16); return [(c >> 16 & 255) / 255, (c >> 8 & 255) / 255, (c & 255) / 255]; };
+    /* inchiostro diluito, inchiostro pieno, acqua, blu fiordo, ruggine, ocra, carta */
+    gl.uniform3fv(U.uPal, new Float32Array(['#B2ACA3', '#948E85', '#EEE9E0', '#A2B3BC', '#C27F6B', '#C9AC86', '#F6F2EA'].flatMap(hex)));
+    let ops = [], pt = null;
+    const build = portrait => {
+      ops = [];
+      const field = (cx, cy, n, r, inks) => { for (let i = 0; i < n; i++) ops.push({ k: 0, x: cx, y: cy, r, c: i % 2 ? 2 : inks[(i >> 1) % inks.length] }); };
+      if (portrait) { field(0.04, -0.3, 12, 0.026, [0, 0, 1]); field(-0.16, -0.42, 6, 0.02, [3, 0]); }
+      else { field(0.44, 0.04, 16, 0.034, [0, 0, 1]); field(0.74, 0.24, 8, 0.026, [3, 0]); field(0.8, -0.27, 6, 0.022, [0, 3]); }
+      const C2 = portrait ? [-0.06, -0.33] : [0.26, -0.06], sc = portrait ? 0.62 : 1;
+      [[4, 0.028], [2, 0.026], [3, 0.03], [2, 0.026], [0, 0.026], [2, 0.03]].forEach(([c, r], i) => ops.push({ k: 0, x: C2[0], y: C2[1], r: r * sc, c, t0: 0.12 + i * 0.06, t1: 0.22 + i * 0.06 }));
+      ops.push({ k: 1, amp: 0.04 * sc, w: portrait ? 30 : 21, ph: 0.3, t0: 0.46, t1: 0.7 });
+      ops.push({ k: 2, amp: 0.024 * sc, w: portrait ? 22 : 14, ph: 1.1, t0: 0.62, t1: 0.84 });
+      gl.uniform1i(U.uN, Math.min(ops.length, 40));
+    };
+    const opA = new Float32Array(40 * 4), meA = new Float32Array(40 * 4);
+    part({ el, key: 'marb', mode: 'through', rm: 0.95, k: 6,
+      resize() {
+        const asp = G.fit(1.25);
+        const portrait = asp < 1;
+        gl.uniform1f(U.uAspect, asp); gl.uniform1f(U.uPortrait, portrait ? 1 : 0); gl.uniform1f(U.uInvH, 1 / canvas.height);
+        if (portrait !== pt) { pt = portrait; build(portrait); }
+      },
+      render(p) {
+        ops.slice(0, 40).forEach((op, i) => {
+          if (op.k === 0) {
+            const r = op.t0 == null ? op.r : op.r * Math.sqrt(sm((p - op.t0) / (op.t1 - op.t0)));
+            opA.set([op.x, op.y, r, 0], i * 4); meA.set([0, op.c, 0, 0], i * 4);
+          } else {
+            opA.set([0, 0, op.amp * easeIO(win(p, op.t0, op.t1)), op.w], i * 4); meA.set([op.k, 0, op.ph, 0], i * 4);
+          }
+        });
+        gl.uniform4fv(U.uOp, opA); gl.uniform4fv(U.uMeta, meA);
+        G.draw();
+      }
+    }).resize();
+    io.observe(el);
+  }
+}
+
+/* ═════════════ 6 · la lanterna si accende ═════════════ */
+{
+  const l = $('#lant');
+  part({ el: l, key: 'lant', mode: 'enter', a: 1.0, b: 0.25, k: 6, render(p) {
+    const e = easeOut(p);
+    l.style.setProperty('--on', lerp(0.22, 1, e).toFixed(3));
+    l.style.transform = REDUCE ? '' : `scale(${lerp(0.94, 1, e).toFixed(4)})`;
+  } });
+  io.observe(l);
+}
+
+for (const o of parts) o.resize && o.resize();
+measure();
+for (const o of parts) { o.p = o.target; o.dirty = true; }
+kick();
+const go = () => requestAnimationFrame(() => root.classList.add('ready'));
+if (STILL || REDUCE) root.classList.add('ready');
+else if (document.fonts && document.fonts.ready) Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 900))]).then(go); else go();
+window.__parts = parts; window.__measure = measure; window.__kick = kick;
+})();
+</script>
+</body>
+</html>

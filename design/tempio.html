@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Hinotech · templul</title>
+<!-- Prototipo interno del 17/11/2026: la pagina d'apertura del sito di Hinotech Software.
+     Font e Three.js da CDN solo qui; il sito vero li serve dal proprio dominio. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+JP:wght@400;500&family=IBM+Plex+Sans:wght@400;500&family=Shippori+Mincho:wght@600&display=swap">
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
+</script>
+<style>
+:root{
+  --n-000:#FBFAF8;--n-050:#F1EEE9;--n-100:#E7E2D9;--n-200:#C8C1B4;--n-300:#B3ADA2;--n-400:#948E83;
+  --n-500:#7A756D;--n-700:#463F38;--n-900:#141311;--rust:#9C4A38;
+  --night:#0E100E;
+  --ff-display:'Cormorant Garamond','Shippori Mincho',Georgia,serif;
+  --ff-sans:'IBM Plex Sans',system-ui,sans-serif;
+  --ff-mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+  --ff-jp:'IBM Plex Sans JP','Yu Gothic UI',sans-serif;
+  --ff-mincho:'Shippori Mincho','Yu Mincho',serif;
+  --ease:cubic-bezier(.2,.6,.2,1);
+  --gut:clamp(16px,4.4vw,72px);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:var(--night)}
+body{margin:0;background:var(--night);color:var(--n-200);font:400 17px/1.6 var(--ff-sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit}
+
+/* testata: il sigillo, il nome, le lingue */
+.hd{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:24px var(--gut);pointer-events:none}
+.hd>*{pointer-events:auto}
+.hd::before{content:"";position:absolute;inset:0 0 -28px;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(14,16,14,.88) 0%,rgba(14,16,14,.55) 55%,rgba(14,16,14,0) 100%)}
+.brand{display:flex;align-items:center;gap:12px;color:var(--n-000);text-decoration:none;font:500 15px/1 var(--ff-sans)}
+.seal{display:inline-grid;place-items:center;width:30px;height:30px;flex:none;background:var(--rust);color:var(--n-000);
+  font:600 17px/1 var(--ff-mincho);border-radius:5px;box-shadow:inset 0 0 0 2.5px var(--rust),inset 0 0 0 3.5px rgba(251,250,248,.6)}
+.lang{display:flex;gap:16px;font:500 11px/1 var(--ff-mono);letter-spacing:.16em;color:var(--n-500)}
+.lang b{font-weight:500;color:var(--n-000)}
+
+/* la scena: notte, monocroma; l'unico colore è il tempio */
+.stage{position:relative}
+.sticky{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--night)}
+.sticky canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+@media (min-width:901px){.sticky::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(14,16,14,.9) 0%,rgba(14,16,14,.66) 24%,rgba(14,16,14,0) 44%)}}
+.gl-msg{display:none;position:absolute;right:var(--gut);bottom:28px;margin:0;font:500 12px/1.4 var(--ff-mono);color:var(--n-500)}
+.no-gl .gl-msg{display:block}
+.beats{position:relative;margin-top:-100vh;margin-top:-100svh;z-index:2;pointer-events:none;padding:0 var(--gut)}
+.beat{height:100vh;height:100svh;display:flex;align-items:center}
+.beat>div{max-width:min(520px,36vw)}
+.k{margin:0 0 24px;font:500 11px/1.5 var(--ff-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--n-500)}
+.k [lang=ja]{margin-right:.6em;font:500 12px/1 var(--ff-jp);letter-spacing:.32em;color:var(--n-300)}
+h1,h2{margin:0;font-family:var(--ff-display);font-weight:500;color:var(--n-000);letter-spacing:-.012em;text-wrap:balance}
+h1{font-size:clamp(44px,5.4vw,90px);line-height:.98}
+h2{font-size:clamp(38px,4.3vw,70px);line-height:1.02}
+.s{margin:26px 0 0;max-width:36ch;font-size:clamp(16px,1.15vw,18px);line-height:1.62;color:var(--n-300);text-wrap:pretty}
+.hold{height:150vh;height:150svh;align-items:flex-start}
+.hold>div{position:sticky;top:calc(50vh - 170px);top:calc(50svh - 170px);margin-top:calc(50svh - 170px)}
+.sign{display:flex;align-items:center;gap:14px;margin:40px 0 0;font:500 16px/1.25 var(--ff-sans);color:var(--n-000)}
+.sign small{display:block;margin-top:5px;font:500 10.5px/1.4 var(--ff-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--n-500)}
+
+/* il testo entra come inchiostro: da una bozza al 30 % al pieno, salendo di 8 px */
+@keyframes ink{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:no-preference){
+  .b0 h1,.b0 .s{animation:ink 1100ms var(--ease) both}
+  .b0 .s{animation-delay:180ms}
+  @supports (animation-timeline:view()){
+    .beat:not(.b0) .k,.beat:not(.b0) h2,.beat:not(.b0) .s{animation:ink linear both;animation-timeline:view();animation-range:entry 35% cover 48%}
+  }
+}
+
+.ft{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;padding:40px var(--gut) 44px;border-top:1px solid rgba(241,238,233,.08);
+  font:500 11px/1.6 var(--ff-mono);letter-spacing:.08em;color:var(--n-500)}
+.ft b{display:block;font:500 15px/1.3 var(--ff-sans);letter-spacing:0;color:var(--n-000)}
+.ft p{margin:0;text-align:right}
+
+@media (max-width:900px){
+  .beat{align-items:flex-end;padding-bottom:5svh}
+  .beat>div{max-width:none;width:100%;padding:20px 20px 18px;background:rgba(14,16,14,.82);
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(241,238,233,.08)}
+  .b0>div{background:transparent;border:0;padding:0;-webkit-backdrop-filter:none;backdrop-filter:none}
+  .hold{align-items:flex-start}
+  .hold>div{top:56svh;margin-top:56svh}
+  h1{font-size:40px}h2{font-size:29px}.s{margin-top:12px;font-size:15.5px}.k{margin-bottom:12px}
+  .beat .sign{display:none}
+  .ft{grid-template-columns:auto 1fr}.ft p{grid-column:1/-1;text-align:left}
+}
+</style>
+</head>
+<body>
+<header class="hd">
+  <a class="brand" href="#templu"><span class="seal" aria-hidden="true">檜</span>Hinotech Software</a>
+  <nav class="lang" aria-label="Limba"><b>RO</b><span>RU</span><span>EN</span></nav>
+</header>
+
+<main>
+<section class="stage" id="templu">
+  <div class="sticky">
+    <canvas role="img" aria-label="O pagodă cu cinci etaje, din lemn de hinoki, care se construiește pe măsură ce derulați pagina"></canvas>
+    <p class="gl-msg">Pentru templu sunt necesare WebGL și rețeaua.</p>
+  </div>
+  <div class="beats">
+    <article class="beat b0"><div>
+      <h1>Soluții software simple, clare, făcute să dureze.</h1>
+      <p class="s">O firmă tehnologică din Republica Moldova, cu produse în română și în rusă.</p>
+    </div></article>
+    <article class="beat"><div>
+      <p class="k"><span lang="ja">基壇</span>Temelia</p>
+      <h2>Simplitatea ține totul.</h2>
+      <p class="s">Pentru fiecare problemă căutăm cea mai simplă soluție care funcționează și o explicăm clar.</p>
+    </div></article>
+    <article class="beat"><div>
+      <p class="k"><span lang="ja">心柱</span>Stâlpul central</p>
+      <h2>Un singur stâlp trece prin toate etajele.</h2>
+      <p class="s">Un motor comun ține clienții, rolurile, versiunile, registrele, termenele și jurnalul. Îl scriem o dată; fiecare produs nou îl folosește.</p>
+    </div></article>
+    <article class="beat"><div>
+      <p class="k"><span lang="ja">初重</span>Primul etaj</p>
+      <h2>PrivacyBox.</h2>
+      <p class="s">Primul nostru produs: protecția datelor pentru firme, după Legea nr. 195/2024. Online din 3 octombrie 2026.</p>
+    </div></article>
+    <article class="beat"><div>
+      <p class="k"><span lang="ja">柔構造</span>Structura flexibilă</p>
+      <h2>Când lumea se mișcă, clădirea rămâne în picioare.</h2>
+      <p class="s">Legi care se schimbă, clienți noi, dispozitive noi: totul din același cod, cu versiuni, verificat la fiecare livrare.</p>
+    </div></article>
+    <article class="beat"><div>
+      <p class="k"><span lang="ja">二重 — 五重</span>Etajele de sus</p>
+      <h2>Etajele de sus se ridică pe rând.</h2>
+      <p class="s">Fiecare produs nou se ridică pe același motor, numai când cel de dedesubt se susține singur.</p>
+    </div></article>
+    <article class="beat"><div>
+      <p class="k"><span lang="ja">木組み</span>Îmbinarea</p>
+      <h2>Dovada, înaintea promisiunii.</h2>
+      <p class="s">Ca într-o îmbinare fără cuie, fiecare piesă se verifică: teste la fiecare livrare, datele fiecărui client izolate, rezultate pe care le poate verifica oricine.</p>
+    </div></article>
+    <article class="beat hold"><div>
+      <p class="k"><span lang="ja">相輪</span>Vârful</p>
+      <h2>Piesă cu piesă.</h2>
+      <p class="s">Ce există se vede în lemn; ce urmează, în desen.</p>
+      <p class="sign"><span class="seal" aria-hidden="true">檜</span><span>Hinotech Software<small>Coteala, raionul Briceni · Republica Moldova</small></span></p>
+    </div></article>
+  </div>
+</section>
+</main>
+
+<footer class="ft">
+  <span class="seal" aria-hidden="true">檜</span>
+  <div><b>Hinotech Software</b>Coteala, raionul Briceni · Republica Moldova</div>
+  <p>Prototipo interno del 17.11.2026 · non pubblicare prima del deposito del marchio all'AGEPI · <a href="direzioni.html">la tavola</a></p>
+</footer>
+
+<script>
+  /* se Three.js non arriva dalla rete, lo diciamo invece di lasciare il foglio vuoto */
+  setTimeout(function(){ if(!window.hinoGL) document.querySelector('.sticky').classList.add('no-gl'); }, 6000);
+</script>
+
+<script type="module">
+/* ──────────────────────────────────────────────────────────────────────────
+   Il tempio: una pagoda a cinque piani (五重塔) in hinoki, in un bosco scuro.
+   Il paesaggio è monocromo, come nelle immagini di riferimento del founder:
+   chiome nere, nebbia bianca nelle valli. L'unico colore è il tempio: il legno
+   e i tetti di corteccia. All'apertura il tempio è disegnato a gesso bianco;
+   scorrendo si costruisce pezzo per pezzo e in fondo alla pagina è finito.
+   La camera è ferma, vicina: è una fotografia.
+   ────────────────────────────────────────────────────────────────────────── */
+import * as THREE from 'three';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { GTAOPass } from 'three/addons/postprocessing/GTAOPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+
+const stage = document.getElementById('templu');
+const host = stage.querySelector('.sticky');
+const canvas = host.querySelector('canvas');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const DESK = innerWidth > 900;
+const rng = seed => { let s = (seed >>> 0) || 1; return () => ((s = (Math.imul(s, 1664525) + 1013904223) >>> 0) / 4294967296); };
+const clamp01 = x => Math.min(1, Math.max(0, x));
+const ease = t => 1 - Math.pow(1 - t, 3);
+const win = (p, a, b) => clamp01((p - a) / (b - a));
+const sstep = (a, b, x) => { const t = clamp01((x - a) / (b - a)); return t * t * (3 - 2 * t); };
+const V = (x, y, z) => new THREE.Vector3(x, y, z);
+
+/* scroll: avanzamento della costruzione, 0 → 1 */
+let target = reduce ? 1 : 0;
+function measure() {
+  const r = stage.getBoundingClientRect(), total = r.height - innerHeight;
+  target = reduce ? 1 : (total > 0 ? clamp01(-r.top / total) : 0);
+}
+addEventListener('scroll', measure, { passive: true });
+addEventListener('resize', measure);
+measure();
+
+/* ── renderer, luce ─────────────────────────────────────────────────────── */
+let renderer;
+try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' }); }
+catch (e) { host.classList.add('no-gl'); throw e; }
+window.hinoGL = true;
+renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+renderer.toneMapping = THREE.NeutralToneMapping;
+renderer.toneMappingExposure = 1.0;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+const BG = new THREE.Color('#0E100E');
+const scene = new THREE.Scene();
+scene.background = BG.clone();
+scene.fog = new THREE.Fog(BG.clone(), 78, 205);
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+scene.environmentIntensity = 0.32;
+const camera = new THREE.PerspectiveCamera(30, 1, 0.5, 600);
+
+/* il sole: basso, da sinistra e un po' davanti; caldo, l'unica luce calda */
+const sun = new THREE.DirectionalLight(0xffe6c8, 3.4);
+sun.castShadow = true;
+sun.shadow.mapSize.set(DESK ? 4096 : 2048, DESK ? 4096 : 2048);
+Object.assign(sun.shadow.camera, { left: -55, right: 55, top: 55, bottom: -55, near: 1, far: 300 });
+sun.shadow.bias = -0.0003; sun.shadow.normalBias = 0.03;
+sun.target.position.set(0, 4, 0);
+{ const az = THREE.MathUtils.degToRad(-24), el = THREE.MathUtils.degToRad(36);
+  sun.position.set(Math.sin(az) * Math.cos(el), Math.sin(el), Math.cos(az) * Math.cos(el)).multiplyScalar(110).add(sun.target.position); }
+scene.add(sun, sun.target, new THREE.HemisphereLight(0xd8dcd8, 0x0e100e, 0.12));
+
+/* ── materiali: canvas finché non arrivano le fotografie ────────────────── */
+function grainCanvas(seed) {
+  const W = 1024, H = 128, c = document.createElement('canvas'); c.width = W; c.height = H;
+  const g = c.getContext('2d'), r = rng(seed);
+  const base = g.createLinearGradient(0, 0, 0, H);
+  base.addColorStop(0, '#D9B98C'); base.addColorStop(0.5, '#E0C397'); base.addColorStop(1, '#D3B184');
+  g.fillStyle = base; g.fillRect(0, 0, W, H);
+  for (let i = 0; i < 30; i++) {
+    const y0 = r() * H, amp = 0.4 + r() * 1.8, f = 0.0025 + r() * 0.006, ph = r() * 6.28;
+    g.strokeStyle = `rgba(140,92,48,${0.08 + r() * 0.16})`; g.lineWidth = 0.5 + r() * 1.5;
+    g.beginPath();
+    for (let x = 0; x <= W; x += 8) { const y = y0 + Math.sin(x * f + ph) * amp; if (x) g.lineTo(x, y); else g.moveTo(x, y); }
+    g.stroke();
+  }
+  return c;
+}
+function endGrainCanvas(seed) {
+  const S = 256, c = document.createElement('canvas'); c.width = c.height = S;
+  const g = c.getContext('2d'), r = rng(seed);
+  g.fillStyle = '#B88C5A'; g.fillRect(0, 0, S, S);
+  const cx = S * (0.2 + r() * 0.6), cy = S * (0.2 + r() * 0.6);
+  for (let rad = 2; rad < S * 1.6; rad += 3 + r() * 5) {
+    g.strokeStyle = `rgba(110,72,38,${0.12 + r() * 0.2})`; g.lineWidth = 0.6 + r() * 1.2;
+    g.beginPath(); g.arc(cx, cy, rad, 0, Math.PI * 2); g.stroke();
+  }
+  return c;
+}
+function plainCanvas(color) { const c = document.createElement('canvas'); c.width = c.height = 4; const g = c.getContext('2d'); g.fillStyle = color; g.fillRect(0, 0, 4, 4); return c; }
+const aniso = renderer.capabilities.getMaxAnisotropy();
+const canvasTex = (c, color, rep) => {
+  const t = new THREE.CanvasTexture(c); t.anisotropy = aniso; t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  if (color) t.colorSpace = THREE.SRGBColorSpace;
+  if (rep) t.repeat.set(rep, rep);
+  return t;
+};
+const PHURL = 'https://dl.polyhaven.org/file/ph-assets/Textures/jpg/';
+const tl = new THREE.TextureLoader();
+function photo(name, map, res, color, done) {
+  tl.load(`${PHURL}${res}/${name}/${name}_${map}_${res}.jpg`, t => {
+    t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = aniso;
+    if (color) t.colorSpace = THREE.SRGBColorSpace;
+    done(t);
+  });
+}
+/* il legno: le venature corrono lungo ogni pezzo; ogni pezzo prende una tavola diversa */
+const hinokiUv = kind => `
+vec2 hinoUv = uv;
+#ifdef USE_INSTANCING
+  float hId = float(gl_InstanceID) + hinoSeed;
+  float hPlank = floor(fract(hId * 0.6180339) * 13.0) + 0.5;
+  float hShift = fract(hId * 0.4142136) * 3.0;
+  ${kind === 'col'
+    ? 'float hLen = length(instanceMatrix[1].xyz); float hRad = length(instanceMatrix[0].xyz); hinoUv = vec2(uv.y * hLen * 1.06 + hShift, hPlank / 13.0 + abs(uv.x - 0.5) * 6.2832 * hRad * 0.3);'
+    : 'float hLen = length(instanceMatrix[0].xyz); hinoUv = vec2(uv.y * hLen * 1.06 + hShift, hPlank / 13.0 + uv.x * 0.4);'}
+#endif
+#undef MAP_UV
+#define MAP_UV hinoUv
+#undef NORMALMAP_UV
+#define NORMALMAP_UV hinoUv
+#undef ROUGHNESSMAP_UV
+#define ROUGHNESSMAP_UV hinoUv
+`;
+const fbGrain = canvasTex(grainCanvas(11), true);
+const woodMats = [];
+function hinokiMat(kind, seed) {
+  const m = new THREE.MeshStandardMaterial({ map: fbGrain, roughness: 0.62 });
+  m.onBeforeCompile = sh => {
+    sh.uniforms.hinoSeed = { value: seed };
+    sh.vertexShader = 'uniform float hinoSeed;\n' + sh.vertexShader.replace('#include <uv_vertex>', hinokiUv(kind) + '\n#include <uv_vertex>');
+  };
+  m.customProgramCacheKey = () => 'hinoki-' + kind;
+  woodMats.push(m);
+  return m;
+}
+const endMat = new THREE.MeshStandardMaterial({ map: canvasTex(endGrainCanvas(71), true, 3), roughness: 0.85 });
+const stoneMat = new THREE.MeshStandardMaterial({ map: canvasTex(plainCanvas('#8F8D88'), true), roughness: 0.9 });
+const barkMats = [];
+const barkMat = () => { const m = new THREE.MeshStandardMaterial({ map: canvasTex(plainCanvas('#7A3A2C'), true), roughness: 0.95, side: THREE.DoubleSide, transparent: true }); barkMats.push(m); return m; };
+const bronzeMat = new THREE.MeshStandardMaterial({ color: 0x6e5634, metalness: 0.82, roughness: 0.36, envMapIntensity: 1.6 });
+const CHALK = 0xf1eee9, INK = 0.5;
+const inkMat = op => new THREE.LineBasicMaterial({ color: CHALK, transparent: true, opacity: op, depthWrite: false, toneMapped: false, fog: false });
+
+const WOOD_RES = DESK ? '2k' : '1k';
+photo('hinoki_planks', 'diff', WOOD_RES, true, t => { for (const m of woodMats) { m.map = t; m.needsUpdate = true; } });
+photo('hinoki_planks', 'nor_gl', WOOD_RES, false, t => { for (const m of woodMats) { m.normalMap = t; m.normalScale.set(0.9, 0.9); m.needsUpdate = true; } });
+photo('hinoki_planks', 'rough', WOOD_RES, false, t => { for (const m of woodMats) { m.roughnessMap = t; m.roughness = 1; m.needsUpdate = true; } });
+photo('japanese_stone_wall', 'diff', '1k', true, t => { stoneMat.map = t; stoneMat.needsUpdate = true; });
+photo('japanese_stone_wall', 'nor_gl', '1k', false, t => { stoneMat.normalMap = t; stoneMat.needsUpdate = true; });
+photo('japanese_stone_wall', 'rough', '1k', false, t => { stoneMat.roughnessMap = t; stoneMat.roughness = 1; stoneMat.needsUpdate = true; });
+photo('japanese_cedar_bark', 'diff', '1k', true, t => { for (const m of barkMats) { m.map = t; m.color.setRGB(1.9, 1.08, 1.0); m.needsUpdate = true; } });
+photo('japanese_cedar_bark', 'nor_gl', '1k', false, t => { for (const m of barkMats) { m.normalMap = t; m.normalScale.set(0.55, 0.55); m.needsUpdate = true; } });
+photo('japanese_cedar_bark', 'rough', '1k', false, t => { for (const m of barkMats) { m.roughnessMap = t; m.roughness = 1; m.needsUpdate = true; } });
+
+/* ── il tempio: proporzioni ─────────────────────────────────────────────── */
+const A1 = 2.4, OV1 = 1.3, PLAT = 0.8;
+const floors = [];
+{
+  let y = PLAT;
+  for (let f = 1; f <= 5; f++) {
+    const a = A1 * (1 - 0.125 * (f - 1)), ov = OV1 * (1 - 0.07 * (f - 1)), hc = f === 1 ? 2.0 : 1.12;
+    const base = y, headY = base + 0.18 + hc, roofTop = headY + (f === 5 ? 1.15 : 0.92);
+    floors.push({ f, a, ov, hc, base, headY, eaveY: headY + 0.05, roofTop, next: 0 });
+    y = roofTop;
+  }
+  floors.forEach((F, i) => { F.next = i < 4 ? floors[i + 1].a + 0.16 : 0.3; });
+}
+const TOP = floors[4].roofTop;
+const SIDES = [[V(0, 0, 1), V(1, 0, 0)], [V(1, 0, 0), V(0, 0, -1)], [V(0, 0, -1), V(-1, 0, 0)], [V(-1, 0, 0), V(0, 0, 1)]];
+/* quando si costruisce ogni piano (frazioni dello scroll); in fondo il tempio è finito */
+const BUILD = { 1: [0.27, 0.4], 2: [0.55, 0.64], 3: [0.64, 0.73], 4: [0.73, 0.82], 5: [0.82, 0.91] };
+const ROOF_T = f => [BUILD[f][1] - 0.02, BUILD[f][1] + 0.015];
+
+/* i pezzi: travi, mensole e correnti (barre), colonne (cilindri) */
+const pieces = [];
+const UP = V(0, 1, 0), ZREF = V(0, 0, 1), IDQ = new THREE.Quaternion();
+const _x = V(0, 0, 0), _y = V(0, 0, 0), _z = V(0, 0, 0), _basis = new THREE.Matrix4();
+function orient(dir) {
+  _x.copy(dir).normalize();
+  const ref = Math.abs(_x.dot(UP)) > 0.98 ? ZREF : UP;
+  _z.crossVectors(_x, ref).normalize(); _y.crossVectors(_z, _x).normalize();
+  _basis.makeBasis(_x, _y, _z);
+  return new THREE.Quaternion().setFromRotationMatrix(_basis);
+}
+function box(a, b, w, h, floor, role, ink = true) {
+  const d = b.clone().sub(a), len = d.length();
+  pieces.push({ kind: 'box', a, dir: d.normalize(), len, w, h, q: orient(d), floor, role, ink });
+}
+function cyl(a, len, r, floor, role, ink = true) { pieces.push({ kind: 'cyl', a, len, r, floor, role, ink }); }
+function block(c, size, height, floor) { box(c, c.clone().add(V(0, height, 0)), size, size, floor, 'bracket', false); }
+
+for (const F of floors) {
+  const { f, a, ov, hc, base, headY, eaveY } = F;
+  const yb = base + 0.09;
+  for (const s of [-1, 1]) {
+    box(V(-a - 0.14, yb, s * a), V(a + 0.14, yb, s * a), 0.16, 0.18, f, 'floor');
+    box(V(s * a, yb, -a - 0.14), V(s * a, yb, a + 0.14), 0.16, 0.18, f, 'floor');
+  }
+  const ticks = [-a, -a / 3, a / 3, a];
+  const cols = [];
+  for (const x of ticks) for (const z of ticks) {
+    const outer = Math.abs(x) === a || Math.abs(z) === a;
+    cols.push([x, z, outer]);
+    cyl(V(x, base + 0.18, z), hc, outer ? 0.1 : 0.085, f, 'col');
+  }
+  for (const s of [-1, 1]) {
+    box(V(-a - 0.1, headY + 0.08, s * a), V(a + 0.1, headY + 0.08, s * a), 0.15, 0.16, f, 'head');
+    box(V(s * a, headY + 0.08, -a - 0.1), V(s * a, headY + 0.08, a + 0.1), 0.15, 0.16, f, 'head');
+  }
+  for (const [x, z, outer] of cols) if (outer) {
+    const top = headY + 0.16;
+    block(V(x, top, z), 0.26, 0.12, f);
+    const outs = [];
+    if (Math.abs(x) === a) outs.push(V(Math.sign(x), 0, 0));
+    if (Math.abs(z) === a) outs.push(V(0, 0, Math.sign(z)));
+    const corner = outs.length === 2;
+    if (corner) outs.push(V(Math.sign(x), 0, Math.sign(z)).normalize());
+    for (const o of outs) {
+      const diag = Math.abs(o.x) > 0.1 && Math.abs(o.z) > 0.1;
+      const reach = (diag ? Math.SQRT2 : 1) * ov * 0.72;
+      const p0 = V(x, top + 0.17, z).addScaledVector(o, -0.16), p1 = V(x, top + 0.17, z).addScaledVector(o, (diag ? Math.SQRT2 : 1) * 0.27);
+      box(p0, p1, 0.1, 0.1, f, 'bracket', false);
+      block(V(p1.x, top + 0.2, p1.z), 0.14, 0.08, f);
+      box(V(x, top + 0.32, z).addScaledVector(o, -0.35), V(x, eaveY - 0.02, z).addScaledVector(o, reach), 0.11, 0.12, f, 'bracket', diag);
+    }
+    if (!corner) {
+      const along = Math.abs(x) === a ? V(0, 0, 1) : V(1, 0, 0);
+      box(V(x, top + 0.17, z).addScaledVector(along, -0.32), V(x, top + 0.17, z).addScaledVector(along, 0.32), 0.1, 0.1, f, 'bracket', false);
+    }
+  }
+  const e = a + ov * 0.72;
+  for (const s of [-1, 1]) {
+    box(V(-e - 0.2, eaveY, s * e), V(e + 0.2, eaveY, s * e), 0.12, 0.14, f, 'eave');
+    box(V(s * e, eaveY, -e - 0.2), V(s * e, eaveY, e + 0.2), 0.12, 0.14, f, 'eave');
+  }
+  const inner = a - 0.04, outerD = a + ov;
+  const yAt = d => headY + 0.7 - (d - inner) * 0.58;
+  for (const [o, tv] of SIDES) {
+    const n = Math.round((2 * outerD) / 0.27);
+    for (let i = 0; i <= n; i++) {
+      const s = -outerD + (2 * outerD) * i / n, as = Math.abs(s);
+      const d0 = as > a ? as : inner;
+      if (outerD - d0 < 0.14) continue;
+      const lift = 0.26 * Math.pow(as / outerD, 4), fr = d => (d - inner) / (outerD - inner);
+      const p0 = o.clone().multiplyScalar(d0).addScaledVector(tv, s); p0.y = yAt(d0) + lift * fr(d0) * fr(d0);
+      const p1 = o.clone().multiplyScalar(outerD).addScaledVector(tv, s); p1.y = yAt(outerD) + lift;
+      box(p0, p1, 0.065, 0.065, f, 'rafter', false);
+    }
+  }
+}
+
+/* i tetti: falde concave con gli angoli rialzati (sori), corteccia posata a corsi */
+function roofPoint(F, side, w, s) {
+  const [o, tv] = SIDES[side];
+  const outer = F.a + F.ov + 0.05, h = outer + (F.next - outer) * s;
+  const yE = F.headY + 0.7 - (F.ov + 0.04) * 0.58 + 0.11;
+  const y = yE + 0.07 + (F.roofTop - yE) * Math.pow(s, 1.35) + 0.26 * Math.pow(Math.abs(w), 4) * (1 - s) * (1 - s);
+  return o.clone().multiplyScalar(h).addScaledVector(tv, w * h).setY(y);
+}
+function roofGeometry(F) {
+  const ns = 12, nw = 24, pos = [], uv = [], idx = [];
+  const across = F.a + F.ov + 0.05;
+  let base = 0;
+  for (let side = 0; side < 4; side++) {
+    for (let i = 0; i <= ns; i++) for (let j = 0; j <= nw; j++) {
+      const s = i / ns, w = -1 + 2 * j / nw, pt = roofPoint(F, side, w, s);
+      pos.push(pt.x, pt.y, pt.z); uv.push(s * 5, (w + 1) / 2 * across);
+    }
+    for (let i = 0; i < ns; i++) for (let j = 0; j < nw; j++) {
+      const a = base + i * (nw + 1) + j, b = a + 1, c = a + nw + 1, d = c + 1; idx.push(a, b, c, b, d, c);
+    }
+    base += (ns + 1) * (nw + 1);
+    for (let r = 0; r < 2; r++) for (let j = 0; j <= nw; j++) {
+      const w = -1 + 2 * j / nw, pt = roofPoint(F, side, w, 0); if (r) pt.y -= 0.17;
+      pos.push(pt.x, pt.y, pt.z); uv.push(r * 0.3, (w + 1) / 2 * across);
+    }
+    for (let j = 0; j < nw; j++) { const a = base + j, b = a + 1, c = a + nw + 1, d = c + 1; idx.push(a, c, b, b, c, d); }
+    base += 2 * (nw + 1);
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+  g.setIndex(idx); g.computeVertexNormals();
+  return g;
+}
+const roofs = floors.map(F => {
+  const m = new THREE.Mesh(roofGeometry(F), barkMat());
+  m.castShadow = true; m.receiveShadow = true; m.visible = false; scene.add(m);
+  return m;
+});
+
+/* il legno, in istanze: ogni sezione ha la sua barra con gli spigoli smussati */
+function barGeometry(w, h) {
+  const c = Math.min(w, h) * 0.14, x = w / 2, y = h / 2, s = new THREE.Shape();
+  s.moveTo(-x + c, -y); s.lineTo(x - c, -y); s.lineTo(x, -y + c); s.lineTo(x, y - c);
+  s.lineTo(x - c, y); s.lineTo(-x + c, y); s.lineTo(-x, y - c); s.lineTo(-x, -y + c); s.closePath();
+  const g = new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false, steps: 1 });
+  g.translate(0, 0, -0.5); g.rotateY(Math.PI / 2);
+  return g;
+}
+const groups = new Map();
+for (const p of pieces) if (p.kind === 'box') {
+  const key = p.w.toFixed(3) + 'x' + p.h.toFixed(3);
+  if (!groups.has(key)) groups.set(key, { w: p.w, h: p.h, list: [] });
+  groups.get(key).list.push(p);
+}
+const tintR = rng(77), tint = new THREE.Color();
+const tintAt = (im, i) => { const k = 0.92 + tintR() * 0.12; im.setColorAt(i, tint.setRGB(k, k * (0.98 + tintR() * 0.04), k * (0.96 + tintR() * 0.05))); };
+let seedW = 3.1;
+const bars = [...groups.values()].map(g => {
+  const im = new THREE.InstancedMesh(barGeometry(g.w, g.h), [endMat, hinokiMat('bar', (seedW += 17.31))], g.list.length);
+  g.list.forEach((p, i) => tintAt(im, i));
+  return { im, list: g.list };
+});
+const cylList = pieces.filter(p => p.kind === 'cyl');
+const colMat = hinokiMat('col', 91.7);
+const colIM = new THREE.InstancedMesh(new THREE.CylinderGeometry(1, 1, 1, 20), [colMat, endMat, endMat], cylList.length);
+cylList.forEach((p, i) => tintAt(colIM, i));
+const PH = TOP + 0.35;
+const pillarIM = new THREE.InstancedMesh(new THREE.CylinderGeometry(0.95, 1.05, 1, 24), [colMat, endMat, endMat], 1);
+for (const m of [...bars.map(b => b.im), colIM, pillarIM]) {
+  m.castShadow = m.receiveShadow = true; m.frustumCulled = false;
+  m.instanceMatrix.setUsage(THREE.DynamicDrawUsage); scene.add(m);
+}
+const ROLE = { floor: [0.0, 0.16, 0.0], col: [0.04, 0.16, 0.24], head: [0.3, 0.14, 0.0], bracket: [0.4, 0.12, 0.22], eave: [0.6, 0.14, 0.0], rafter: [0.64, 0.08, 0.26] };
+for (const p of pieces) {
+  const c = p.kind === 'box' ? p.a.clone().addScaledVector(p.dir, p.len / 2) : p.a;
+  const k = (Math.atan2(c.z, c.x) + Math.PI) / (2 * Math.PI);
+  const [r0, dur, spread] = ROLE[p.role];
+  p.t0 = r0 + spread * k; p.t1 = p.t0 + dur;
+}
+
+/* la base di pietra (基壇) */
+function stoneGeo(sx, sy, sz) {
+  const g = new THREE.BoxGeometry(sx, sy, sz), uv = g.attributes.uv, U = 1.6;
+  const dims = [[sz, sy], [sz, sy], [sx, sz], [sx, sz], [sx, sy], [sx, sy]];
+  for (let face = 0; face < 6; face++) for (let v = 0; v < 4; v++) {
+    const i = face * 4 + v; uv.setXY(i, uv.getX(i) * dims[face][0] / U, uv.getY(i) * dims[face][1] / U);
+  }
+  return g;
+}
+const STONES = [
+  [[8.8, 0.26, 8.8], [0, 0.13, 0], 0.06, 0.1],
+  [[7.6, 0.54, 1.25], [0, 0.53, 3.175], 0.08, 0.12],
+  [[7.6, 0.54, 1.25], [0, 0.53, -3.175], 0.09, 0.13],
+  [[1.25, 0.54, 5.1], [3.175, 0.53, 0], 0.1, 0.14],
+  [[1.25, 0.54, 5.1], [-3.175, 0.53, 0], 0.11, 0.15],
+  [[5.1, 0.5, 5.1], [0, 0.51, 0], 0.12, 0.16],
+].map(([size, pos, t0, t1]) => {
+  const m = new THREE.Mesh(stoneGeo(...size), stoneMat);
+  m.castShadow = m.receiveShadow = true; scene.add(m);
+  return { m, size, pos, t0, t1 };
+});
+
+/* la guglia (相輪), in bronzo: l'ultimo pezzo */
+const sorin = new THREE.Group();
+{
+  const y0 = TOP - 0.02, add = (g, y) => { const m = new THREE.Mesh(g, bronzeMat); m.position.y = y - y0; m.castShadow = true; sorin.add(m); };
+  add(new THREE.BoxGeometry(0.62, 0.28, 0.62), y0 + 0.14);
+  add(new THREE.SphereGeometry(0.3, 20, 10, 0, Math.PI * 2, 0, Math.PI / 2), y0 + 0.28);
+  add(new THREE.CylinderGeometry(0.055, 0.065, 3.1, 12), y0 + 1.55);
+  for (let k = 0; k < 9; k++) add(new THREE.TorusGeometry(0.34 - k * 0.012, 0.032, 8, 28).rotateX(Math.PI / 2), y0 + 0.72 + k * 0.17);
+  add(new THREE.SphereGeometry(0.11, 16, 12), y0 + 3.0);
+  sorin.position.y = y0; sorin.visible = false; scene.add(sorin);
+}
+
+/* ── il disegno a gesso: il progetto ────────────────────────────────────── */
+function edgesOfBox(center, q, sx, sy, sz, out) {
+  const hx = sx / 2, hy = sy / 2, hz = sz / 2;
+  const P = [[-1, -1, -1], [1, -1, -1], [1, 1, -1], [-1, 1, -1], [-1, -1, 1], [1, -1, 1], [1, 1, 1], [-1, 1, 1]]
+    .map(([x, y, z]) => V(x * hx, y * hy, z * hz).applyQuaternion(q).add(center));
+  for (const [i, j] of [[0, 1], [1, 2], [2, 3], [3, 0], [4, 5], [5, 6], [6, 7], [7, 4], [0, 4], [1, 5], [2, 6], [3, 7]]) out.push([P[i], P[j]]);
+}
+function pieceEdges(p, out) {
+  if (p.kind === 'box') edgesOfBox(p.a.clone().addScaledVector(p.dir, p.len / 2), p.q, p.len, p.h, p.w, out);
+  else { const c = p.a.clone(); c.y += p.len / 2; edgesOfBox(c, IDQ, p.r * 2, p.len, p.r * 2, out); }
+}
+function roofSegs(F, out) {
+  const poly = pts => { for (let i = 0; i < pts.length - 1; i++) out.push([pts[i], pts[i + 1]]); };
+  for (let side = 0; side < 4; side++) {
+    const eave = [], fascia = [], top = [roofPoint(F, side, -1, 1), roofPoint(F, side, 1, 1)];
+    for (let j = 0; j <= 16; j++) { const w = -1 + j / 8; const p = roofPoint(F, side, w, 0); eave.push(p); fascia.push(p.clone().setY(p.y - 0.17)); }
+    poly(eave); poly(fascia); poly(top);
+    const hip = []; for (let i = 0; i <= 10; i++) hip.push(roofPoint(F, side, 1, i / 10)); poly(hip);
+    for (let k = 1; k < 10; k++) { const w = -1 + k / 5, line = []; for (let i = 0; i <= 8; i++) line.push(roofPoint(F, side, w, i / 8)); poly(line); }
+  }
+}
+function sorinSegs(out) {
+  const y0 = TOP - 0.02;
+  const ring = (y, r, n = 12) => { for (let i = 0; i < n; i++) { const a0 = i / n * 2 * Math.PI, a1 = (i + 1) / n * 2 * Math.PI; out.push([V(Math.cos(a0) * r, y, Math.sin(a0) * r), V(Math.cos(a1) * r, y, Math.sin(a1) * r)]); } };
+  edgesOfBox(V(0, y0 + 0.14, 0), IDQ, 0.62, 0.28, 0.62, out);
+  ring(y0 + 0.3, 0.3); ring(y0 + 0.46, 0.24);
+  out.push([V(0, y0, 0), V(0, y0 + 3.12, 0)]);
+  for (let k = 0; k < 9; k++) ring(y0 + 0.72 + k * 0.17, 0.34 - k * 0.012);
+  ring(y0 + 2.98, 0.1, 10); ring(y0 + 3.06, 0.07, 10);
+}
+function makeInk(segs, order) {
+  segs.sort((A, B) => Math.min(A[0].y, A[1].y) - Math.min(B[0].y, B[1].y));
+  const arr = new Float32Array(segs.length * 6);
+  segs.forEach(([a, b], i) => arr.set([a.x, a.y, a.z, b.x, b.y, b.z], i * 6));
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(arr, 3));
+  const L = new THREE.LineSegments(g, inkMat(INK));
+  L.renderOrder = 2; L.frustumCulled = false; scene.add(L);
+  return { L, count: segs.length * 2, order };
+}
+const ink = { base: null, frame: {}, roof: {}, sorin: null };
+{ const s = []; for (const st of STONES) edgesOfBox(V(...st.pos), IDQ, ...st.size, s); ink.base = makeInk(s, 0); }
+for (const F of floors) {
+  const fs = []; for (const p of pieces) if (p.floor === F.f && p.ink) pieceEdges(p, fs);
+  ink.frame[F.f] = makeInk(fs, F.f);
+  const rs = []; roofSegs(F, rs); ink.roof[F.f] = makeInk(rs, F.f + 0.4);
+}
+{ const s = []; sorinSegs(s); ink.sorin = makeInk(s, 5.8); }
+const inkAll = [ink.base, ...Object.values(ink.frame), ...Object.values(ink.roof), ink.sorin];
+
+/* ── il paesaggio monocromo: un colle nel bosco scuro, nebbia bianca nelle valli ── */
+const hash2 = (x, y) => { let h = (Math.imul(x | 0, 374761393) + Math.imul(y | 0, 668265263)) | 0; h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h ^ (h >>> 16)) >>> 0) / 4294967296; };
+function vnoise(x, y) {
+  const xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi, u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf);
+  const a = hash2(xi, yi), b = hash2(xi + 1, yi), c = hash2(xi, yi + 1), d = hash2(xi + 1, yi + 1);
+  return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
+}
+function fbm(x, y, o = 5) { let s = 0, a = 0.5, f = 1; for (let i = 0; i < o; i++) { s += a * vnoise(x * f, y * f); f *= 2.03; a *= 0.5; } return s; }
+const rawH = (x, z) => (fbm(x / 70 + 11.3, z / 70 + 4.7) - 0.5) * 18 + (fbm(x / 22 + 2.1, z / 22 + 9.2) - 0.5) * 3;
+const H00 = rawH(0, 0);
+const terrainH = (x, z) => { const r = Math.hypot(x, z); return (rawH(x, z) - H00) * sstep(16, 50, r) - 16 * sstep(13, 70, r); };
+/* il terreno: scuro, con la radura del tempio appena più chiara */
+{
+  const g = new THREE.PlaneGeometry(420, 420, DESK ? 200 : 120, DESK ? 200 : 120);
+  g.rotateX(-Math.PI / 2);
+  const pos = g.attributes.position, col = new Float32Array(pos.count * 3), c = new THREE.Color(), cClear = new THREE.Color('#3A3D38'), cDark = new THREE.Color('#121412');
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i), z = pos.getZ(i), r = Math.hypot(x, z);
+    pos.setY(i, terrainH(x, z));
+    c.copy(cClear).lerp(cDark, sstep(9, 17, r)).multiplyScalar(0.9 + 0.2 * fbm(x / 6, z / 6, 3));
+    col.set([c.r, c.g, c.b], i * 3);
+  }
+  g.setAttribute('color', new THREE.BufferAttribute(col, 3));
+  g.computeVertexNormals();
+  const mat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1 });
+  mat.onBeforeCompile = sh => {
+    sh.fragmentShader = sh.fragmentShader.replace('#include <map_fragment>', `
+#ifdef USE_MAP
+  vec4 hinoA = texture2D( map, vMapUv );
+  vec4 hinoB = texture2D( map, vMapUv * 0.137 + vec2( 0.31, 0.57 ) );
+  float hinoL = dot( mix( hinoA, hinoB, 0.42 ).rgb, vec3( 0.2126, 0.7152, 0.0722 ) );
+  diffuseColor.rgb *= hinoL * 2.4;
+#endif`);
+  };
+  photo('grass_ground', 'diff', '1k', true, t => { t.repeat.set(330, 330); mat.map = t; mat.needsUpdate = true; });
+  const ground = new THREE.Mesh(g, mat);
+  ground.receiveShadow = true; scene.add(ground);
+}
+/* il bosco: chiome fatte di molti ciuffi, con le foglie in rilievo; tutte grigio-nere */
+function leafCanvas() {
+  const S = 256, c = document.createElement('canvas'); c.width = c.height = S;
+  const g = c.getContext('2d'), r = rng(808);
+  g.fillStyle = '#000'; g.fillRect(0, 0, S, S);
+  for (let i = 0; i < 2600; i++) {
+    const x = r() * S, y = r() * S, a = r() * Math.PI, l = 3 + r() * 5, gr = g.createRadialGradient(x, y, 0, x, y, l);
+    gr.addColorStop(0, `rgba(255,255,255,${(0.5 + r() * 0.5).toFixed(2)})`); gr.addColorStop(1, 'rgba(255,255,255,0)');
+    g.save(); g.translate(x, y); g.rotate(a); g.scale(1, 0.5); g.translate(-x, -y); g.fillStyle = gr; g.beginPath(); g.arc(x, y, l, 0, Math.PI * 2); g.fill(); g.restore();
+  }
+  return c;
+}
+function crownGeo(seed, subs, detail) {
+  const r = rng(seed), parts = [];
+  for (let i = 0; i < subs; i++) {
+    const g = new THREE.IcosahedronGeometry(1, detail), s = 0.34 + r() * 0.24;
+    const th = r() * Math.PI * 2, ph = Math.acos(2 * r() - 1), rad = 0.6 * Math.cbrt(r());
+    g.scale(s, s * 0.88, s);
+    g.translate(Math.sin(ph) * Math.cos(th) * rad, Math.cos(ph) * rad * 0.62 + 0.12, Math.sin(ph) * Math.sin(th) * rad);
+    parts.push(g);
+  }
+  const m = mergeGeometries(parts);
+  const p = m.attributes.position, v = new THREE.Vector3();
+  for (let i = 0; i < p.count; i++) {
+    v.fromBufferAttribute(p, i);
+    const n = fbm(v.x * 4.2 + seed, v.y * 4.2 + v.z * 3.1 - seed, 3);
+    v.multiplyScalar(0.94 + 0.12 * n); p.setXYZ(i, v.x, v.y, v.z);
+  }
+  return m;
+}
+const leaf = canvasTex(leafCanvas(), false, 2);
+const crownMat = new THREE.MeshStandardMaterial({ color: 0x24282c, roughness: 0.9, bumpMap: leaf, bumpScale: 2 });
+{
+  const r = rng(4242), lists = { near: [], far: [] };
+  const scatter = (rMin, rMax, sp, kind) => {
+    for (let gx = -rMax; gx <= rMax; gx += sp) for (let gz = -rMax; gz <= rMax; gz += sp) {
+      const x = gx + (r() - 0.5) * sp * 0.85, z = gz + (r() - 0.5) * sp * 0.85, d = Math.hypot(x, z);
+      const front = (x * 0.829 + z * 0.559) / Math.max(d, 1e-3);
+      const rIn = kind === 'near' ? (front > 0.25 ? 17 : 10.5) + 4 * fbm(x / 14, z / 14, 2) : rMin;
+      if (d < rIn || d > rMax) { r(); r(); continue; }
+      const R = (kind === 'near' ? 2.3 : 2.6) + r() * 1.1, ty = terrainH(x, z) + 7 + r() * 3.5;
+      const m = new THREE.Matrix4().compose(V(x, ty, z), new THREE.Quaternion().setFromAxisAngle(UP, r() * 6.283), V(R, R * (0.86 + 0.2 * r()), R));
+      const k = 0.62 + r() * 0.62;
+      lists[kind].push({ m, c: new THREE.Color(k, k, k) });
+    }
+  };
+  scatter(15, 52, 3.4, 'near');
+  scatter(52, DESK ? 135 : 95, DESK ? 3.9 : 5.2, 'far');
+  const make = (list, variants, subs, detail, shadow) => {
+    const per = Math.ceil(list.length / variants);
+    for (let v = 0; v < variants; v++) {
+      const part = list.slice(v * per, (v + 1) * per); if (!part.length) continue;
+      const im = new THREE.InstancedMesh(crownGeo(31 + v * 7.3 + subs, subs, detail), crownMat, part.length);
+      part.forEach((o, i) => { im.setMatrixAt(i, o.m); im.setColorAt(i, o.c); });
+      im.castShadow = shadow; im.receiveShadow = true; scene.add(im);
+    }
+  };
+  make(lists.near, 4, DESK ? 13 : 8, 1, true);
+  make(lists.far, 3, DESK ? 7 : 5, 1, false);
+}
+/* la nebbia: veli bianchi nelle valli, che sfumano ai bordi */
+{
+  const S = 512, c = document.createElement('canvas'); c.width = c.height = S;
+  const g = c.getContext('2d'), img = g.createImageData(S, S);
+  for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) {
+    const edge = 1 - sstep(0.55, 0.98, Math.hypot(x / S - 0.5, y / S - 0.5) * 2);
+    const v = fbm(x / 60 + 3.1, y / 60 + 7.7, 5), a = sstep(0.3, 0.82, v) * edge * 255, i = (y * S + x) * 4;
+    img.data[i] = img.data[i + 1] = img.data[i + 2] = a; img.data[i + 3] = 255;
+  }
+  g.putImageData(img, 0, 0);
+  [[-9, 0.32, 0], [-14, 0.42, 1.4], [-20, 0.5, 2.6]].forEach(([y, op, rot]) => {
+    const t = canvasTex(c, false); t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping; t.center.set(0.5, 0.5); t.rotation = rot;
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(300, 300), new THREE.MeshBasicMaterial({ color: 0xe9e7e2, alphaMap: t, transparent: true, opacity: op, depthWrite: false }));
+    m.rotation.x = -Math.PI / 2; m.position.y = y; m.renderOrder = 1; scene.add(m);
+  });
+}
+
+/* ── l'occlusione d'ambiente (GTAO), sullo schermo largo ────────────────── */
+let composer = null;
+if (DESK) {
+  const rt = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: 4 });
+  composer = new EffectComposer(renderer, rt);
+  composer.addPass(new RenderPass(scene, camera));
+  const ao = new GTAOPass(scene, camera, 1, 1);
+  ao.updateGtaoMaterial({ radius: 0.6, distanceExponent: 1.4, thickness: 1.2, scale: 1.2, samples: 16, distanceFallOff: 1, screenSpaceRadius: false });
+  ao.updatePdMaterial({ lumaPhi: 10, depthPhi: 2, normalPhi: 3, radius: 5, rings: 2, samples: 16 });
+  ao.blendIntensity = 1;
+  composer.addPass(ao);
+  composer.addPass(new OutputPass());
+}
+
+/* ── l'inquadratura: ferma e vicina ─────────────────────────────────────── */
+const camPos = V(0, 0, 0), camTgt = V(0, 6.6, 0);
+{ const r = 58, el = THREE.MathUtils.degToRad(27), az = THREE.MathUtils.degToRad(56);
+  camPos.set(r * Math.cos(el) * Math.sin(az), camTgt.y + r * Math.sin(el), r * Math.cos(el) * Math.cos(az)); }
+let wide = true;
+function resize() {
+  const w = host.clientWidth, h = host.clientHeight; if (!w || !h) return;
+  renderer.setSize(w, h, false);
+  if (composer) { composer.setPixelRatio(renderer.getPixelRatio()); composer.setSize(w, h); }
+  wide = w > 900;
+  if (wide) { const fw = w * 1.5; camera.fov = 30; camera.aspect = fw / h; camera.setViewOffset(fw, h, 0, 0, w, h); }
+  else { const fh = h * 1.3; camera.fov = 38; camera.aspect = w / fh; camera.setViewOffset(w, fh, 0, h * 0.3, w, h); }
+  camera.updateProjectionMatrix();
+}
+addEventListener('resize', resize); resize();
+
+/* ── il fotogramma ──────────────────────────────────────────────────────── */
+const _m = new THREE.Matrix4(), _p = V(0, 0, 0), _s = V(0, 0, 0), eye = V(0, 0, 0);
+const sway = { x: [0, 0, 0, 0, 0, 0], z: [0, 0, 0, 0, 0, 0] };
+let shown = reduce ? 1 : 0, lastP = -1, mx = 0, my = 0, ax = 0, ay = 0, visible = false, running = false;
+const t0 = performance.now();
+let lastT = t0;
+stage.addEventListener('pointermove', e => { mx = e.clientX / innerWidth - 0.5; my = e.clientY / innerHeight - 0.5; }, { passive: true });
+
+function placeBar(p, t, ox, oz) {
+  if (t <= 0) { _m.makeScale(0, 0, 0); return; }
+  _p.copy(p.a).addScaledVector(p.dir, p.len * t / 2); _p.x += ox; _p.z += oz;
+  _s.set(p.len * t, 1, 1); _m.compose(_p, p.q, _s);
+}
+function placeCol(p, t, ox, oz) {
+  if (t <= 0) { _m.makeScale(0, 0, 0); return; }
+  _p.copy(p.a); _p.y += p.len * t / 2; _p.x += ox; _p.z += oz;
+  _s.set(p.r, p.len * t, p.r); _m.compose(_p, IDQ, _s);
+}
+const pieceT = (pc, p) => { const B = BUILD[pc.floor]; return ease(win(win(p, B[0], B[1]), pc.t0, pc.t1)); };
+function update(p) {
+  /* la scossa, dopo il primo piano: i piani ondeggiano, il pilastro resta fermo */
+  const su = win(p, 0.44, 0.54), env = Math.sin(Math.PI * su);
+  for (let f = 1; f <= 5; f++) {
+    const dir = f % 2 ? 1 : -1, amp = 0.17 * env * (0.6 + 0.12 * f);
+    sway.x[f] = amp * dir * Math.sin(2 * Math.PI * 2 * su);
+    sway.z[f] = amp * 0.35 * dir * Math.sin(2 * Math.PI * 1.5 * su + 1);
+  }
+  STONES.forEach(st => {
+    const t = ease(win(p, st.t0, st.t1));
+    st.m.visible = t > 1e-3;
+    st.m.scale.set(1, Math.max(t, 1e-4), 1);
+    st.m.position.set(st.pos[0], st.pos[1] - st.size[1] / 2 + st.size[1] * t / 2, st.pos[2]);
+  });
+  const tp = ease(win(p, 0.16, 0.26));
+  if (tp <= 0) _m.makeScale(0, 0, 0); else _m.compose(_p.set(0, PH * tp / 2, 0), IDQ, _s.set(0.2, PH * tp, 0.2));
+  pillarIM.setMatrixAt(0, _m); pillarIM.instanceMatrix.needsUpdate = true;
+  for (const b of bars) {
+    b.list.forEach((pc, i) => { placeBar(pc, pieceT(pc, p), sway.x[pc.floor], sway.z[pc.floor]); b.im.setMatrixAt(i, _m); });
+    b.im.instanceMatrix.needsUpdate = true;
+  }
+  cylList.forEach((pc, i) => { placeCol(pc, pieceT(pc, p), sway.x[pc.floor], sway.z[pc.floor]); colIM.setMatrixAt(i, _m); });
+  colIM.instanceMatrix.needsUpdate = true;
+  /* i tetti di corteccia: ognuno chiude il suo piano */
+  roofs.forEach((roof, i) => {
+    const f = i + 1, [a, b] = ROOF_T(f), tr = win(p, a, b), mat = roof.material;
+    roof.visible = tr > 0;
+    mat.opacity = 0.3 + 0.7 * tr; mat.depthWrite = tr > 0.95;
+    const opaque = tr >= 1; if (mat.transparent === opaque) { mat.transparent = !opaque; mat.needsUpdate = true; }
+    roof.position.set(sway.x[f], 0.5 * (1 - ease(tr)), sway.z[f]);
+  });
+  /* la guglia: cresce per ultima */
+  const ts = ease(win(p, 0.92, 0.97));
+  sorin.visible = ts > 0; sorin.scale.set(1, Math.max(ts, 1e-4), 1);
+  /* il gesso sparisce dove arriva il legno */
+  ink.base.L.material.opacity = INK * (1 - win(p, 0.06, 0.16));
+  for (let f = 1; f <= 5; f++) {
+    const [a, b] = BUILD[f], [ra, rb] = ROOF_T(f);
+    ink.frame[f].L.material.opacity = INK * (1 - win(p, a + (b - a) * 0.3, b));
+    ink.roof[f].L.material.opacity = INK * (1 - win(p, ra, rb));
+    ink.frame[f].L.position.set(sway.x[f], 0, sway.z[f]); ink.roof[f].L.position.set(sway.x[f], 0, sway.z[f]);
+  }
+  ink.sorin.L.material.opacity = INK * (1 - win(p, 0.92, 0.97));
+}
+function frame(now) {
+  if (!visible) { running = false; return; }
+  const dt = Math.min(0.1, Math.max(0, (now - lastT) / 1000)); lastT = now;
+  shown += (target - shown) * (reduce ? 1 : 1 - Math.exp(-dt * 4.2));
+  if (Math.abs(shown - lastP) > 1e-5) { update(shown); lastP = shown; }
+  /* all'apertura il disegno si traccia dal basso, una volta */
+  const lt = reduce ? 9 : (now - t0) / 1000;
+  for (const o of inkAll) {
+    const k = ease(clamp01((lt - 0.2 - o.order * 0.18) / 0.9));
+    o.L.geometry.setDrawRange(0, Math.floor(o.count / 2 * k) * 2);
+  }
+  const kp = 1 - Math.exp(-dt * 3);
+  ax += (mx - ax) * kp; ay += (my - ay) * kp;
+  eye.copy(camPos).sub(camTgt).multiplyScalar(wide ? 1 : 1.45).add(camTgt);
+  eye.x += ax * 0.7; eye.y -= ay * 0.4;
+  camera.position.copy(eye); camera.lookAt(camTgt);
+  if (composer) composer.render(); else renderer.render(scene, camera);
+  requestAnimationFrame(frame);
+}
+new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible && !running) { running = true; lastT = performance.now(); requestAnimationFrame(frame); } }, { rootMargin: '100px 0px' }).observe(stage);
+update(shown); lastP = shown;
+</script>
+</body>
+</html>

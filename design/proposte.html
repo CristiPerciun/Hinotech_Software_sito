@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hinotech Software — tre proposte</title>
+<meta name="description" content="Tre proposte per il sito di Hinotech Software: tre mondi in 3D da attraversare mentre si scorre.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Spectral:ital,wght@0,200;0,300;0,400;1,300&family=Zen+Old+Mincho:wght@400;600&family=Noto+Serif+Display:ital,wght@0,200;0,300;1,300&display=swap">
+<style>
+:root{--bg:#0C0E0F;--fg:#ECE6DC;--mute:#99928A;--line:rgba(236,230,220,.14);--ui:"Golos Text",system-ui,sans-serif;--pad:clamp(14px,2.4vw,36px)}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 15px/1.55 var(--ui);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4,p,ol{margin:0;padding:0}
+ol{list-style:none}
+
+/* ── la pagina: un'introduzione, tre proposte ── */
+.intro{min-height:62vh;display:flex;flex-direction:column;justify-content:flex-end;gap:18px;padding:12vh var(--pad) 8vh;max-width:1180px;margin:0 auto}
+.intro .eyebrow{font:500 12px/1 var(--ui);letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.intro h1{font:300 clamp(48px,7vw,104px)/.98 "Spectral",serif;letter-spacing:-.02em}
+.intro p{max-width:46em;color:#C9C2B7;font-size:clamp(15px,1.25vw,18px)}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.toc a{padding:10px 16px;border:1px solid var(--line);border-radius:99px;font-size:14px;color:#DDD6CB;transition:background .25s,border-color .25s}
+.toc a:hover{background:rgba(255,255,255,.06);border-color:rgba(236,230,220,.3)}
+.toc b{font-weight:600;margin-right:6px}
+
+.prop{position:relative;height:430vh}
+.pin{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;gap:14px;padding:14px var(--pad) 18px}
+.head{display:flex;align-items:flex-start;gap:18px;width:min(100%,calc((100vh - 168px)*16/9));margin:0 auto}
+.head .tag{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);font:500 15px/1 var(--ui)}
+.head h2{font:400 clamp(20px,1.7vw,26px)/1.15 var(--ui);letter-spacing:-.01em}
+.head h2 span{color:var(--mute);font-weight:400}
+.head p{margin-top:6px;max-width:62em;color:#BDB6AB;font-size:14.5px}
+.frame{position:relative;width:min(100%,calc((100vh - 168px)*16/9));aspect-ratio:16/9;margin:0 auto;border-radius:14px;overflow:hidden;background:#05080A;container-type:inline-size;box-shadow:0 0 0 1px rgba(255,255,255,.06),0 30px 80px -30px rgba(0,0,0,.8)}
+.frame canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.frame .fail{position:absolute;inset:0;display:grid;place-items:center;color:var(--mute);font-size:14px}
+
+/* ── l'interfaccia del sito dentro ogni mondo (sullo schema dell'esempio) ── */
+.shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,var(--shade) 0%,var(--shade) 12%,transparent 58%),linear-gradient(0deg,var(--shade2,transparent) 0%,transparent 26%);transition:background .6s}
+.ui{position:absolute;inset:0;pointer-events:none;color:var(--ink,#ECE4D2);font-family:var(--ui)}
+.ui a,.ui button,.ui .rail li{pointer-events:auto}
+.ui-top{position:absolute;left:4.4cqw;right:4.4cqw;top:2.6cqw;display:flex;align-items:center;gap:2cqw}
+.brand{display:flex;align-items:center;gap:1cqw}
+.seal{display:grid;place-items:center;width:2.6cqw;height:2.6cqw;border:1px solid var(--acc);color:var(--acc);font:400 1.5cqw/1 var(--title)}
+.brand b{display:block;font:400 1.35cqw/1 var(--title);letter-spacing:.32em}
+.brand small{display:block;margin-top:.45cqw;font:500 .62cqw/1 var(--ui);letter-spacing:.24em;opacity:.75}
+.nav{display:flex;gap:2.4cqw;margin:0 auto;font:400 .95cqw/1 var(--ui);letter-spacing:.06em}
+.nav a{position:relative;padding:.5cqw 0;opacity:.82;cursor:pointer}
+.nav a.on{opacity:1;color:var(--acc)}
+.nav a.on::after{content:"";position:absolute;left:0;right:0;bottom:-.25cqw;height:1px;background:var(--acc)}
+.tools{display:flex;align-items:center;gap:1.2cqw;font:500 .82cqw/1 var(--ui);letter-spacing:.06em}
+.tools .mode{display:flex;align-items:center;gap:.5cqw;padding-right:1.2cqw;border-right:1px solid currentColor;opacity:.9}
+.tools .on{color:var(--acc)}
+.tools span{opacity:.82}
+
+.hero{position:absolute;left:9.4cqw;top:15.5cqw;width:44cqw;transition:opacity .6s,transform .6s}
+.kicker{display:flex;align-items:center;gap:1cqw;font:500 .72cqw/1 var(--ui);letter-spacing:.2em;text-transform:uppercase;opacity:.85}
+.kicker i{width:4.2cqw;height:1px;background:currentColor;opacity:.6}
+.title{margin-top:1.6cqw;font:var(--tw,300) 10.4cqw/.9 var(--title);letter-spacing:var(--tls,-.02em);color:var(--tcol,inherit);text-shadow:0 .2cqw 2.4cqw rgba(0,0,0,.25)}
+.sub{margin-top:1.4cqw;font:500 .95cqw/1 var(--ui);letter-spacing:.5em;text-transform:uppercase;opacity:.9}
+.lines{margin-top:2.2cqw;font:400 1.32cqw/1.85 var(--title);letter-spacing:.04em;opacity:.95}
+.cta{display:flex;align-items:center;gap:1.2cqw;margin-top:2.6cqw;font:500 .9cqw/1 var(--ui);letter-spacing:.08em}
+.cta .ring{display:grid;place-items:center;width:3.2cqw;height:3.2cqw;border:1px solid currentColor;border-radius:50%;font-size:1.1cqw}
+.cta small{font-size:.72cqw;opacity:.7;letter-spacing:.04em}
+
+.chap{position:absolute;left:9.4cqw;top:14cqw;width:34cqw;opacity:0;transform:translateY(1.2cqw);transition:opacity .6s,transform .6s}
+.chap .n{font:500 .78cqw/1 var(--ui);letter-spacing:.2em;opacity:.8}
+.chap h4{margin-top:1.4cqw;font:var(--tw,300) 6cqw/1 var(--title);letter-spacing:-.01em;color:var(--tcol,inherit);text-shadow:0 .2cqw 2.4cqw rgba(0,0,0,.25)}
+.chap .lead{margin-top:1.6cqw;font:400 1.75cqw/1.3 var(--title)}
+.chap .txt{margin-top:1.2cqw;font:400 1.08cqw/1.7 var(--ui);opacity:.88;max-width:28cqw}
+.frame[data-ch="0"] .hero{opacity:1}
+.frame:not([data-ch="0"]) .hero{opacity:0;transform:translateY(-1.2cqw)}
+.frame:not([data-ch="0"]) .chap{opacity:1;transform:none}
+
+.vert{position:absolute;right:13cqw;top:14.5cqw;writing-mode:vertical-rl;font:400 1.2cqw/1 var(--title);letter-spacing:.5em;opacity:.85;white-space:nowrap}
+.rail{position:absolute;right:5.4cqw;top:26cqw;display:grid;gap:2.6cqw;font:500 .72cqw/1 var(--ui);letter-spacing:.06em}
+.rail li{display:flex;align-items:center;gap:.8cqw;opacity:.55;cursor:pointer;transition:opacity .3s}
+.rail li::after{content:"";width:0;height:1px;background:currentColor;transition:width .4s}
+.rail li.on{opacity:1;color:var(--acc)}
+.rail li.on::after{width:2.4cqw}
+.bottom{position:absolute;left:4.4cqw;right:4.4cqw;bottom:3cqw;display:flex;align-items:center;gap:3cqw;padding-top:1.6cqw;border-top:1px solid color-mix(in srgb,currentColor 28%,transparent);font:500 .7cqw/1 var(--ui);letter-spacing:.08em}
+.bottom .dot{width:.5cqw;height:.5cqw;border-radius:50%;background:var(--acc)}
+.bottom .mid{margin:0 auto;letter-spacing:.3em}
+.prog{position:absolute;left:0;bottom:0;height:2px;width:calc(var(--p,0)*100%);background:var(--acc);opacity:.9}
+
+/* i tre mondi: caratteri e colori dell'interfaccia */
+.w-village{--title:"Spectral",serif;--acc:#E7B572;--ink:#ECE4D2;--tw:200;--shade:rgba(3,12,18,.74);--shade2:rgba(3,12,18,.55)}
+.w-workshop{--title:"Zen Old Mincho",serif;--acc:#8E3F2B;--ink:#2A211A;--tcol:#2A211A;--tw:400;--tls:.02em;--shade:rgba(247,228,203,.78);--shade2:rgba(247,228,203,.45)}
+.w-workshop .title{text-shadow:none}
+.w-workshop .chap h4{text-shadow:none}
+.w-seasons{--title:"Noto Serif Display",serif;--acc:#B5532F;--ink:#1F2226;--tcol:#1F2226;--tw:200;--shade:rgba(246,244,239,.8);--shade2:rgba(246,244,239,.4)}
+.w-seasons .title,.w-seasons .chap h4{text-shadow:0 0 2cqw rgba(255,255,255,.35)}
+.w-seasons[data-ch="4"]{--ink:#F1EEE8;--tcol:#F6F3EE;--shade:rgba(18,26,38,.7);--shade2:rgba(18,26,38,.4)}
+
+.end{padding:16vh var(--pad) 18vh;text-align:center;color:var(--mute);font-size:14px}
+
+@media (max-width:760px){
+  .shade{background:linear-gradient(0deg,var(--shade) 0%,var(--shade) 34%,transparent 78%),linear-gradient(180deg,var(--shade2,transparent) 0%,transparent 18%)}
+  .prop{height:380vh}
+  .head p{display:none}
+  .frame{aspect-ratio:4/5;width:100%}
+  .nav,.vert,.rail,.tools .mode{display:none}
+  .ui-top{top:4cqw}
+  .seal{width:6cqw;height:6cqw;font-size:3.4cqw}
+  .brand b{font-size:3.2cqw}.brand small{font-size:1.6cqw}
+  .tools{font-size:2.4cqw;margin-left:auto}
+  .hero,.chap{left:6cqw;top:auto;bottom:16cqw;width:86cqw}
+  .title{font-size:17cqw}.sub{font-size:2.2cqw}.lines{font-size:3.4cqw}.kicker{font-size:1.9cqw}
+  .cta{font-size:2.6cqw}.cta .ring{width:8cqw;height:8cqw;font-size:3cqw}.cta small{font-size:2cqw}
+  .chap .n{font-size:2.2cqw}.chap h4{font-size:12cqw}.chap .lead{font-size:4.4cqw}.chap .txt{font-size:3.2cqw;max-width:none}
+  .bottom{font-size:1.9cqw;bottom:5cqw}.bottom .mid{display:none}
+}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+</head>
+<body>
+
+<header class="intro">
+  <p class="eyebrow">Hinotech Software · il sito · 17 novembre 2026</p>
+  <h1>Tre proposte</h1>
+  <p>Sullo spunto di «Bianjing After Dark»: il sito è un mondo in 3D, vivo, che la camera attraversa mentre scorri. Cinque capitoli, che sono le parti del sito. Tre mondi diversi; scorri dentro ogni proposta o tocca i capitoli. I testi in romeno sono segnaposto.</p>
+  <nav class="toc"><a href="#A"><b>A</b>Noaptea în sat</a><a href="#B"><b>B</b>Atelierul de hinoki</a><a href="#C"><b>C</b>Patru anotimpuri</a></nav>
+</header>
+
+<!-- ─────────────── A ─────────────── -->
+<section class="prop" id="A">
+  <div class="pin">
+    <div class="head"><span class="tag">A</span><div><h2>Noaptea în sat <span>· il villaggio di notte</span></h2>
+      <p>Una passeggiata notturna lungo la strada di un villaggio del nord della Moldova, come Coteala: finestre accese, il pozzo, la cicogna sul palo, gente che rientra. Ogni capitolo è un luogo del villaggio; l'ultima finestra accesa è la nostra. Notte blu, luce calda, un solo rosso.</p></div></div>
+    <div class="frame w-village" data-world="village" data-ch="0">
+      <canvas></canvas>
+      <div class="shade"></div>
+      <div class="ui">
+        <div class="ui-top">
+          <div class="brand"><span class="seal">H</span><span><b>HINOTECH</b><small>SOFTWARE · COTEALA</small></span></div>
+          <nav class="nav"><a data-go="1">Ulița</a><a data-go="2">Fântâna</a><a data-go="3">Atelierul</a><a data-go="4">Casele</a><a data-go="5">Fereastra</a></nav>
+          <div class="tools"><span class="mode">☾ Noapte</span><span class="on">RO</span><span>RU</span><span>EN</span></div>
+        </div>
+        <div class="hero">
+          <p class="kicker">◇ Nordul Moldovei · o noapte <i></i> Vol. 01</p>
+          <h3 class="title">Hinotech</h3>
+          <p class="sub">Software · Coteala</p>
+          <p class="lines">Pe uliță, ferestrele încă ard.<br>Într-una dintre ele se scrie software.</p>
+          <p class="cta"><span class="ring">↓</span>Intrați în sat <small>derulați</small></p>
+        </div>
+        <div class="chap"><p class="n">01 / 05</p><h4>Ulița</h4><p class="lead">De aici pornim.</p><p class="txt">Hinotech Software are sediul în Coteala, raionul Briceni. Facem software pentru firmele din toată țara.</p></div>
+        <p class="vert">lumina ferestrelor</p>
+        <ol class="rail"><li data-go="1">01</li><li data-go="2">02</li><li data-go="3">03</li><li data-go="4">04</li><li data-go="5">05</li></ol>
+        <div class="bottom"><span class="dot"></span><span>Coteala, raionul Briceni</span><span>48°19′44″ N · 26°51′47″ E</span><span class="mid">un sat · cinci capitole · o fereastră</span><span>↓</span></div>
+        <div class="prog"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── B ─────────────── -->
+<section class="prop" id="B">
+  <div class="pin">
+    <div class="head"><span class="tag">B</span><div><h2>Atelierul de hinoki <span>· il cantiere nel bosco</span></h2>
+      <p>Una radura in un bosco di hinoki, all'ora dorata: falegnami che portano travi, segatura nella luce, una casa di legno finita e una seconda che sale. Il nome Hinotech viene da questo legno; il software si costruisce allo stesso modo, pezzo per pezzo. Luce calda, ombre lunghe, un solo rosso: il tetto di corteccia.</p></div></div>
+    <div class="frame w-workshop" data-world="workshop" data-ch="0">
+      <canvas></canvas>
+      <div class="shade"></div>
+      <div class="ui">
+        <div class="ui-top">
+          <div class="brand"><span class="seal">檜</span><span><b>HINOTECH</b><small>SOFTWARE · REPUBLICA MOLDOVA</small></span></div>
+          <nav class="nav"><a data-go="1">Pădurea</a><a data-go="2">Bârnele</a><a data-go="3">Atelierul</a><a data-go="4">Casa</a><a data-go="5">Veranda</a></nav>
+          <div class="tools"><span class="mode">☀ Amurg</span><span class="on">RO</span><span>RU</span><span>EN</span></div>
+        </div>
+        <div class="hero">
+          <p class="kicker">◇ O pădure de hinoki · un atelier <i></i> Vol. 01</p>
+          <h3 class="title">Hinotech</h3>
+          <p class="sub">Software · piesă cu piesă</p>
+          <p class="lines">Software făcut ca o îmbinare de lemn:<br>piese precise, fără cuie, gândite să dureze.</p>
+          <p class="cta"><span class="ring">↓</span>Intrați în atelier <small>derulați</small></p>
+        </div>
+        <div class="chap"><p class="n">01 / 05</p><h4>Pădurea</h4><p class="lead">Lemn care durează.</p><p class="txt">Hinoki e lemnul templelor japoneze. De aici ne vine numele.</p></div>
+        <p class="vert">檜 · lemn care durează</p>
+        <ol class="rail"><li data-go="1">01</li><li data-go="2">02</li><li data-go="3">03</li><li data-go="4">04</li><li data-go="5">05</li></ol>
+        <div class="bottom"><span class="dot"></span><span>Hinotech Software</span><span>48°19′44″ N · 26°51′47″ E</span><span class="mid">o pădure · cinci capitole · o casă de lemn</span><span>↓</span></div>
+        <div class="prog"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── C ─────────────── -->
+<section class="prop" id="C">
+  <div class="pin">
+    <div class="head"><span class="tag">C</span><div><h2>Patru anotimpuri <span>· una corte coreana, quattro stagioni</span></h2>
+      <p>La camera resta in una corte di casa tradizionale coreana (hanok) e mentre scorri passano le stagioni: fiori, estate, cachi d'autunno, neve. Le cose intorno cambiano, la casa resta in piedi: come il nostro software con le leggi che cambiano. Il rosso è quello dei cachi.</p></div></div>
+    <div class="frame w-seasons" data-world="seasons" data-ch="0">
+      <canvas></canvas>
+      <div class="shade"></div>
+      <div class="ui">
+        <div class="ui-top">
+          <div class="brand"><span class="seal">H</span><span><b>HINOTECH</b><small>SOFTWARE · REPUBLICA MOLDOVA</small></span></div>
+          <nav class="nav"><a data-go="1">Primăvara</a><a data-go="2">Vara</a><a data-go="3">Toamna</a><a data-go="4">Iarna</a><a data-go="5">Din nou</a></nav>
+          <div class="tools"><span class="mode">✿ Anotimp</span><span class="on">RO</span><span>RU</span><span>EN</span></div>
+        </div>
+        <div class="hero">
+          <p class="kicker">◇ O curte · patru anotimpuri <i></i> Vol. 01</p>
+          <h3 class="title">Hinotech</h3>
+          <p class="sub">Software · Republica Moldova</p>
+          <p class="lines">Când lumea se mișcă,<br>clădirea rămâne în picioare.</p>
+          <p class="cta"><span class="ring">↓</span>Treceți prin an <small>derulați</small></p>
+        </div>
+        <div class="chap"><p class="n">01 / 05</p><h4>Primăvara</h4><p class="lead">Un început.</p><p class="txt">Primul nostru produs, PrivacyBox, e online din 3 octombrie 2026.</p></div>
+        <p class="vert">사계절 · patru anotimpuri</p>
+        <ol class="rail"><li data-go="1">01</li><li data-go="2">02</li><li data-go="3">03</li><li data-go="4">04</li><li data-go="5">05</li></ol>
+        <div class="bottom"><span class="dot"></span><span>Hinotech Software</span><span>48°19′44″ N · 26°51′47″ E</span><span class="mid">o casă · patru anotimpuri · cinci capitole</span><span>↓</span></div>
+        <div class="prog"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<p class="end">Fine delle tre proposte.</p>
+
+<script type="module">
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
+/* ── capitoli: testo dell'interfaccia di ogni mondo ── */
+const CH = {
+  village: [
+    ['Ulița', 'De aici pornim.', 'Hinotech Software are sediul în Coteala, raionul Briceni. Facem software pentru firmele din toată țara.'],
+    ['Fântâna', 'Simplitatea ține totul.', 'Pentru fiecare problemă căutăm cea mai simplă soluție care funcționează și o explicăm clar.'],
+    ['Atelierul', 'Dovada, înaintea promisiunii.', 'Teste la fiecare livrare, datele fiecărui client izolate, rezultate pe care le poate verifica oricine.'],
+    ['Casele', 'PrivacyBox, prima casă aprinsă.', 'Protecția datelor pentru firme, după Legea nr. 195/2024. Următoarele case se aprind pe rând.'],
+    ['Fereastra', 'Scrieți-ne.', 'O fereastră rămâne aprinsă. Răspundem în română și în rusă.'],
+  ],
+  workshop: [
+    ['Pădurea', 'Lemn care durează.', 'Hinoki e lemnul templelor japoneze. De aici ne vine numele.'],
+    ['Bârnele', 'Simplitatea ține totul.', 'Pentru fiecare problemă căutăm cea mai simplă soluție care funcționează și o explicăm clar.'],
+    ['Atelierul', 'Un motor, multe produse.', 'Un motor comun ține clienții, rolurile, versiunile, registrele, termenele și jurnalul. Îl scriem o dată.'],
+    ['Casa', 'PrivacyBox, prima casă terminată.', 'Protecția datelor pentru firme. A doua casă se ridică pe aceeași temelie.'],
+    ['Veranda', 'Lucrează cu noi.', 'Căutăm oameni care scriu cod clar și îl explică simplu.'],
+  ],
+  seasons: [
+    ['Primăvara', 'Un început.', 'Primul nostru produs, PrivacyBox, e online din 3 octombrie 2026.'],
+    ['Vara', 'Simplitatea ține totul.', 'Pentru fiecare problemă căutăm cea mai simplă soluție care funcționează și o explicăm clar.'],
+    ['Toamna', 'Roadele.', 'PrivacyBox: protecția datelor pentru firme, după Legea nr. 195/2024. Următoarele cresc din aceeași rădăcină.'],
+    ['Iarna', 'Casa rămâne caldă.', 'Datele fiecărui client, izolate. Teste la fiecare livrare.'],
+    ['Din nou primăvara', 'Lucrează cu noi.', 'Căutăm oameni care scriu cod clar și îl explică simplu.'],
+  ],
+};
+
+/* ── utilità ── */
+const rng = (seed) => { let s = seed >>> 0; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); };
+const C = (c) => new THREE.Color(c);
+const std = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: o.r ?? .88, metalness: o.m ?? 0, emissive: o.e ?? 0x000000, emissiveIntensity: o.ei ?? 1, flatShading: o.flat ?? true, transparent: !!o.t, opacity: o.op ?? 1, side: o.side ?? THREE.FrontSide });
+const box = (w, h, d, m) => new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m);
+const cyl = (rt, rb, h, m, seg = 10) => new THREE.Mesh(new THREE.CylinderGeometry(rt, rb, h, seg), m);
+const at = (o, x, y, z) => (o.position.set(x, y, z), o);
+const pick = (r, a) => a[Math.floor(r() * a.length)];
+const smooth = (t) => t * t * (3 - 2 * t);
+function canvasTex(w, h, draw) { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; }
+const skyTex = (stops) => canvasTex(8, 512, (g, w, h) => { const gr = g.createLinearGradient(0, 0, 0, h); stops.forEach(([o, c]) => gr.addColorStop(o, c)); g.fillStyle = gr; g.fillRect(0, 0, w, h); });
+const glowTex = canvasTex(128, 128, (g, w) => { const gr = g.createRadialGradient(w / 2, w / 2, 0, w / 2, w / 2, w / 2); gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(.35, 'rgba(255,255,255,.35)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, w, w); });
+const discTex = canvasTex(64, 64, (g, w) => { const gr = g.createRadialGradient(w / 2, w / 2, 0, w / 2, w / 2, w / 2); gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(.6, 'rgba(255,255,255,.9)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, w, w); });
+function pool(color, w, d, op) { const m = new THREE.Mesh(new THREE.PlaneGeometry(w, d), new THREE.MeshBasicMaterial({ map: glowTex, color, transparent: true, opacity: op, blending: THREE.AdditiveBlending, depthWrite: false })); m.rotation.x = -Math.PI / 2; return m; }
+function sprite(color, size, op) { const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, color, transparent: true, opacity: op, blending: THREE.AdditiveBlending, depthWrite: false })); s.scale.set(size, size, 1); return s; }
+function points(n, fill, color, size, opacity = 1, additive = true) {
+  const g = new THREE.BufferGeometry(); const a = new Float32Array(n * 3); for (let i = 0; i < n; i++) fill(a, i * 3, i); g.setAttribute('position', new THREE.BufferAttribute(a, 3));
+  const p = new THREE.Points(g, new THREE.PointsMaterial({ color, size, map: discTex, transparent: true, opacity, depthWrite: false, blending: additive ? THREE.AdditiveBlending : THREE.NormalBlending, sizeAttenuation: true }));
+  p.userData.base = a.slice(); return p;
+}
+function person(r, palette, skin = '#D9B79A') {
+  const g = new THREE.Group(); const cloth = std(pick(r, palette)), dark = std('#23242A');
+  const l1 = at(box(.15, .62, .18, dark), -.09, .31, 0), l2 = at(box(.15, .62, .18, dark), .09, .31, 0);
+  const body = at(box(.44, .66, .26, cloth), 0, .93, 0), head = at(box(.27, .29, .27, std(skin)), 0, 1.42, 0), hair = at(box(.29, .1, .29, std(pick(r, ['#2A221D', '#3B2E25', '#1E1C1B', '#6B6259']))), 0, 1.6, 0);
+  g.add(l1, l2, body, head, hair); g.userData.legs = [l1, l2]; g.traverse(o => { if (o.isMesh) { o.castShadow = true; } });
+  return g;
+}
+
+/* ── il motore comune dei tre mondi ── */
+class World {
+  constructor(frame, o) {
+    this.frame = frame; this.canvas = frame.querySelector('canvas');
+    const R = this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true, powerPreference: 'high-performance' });
+    R.setPixelRatio(Math.min(devicePixelRatio, 1.5)); R.outputColorSpace = THREE.SRGBColorSpace;
+    R.toneMapping = THREE.ACESFilmicToneMapping; R.toneMappingExposure = o.exposure ?? 1;
+    if (o.shadows) { R.shadowMap.enabled = true; R.shadowMap.type = THREE.PCFSoftShadowMap; }
+    this.scene = new THREE.Scene(); this.camera = new THREE.PerspectiveCamera(o.fov ?? 36, 16 / 9, .1, 900);
+    this.composer = new EffectComposer(R); this.composer.addPass(new RenderPass(this.scene, this.camera));
+    this.bloom = new UnrealBloomPass(new THREE.Vector2(256, 144), o.bloom?.[0] ?? .7, o.bloom?.[1] ?? .5, o.bloom?.[2] ?? .8);
+    this.composer.addPass(this.bloom); this.composer.addPass(new OutputPass());
+    this.p = 0; this.target = 0; this.t = 0; this.visible = false;
+    new ResizeObserver(() => this.resize()).observe(frame); this.resize();
+  }
+  resize() { const w = this.frame.clientWidth, h = this.frame.clientHeight; if (!w || !h) return; this.renderer.setSize(w, h, false); this.composer.setSize(w, h); this.bloom.resolution.set(w / 2, h / 2); this.camera.aspect = w / h; this.camera.updateProjectionMatrix(); this.dirty = true; }
+  path(keys) { this.posCurve = new THREE.CatmullRomCurve3(keys.map(k => new THREE.Vector3(...k[0])), false, 'centripetal'); this.lookCurve = new THREE.CatmullRomCurve3(keys.map(k => new THREE.Vector3(...k[1])), false, 'centripetal'); }
+  place(p) { this.camera.position.copy(this.posCurve.getPoint(p)); this.camera.lookAt(this.lookCurve.getPoint(p)); }
+}
+
+/* ═════════ A · il villaggio di notte ═════════ */
+function village(W) {
+  const s = W.scene, r = rng(11);
+  s.background = skyTex([[0, '#02080D'], [.5, '#071923'], [.78, '#0E2A38'], [1, '#163A4B']]);
+  s.fog = new THREE.FogExp2('#0A1F2A', .0155);
+  s.add(new THREE.HemisphereLight('#4D7396', '#05080B', .75));
+  const moonL = new THREE.DirectionalLight('#A8C3E6', 1.15); moonL.position.set(50, 70, -90); s.add(moonL);
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(600, 600), std('#0B171C', { r: 1 })); ground.rotation.x = -Math.PI / 2; s.add(ground);
+  const roadTex = canvasTex(64, 1024, (g, w, h) => { g.fillStyle = '#3A4A50'; g.fillRect(0, 0, w, h); for (let i = 0; i < 2600; i++) { g.fillStyle = `rgba(${r() < .5 ? '20,28,32' : '90,104,108'},${.12 + r() * .2})`; g.fillRect(r() * w, r() * h, 1 + r() * 2, 1 + r() * 3); } g.fillStyle = 'rgba(14,22,26,.35)'; g.fillRect(w * .26, 0, w * .1, h); g.fillRect(w * .64, 0, w * .1, h); });
+  roadTex.wrapT = THREE.RepeatWrapping; roadTex.repeat.set(1, 8);
+  const road = new THREE.Mesh(new THREE.PlaneGeometry(6.4, 300), new THREE.MeshStandardMaterial({ map: roadTex, roughness: 1 })); road.rotation.x = -Math.PI / 2; road.position.set(0, .01, -110); s.add(road);
+  const bulbM = std('#FFE2B0', { e: '#FFB462', ei: 4, flat: false }), litM = std('#FFC67E', { e: '#FF9A42', ei: 2.4, flat: false }), darkG = std('#0E1A22', { r: .3, m: .2 }), frameM = std('#3C6D90', { r: .6 });
+  const walls = ['#B8C6D0', '#C3CDD3', '#B1C0CB', '#C7CBC6'].map(c => std(c, { r: .96 })), roofs = ['#232E37', '#2E2826', '#273330', '#3A2B27'].map(c => std(c, { r: .75 }));
+  const gateM = ['#355A77', '#3F6151', '#5A4234', '#3A4E6B'].map(c => std(c, { r: .7 })), postM = std('#1C1714');
+  const houses = [];
+  function house(x, z, side, opts = {}) {
+    const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = side < 0 ? Math.PI / 2 : -Math.PI / 2;
+    const w = opts.w ?? 6.5 + r() * 2, d = 4.8, h = 2.7;
+    g.add(at(box(w + .3, .35, d + .3, std('#4A5056')), 0, .17, 0), at(box(w, h, d, pick(r, walls)), 0, h / 2 + .35, 0));
+    const roof = new THREE.Mesh(new THREE.ConeGeometry(1, 1, 4, 1), pick(r, roofs)); roof.rotation.y = Math.PI / 4; roof.scale.set((w + 1.3) / Math.SQRT2, 2.2, (d + 1.3) / Math.SQRT2); roof.position.y = h + .35 + 1.1; g.add(roof);
+    const n = w > 7.4 ? 3 : 2;
+    for (let i = 0; i < n; i++) {
+      const wx = (i - (n - 1) / 2) * (w / (n + .5)), lit = opts.lit ?? (r() < .7);
+      g.add(at(box(1.1, 1.3, .1, frameM), wx, 1.85, d / 2 + .03), at(box(.88, 1.08, .08, lit ? litM : darkG), wx, 1.85, d / 2 + .07), at(box(.05, 1.08, .1, frameM), wx, 1.85, d / 2 + .1), at(box(.88, .05, .1, frameM), wx, 2.05, d / 2 + .1));
+      if (lit) g.add(at(pool('#FF9A4E', 3.6, 2.6, .34), wx, .03, d / 2 + 1.5));
+    }
+    const fz = d / 2 + 3.4;
+    for (let fx = -w / 2 - 2.2; fx <= w / 2 + 2.2; fx += .55) if (Math.abs(fx - 1.8) > 1.3) g.add(at(box(.08, 1.15, .06, postM), fx, .58, fz));
+    g.add(at(box(w + 4.6, .06, .05, postM), 0, .95, fz), at(box(w + 4.6, .06, .05, postM), 0, .35, fz));
+    const gm = pick(r, gateM); g.add(at(box(.16, 2.1, .16, gm), .8, 1.05, fz), at(box(.16, 2.1, .16, gm), 2.8, 1.05, fz), at(box(2.4, .14, .2, gm), 1.8, 2.12, fz), at(box(1.85, 1.45, .06, gm), 1.8, .85, fz));
+    const gr = new THREE.Mesh(new THREE.ConeGeometry(1, 1, 4), pick(r, roofs)); gr.rotation.y = Math.PI / 4; gr.scale.set(1.9, .45, .45); gr.position.set(1.8, 2.42, fz); g.add(gr);
+    if (r() < .8) g.add(at(new THREE.Mesh(new THREE.SphereGeometry(.13, 10, 8), bulbM), .8, 2.32, fz + .15), at(pool('#FFAA60', 4.6, 3.4, .32), 1.2, .04, fz + 1.7));
+    s.add(g); houses.push(g); return g;
+  }
+  for (let z = 8; z > -150; z -= 10.5 + r() * 2.5) for (const side of [-1, 1]) if (!(z < -76 && z > -90 && side < 0) && !(side < 0 && z > -12) && r() > .1) house(side * (10.4 + r() * 2), z + r() * 2.2, side);
+  for (let fx = -5; fx > -30; fx -= .9) s.add(at(box(.08, 1.1, .06, postM), fx, .55, -2));
+  const ours = house(-11.2, -84, -1, { w: 8.2, lit: true });           // l'ultima finestra accesa: la nostra
+  const ourLight = new THREE.PointLight('#FFAA5C', 40, 16, 2); ourLight.position.set(-8.2, 2.2, -84); s.add(ourLight);
+  // alberi: noci tondi e pioppi
+  const crownM = ['#0E231E', '#122A22', '#0C1F1A'].map(c => std(c)), trunkM = std('#17120F');
+  for (let i = 0; i < 120; i++) {
+    const side = r() < .5 ? -1 : 1, x = side * (16 + r() * 30), z = 12 - r() * 175;
+    if (r() < .45) { const h = 9 + r() * 6; s.add(at(cyl(.16, .3, 2, trunkM), x, 1, z)); const c = new THREE.Mesh(new THREE.CylinderGeometry(.35, 1.25, h, 7), pick(r, crownM)); c.position.set(x, 2 + h / 2, z); s.add(c); }
+    else { const k = 1.6 + r() * 1.6; s.add(at(cyl(.18, .3, 2.4, trunkM), x, 1.2, z)); const c = new THREE.Mesh(new THREE.IcosahedronGeometry(k, 1), pick(r, crownM)); c.position.set(x, 2.4 + k * .8, z); c.scale.y = .85; s.add(c); }
+  }
+  // il pozzo con il tetto
+  const well = new THREE.Group(); well.position.set(-4.6, 0, -26);
+  well.add(at(cyl(.95, 1, .95, std('#5D646A'), 14), 0, .48, 0), at(cyl(.78, .78, .96, std('#0A1014'), 14), 0, .5, 0), at(box(.14, 2.3, .14, postM), -.85, 1.15, 0), at(box(.14, 2.3, .14, postM), .85, 1.15, 0), at(cyl(.08, .08, 1.9, postM), 0, 1.75, 0));
+  const wr = new THREE.Mesh(new THREE.ConeGeometry(1, 1, 4), std('#2E2622')); wr.rotation.y = Math.PI / 4; wr.scale.set(1.25, .8, .9); wr.position.y = 2.55; well.add(wr, at(cyl(.16, .13, .3, std('#4E5A63')), .35, 1.25, 0)); well.rotation.y = .4; s.add(well);
+  // la cicogna sul palo: l'unico rosso
+  const stork = new THREE.Group(); stork.position.set(5.6, 0, -50);
+  const red = std('#C8553A', { r: .6 }), white = std('#E4E8EA', { r: .7 }), blk = std('#141414');
+  stork.add(at(cyl(.12, .16, 7.5, std('#2B2B2B')), 0, 3.75, 0), at(cyl(1.05, .8, .5, std('#3E3226'), 9), 0, 7.6, 0));
+  const body = at(new THREE.Mesh(new THREE.SphereGeometry(.42, 10, 8), white), 0, 8.55, 0); body.scale.set(.8, .75, 1.35);
+  const wing = at(box(.5, .3, .9, blk), 0, 8.5, -.15), neck = at(cyl(.07, .1, .75, white), 0, 9.05, .42), head = at(new THREE.Mesh(new THREE.SphereGeometry(.13, 8, 6), white), 0, 9.42, .5);
+  const beak = new THREE.Mesh(new THREE.ConeGeometry(.045, .55, 6), red); beak.rotation.x = Math.PI / 2 + .25; beak.position.set(0, 9.36, .82);
+  stork.add(body, wing, neck, head, beak, at(cyl(.025, .025, .7, red), -.1, 7.95, 0), at(cyl(.025, .025, .7, red), .1, 7.95, 0)); stork.rotation.y = -.8; s.add(stork);
+  // lampioni
+  const lampM = std('#FFD199', { e: '#FFB566', ei: 3 });
+  [[3.6, -14], [-3.6, -38], [3.6, -64], [-3.6, -96]].forEach(([x, z]) => { s.add(at(cyl(.06, .08, 5.2, std('#22262A')), x, 2.6, z), at(box(.9, .06, .06, std('#22262A')), x - Math.sign(x) * .45, 5.15, z), at(box(.32, .16, .32, lampM), x - Math.sign(x) * .9, 5.05, z), at(pool('#FFB070', 9, 9, .3), x - Math.sign(x) * .9, .04, z)); const pl = new THREE.PointLight('#FFB36B', 18, 14, 2); pl.position.set(x - Math.sign(x) * .9, 4.6, z); s.add(pl); });
+  // colline lontane
+  const hillM = std('#0C2230', { r: 1 });
+  for (let i = 0; i < 14; i++) { const h = new THREE.Mesh(new THREE.IcosahedronGeometry(30 + r() * 30, 1), hillM); h.scale.y = .28 + r() * .12; h.position.set(-160 + i * 26 + r() * 10, -4, -230 - r() * 40); s.add(h); }
+  // luna, stelle, lucciole
+  const moon = at(new THREE.Mesh(new THREE.CircleGeometry(5.5, 40), new THREE.MeshBasicMaterial({ color: '#F6F1E2', fog: false })), 70, 92, -330); moon.lookAt(0, 6, 30); s.add(moon);
+  const halo = sprite('#88AED6', 58, .32); halo.position.copy(moon.position); halo.material.fog = false; s.add(halo);
+  const stars = points(1100, (a, i) => { const th = r() * Math.PI * 2, ph = r() * .9 + .08, R = 400; a[i] = Math.cos(th) * Math.cos(ph) * R; a[i + 1] = Math.sin(ph) * R * .7 + 20; a[i + 2] = Math.sin(th) * Math.cos(ph) * R - 120; }, '#DDE8F5', 1.6, .85); stars.material.fog = false; stars.material.sizeAttenuation = false; s.add(stars);
+  const flies = points(220, (a, i) => { const side = r() < .5 ? -1 : 1; a[i] = side * (3.6 + r() * 7); a[i + 1] = .4 + r() * 2.2; a[i + 2] = 14 - r() * 150; }, '#E8F27A', .16, .95); s.add(flies);
+  // gente che rientra
+  const folk = [];
+  for (let i = 0; i < 16; i++) { const p = person(r, ['#4C5566', '#6A5446', '#3D4A55', '#655F55', '#4E3D35', '#8A3E31']); const lane = r() < .5 ? -1 : 1; p.position.set(lane * (1 + r() * 1.6), 0, 10 - r() * 140); p.rotation.y = lane < 0 ? 0 : Math.PI; p.userData.v = (.55 + r() * .5) * (lane < 0 ? 1 : -1); p.userData.ph = r() * 6; s.add(p); folk.push(p); }
+  const dog = new THREE.Group(); dog.add(at(box(.7, .32, .26, std('#3A2E26')), 0, .45, 0), at(box(.26, .26, .24, std('#3A2E26')), .42, .62, 0), at(box(.08, .3, .08, std('#3A2E26')), -.25, .15, 0), at(box(.08, .3, .08, std('#3A2E26')), .25, .15, 0)); dog.position.set(1.6, 0, -18); dog.rotation.y = 1.9; s.add(dog);
+  W.path([
+    [[5.5, 8.2, 30], [-2.4, 2.6, -36]], // apertura
+    [[.6, 3.1, 4], [-1.5, 2.3, -32]],  // 01 ulița
+    [[-.4, 2.5, -16], [-4.6, 1.5, -26]], // 02 fântâna
+    [[1.8, 2.6, -36], [9, 2.1, -44]],  // 03 atelierul
+    [[-.6, 3.4, -42], [5.6, 7.6, -50]], // 04 casele, la cicogna
+    [[-2.6, 2.3, -76], [-9.8, 2, -84]], // 05 fereastra
+  ]);
+  return (t, dt) => {
+    folk.forEach(p => { p.position.z += p.userData.v * dt; if (p.position.z < -140) p.position.z = 12; if (p.position.z > 12) p.position.z = -140; const sw = Math.sin(t * 6 + p.userData.ph) * .45; p.userData.legs[0].rotation.x = sw; p.userData.legs[1].rotation.x = -sw; p.position.y = Math.abs(Math.sin(t * 6 + p.userData.ph)) * .04; });
+    const a = flies.geometry.attributes.position.array, b = flies.userData.base; for (let i = 0; i < a.length; i += 3) { a[i] = b[i] + Math.sin(t * .7 + i) * .5; a[i + 1] = b[i + 1] + Math.sin(t * 1.3 + i * .7) * .35; } flies.geometry.attributes.position.needsUpdate = true;
+    flies.material.opacity = .65 + Math.sin(t * 3) * .25;
+    ourLight.intensity = 38 + Math.sin(t * 2.1) * 3;
+  };
+}
+
+/* ═════════ B · il cantiere nel bosco di hinoki ═════════ */
+function workshop(W) {
+  const s = W.scene, r = rng(23);
+  s.background = skyTex([[0, '#8FA7C2'], [.42, '#D9C2B4'], [.6, '#F1CDA6'], [1, '#F6D9B2']]);
+  s.fog = new THREE.Fog('#EBC8A3', 30, 165);
+  const hemi = new THREE.HemisphereLight('#FFE4C6', '#4A3D2E', .75); s.add(hemi);
+  const sun = new THREE.DirectionalLight('#FFC488', 3.4); sun.position.set(-55, 20, -42); sun.castShadow = true;
+  Object.assign(sun.shadow.camera, { left: -42, right: 42, top: 42, bottom: -42, near: 1, far: 200 }); sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -.0004; sun.shadow.normalBias = .03; s.add(sun, sun.target);
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(500, 500), std('#8C775A', { r: 1 })); ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; s.add(ground);
+  for (let i = 0; i < 9; i++) { const d = new THREE.Mesh(new THREE.CircleGeometry(2 + r() * 3, 18), std('#C7AE86', { r: 1 })); d.rotation.x = -Math.PI / 2; d.position.set(-8 + r() * 26, .02, -10 + r() * 20); d.receiveShadow = true; s.add(d); }
+  const wood = std('#D4AF86'), wood2 = std('#BF9970'), stone = std('#A49D92'), bark = std('#86432E', { r: .95 }), rope = std('#6B5A45');
+  const sh = (o) => (o.traverse(m => { if (m.isMesh) { m.castShadow = true; m.receiveShadow = true; } }), o);
+  function frameHall(x, z, cols, rows, sp, h, done) {
+    const g = new THREE.Group(); g.position.set(x, 0, z); const W_ = (cols - 1) * sp, D = (rows - 1) * sp;
+    g.add(at(box(W_ + 2.2, .7, D + 2.2, stone), 0, .35, 0), at(box(W_ + 1.4, .16, D + 1.4, wood2), 0, .78, 0));
+    for (let i = 0; i < cols; i++) for (let j = 0; j < rows; j++) if (done || r() > .15) g.add(at(cyl(.2, .22, h, wood, 12), -W_ / 2 + i * sp, .86 + h / 2, -D / 2 + j * sp));
+    for (let j = 0; j < rows; j++) if (done || j < rows - 1) g.add(at(box(W_ + .8, .34, .3, wood), 0, .86 + h - .1, -D / 2 + j * sp));
+    for (let i = 0; i < cols; i++) if (done || i % 2 === 0) g.add(at(box(.3, .34, D + .8, wood2), -W_ / 2 + i * sp, .86 + h + .22, 0));
+    if (done) {
+      const roofG = new THREE.Group(); roofG.position.y = .86 + h + .45;
+      const L = W_ + 4.2, half = D / 2 + 2.3, rise = 2.8;
+      const sh2 = new THREE.Shape(); sh2.moveTo(-half, -.05); sh2.quadraticCurveTo(-half * .55, rise * .32, 0, rise); sh2.quadraticCurveTo(half * .55, rise * .32, half, -.05); sh2.lineTo(half, -.4); sh2.quadraticCurveTo(half * .5, rise * .05, 0, rise - .45); sh2.quadraticCurveTo(-half * .5, rise * .05, -half, -.4); sh2.closePath();
+      const rg = new THREE.ExtrudeGeometry(sh2, { depth: L, bevelEnabled: false, curveSegments: 12 }); rg.translate(0, 0, -L / 2); const rm = new THREE.Mesh(rg, bark); rm.rotation.y = Math.PI / 2; roofG.add(rm);
+      const gab = new THREE.Shape(); gab.moveTo(-half * .72, .1); gab.lineTo(0, rise - .5); gab.lineTo(half * .72, .1); gab.closePath();
+      for (const sd of [-1, 1]) { const gm = new THREE.Mesh(new THREE.ShapeGeometry(gab), std('#C9A47B', { side: THREE.DoubleSide })); gm.rotation.y = Math.PI / 2; gm.position.x = sd * (W_ / 2 + .9); roofG.add(gm); }
+      roofG.add(at(box(L + .6, .42, .5, std('#3C2A22')), 0, rise + .02, 0));
+      g.add(roofG);
+      const lan = std('#FFE0B0', { e: '#FFB363', ei: 2.6 });
+      for (let i = 0; i < cols; i++) { const l = at(cyl(.26, .26, .55, lan, 12), -W_ / 2 + i * sp, .86 + h - .7, D / 2 + .2); g.add(l, at(cyl(.01, .01, .5, rope), -W_ / 2 + i * sp, .86 + h - .2, D / 2 + .2)); }
+    } else {
+      for (let i = 0; i <= cols; i++) { g.add(at(cyl(.07, .07, h + 4.5, std('#B79F7D'), 6), -W_ / 2 - .9 + i * (W_ + 1.8) / cols, (h + 4.5) / 2 + .7, D / 2 + .9)); }
+      for (let k = 1; k <= 3; k++) g.add(at(box(W_ + 2, .08, .08, std('#B79F7D')), 0, .7 + k * 1.8, D / 2 + .9));
+      const tri = new THREE.Group(); tri.position.set(W_ / 2 + 2, 0, 0); for (let k = 0; k < 3; k++) { const leg = cyl(.08, .08, 9, std('#9C8462'), 6); leg.position.set(Math.cos(k * 2.1) * 1.4, 4.3, Math.sin(k * 2.1) * 1.4); leg.lookAt(0, 9, 0); leg.rotateX(Math.PI / 2); tri.add(leg); } tri.add(at(cyl(.015, .015, 5, rope), 0, 6.4, 0), at(box(.3, .3, 3.2, wood), 0, 3.8, 0)); g.add(tri);
+    }
+    s.add(sh(g)); return g;
+  }
+  frameHall(0, 0, 4, 3, 3.2, 4.2, true);
+  frameHall(17, -11, 4, 3, 3, 4, false);
+  // cataste di travi e tronchi
+  for (let k = 0; k < 3; k++) { const st = new THREE.Group(); st.position.set(5 + k * 3.4, 0, 9 + (k % 2) * 1.6); st.rotation.y = .3 * k; for (let a = 0; a < 5; a++) for (let b = 0; b < 4 - (a > 2 ? 1 : 0); b++) st.add(at(box(5.6, .26, .34, a % 2 ? wood : wood2), 0, .13 + a * .27, -.6 + b * .4)); s.add(sh(st)); }
+  const logs = new THREE.Group(); logs.position.set(15, 0, 6); for (let a = 0; a < 3; a++) for (let b = 0; b < 4 - a; b++) { const l = cyl(.42, .42, 6.5, std('#9E7A55'), 12); l.rotation.z = Math.PI / 2; l.position.set(0, .42 + a * .74, -1.2 + b * .86 + a * .43); logs.add(l); } s.add(sh(logs));
+  // cavalletti e falegnami
+  const crew = [];
+  for (let i = 0; i < 18; i++) { const p = person(r, ['#2F3E5C', '#E8E1D4', '#B5874C', '#5A4A3C', '#3E4E44', '#2B2E3A'], '#D8B08C'); p.position.set(-12 + r() * 32, 0, -14 + r() * 26); if (Math.hypot(p.position.x, p.position.z) < 6) p.position.x += 9; p.rotation.y = r() * 6.3; if (r() < .45) { p.add(at(box(.18, .18, 3.2, wood), .26, 1.35, 0)); p.userData.carry = true; } p.userData.ph = r() * 6; p.userData.v = .4 + r() * .5; s.add(p); crew.push(p); }
+  for (let i = 0; i < 4; i++) { const h = new THREE.Group(); h.position.set(-4 + i * 4.2, 0, 6.6); h.add(at(box(2.2, .14, .2, wood2), 0, .86, 0), at(box(.12, .86, .12, wood2), -.9, .43, 0), at(box(.12, .86, .12, wood2), .9, .43, 0), at(box(3.4, .22, .3, wood), 0, 1.04, 0)); s.add(sh(h)); }
+  // bosco di hinoki: tronchi e chiome a strati
+  const N = 260, trunks = new THREE.InstancedMesh(new THREE.CylinderGeometry(.18, .32, 1, 6), std('#5B4434'), N), crowns = new THREE.InstancedMesh(new THREE.ConeGeometry(1, 1, 7), std('#FFFFFF'), N * 3);
+  const M = new THREE.Matrix4(), q = new THREE.Quaternion(), sc = new THREE.Vector3(), ps = new THREE.Vector3(), col = new THREE.Color(); let ci = 0;
+  const camKeys = [[-17, 26], [-31, 9], [-7, 15], [5, 11], [6, 9], [-3.5, 12.5]];
+  for (let i = 0; i < N; i++) { let x, z; do { x = -110 + r() * 220; z = -150 + r() * 190; } while (Math.hypot(x - 3, (z + 3) * 1.25) < 28 + r() * 10 || camKeys.some(([cx, cz]) => Math.hypot(x - cx, z - cz) < 16) || (z > 2 && x > -40 && x < 10));
+    const h = 10 + r() * 9; M.compose(ps.set(x, h * .3, z), q.identity(), sc.set(1, h * .6, 1)); trunks.setMatrixAt(i, M);
+    for (let k = 0; k < 3; k++) { const rr = (2.4 - k * .6) * (.8 + r() * .35), hh = h * (.42 - k * .06); M.compose(ps.set(x, h * .42 + k * h * .2 + hh / 2, z), q.identity(), sc.set(rr, hh, rr)); crowns.setMatrixAt(ci, M); crowns.setColorAt(ci, col.set(pick(r, ['#2C4434', '#33503C', '#26392D', '#3A5641']))); ci++; } }
+  trunks.castShadow = crowns.castShadow = true; s.add(trunks, crowns);
+  // montagne nella foschia
+  for (let i = 0; i < 9; i++) { const m = new THREE.Mesh(new THREE.ConeGeometry(30 + r() * 26, 26 + r() * 22, 6), std('#A6A2A0', { r: 1 })); m.position.set(-180 + i * 45 + r() * 20, 6, -220 - r() * 30); s.add(m); }
+  // fasci di luce tra gli alberi e pulviscolo
+  const shaftTex = canvasTex(64, 256, (g, w, h) => { const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, 'rgba(255,255,255,.0)'); gr.addColorStop(.25, 'rgba(255,255,255,.9)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, w, h); const gx = g.createLinearGradient(0, 0, w, 0); gx.addColorStop(0, 'rgba(0,0,0,1)'); gx.addColorStop(.5, 'rgba(0,0,0,0)'); gx.addColorStop(1, 'rgba(0,0,0,1)'); g.globalCompositeOperation = 'destination-out'; g.fillStyle = gx; g.fillRect(0, 0, w, h); });
+  for (let i = 0; i < 9; i++) { const m = new THREE.Mesh(new THREE.PlaneGeometry(3 + r() * 5, 50), new THREE.MeshBasicMaterial({ map: shaftTex, color: '#FFD7A0', transparent: true, opacity: .2 + r() * .12, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide, fog: false })); m.position.set(-22 + r() * 36, 15, -34 + r() * 16); m.rotation.set(0, .5 + r() * .3, -.6); s.add(m); }
+  const dust = points(420, (a, i) => { a[i] = -12 + r() * 34; a[i + 1] = .5 + r() * 8; a[i + 2] = -16 + r() * 28; }, '#FFE3B6', .07, .9); s.add(dust);
+  W.path([
+    [[-17, 4.6, 26], [-3.5, 3.6, -5]],  // apertura: controluce, ombre lunghe
+    [[-31, 3.2, 9], [-44, 7, -16]],     // 01 pădurea
+    [[-7, 2.4, 15], [-12, 1, 3]],       // 02 bârnele
+    [[5, 3.3, 11], [0, 2.6, 0]],        // 03 atelierul
+    [[6, 10.5, 9], [17, 4.5, -11]],     // 04 casa che sale
+    [[-3.5, 2.6, 12.5], [0, 3.6, 2.4]], // 05 veranda, lanterne
+  ]);
+  return (t, dt, p) => {
+    crew.forEach(c => { const sw = Math.sin(t * 5 + c.userData.ph) * .4; c.userData.legs[0].rotation.x = sw; c.userData.legs[1].rotation.x = -sw; c.translateZ(c.userData.v * dt * .6); if (Math.hypot(c.position.x - 3, c.position.z + 3) > 20) c.rotation.y += Math.PI; });
+    const a = dust.geometry.attributes.position.array, b = dust.userData.base; for (let i = 0; i < a.length; i += 3) { a[i] = b[i] + Math.sin(t * .2 + i) * .8; a[i + 1] = b[i + 1] + Math.sin(t * .35 + i * .3) * .5; } dust.geometry.attributes.position.needsUpdate = true;
+    const dusk = smooth(Math.min(1, Math.max(0, (p - .72) / .28)));       // all'ultimo capitolo scende la sera
+    sun.intensity = 3.4 - dusk * 2.2; hemi.intensity = .75 - dusk * .35; W.renderer.toneMappingExposure = 1 - dusk * .12;
+  };
+}
+
+/* ═════════ C · la corte coreana, quattro stagioni ═════════ */
+function seasons(W) {
+  const s = W.scene, r = rng(37);
+  const sky = canvasTex(8, 512, () => {}); s.background = sky;
+  const skyDraw = (top, mid, hor) => { const c = sky.image, g = c.getContext('2d'); const gr = g.createLinearGradient(0, 0, 0, c.height); gr.addColorStop(0, top); gr.addColorStop(.6, mid); gr.addColorStop(1, hor); g.fillStyle = gr; g.fillRect(0, 0, c.width, c.height); sky.needsUpdate = true; };
+  s.fog = new THREE.Fog('#E8E4DE', 40, 190);
+  const hemi = new THREE.HemisphereLight('#FFF4E6', '#59513F', .8); s.add(hemi);
+  const sun = new THREE.DirectionalLight('#FFF1DE', 2.4); sun.position.set(30, 42, 24); sun.castShadow = true; Object.assign(sun.shadow.camera, { left: -30, right: 30, top: 30, bottom: -30, near: 1, far: 140 }); sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -.0004; sun.shadow.normalBias = .03; s.add(sun);
+  const grassM = std('#9DB67E', { r: 1 }), earthM = std('#CDB797', { r: 1 });
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(500, 500), grassM); ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; s.add(ground);
+  const court = new THREE.Mesh(new THREE.PlaneGeometry(22, 18), earthM); court.rotation.x = -Math.PI / 2; court.position.set(0, .02, 0); court.receiveShadow = true; s.add(court);
+  const snowM = new THREE.MeshStandardMaterial({ color: '#F4F7FA', roughness: .9, transparent: true, opacity: 0, depthWrite: false });
+  const snowGround = new THREE.Mesh(new THREE.PlaneGeometry(500, 500), snowM); snowGround.rotation.x = -Math.PI / 2; snowGround.position.y = .05; s.add(snowGround);
+  const tileTex = canvasTex(128, 64, (g, w, h) => { g.fillStyle = '#3B3E44'; g.fillRect(0, 0, w, h); for (let x = 0; x < w; x += 16) { const gr = g.createLinearGradient(x, 0, x + 16, 0); gr.addColorStop(0, '#2A2C31'); gr.addColorStop(.5, '#50545B'); gr.addColorStop(1, '#2A2C31'); g.fillStyle = gr; g.fillRect(x, 0, 16, h); } });
+  tileTex.wrapS = tileTex.wrapT = THREE.RepeatWrapping;
+  const woodM = std('#6A4A36'), beamM = std('#7B5741'), wallM = std('#EDE6DA', { r: .95 }), stoneM = std('#A39C90'), paperM = std('#F3E7D2', { e: '#FFC27A', ei: 0, r: .9 });
+  const roofs = [];
+  function roofMesh(len, depth, rise, lift) {
+    const U = 28, V = 7, pos = [], uv = [], idx = [];
+    for (const sd of [-1, 1]) { const base = pos.length / 3;
+      for (let j = 0; j <= V; j++) { const v = j / V; for (let i = 0; i <= U; i++) { const u = i / U * 2 - 1;
+        pos.push(u * (len / 2 + v * .9), rise * (1 - v) - .5 * Math.sin(v * Math.PI) * .55 + lift * Math.pow(Math.abs(u), 6) * v * v, sd * v * depth / 2); uv.push(u * len * .45, v * 2); } }
+      for (let j = 0; j < V; j++) for (let i = 0; i < U; i++) { const a = base + j * (U + 1) + i, b = a + 1, c = a + U + 1, d = c + 1; sd > 0 ? idx.push(a, c, b, b, c, d) : idx.push(a, b, c, b, d, c); } }
+    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); g.setIndex(idx); g.computeVertexNormals();
+    const m = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ map: tileTex, roughness: .7, side: THREE.FrontSide })); m.castShadow = true; m.receiveShadow = true;
+    const under = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ color: '#5E4434', roughness: .9, side: THREE.BackSide })); under.position.y = -.28; m.add(under);
+    const snow = new THREE.Mesh(g, snowM); snow.position.y = .08; m.add(snow); return m;
+  }
+  function hanok(x, z, ry, len, depth) {
+    const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = ry; const h = 2.7, n = Math.round(len / 2.3);
+    g.add(at(box(len + 1.6, .75, depth + 1.4, stoneM), 0, .37, 0), at(box(len + .6, .16, depth + .6, std('#8A6A4C')), 0, .83, 0));
+    for (let i = 0; i <= n; i++) { const cx = -len / 2 + i * len / n; g.add(at(cyl(.17, .19, h, woodM, 10), cx, .9 + h / 2, depth / 2), at(cyl(.17, .19, h, woodM, 10), cx, .9 + h / 2, -depth / 2));
+      if (i < n) { const mx = cx + len / n / 2, wpanel = len / n - .36; if (i % 3 === 1) { g.add(at(box(wpanel, h - .5, .1, wallM), mx, .9 + (h - .5) / 2 + .3, -depth / 2 + .05)); }
+        else { const door = at(box(wpanel, h - .6, .08, paperM), mx, .9 + (h - .6) / 2 + .2, depth / 2 - .25); g.add(door); for (let k = 1; k < 4; k++) g.add(at(box(.035, h - .6, .1, woodM), mx - wpanel / 2 + k * wpanel / 4, .9 + (h - .6) / 2 + .2, depth / 2 - .2)); for (let k = 1; k < 5; k++) g.add(at(box(wpanel, .035, .1, woodM), mx, 1.1 + k * (h - .6) / 5, depth / 2 - .2)); } } }
+    g.add(at(box(len + .5, .32, .32, beamM), 0, .9 + h + .1, depth / 2), at(box(len + .5, .32, .32, beamM), 0, .9 + h + .1, -depth / 2), at(box(len + .3, .55, depth, std('#EDE6DA')), 0, .9 + h + .45, 0));
+    const roof = roofMesh(len + 2.6, depth + 3.4, 2.2, .55); roof.position.y = .9 + h + .55; g.add(roof, at(box(len + 1.8, .4, .5, std('#2E3035')), 0, .9 + h + 3.1, 0), at(box(len + 1.8, .12, .52, std('#DCD6CB')), 0, .9 + h + 2.86, 0));
+    g.traverse(o => { if (o.isMesh && o !== roof) { o.castShadow = true; o.receiveShadow = true; } }); s.add(g); return g;
+  }
+  hanok(0, -9.5, 0, 17, 5.2);
+  hanok(10.2, -1, -Math.PI / 2, 10.5, 4.6);
+  const gate = hanok(-11.5, 4, Math.PI / 2, 3.6, 2.6);
+  // il muro basso con le tegole
+  const wallG = new THREE.Group(); const segs = [[-2, 9.8, 22, 0], [-11.6, -3.5, 13, Math.PI / 2]]; segs.forEach(([x, z, L, ry]) => { const w = new THREE.Group(); w.position.set(x, 0, z); w.rotation.y = ry; w.add(at(box(L, 1.7, .55, std('#D9CDBA', { r: 1 })), 0, .85, 0)); const rf = roofMesh(L + .3, 1.3, .3, .12); rf.position.y = 1.75; w.add(rf); wallG.add(w); }); wallG.traverse(o => { if (o.isMesh) { o.castShadow = o.receiveShadow = true; } }); s.add(wallG);
+  // le giare (jangdokdae)
+  const jarM = std('#5A3B2A', { r: .35, flat: false }); const jars = new THREE.Group(); jars.position.set(6.2, 0, -6.4); jars.add(at(box(4.2, .4, 2.6, stoneM), 0, .2, 0));
+  for (let i = 0; i < 9; i++) { const k = .45 + r() * .3; const j = new THREE.Mesh(new THREE.SphereGeometry(k, 16, 12), jarM); j.scale.y = 1.15; j.position.set(-1.6 + (i % 4) * 1.05 + r() * .2, .4 + k * 1.1, -.7 + Math.floor(i / 4) * .9); j.castShadow = true; jars.add(j, at(cyl(k * .55, k * .6, .14, jarM, 14), j.position.x, j.position.y + k * 1.12, j.position.z)); } s.add(jars);
+  // il cachi
+  const tree = new THREE.Group(); tree.position.set(-3.6, 0, 1.4); const trunkM = std('#4A3A2E');
+  const tr = cyl(.22, .34, 3.4, trunkM, 8); tr.position.y = 1.7; tr.rotation.z = .12; tree.add(tr);
+  const branchEnds = []; for (let i = 0; i < 9; i++) { const a = i / 9 * Math.PI * 2 + r() * .4, L = 1.6 + r() * 1.4; const b = cyl(.05, .12, L, trunkM, 6); const dir = new THREE.Vector3(Math.cos(a) * .8, .65 + r() * .4, Math.sin(a) * .8).normalize(); const st = new THREE.Vector3(.15, 2.6 + r() * .8, 0); b.position.copy(st).addScaledVector(dir, L / 2); b.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir); tree.add(b); branchEnds.push(st.clone().addScaledVector(dir, L)); }
+  const leafM = std('#F0C5CC', { r: .9 }); const crown = new THREE.Group(); branchEnds.forEach(e => { const c = new THREE.Mesh(new THREE.IcosahedronGeometry(.9 + r() * .6, 1), leafM); c.position.copy(e); crown.add(c); }); tree.add(crown);
+  const fruitM = std('#E8742C', { r: .4, flat: false, e: '#E8742C', ei: .15 }); const fruits = new THREE.InstancedMesh(new THREE.SphereGeometry(.16, 10, 8), fruitM, 70); const fm = new THREE.Matrix4();
+  for (let i = 0; i < 70; i++) { const e = branchEnds[i % branchEnds.length]; fm.makeTranslation(e.x + (r() - .5) * 2.2, e.y + (r() - .5) * 1.4, e.z + (r() - .5) * 2.2); fruits.setMatrixAt(i, fm); } tree.add(fruits);
+  tree.traverse(o => { if (o.isMesh) o.castShadow = true; }); s.add(tree);
+  // pini fuori dal muro e montagne a strati
+  const pineM = std('#2F4A3A'); for (let i = 0; i < 18; i++) { const x = -46 + r() * 92, z = -24 - r() * 34; const h = 6 + r() * 4; const tr2 = cyl(.18, .28, h * .6, std('#5A4334')); tr2.position.set(x, h * .3, z); tr2.rotation.z = (r() - .5) * .3; s.add(tr2); for (let k = 0; k < 3; k++) { const c = new THREE.Mesh(new THREE.IcosahedronGeometry(1.5 + r() * 1.2, 1), pineM); c.position.set(x + (r() - .5) * 2.4, h * (.5 + k * .14), z + (r() - .5) * 2.4); c.scale.set(1.6, .6, 1.4); c.castShadow = true; s.add(c); } }
+  const ridgeMs = [];
+  for (let L = 0; L < 4; L++) { const shape = new THREE.Shape(); const w = 520, base = -10; shape.moveTo(-w / 2, base); for (let i = 0; i <= 60; i++) { const x = -w / 2 + i * w / 60; shape.lineTo(x, 18 + L * 9 + Math.sin(i * .35 + L * 2) * (7 + L * 3) + Math.sin(i * .9 + L) * 3 + (r() - .5) * 2.5); } shape.lineTo(w / 2, base); const m = new THREE.Mesh(new THREE.ShapeGeometry(shape), new THREE.MeshBasicMaterial({ color: '#8FA58C', fog: false })); m.position.set(0, 0, -70 - L * 40); s.add(m); ridgeMs.push(m.material); }
+  // gente e un gatto
+  const folk = []; [[-1, 3], [2.6, 1.2], [4.2, -5.2], [-5.2, -1.6]].forEach(([x, z], i) => { const p = person(r, ['#E9DFCC', '#7F92AB', '#B8665A', '#5F6E5A', '#D9C7A6'], '#E3C2A2'); p.position.set(x, 0, z); p.rotation.y = r() * 6; p.userData.ph = r() * 6; s.add(p); folk.push(p); });
+  const cat = new THREE.Group(); cat.add(at(box(.5, .22, .2, std('#C8A27A')), 0, 1.95, 0), at(box(.2, .2, .18, std('#C8A27A')), .3, 2.08, 0), at(box(.04, .35, .04, std('#C8A27A')), -.3, 2.05, 0)); cat.position.set(3, 0, 9.8); s.add(cat);
+  // particelle: petali, foglie, neve
+  const parts = points(900, (a, i) => { a[i] = -16 + r() * 32; a[i + 1] = r() * 14; a[i + 2] = -12 + r() * 24; }, '#F6D3DA', .14, .9, false); s.add(parts);
+  // le stagioni: primavera, estate, autunno, inverno, di nuovo primavera
+  const S = [
+    { sky: ['#B9D2E8', '#E7EEF2', '#F5ECE6'], fog: '#EAE6E1', sun: ['#FFF1DE', 2.5], sp: [30, 42, 24], grass: '#9DB67E', leaf: '#F1C3CB', leafS: 1, fruit: 0, snow: 0, part: ['#F6D0D8', .13, .55, .9], ridge: '#9DB49A', paper: 0, exp: 1.0, hemi: .8 },
+    { sky: ['#7FB0DD', '#D5E6EF', '#EEF3F2'], fog: '#E3ECEE', sun: ['#FFF6E2', 3.1], sp: [12, 60, 18], grass: '#5D8C4C', leaf: '#4F7F3E', leafS: 1.08, fruit: 0, snow: 0, part: ['#FFFFFF', .05, .2, 0], ridge: '#6F9471', paper: 0, exp: 1.0, hemi: .85 },
+    { sky: ['#9BB6D2', '#EBD9C6', '#F6D9B5'], fog: '#F0DCC5', sun: ['#FFC78C', 2.6], sp: [-36, 26, 22], grass: '#B39A62', leaf: '#C9672F', leafS: .62, fruit: 1, snow: 0, part: ['#D7743A', .2, .9, .95], ridge: '#B88558', paper: .2, exp: 1.0, hemi: .75 },
+    { sky: ['#34445E', '#7D8DA4', '#C6CFDB'], fog: '#AEB8C6', sun: ['#C4D3EE', .8], sp: [-20, 18, -30], grass: '#E9EEF2', leaf: '#4A3A2E', leafS: 0, fruit: .55, snow: 1, part: ['#FFFFFF', .1, .7, 1], ridge: '#D3DAE3', paper: 2.2, exp: .92, hemi: .55 },
+    { sky: ['#B9D2E8', '#E7EEF2', '#F5ECE6'], fog: '#EAE6E1', sun: ['#FFF1DE', 2.5], sp: [30, 42, 24], grass: '#9DB67E', leaf: '#F1C3CB', leafS: 1, fruit: 0, snow: 0, part: ['#F6D0D8', .13, .55, .9], ridge: '#9DB49A', paper: 0, exp: 1.0, hemi: .8 },
+  ];
+  const ca = new THREE.Color(), cb = new THREE.Color(), lerpC = (x, y, k) => ca.set(x).lerp(cb.set(y), k).getStyle();
+  let cur = null, fall = .55, fallOn = 1;
+  function season(v) {
+    const i = Math.min(3, Math.floor(v)), k = smooth(v - i), A = S[i], B = S[i + 1], L = (a, b) => a + (b - a) * k;
+    skyDraw(lerpC(A.sky[0], B.sky[0], k), lerpC(A.sky[1], B.sky[1], k), lerpC(A.sky[2], B.sky[2], k));
+    s.fog.color.set(lerpC(A.fog, B.fog, k)); sun.color.set(lerpC(A.sun[0], B.sun[0], k)); sun.intensity = L(A.sun[1], B.sun[1]); sun.position.set(L(A.sp[0], B.sp[0]), L(A.sp[1], B.sp[1]), L(A.sp[2], B.sp[2]));
+    hemi.intensity = L(A.hemi, B.hemi); grassM.color.set(lerpC(A.grass, B.grass, k)); leafM.color.set(lerpC(A.leaf, B.leaf, k)); crown.scale.setScalar(Math.max(.001, L(A.leafS, B.leafS)));
+    fruits.scale.setScalar(Math.max(.001, L(A.fruit, B.fruit))); snowM.opacity = L(A.snow, B.snow); paperM.emissiveIntensity = L(A.paper, B.paper);
+    parts.material.color.set(lerpC(A.part[0], B.part[0], k)); parts.material.size = L(A.part[1], B.part[1]); fall = L(A.part[2], B.part[2]); parts.material.opacity = L(A.part[3], B.part[3]);
+    ridgeMs.forEach((m, n) => m.color.set(lerpC(A.ridge, B.ridge, k)).lerp(s.fog.color, .1 + n * .2)); W.renderer.toneMappingExposure = L(A.exp, B.exp);
+  }
+  W.path([
+    [[-30, 12.5, 30], [-9, 2.6, -4]],   // apertura
+    [[-22, 8.5, 26], [-5, 2.4, -2]],    // 01 primăvara
+    [[-4, 8.5, 27], [0, 2.2, -3]],      // 02 vara
+    [[6, 7.5, 25], [-1.5, 3, -1]],      // 03 toamna
+    [[13, 6.5, 21], [-1, 2.4, -4]],     // 04 iarna
+    [[16, 9, 25], [0, 2.2, -3]],        // 05 din nou primăvara
+  ]);
+  return (t, dt, p) => {
+    season(Math.min(3.999, Math.max(0, (p - .1) / .9 * 4)));
+    const a = parts.geometry.attributes.position.array; for (let i = 0; i < a.length; i += 3) { a[i + 1] -= fall * dt * (1 + (i % 7) * .08); a[i] += Math.sin(t * .8 + i) * dt * .3 * fall; if (a[i + 1] < 0) a[i + 1] = 14; } parts.geometry.attributes.position.needsUpdate = true;
+    folk.forEach(f => { f.rotation.y += Math.sin(t * .3 + f.userData.ph) * dt * .2; });
+  };
+}
+
+/* ── montaggio: ogni mondo si accende solo quando è sullo schermo ── */
+const builders = { village, workshop, seasons };
+const settings = { village: { exposure: 1.18, fov: 38, bloom: [.95, .55, .7] }, workshop: { exposure: 1.0, fov: 36, shadows: true, bloom: [.3, .5, .9] }, seasons: { exposure: 1.0, fov: 34, shadows: true, bloom: [.18, .4, .92] } };
+const worlds = [];
+document.querySelectorAll('.prop').forEach(sec => {
+  const frame = sec.querySelector('.frame'), kind = frame.dataset.world, ui = frame.querySelector('.ui');
+  let W;
+  try { W = new World(frame, settings[kind]); W.update = builders[kind](W); }
+  catch (e) { console.error(e); frame.insertAdjacentHTML('beforeend', '<p class="fail">Il 3D non parte su questo browser.</p>'); return; }
+  W.sec = sec; W.kind = kind; W.ui = ui; W.ch = 0; worlds.push(W);
+  new IntersectionObserver(([en]) => { W.visible = en.isIntersecting; }, { rootMargin: '200px' }).observe(frame);
+  frame.querySelectorAll('[data-go]').forEach(el => el.addEventListener('click', () => { const span = sec.offsetHeight - innerHeight; scrollTo({ top: sec.offsetTop + span * (+el.dataset.go / 5), behavior: 'smooth' }); }));
+  W.place(0); W.update(0, 0, 0); W.composer.render();
+});
+const setChapter = (W, c) => {
+  if (c === W.ch) return; W.ch = c; W.frame.dataset.ch = String(c);
+  W.ui.querySelectorAll('.nav a').forEach((a, i) => a.classList.toggle('on', i + 1 === c));
+  W.ui.querySelectorAll('.rail li').forEach((a, i) => a.classList.toggle('on', i + 1 === c));
+  if (c > 0) { const [h, l, tx] = CH[W.kind][c - 1]; const box = W.ui.querySelector('.chap'); box.querySelector('.n').textContent = `0${c} / 05`; box.querySelector('h4').textContent = h; box.querySelector('.lead').textContent = l; box.querySelector('.txt').textContent = tx; }
+};
+let last = performance.now(), acc = 0;
+function frame(now) {
+  const dt = Math.min(.05, (now - last) / 1000); last = now; acc += dt;
+  if (acc >= 1 / 32) {
+    for (const W of worlds) {
+      const span = W.sec.offsetHeight - innerHeight; W.target = Math.min(1, Math.max(0, (scrollY - W.sec.offsetTop) / span));
+      if (!W.visible) continue;
+      W.p += (W.target - W.p) * Math.min(1, acc * 3.2);                 // la camera segue lo scroll con un piccolo ritardo
+      W.t += acc; W.place(W.p); W.update(W.t, acc, W.p); W.composer.render();
+      W.ui.style.setProperty('--p', W.p.toFixed(4));
+      setChapter(W, W.p < .07 ? 0 : Math.min(5, Math.max(1, Math.round(W.p * 5))));
+    }
+    acc = 0;
+  }
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

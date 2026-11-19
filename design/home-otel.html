@@ -1,0 +1,945 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hinotech Software — Soluții software simple, clare, făcute să dureze</title>
+<meta name="description" content="O firmă tehnologică din Republica Moldova, cu produse în română și în rusă. Primul nostru produs: PrivacyBox.">
+<meta name="theme-color" content="#08090A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=IBM+Plex+Mono:wght@400;500&family=Shippori+Mincho:wght@700&display=swap">
+<style>
+/* Hinotech Software · home «Oțel»: lo stile di Linear (fondo quasi nero, testo bianco e grigio,
+   linee da un pixel, il prodotto vero) con un nastro di linee d'acciaio disegnato in WebGL.
+   Prototipo locale: i caratteri vengono da Google Fonts, nel sito vero dal nostro dominio. */
+:root{
+  --bg:#08090A;--bg1:#0B0C0D;--card:#0E0F11;
+  --l1:rgba(255,255,255,.06);--l2:rgba(255,255,255,.09);--l3:rgba(255,255,255,.14);
+  --t1:#F7F8F8;--t2:#D0D3D8;--t3:#8A8F98;--t4:#62666D;--t5:#3E4147;
+  --rust:#9C4A38;--rust-n:#C06B54;
+  --inter:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"Cascadia Mono",monospace;
+  --jp:"Shippori Mincho","Yu Mincho",serif;
+  --ease:cubic-bezier(.2,.65,.2,1);
+  --wrap:1200px;--pad:clamp(20px,4.4vw,56px);--nav:64px;
+}
+*{box-sizing:border-box}
+html{background:var(--bg);color-scheme:dark;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--t1);font:400 16px/1.6 var(--inter);font-optical-sizing:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4,p,ul,figure{margin:0}
+ul{padding:0;list-style:none}
+img{display:block;max-width:100%;height:auto}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--rust-n);outline-offset:3px;border-radius:6px}
+::selection{background:rgba(192,107,84,.35)}
+.wrap{width:min(var(--wrap),100% - 2*var(--pad));margin-inline:auto}
+.skip{position:fixed;left:12px;top:-60px;z-index:100;padding:10px 14px;border-radius:8px;background:var(--t1);color:var(--bg);font-weight:500}
+.skip:focus{top:12px}
+section{position:relative}
+[id]{scroll-margin-top:var(--nav)}
+
+/* ── elementi comuni ── */
+.seal{display:grid;place-items:center;flex:none;width:26px;height:26px;border-radius:7px;background:var(--rust);color:#FBFAF8;font:700 15px/1 var(--jp);font-style:normal;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 0 0 1px rgba(0,0,0,.4)}
+.brand{display:inline-flex;align-items:center;gap:11px;font-weight:600;font-size:15px;letter-spacing:-.015em;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 18px;border-radius:10px;font:500 15px/1 var(--inter);letter-spacing:-.01em;white-space:nowrap;transition:background-color .18s var(--ease),box-shadow .18s var(--ease),transform .18s var(--ease)}
+.btn:active{transform:translateY(1px)}
+.btn-w{background:var(--t1);color:var(--bg)}
+.btn-w:hover{background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.07)}
+.btn-g{background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px var(--l3);color:var(--t1)}
+.btn-g:hover{background:rgba(255,255,255,.08)}
+.btn-s{height:34px;padding:0 14px;font-size:14px;border-radius:8px}
+.lnk{display:inline-flex;align-items:center;gap:6px;font-weight:500;color:var(--t2);transition:color .18s var(--ease)}
+.lnk span{display:inline-block;transition:transform .22s var(--ease)}
+.lnk:hover{color:var(--t1)}
+.lnk:hover span{transform:translateX(3px)}
+.lbl{display:inline-flex;align-items:center;gap:10px;font:500 14px/1 var(--inter);color:var(--t3)}
+.lbl i{width:8px;height:8px;border-radius:2px;background:var(--rust-n);box-shadow:0 0 12px rgba(192,107,84,.55)}
+.mono{font:400 12.5px/1.5 var(--mono);letter-spacing:.04em;color:var(--t4)}
+.grad{background:linear-gradient(to right bottom,#F7F8F8 35%,rgba(247,248,248,.42));-webkit-background-clip:text;background-clip:text;color:transparent}
+.h2{font:560 clamp(32px,4.2vw,56px)/1.04 var(--inter);letter-spacing:-.038em;text-wrap:balance}
+.sec{padding:clamp(96px,16vh,180px) 0}
+.sec-h{display:grid;gap:22px;margin-bottom:clamp(44px,7vh,72px)}
+.sec-h.split{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:end;column-gap:64px}
+.sec-p{font-size:17px;line-height:1.6;color:var(--t3);max-width:30em}
+.note{font:400 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--t5)}
+
+/* ── menu ── */
+.nav{position:fixed;inset:0 0 auto;z-index:50;height:var(--nav);transition:background-color .25s var(--ease),box-shadow .25s var(--ease),backdrop-filter .25s}
+.nav.solid{background:rgba(8,9,10,.72);backdrop-filter:saturate(1.4) blur(16px);-webkit-backdrop-filter:saturate(1.4) blur(16px);box-shadow:0 1px 0 var(--l1)}
+.nav-in{display:flex;align-items:center;gap:28px;height:100%}
+.links{display:flex;gap:4px;margin-left:auto;font-size:14px}
+.links a{padding:8px 12px;border-radius:8px;color:var(--t3);transition:color .15s var(--ease),background-color .15s var(--ease)}
+.links a:hover,.links a.on{color:var(--t1)}
+.links a:hover{background:rgba(255,255,255,.04)}
+.menu-b{display:none;margin-left:auto;height:34px;padding:0 14px;border-radius:8px;box-shadow:inset 0 0 0 1px var(--l3);font-size:14px;font-weight:500}
+.menu{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;padding:calc(var(--nav) + 24px) var(--pad) 32px;background:rgba(8,9,10,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.menu[hidden]{display:none}
+.menu a{padding:12px 0;border-bottom:1px solid var(--l1);font:560 28px/1.2 var(--inter);letter-spacing:-.03em}
+.menu .btn{margin-top:28px;height:50px;font-size:16px;border:0}
+.menu-x{position:absolute;right:var(--pad);top:15px;height:34px;padding:0 14px;border-radius:8px;box-shadow:inset 0 0 0 1px var(--l3);font-size:14px;font-weight:500}
+
+/* ── 1 · l'apertura ── */
+.hero{height:230vh}
+.hero-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero-t{position:absolute;left:0;right:0;top:calc(var(--nav) + 10vh);will-change:transform,opacity}
+.pill{display:inline-flex;align-items:center;gap:10px;height:32px;padding:0 14px 0 12px;border-radius:999px;background:rgba(255,255,255,.035);box-shadow:inset 0 0 0 1px var(--l2);font-size:13.5px;font-weight:500;color:var(--t2);transition:background-color .18s var(--ease),box-shadow .18s var(--ease)}
+.pill i{width:7px;height:7px;border-radius:50%;background:var(--rust-n);box-shadow:0 0 10px rgba(192,107,84,.7)}
+.pill span{color:var(--t4);transition:transform .22s var(--ease),color .18s}
+.pill:hover{background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px var(--l3)}
+.pill:hover span{transform:translateX(3px);color:var(--t2)}
+.h1{margin-top:26px;max-width:13.2em;font:560 clamp(42px,5.7vw,84px)/1.0 var(--inter);letter-spacing:-.042em;text-wrap:balance}
+.lead{margin-top:24px;max-width:31em;font-size:clamp(16px,1.35vw,19px);line-height:1.55;color:var(--t3);text-wrap:pretty}
+.ctas{display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px;margin-top:34px}
+.hero-v{position:absolute;left:50%;top:0;width:min(1180px,88vw);transform-origin:50% 0;will-change:transform;transform:translate3d(-50%,72vh,0) perspective(1700px) rotateX(26deg) scale(.9)}
+.hero-v .note{position:absolute;right:0;top:calc(100% + 14px)}
+.hero-ph{display:none}
+/* la cornice d'acciaio: un bordo spazzolato che prende la luce */
+.win{position:relative;padding:5px;border-radius:15px;background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.025) 38%,rgba(255,255,255,.04));box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),0 60px 140px -50px rgba(0,0,0,.95),0 0 0 1px rgba(0,0,0,.6)}
+.win::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,.06) 26%,rgba(255,255,255,0) 60%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.win img{width:100%;border-radius:10px}
+.win::after{content:"";position:absolute;inset:5px;border-radius:10px;pointer-events:none;background:linear-gradient(105deg,transparent calc(var(--sh,0)*160% - 60%),rgba(255,255,255,.075) calc(var(--sh,0)*160% - 42%),transparent calc(var(--sh,0)*160% - 26%));mix-blend-mode:screen}
+.phone{position:relative;padding:6px;border-radius:38px;background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(255,255,255,.03) 45%,rgba(255,255,255,.07));box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),0 40px 90px -30px rgba(0,0,0,.95),0 0 0 1px rgba(0,0,0,.7)}
+.phone img{width:100%;border-radius:32px}
+
+/* ── 2 · principi ── */
+.figs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--l1)}
+.fig{padding:26px 30px 6px;border-right:1px solid var(--l1)}
+.fig:first-child{padding-left:0}
+.fig:last-child{border-right:0;padding-right:0}
+.fig svg{display:block;width:100%;height:clamp(150px,13.5vw,196px);margin:26px 0 30px;overflow:visible}
+.fig h3{font:560 19px/1.25 var(--inter);letter-spacing:-.02em}
+.fig p{margin-top:8px;font-size:15px;line-height:1.55;color:var(--t3);max-width:24em}
+.iso polygon,.iso path,.iso line{fill:var(--bg);stroke:#C9CDD3;stroke-width:1;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.iso .hi polygon{stroke:var(--rust-n)}
+.iso .dim polygon{stroke:var(--t5)}
+.iso .ghost polygon{fill:none;stroke:var(--t5);stroke-dasharray:3 4}
+.iso .hidden-e{fill:none;stroke:var(--t4);stroke-dasharray:3 4}
+.iso text{font:500 11px/1 var(--mono);letter-spacing:.06em;fill:var(--t4);stroke:none}
+
+/* ── 3 · la frase del motore ── */
+.stmt{height:210vh}
+.stmt-pin{position:sticky;top:0;height:100vh;height:100svh;display:grid;align-items:center}
+.stmt-t{margin-top:26px;max-width:21em;font:560 clamp(30px,3.9vw,54px)/1.12 var(--inter);letter-spacing:-.035em;text-wrap:pretty}
+.stmt-t span{color:#2A2D33;transition:color .2s linear}
+
+/* ── 4 · il motore, esploso ── */
+.arch{height:400vh}
+.arch-pin{position:sticky;top:0;height:100vh;height:100svh;display:grid;align-items:center}
+.arch-in{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);align-items:center;gap:40px}
+.arch-t{position:relative;min-height:300px}
+.arch-k{display:flex;gap:6px;font:500 12.5px/1 var(--mono);letter-spacing:.08em;color:var(--t5)}
+.arch-k b{color:var(--t2);font-weight:500}
+.stg{position:absolute;left:0;right:0;top:44px;opacity:0;will-change:opacity,transform}
+.stg h3{font:560 clamp(28px,3vw,42px)/1.08 var(--inter);letter-spacing:-.035em;text-wrap:balance}
+.stg p{margin-top:16px;font-size:16px;color:var(--t3);max-width:24em}
+.stg .mono{margin-top:22px;color:var(--t4)}
+.arch-svg{width:100%;height:auto;max-height:86vh;overflow:visible}
+.arch-svg .tile polygon{transition:fill .35s var(--ease),stroke .35s var(--ease)}
+.arch-svg .tile.on polygon{fill:#121316;stroke:var(--t1)}
+.arch-svg .tile.on text{fill:var(--t1)}
+.arch-svg .scan polygon{fill:rgba(192,107,84,.07);stroke:var(--rust-n);stroke-width:1.5}
+.arch-svg .lead-l{stroke:var(--t5);stroke-width:1;fill:none;vector-effect:non-scaling-stroke}
+.arch-svg .tag{font:500 12px/1 var(--mono);letter-spacing:.06em;fill:var(--t3)}
+.arch-svg .ok{fill:var(--rust-n)}
+
+/* ── 5 · prodotti ── */
+.prod{position:relative;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);min-height:600px;border-radius:22px;background:radial-gradient(ellipse 70% 60% at 85% 0%,rgba(255,255,255,.05),transparent 70%),linear-gradient(180deg,#0E0F11,#0A0B0C);box-shadow:inset 0 0 0 1px var(--l1);overflow:hidden;isolation:isolate}
+.prod-t{position:relative;z-index:2;display:flex;flex-direction:column;align-items:flex-start;padding:52px 48px}
+.pb-mark{width:44px;height:44px;border-radius:11px;box-shadow:0 0 0 1px var(--l2)}
+.prod h3{margin-top:26px;font:560 40px/1 var(--inter);letter-spacing:-.04em}
+.prod-t > p{margin-top:16px;font-size:17px;line-height:1.55;color:var(--t3);max-width:24em}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.meta li{padding:7px 11px;border-radius:8px;background:rgba(255,255,255,.03);box-shadow:inset 0 0 0 1px var(--l1);font-size:13px;color:var(--t2)}
+.prod-t .lnk{margin-top:auto;padding-top:34px}
+.prod-t .endorse{margin-top:14px;font:400 12px/1 var(--mono);letter-spacing:.08em;color:var(--t5);text-transform:uppercase}
+.prod-v{position:relative;min-height:420px}
+.prod-v .win{position:absolute;left:6%;top:13%;width:118%;will-change:transform}
+.prod-v .phone{position:absolute;left:-4%;bottom:-9%;width:22%;will-change:transform}
+.prod-v .note{position:absolute;right:28px;top:30px}
+.next{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:32px;margin-top:20px;padding:34px 40px;border-radius:22px;border:1px dashed rgba(255,255,255,.14)}
+.next h3{margin-top:10px;font:560 24px/1.2 var(--inter);letter-spacing:-.025em;color:var(--t2)}
+.next p{margin-top:8px;color:var(--t3);max-width:34em}
+.next svg{width:190px;height:auto;overflow:visible}
+
+/* ── 6 · sicurezza ── */
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--l1);border-bottom:1px solid var(--l1)}
+.cell{padding:34px 28px 38px;border-right:1px solid var(--l1)}
+.cell:first-child{padding-left:0}
+.cell:last-child{border-right:0;padding-right:0}
+.cell svg{width:52px;height:52px;margin-bottom:40px;overflow:visible}
+.cell svg *{fill:none;stroke:#C9CDD3;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.cell svg .hi{stroke:var(--rust-n)}
+.cell h3{font:560 17px/1.3 var(--inter);letter-spacing:-.015em}
+.cell p{margin-top:8px;font-size:14.5px;line-height:1.55;color:var(--t3)}
+
+/* ── 7 · chi siamo ── */
+.about{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:56px 80px;margin-top:clamp(40px,6vh,64px)}
+.about-p{font-size:19px;line-height:1.6;color:var(--t2);max-width:30em}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.cols h3{font:500 12.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--t4);margin-bottom:16px}
+.cols li{padding:12px 0;border-top:1px solid var(--l1);font-size:15px;line-height:1.5;color:var(--t2)}
+.cols .no li{color:var(--t3)}
+.name{grid-column:1/-1;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:28px;padding:30px 32px;border-radius:20px;background:linear-gradient(180deg,#0E0F11,#0A0B0C);box-shadow:inset 0 0 0 1px var(--l1)}
+.name .seal{width:64px;height:64px;border-radius:16px;font-size:38px}
+.name h3{font:560 18px/1.3 var(--inter);letter-spacing:-.015em}
+.name p{margin-top:6px;color:var(--t3);max-width:52em}
+.place{font:400 12.5px/1.5 var(--mono);letter-spacing:.06em;color:var(--t4);text-align:right}
+
+/* ── 8 · finale: la durata e il contatto ── */
+.close{height:240vh}
+.close-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.close-t,.contact{position:absolute;left:0;right:0;will-change:transform,opacity}
+.close-t{top:22vh}
+.close-t h2{max-width:14em;font:560 clamp(36px,5vw,72px)/1.02 var(--inter);letter-spacing:-.042em;text-wrap:balance}
+.close-t p{margin-top:22px;max-width:30em;font-size:18px;color:var(--t3)}
+.contact{top:24vh;opacity:0}
+.contact h2{margin-top:22px;font:560 clamp(52px,7vw,104px)/.95 var(--inter);letter-spacing:-.05em}
+.contact p{margin-top:20px;font-size:18px;color:var(--t3)}
+.mail{display:inline-block;margin-top:30px;font:500 clamp(20px,2vw,26px)/1.2 var(--inter);letter-spacing:-.02em;color:var(--t2);border-bottom:1px solid var(--l3);transition:color .18s var(--ease),border-color .18s var(--ease)}
+.mail:hover{color:var(--t1);border-color:var(--t2)}
+.anchor{position:absolute;left:0;top:calc(100% - 100vh);width:1px;height:1px}
+
+/* ── piè di pagina ── */
+.ft{border-top:1px solid var(--l1);padding:64px 0 40px;font-size:14px}
+.ft-in{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,3fr);gap:48px}
+.ft-brand p{margin-top:16px;color:var(--t4);max-width:18em}
+.ft-cols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+.ft-cols h4{margin-bottom:14px;font:500 13px/1 var(--inter);color:var(--t2)}
+.ft-cols a,.ft-cols span{display:block;padding:5px 0;color:var(--t4);transition:color .15s var(--ease)}
+.ft-cols a:hover{color:var(--t1)}
+.ft-cols .soon{color:var(--t5)}
+.ft-bot{display:flex;justify-content:space-between;gap:20px;margin-top:56px;padding-top:22px;border-top:1px solid var(--l1);color:var(--t5);font-size:13px}
+.lang b{color:var(--t2);font-weight:500}
+
+/* ── comparsa al primo caricamento (una volta, poi ferma) ── */
+.js .intro{opacity:0;transform:translateY(14px);filter:blur(6px)}
+.js.ready .intro{opacity:1;transform:none;filter:none;transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease);transition-delay:calc(var(--d,0) * 1ms)}
+.js .nav{opacity:0}
+.js.ready .nav{opacity:1;transition:opacity .8s var(--ease) .1s,background-color .25s var(--ease),box-shadow .25s var(--ease)}
+.js [data-rv]{opacity:0}
+
+/* ── telefono ── */
+@media (max-width:900px){
+  .links,.nav .btn-s{display:none}
+  .menu-b{display:inline-flex;align-items:center}
+  .sec-h.split{grid-template-columns:1fr}
+  .figs{grid-template-columns:1fr}
+  .fig{padding:24px 0 30px!important;border-right:0;border-bottom:1px solid var(--l1)}
+  .fig svg{height:170px;margin:14px 0 18px}
+  .arch-in{grid-template-columns:1fr;gap:8px}
+  .arch-svg{order:-1;max-height:50vh}
+  .arch-svg .lbls{display:none}
+  .prod-v .note{top:-6px;right:20px}
+  .arch-t{min-height:220px}
+  .stg{top:34px}
+  .prod{grid-template-columns:1fr;min-height:0}
+  .prod-t{padding:36px 26px 10px}
+  .prod-v{min-height:300px}
+  .prod-v .win{left:8%;top:6%;width:150%}
+  .prod-v .phone{left:4%;bottom:-14%;width:34%}
+  .next{grid-template-columns:1fr;padding:28px 24px}
+  .next svg{width:150px}
+  .grid4{grid-template-columns:1fr 1fr}
+  .cell{padding:28px 20px 30px 0!important;border-right:0;border-bottom:1px solid var(--l1)}
+  .cell:nth-child(odd){padding-right:20px!important;border-right:1px solid var(--l1)}
+  .cell:nth-child(even){padding-left:20px!important}
+  .cell:nth-last-child(-n+2){border-bottom:0}
+  .about{grid-template-columns:1fr}
+  .cols{grid-template-columns:1fr}
+  .name{grid-template-columns:auto 1fr;padding:24px}
+  .place{grid-column:1/-1;text-align:left}
+  .ft-in{grid-template-columns:1fr}
+  .ft-cols{grid-template-columns:1fr 1fr}
+}
+@media (max-width:720px){
+  .hero-v{display:none}
+  .hero-ph{display:block;position:absolute;left:50%;top:0;width:min(60vw,300px);transform-origin:50% 0;will-change:transform;transform:translate3d(-50%,62vh,0) perspective(1100px) rotateX(22deg) scale(.94)}
+  .hero-ph .note{position:absolute;left:calc(100% + 12px);bottom:14%;writing-mode:vertical-rl}
+  .hero-t{top:calc(var(--nav) + 4vh)}
+  .h1{margin-top:20px;font-size:clamp(36px,10.2vw,48px);letter-spacing:-.04em}
+  .lead{margin-top:16px;font-size:16px}
+  .ctas{margin-top:24px;gap:12px 22px}
+  .grid4{grid-template-columns:1fr}
+  .cell,.cell:nth-child(odd),.cell:nth-child(even){padding:26px 0!important;border-right:0!important;border-bottom:1px solid var(--l1)!important}
+  .cell:last-child{border-bottom:0!important}
+  .cell svg{margin-bottom:22px}
+  .close-t{top:16vh}
+  .contact{top:18vh}
+  .ft-bot{flex-direction:column}
+}
+/* senza movimento: ogni scena resta nel suo stato finale */
+.rm .hero{height:auto}.rm .hero-pin{position:relative;height:auto;min-height:100vh;padding:calc(var(--nav) + 10vh) 0 100px}
+.rm .hero-t{position:relative;top:0}
+.rm .hero-v,.rm .hero-ph{position:relative;left:auto;margin:80px auto 0;transform:none!important}
+.rm .stg{position:static;opacity:1!important;transform:none!important;margin-top:26px}
+.rm .arch-t{min-height:0}
+.rm .arch-k{display:none}
+.rm .arch{height:auto}.rm .arch-pin{position:relative;height:auto;padding:120px 0}
+.rm .stmt{height:auto}.rm .stmt-pin{position:relative;height:auto;padding:120px 0}
+.rm .close{height:auto}.rm .close-pin{position:relative;height:auto;padding:140px 0 120px;overflow:visible}
+.rm .close-t,.rm .contact{position:relative;top:0;opacity:1!important;transform:none!important}
+.rm .contact{margin-top:120px}
+.rm .close .gl{opacity:.6}
+</style>
+</head>
+<body>
+<a class="skip" href="#principii">Sari la conținut</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="Hinotech Software, începutul paginii"><i class="seal" aria-hidden="true">檜</i><span>Hinotech Software</span></a>
+    <nav class="links" aria-label="Secțiuni">
+      <a href="#principii">Principii</a><a href="#arhitectura">Arhitectura</a><a href="#produse">Produse</a><a href="#securitate">Securitate</a><a href="#despre">Despre noi</a>
+    </nav>
+    <a class="btn btn-w btn-s" href="#contact">Contact</a>
+    <button class="menu-b" type="button" aria-expanded="false" aria-controls="menu">Meniu</button>
+  </div>
+</header>
+<div class="menu" id="menu" hidden>
+  <button class="menu-x" type="button">Închide</button>
+  <a href="#principii">Principii</a><a href="#arhitectura">Arhitectura</a><a href="#produse">Produse</a><a href="#securitate">Securitate</a><a href="#despre">Despre noi</a>
+  <a class="btn btn-w" href="#contact">Contact</a>
+</div>
+
+<main>
+<!-- ═══ 1 · l'apertura: il nastro d'acciaio e il prodotto che si raddrizza ═══ -->
+<section class="hero" id="top" aria-label="Hinotech Software">
+  <div class="hero-pin">
+    <canvas class="gl" id="gl-hero" aria-hidden="true"></canvas>
+    <div class="wrap hero-t" id="hero-t">
+      <a class="pill intro" style="--d:80" href="#produse"><i></i>Primul nostru produs: PrivacyBox <span>→</span></a>
+      <h1 class="h1 grad intro" style="--d:180">Soluții software simple, clare, făcute să dureze.</h1>
+      <p class="lead intro" style="--d:330">O firmă tehnologică din Republica Moldova, cu produse în română și în rusă.</p>
+      <div class="ctas intro" style="--d:460"><a class="btn btn-w" href="#produse">Produsele noastre</a><a class="lnk" href="#despre">Despre noi <span>→</span></a></div>
+    </div>
+    <div class="hero-v" id="hero-v">
+      <figure class="win"><img src="img/pb-dashboard-dark.webp" width="2400" height="1497" alt="Consola PrivacyBox: tabloul de bord al unei firme, cu date fictive" fetchpriority="high"></figure>
+      <span class="note">Date fictive</span>
+    </div>
+    <div class="hero-ph" id="hero-ph">
+      <figure class="phone"><img src="img/pb-phone-dark.webp" width="780" height="1694" alt="Consola PrivacyBox pe telefon, cu date fictive"></figure>
+      <span class="note">Date fictive</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 2 · i principi: le tre parole della frase ═══ -->
+<section class="sec" id="principii">
+  <div class="wrap">
+    <div class="sec-h">
+      <p class="lbl" data-rv><i></i>Principii</p>
+      <h2 class="h2 grad" data-rv>Regulile care decid ce construim.</h2>
+    </div>
+    <div class="figs" id="figs">
+      <article class="fig" data-rv><small class="mono">FIG 0.1</small><svg class="iso" viewBox="0 0 260 180" data-fig="1" aria-hidden="true"></svg><h3>Simple</h3><p>Pentru fiecare problemă căutăm cea mai simplă soluție care funcționează.</p></article>
+      <article class="fig" data-rv><small class="mono">FIG 0.2</small><svg class="iso" viewBox="0 0 260 180" data-fig="2" aria-hidden="true"></svg><h3>Clare</h3><p>O explicăm clar, în română și în rusă, cu rang egal.</p></article>
+      <article class="fig" data-rv><small class="mono">FIG 0.3</small><svg class="iso" viewBox="0 0 260 180" data-fig="3" aria-hidden="true"></svg><h3>Făcute să dureze</h3><p>Totul din același cod, cu versiuni, verificat la fiecare livrare.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 3 · la frase del motore, parola per parola ═══ -->
+<section class="stmt" id="arhitectura">
+  <div class="stmt-pin">
+    <div class="wrap">
+      <p class="lbl"><i></i>Arhitectura</p>
+      <p class="stmt-t" id="stmt-t" data-a="Un motor comun ține clienții, rolurile, versiunile, registrele, termenele și jurnalul." data-b="Îl scriem o dată; fiecare produs nou îl folosește.">Un motor comun ține clienții, rolurile, versiunile, registrele, termenele și jurnalul. Îl scriem o dată; fiecare produs nou îl folosește.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 4 · il motore, esploso ═══ -->
+<section class="arch" id="motor" aria-label="Cum e construit">
+  <div class="arch-pin">
+    <div class="wrap arch-in">
+      <div class="arch-t">
+        <p class="arch-k" aria-hidden="true"><b id="arch-n">01</b><span>/ 04</span></p>
+        <div class="stg"><h3>Datele fiecărui client, izolate.</h3><p class="mono">Client A · Client B · Client C</p></div>
+        <div class="stg"><h3>Un motor comun.</h3><p class="mono">Clienți · Roluri · Versiuni · Registre · Termene · Jurnal</p></div>
+        <div class="stg"><h3>Produse pe același motor.</h3><p class="mono">PrivacyBox · următorul produs</p></div>
+        <div class="stg"><h3>Verificat la fiecare livrare.</h3><p class="mono">Teste la fiecare livrare</p></div>
+      </div>
+      <svg class="iso arch-svg" id="arch-svg" viewBox="0 0 820 720" aria-hidden="true"></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 5 · i prodotti ═══ -->
+<section class="sec" id="produse">
+  <div class="wrap">
+    <div class="sec-h split">
+      <div><p class="lbl" data-rv><i></i>Produse</p><h2 class="h2 grad" data-rv style="margin-top:22px">Un motor, mai multe verticale.</h2></div>
+      <p class="sec-p" data-rv>Aceeași infrastructură servește produse vândute unor profesii diferite.</p>
+    </div>
+    <article class="prod" id="prod" data-rv>
+      <div class="prod-t">
+        <svg class="pb-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7.16" fill="#141311"/><g fill="#FBFAF8"><polygon points="11.65,7.07 24.31,9.20 22.80,10.55 12.91,8.77"/><polygon points="24.31,9.20 23.81,23.54 22.47,21.74 22.80,10.55"/><polygon points="23.81,23.54 11.90,20.31 13.05,19.27 22.47,21.74"/><polygon points="11.90,20.31 11.65,7.07 12.91,8.77 13.05,19.27"/><polygon points="8.01,8.28 21.08,10.67 19.53,12.08 9.33,10.09"/><polygon points="21.08,10.67 20.75,25.77 19.35,23.85 19.53,12.08"/><polygon points="20.75,25.77 8.48,22.16 9.64,21.10 19.35,23.85"/><polygon points="8.48,22.16 8.01,8.28 9.33,10.09 9.64,21.10"/></g></svg>
+        <h3>PrivacyBox</h3>
+        <p>Primul nostru produs: protecția datelor pentru firme, după Legea nr. 195/2024. Online din 3 octombrie 2026.</p>
+        <ul class="meta"><li>Română · Русский</li><li>Pe orice dispozitiv, din același cod</li></ul>
+        <a class="lnk" href="https://privacybox.md" target="_blank" rel="noopener">privacybox.md <span>↗</span></a>
+        <p class="endorse">Un produs Hinotech Software</p>
+      </div>
+      <div class="prod-v">
+        <figure class="win" id="prod-win"><img src="img/pb-dashboard-dark.webp" width="2400" height="1497" alt="Tabloul de bord PrivacyBox, cu date fictive" loading="lazy"></figure>
+        <figure class="phone" id="prod-ph"><img src="img/pb-phone-dark.webp" width="780" height="1694" alt="PrivacyBox pe telefon, cu date fictive" loading="lazy"></figure>
+        <span class="note">Date fictive</span>
+      </div>
+    </article>
+    <article class="next" data-rv>
+      <div><p class="mono">Următorul produs</p><h3>Pe același motor.</h3><p>Fiecare produs nou se ridică pe același motor, numai când cel de dedesubt se susține singur.</p></div>
+      <svg class="iso" id="next-svg" viewBox="0 0 200 140" aria-hidden="true"></svg>
+    </article>
+  </div>
+</section>
+
+<!-- ═══ 6 · la sicurezza ═══ -->
+<section class="sec" id="securitate">
+  <div class="wrap">
+    <div class="sec-h split">
+      <div><p class="lbl" data-rv><i></i>Securitate</p><h2 class="h2 grad" data-rv style="margin-top:22px">Dovada, înaintea promisiunii.</h2></div>
+      <p class="sec-p" data-rv>Produsul trebuie să reziste în fața unui inspector, nu doar a unui utilizator.</p>
+    </div>
+    <div class="grid4" id="grid4">
+      <div class="cell" data-rv><svg viewBox="0 0 44 44" aria-hidden="true"><rect x="5" y="5" width="34" height="34" rx="7" pathLength="1"/><path class="hi" d="M14 22.5l5.5 5.5L31 16.5" pathLength="1"/></svg><h3>Teste la fiecare livrare</h3><p>Versiuni care, odată emise, nu se mai schimbă.</p></div>
+      <div class="cell" data-rv><svg viewBox="0 0 44 44" aria-hidden="true"><rect x="3" y="12" width="10" height="20" rx="2.5" pathLength="1"/><rect x="17" y="12" width="10" height="20" rx="2.5" pathLength="1"/><rect class="hi" x="31" y="12" width="10" height="20" rx="2.5" pathLength="1"/></svg><h3>Datele fiecărui client, izolate</h3><p>Găzduite în Spațiul Economic European, criptate, cât mai puține.</p></div>
+      <div class="cell" data-rv><svg viewBox="0 0 44 44" aria-hidden="true"><rect x="2" y="17" width="14" height="10" rx="5" pathLength="1"/><rect x="15" y="17" width="14" height="10" rx="5" pathLength="1"/><rect class="hi" x="28" y="17" width="14" height="10" rx="5" pathLength="1"/></svg><h3>Rezultate verificabile de oricine</h3><p>Un jurnal de evenimente legat printr-un lanț de hash, cu marcaje de timp.</p></div>
+      <div class="cell" data-rv><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="16" pathLength="1"/><path class="hi" d="M10.7 33.3L33.3 10.7" pathLength="1"/></svg><h3>Acest site, ca exemplu</h3><p>Niciun tracker, niciun cookie inutil, deci niciun banner.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 7 · chi siamo ═══ -->
+<section class="sec" id="despre">
+  <div class="wrap">
+    <p class="lbl" data-rv><i></i>Despre noi</p>
+    <h2 class="h2 grad" data-rv style="margin-top:22px;max-width:17em">Construim produse pentru profesioniștii care țin în ordine companiile mici.</h2>
+    <div class="about">
+      <p class="about-p" data-rv>Suntem un producător de software din Republica Moldova. Transformăm obligații legale care se repetă în procese digitale ghidate, în română și în rusă, și le distribuim prin profesioniștii care consiliază deja companiile mici.</p>
+      <div class="cols" data-rv>
+        <div><h3>Ce suntem</h3><ul><li>Producător de software de produs.</li><li>Un produs care se vinde de multe ori, nu ore care se vând o dată.</li><li>Vândut prin contabili, avocați și consultanți, sub marca lor.</li></ul></div>
+        <div class="no"><h3>Ce nu suntem</h3><ul><li>Nu suntem o agenție de dezvoltare la comandă.</li><li>Nu vindem ore de consultanță.</li><li>Nu revindem software-ul altcuiva: motorul este scris aici.</li></ul></div>
+      </div>
+      <div class="name" data-rv>
+        <i class="seal" aria-hidden="true">檜</i>
+        <div><h3>De unde vine numele</h3><p>Hinoki (檜) este chiparosul japonez din care se construiesc templele. Stâlpul central al pagodei Hōryū-ji, din hinoki, a fost tăiat în anul 594; pagoda stă și azi în picioare.</p></div>
+        <p class="place">Coteala, raionul Briceni<br>Republica Moldova</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 8 · finale: il mondo si muove, l'edificio resta; poi il contatto ═══ -->
+<section class="close" id="final" aria-label="Contact">
+  <div class="close-pin">
+    <canvas class="gl" id="gl-close" aria-hidden="true"></canvas>
+    <div class="wrap close-t" id="close-t">
+      <h2 class="grad">Când lumea se mișcă, clădirea rămâne în picioare.</h2>
+      <p>Legi care se schimbă, clienți noi, dispozitive noi: totul din același cod.</p>
+    </div>
+    <div class="wrap contact" id="contact-b">
+      <p class="lbl"><i></i>Contact</p>
+      <h2 class="grad">Scrieți-ne.</h2>
+      <p>Pentru parteneri, instituții, investitori și viitori colegi.</p>
+      <a class="mail" href="mailto:contact@hinotech.md">contact@hinotech.md</a>
+      <div class="ctas"><a class="btn btn-w" href="mailto:contact@hinotech.md">Scrieți-ne</a><a class="lnk" href="https://privacybox.md" target="_blank" rel="noopener">PrivacyBox <span>↗</span></a></div>
+    </div>
+  </div>
+  <span class="anchor" id="contact"></span>
+</section>
+</main>
+
+<footer class="ft">
+  <div class="wrap ft-in">
+    <div class="ft-brand"><a class="brand" href="#top"><i class="seal" aria-hidden="true">檜</i><span>Hinotech Software</span></a><p>Soluții software simple, clare, făcute să dureze.</p></div>
+    <nav class="ft-cols" aria-label="Subsol">
+      <div><h4>Produse</h4><a href="https://privacybox.md" target="_blank" rel="noopener">PrivacyBox ↗</a></div>
+      <div><h4>Companie</h4><a href="#despre">Despre noi</a><a href="#principii">Principii</a><a href="#contact">Carieră</a></div>
+      <div><h4>Securitate</h4><a href="#securitate">Securitate</a><span class="soon">Confidențialitate</span><span class="soon">Cookie-uri</span></div>
+      <div><h4>Contact</h4><a href="mailto:contact@hinotech.md">contact@hinotech.md</a><span>Coteala, raionul Briceni</span><span>Republica Moldova</span></div>
+    </nav>
+  </div>
+  <div class="wrap ft-bot"><span>© 2026 Hinotech Software</span><span class="lang"><b>RO</b> / RU</span></div>
+</footer>
+
+<script>
+/* ───────────────────────── motore comune: scroll → progresso → disegno ─────────────────────────
+   Lo scroll resta quello del browser. Ogni parte legge la sua posizione, la segue con un piccolo
+   ritardo (esponenziale) e si ridisegna solo quando cambia: nessun ciclo che gira a vuoto. */
+(() => {
+const Q = new URLSearchParams(location.search);
+const STILL = Q.has('still');
+const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FINE = matchMedia('(pointer: fine)').matches;
+const root = document.documentElement;
+root.classList.add('js');
+if (REDUCE) root.classList.add('rm');
+const clamp01 = x => Math.min(1, Math.max(0, x));
+const win = (p, a, b) => clamp01((p - a) / (b - a));
+const sm = x => { const t = clamp01(x); return t * t * (3 - 2 * t); };
+const lerp = (a, b, t) => a + (b - a) * t;
+const easeIO = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+const easeOut = t => 1 - Math.pow(1 - clamp01(t), 3);
+const fade = (p, a, b, c, d) => win(p, a, b) * (1 - win(p, c, d));
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const isPhone = () => innerWidth <= 720;
+
+const parts = [];
+let raf = 0, last = 0;
+function part(o) { Object.assign(o, { p: 0, target: 0, dirty: true, visible: true }); parts.push(o); return o; }
+function progressOf(o) {
+  const r = o.el.getBoundingClientRect(), vh = innerHeight;
+  if (o.mode === 'pin') { const tot = r.height - vh; return tot > 0 ? clamp01(-r.top / tot) : 0; }
+  const a = o.a ?? 0.92, b = o.b ?? 0.38;                       /* «entra»: dal fondo dello schermo a un terzo */
+  return clamp01((vh * a - r.top) / (vh * (a - b)));
+}
+function measure() {
+  for (const o of parts) {
+    const f = Q.get(o.key);
+    o.target = (f != null && f !== '') ? clamp01(+f) : REDUCE ? (o.rm ?? 1) : progressOf(o);
+  }
+  kick();
+}
+function kick() { if (!raf) raf = requestAnimationFrame(tick); }
+function tick(now) {
+  raf = 0;
+  const dt = last ? Math.min(0.05, (now - last) / 1000) : 1 / 60;
+  last = now;
+  let again = false;
+  for (const o of parts) {
+    const d = o.target - o.p;
+    if (Math.abs(d) > 1e-4) { o.p += d * (STILL || REDUCE ? 1 : 1 - Math.exp(-dt * (o.k || 7))); o.dirty = true; again = true; }
+    else if (o.p !== o.target) { o.p = o.target; o.dirty = true; }
+    if (o.step && o.step(dt)) { o.dirty = true; again = true; }
+    if (o.dirty && o.visible) { o.dirty = false; o.render(o.p); }
+  }
+  if (again) kick(); else last = 0;
+}
+const io = new IntersectionObserver(es => { for (const e of es) for (const o of parts) if (o.el === e.target) { o.visible = e.isIntersecting; if (o.visible) { o.dirty = true; kick(); } } }, { rootMargin: '30% 0px' });
+addEventListener('scroll', measure, { passive: true });
+addEventListener('resize', () => { for (const o of parts) if (o.resize) o.resize(); for (const o of parts) o.dirty = true; measure(); });
+
+/* ── WebGL minimo: un triangolo che copre lo schermo e uno shader ── */
+function makeGL(canvas, fs) {
+  const gl = canvas.getContext('webgl2', { antialias: false, alpha: false, depth: false, stencil: false, powerPreference: 'high-performance' });
+  if (!gl) return null;
+  const vs = `#version 300 es
+in vec2 aP; out vec2 vUv; void main(){ vUv = aP * 0.5 + 0.5; gl_Position = vec4(aP, 0.0, 1.0); }`;
+  const sh = (t, src) => { const s = gl.createShader(t); gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); return s; };
+  const pr = gl.createProgram();
+  gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(pr);
+  if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(pr));
+  const vao = gl.createVertexArray(); gl.bindVertexArray(vao);
+  const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(pr, 'aP'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  const U = {}; const n = gl.getProgramParameter(pr, gl.ACTIVE_UNIFORMS);
+  for (let i = 0; i < n; i++) { const inf = gl.getActiveUniform(pr, i); U[inf.name.replace(/\[0\]$/, '')] = gl.getUniformLocation(pr, inf.name); }
+  return { gl, pr, U, vao };
+}
+
+/* ── il nastro d'acciaio: 24 linee lungo una curva, con la torsione e il riflesso metallico ── */
+const RIBBON_FS = `#version 300 es
+precision highp float;
+in vec2 vUv; out vec4 o;
+uniform float uAspect, uXs, uBase, uTilt, uAmp, uPh, uHW, uTwist, uLines, uWaveA, uWaveX, uWaveW, uIntro, uDim, uTop, uLift;
+uniform vec2 uM;
+float hash(vec2 p){ p = fract(p * vec2(234.34, 435.345)); p += dot(p, p + 34.23); return fract(p.x * p.y); }
+void main(){
+  vec2 q = (vUv - 0.5) * vec2(uAspect, 1.0);
+  float x = q.x * uXs;
+  float dx = x - uWaveX;
+  float env = exp(-dx * dx / (uWaveW * uWaveW));
+  float wave = uWaveA * env * sin(dx * 15.0);
+  float wsl = uWaveA * env * cos(dx * 15.0) * 15.0;
+  float yc = uBase + uTilt * x + uAmp * (sin(x * 2.1 + 0.6 + uPh) + 0.45 * sin(x * 3.7 - 1.2 + 1.6 * uPh)) + wave;
+  float tw = sin(x * 1.5 + 2.1 + uPh * 0.7);
+  float hw = uHW * mix(1.0, 0.3 + 1.15 * abs(tw), uTwist);
+  float v = (q.y - yc) / hw;
+  float inR = 1.0 - smoothstep(0.86, 1.0, abs(v));
+  float fl = (v * 0.5 + 0.5) * uLines;
+  float w = max(fwidth(fl), 1e-4);
+  float lc = clamp(1.05 - abs(fract(fl) - 0.5) / w, 0.0, 1.0);
+  lc = mix(lc, 0.42, smoothstep(0.22, 0.6, w));               /* dove le linee si stringono: lamiera */
+  float ang = tw * 2.6 * uTwist + v * 0.9 + (uM.x - 0.5) * 3.2 + (uM.y - 0.5) * 1.2 + wsl * 0.4;
+  float refl = 0.5 + 0.5 * cos(ang);
+  float spec = pow(refl, 7.0);
+  vec3 steel = mix(vec3(0.26, 0.28, 0.32), vec3(0.90, 0.92, 0.96), refl) + spec * vec3(0.30, 0.30, 0.32);
+  steel = mix(steel, steel * vec3(1.06, 0.98, 0.94), 0.5 + 0.5 * sin(x * 1.3 + 0.4));
+  vec3 bg = vec3(0.031, 0.035, 0.039);
+  bg += uTop * 0.032 * smoothstep(1.0, 0.0, length((vUv - vec2(0.3, 1.06)) * vec2(1.0, 2.3)));
+  bg += uLift * 0.05 * smoothstep(0.7, 0.0, length((vUv - vec2(0.5, 0.42)) * vec2(0.9, 1.6)));
+  float front = uIntro * 1.3 - 0.12;
+  float reveal = 1.0 - smoothstep(front - 0.16, front, vUv.x);
+  float edge = smoothstep(0.0, 0.13, vUv.x) * smoothstep(1.0, 0.87, vUv.x);
+  vec3 col = bg + inR * uDim * edge * reveal * (lc * steel * 0.92 + (0.02 + 0.08 * spec) * steel);
+  col += (hash(gl_FragCoord.xy) - 0.5) / 255.0;
+  o = vec4(col, 1.0);
+}`;
+function ribbon(canvas, maxDpr) {
+  let G = null;
+  try { G = makeGL(canvas, RIBBON_FS); } catch (e) { console.error(e); }
+  if (!G) return null;
+  const { gl, U } = G;
+  const S = { uAspect: 1.6, uXs: 1, uBase: -0.17, uTilt: 0.14, uAmp: 0.11, uPh: 0, uHW: 0.08, uTwist: 1, uLines: 24, uWaveA: 0, uWaveX: -9, uWaveW: 0.3, uIntro: 1, uDim: 1, uTop: 1, uLift: 0, uM: [0.62, 0.42] };
+  return {
+    S,
+    resize() {
+      const dpr = Math.min(devicePixelRatio || 1, maxDpr), w = canvas.clientWidth, h = canvas.clientHeight;
+      canvas.width = Math.max(1, Math.round(w * dpr)); canvas.height = Math.max(1, Math.round(h * dpr));
+      S.uAspect = w / Math.max(1, h);
+    },
+    draw() {
+      gl.viewport(0, 0, canvas.width, canvas.height); gl.useProgram(G.pr); gl.bindVertexArray(G.vao);
+      for (const k in S) { if (!U[k]) continue; const v = S[k]; if (Array.isArray(v)) gl.uniform2f(U[k], v[0], v[1]); else gl.uniform1f(U[k], v); }
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+  };
+}
+
+/* ── disegno assonometrico in SVG: scatole con le facce nascoste ── */
+const NS = 'http://www.w3.org/2000/svg';
+const mk = (tag, at, par) => { const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); if (par) par.appendChild(e); return e; };
+const isoP = (s, cx, cy) => (x, y, z) => [cx + (x - y) * 0.8660254 * s, cy + (x + y) * 0.5 * s - z * s];
+const pts = a => a.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+class Box {
+  constructor(par, cls = '') { this.g = mk('g', { class: cls }, par); this.f = [0, 1, 2].map(() => mk('polygon', { pathLength: 1 }, this.g)); }
+  set(P, x0, y0, z0, a, b, c) {
+    const x1 = x0 + a, y1 = y0 + b, z1 = z0 + c;
+    this.f[0].setAttribute('points', pts([P(x1, y0, z0), P(x1, y1, z0), P(x1, y1, z1), P(x1, y0, z1)]));
+    this.f[1].setAttribute('points', pts([P(x0, y1, z0), P(x1, y1, z0), P(x1, y1, z1), P(x0, y1, z1)]));
+    this.f[2].setAttribute('points', pts([P(x0, y0, z1), P(x1, y0, z1), P(x1, y1, z1), P(x0, y1, z1)]));
+    return this;
+  }
+  draw(t) { const d = t >= 0.999 ? 'none' : `${t.toFixed(3)} 1`; for (const f of this.f) f.style.strokeDasharray = d; return this; }
+  show(o) { this.g.style.opacity = o.toFixed(3); this.g.style.display = o <= 0.001 ? 'none' : ''; return this; }
+}
+/* il testo steso sul piano: l'asse x del testo segue l'asse x dell'assonometria */
+const isoText = (par, P, x, y, z, txt, cls) => { const [X, Y] = P(x, y, z); const t = mk('text', { transform: `matrix(0.8660254 0.5 -0.8660254 0.5 ${X.toFixed(1)} ${Y.toFixed(1)})`, class: cls || '' }, par); t.textContent = txt; return t; };
+
+/* ═════════════ 0 · menu: fondo quando si scorre, voce attiva, menu del telefono ═════════════ */
+const nav = $('#nav');
+const onNav = () => nav.classList.toggle('solid', scrollY > 8);
+addEventListener('scroll', onNav, { passive: true }); onNav();
+const spy = new IntersectionObserver(es => {
+  for (const e of es) if (e.isIntersecting) { const id = e.target.id; $$('.links a').forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + id)); }
+}, { rootMargin: '-45% 0px -50% 0px' });
+['principii', 'arhitectura', 'produse', 'securitate', 'despre'].forEach(id => spy.observe(document.getElementById(id)));
+const menu = $('#menu'), mb = $('.menu-b');
+const setMenu = on => { menu.hidden = !on; mb.setAttribute('aria-expanded', on); document.body.style.overflow = on ? 'hidden' : ''; if (on) $('a', menu).focus(); };
+mb.addEventListener('click', () => setMenu(true));
+$('.menu-x').addEventListener('click', () => setMenu(false));
+$$('a', menu).forEach(a => a.addEventListener('click', () => setMenu(false)));
+addEventListener('keydown', e => { if (e.key === 'Escape' && !menu.hidden) { setMenu(false); mb.focus(); } });
+
+/* ═════════════ 1 · l'apertura ═════════════ */
+{
+  const el = $('.hero'), t = $('#hero-t'), v = $('#hero-v'), ph = $('#hero-ph');
+  const R = ribbon($('#gl-hero'), 1.25);
+  let intro = STILL || REDUCE ? 1 : 0;
+  const mT = [0.62, 0.42];
+  if (R && FINE) el.addEventListener('pointermove', e => { mT[0] = e.clientX / innerWidth; mT[1] = 1 - e.clientY / innerHeight; kick(); });
+  const o = part({
+    el, key: 'hero', mode: 'pin', rm: 0, k: 6,
+    resize() { if (R) R.resize(); },
+    step(dt) {
+      let moving = false;
+      if (intro < 1) { intro = Math.min(1, intro + dt / 1.9); moving = true; }
+      if (R) { const m = R.S.uM; const dx = mT[0] - m[0], dy = mT[1] - m[1]; if (dx * dx + dy * dy > 1e-7) { m[0] += dx * (1 - Math.exp(-dt * 4)); m[1] += dy * (1 - Math.exp(-dt * 4)); moving = true; } }
+      return moving;
+    },
+    render(p) {
+      const phone = isPhone(), vh = innerHeight;
+      if (!REDUCE) {
+        /* il testo sale e si spegne mentre la console si raddrizza */
+        const tp = easeIO(win(p, 0, 0.62));
+        t.style.transform = `translate3d(0,${(-tp * vh * 0.2).toFixed(1)}px,0)`;
+        t.style.opacity = (1 - sm(win(p, 0.12, 0.52))).toFixed(3);
+        const a = easeIO(win(p, 0, 0.86));
+        if (!phone) {
+          const top0 = vh * 0.72, top1 = Math.max(70, vh * 0.1);
+          v.style.transform = `translate3d(-50%,${lerp(top0, top1, a).toFixed(1)}px,0) perspective(1700px) rotateX(${lerp(26, 0, a).toFixed(2)}deg) scale(${lerp(0.9, 1, a).toFixed(4)})`;
+          v.style.setProperty('--sh', (0.15 + p * 0.95).toFixed(3));
+        } else {
+          const top0 = vh * 0.62, top1 = vh * 0.12;
+          ph.style.transform = `translate3d(-50%,${lerp(top0, top1, a).toFixed(1)}px,0) perspective(1100px) rotateX(${lerp(22, 0, a).toFixed(2)}deg) scale(${lerp(0.94, 1, a).toFixed(4)})`;
+        }
+      }
+      if (R) {
+        const S = R.S, st = sm(win(p, 0.04, 0.8));
+        S.uXs = phone ? 2.3 : 1;
+        S.uBase = phone ? lerp(-0.2, 0.0, st) : lerp(-0.17, -0.07, st);
+        S.uTilt = phone ? lerp(0.05, 0, st) : lerp(0.14, 0, st);
+        S.uAmp = lerp(phone ? 0.07 : 0.11, 0.004, st);
+        S.uHW = phone ? lerp(0.06, 0.05, st) : lerp(0.08, 0.072, st);
+        S.uTwist = 1 - st; S.uPh = p * 2.4;
+        S.uIntro = easeOut(intro); S.uDim = lerp(1, 0.8, st); S.uTop = 1; S.uLift = st;
+        R.draw();
+      }
+    }
+  });
+  io.observe(el);
+  if (R) R.resize();
+}
+
+/* ═════════════ 2 · i principi: tre figure al tratto ═════════════ */
+function figSimple(svg) {
+  /* nove colonne di altezze diverse (le opzioni) si abbassano in una lastra; ne resta una, la soluzione */
+  const P = isoP(10.5, 130, 92), H = [2.4, 4.6, 1.2, 3.4, 0.8, 5.2, 2.0, 3.0, 1.6];
+  const boxes = [];
+  for (let gx = 0; gx < 3; gx++) for (let gy = 0; gy < 3; gy++) boxes.push({ gx, gy, b: null, h: H[gx * 3 + gy] });
+  boxes.sort((a, b) => (a.gx + a.gy) - (b.gx + b.gy) || a.gx - b.gx);
+  for (const o of boxes) o.b = new Box(svg, o.gx === 2 && o.gy === 2 ? 'hi' : '');
+  return t => {
+    const d = easeIO(win(t, 0, 0.45)), f = easeIO(win(t, 0.4, 0.95));
+    for (const o of boxes) {
+      const keep = o.gx === 2 && o.gy === 2;
+      const h = keep ? lerp(o.h, 2.6, f) : lerp(o.h, 0.5, f);
+      o.b.set(P, -4.2 + o.gx * 2.9, -4.2 + o.gy * 2.9, 0, 2.5, 2.5, h).draw(d);
+    }
+  };
+}
+function figClear(svg) {
+  /* una scatola che diventa trasparente: dentro si vede la soluzione, gli spigoli nascosti tratteggiati */
+  const P = isoP(10.5, 130, 106);
+  const inner = new Box(svg, 'hi');
+  const hid = mk('path', { class: 'hidden-e' }, svg);
+  const outer = new Box(svg, '');
+  const [a, b, c] = [-4.2, -4.2, 0], S = 8.4, Hh = 5.6;
+  outer.set(P, a, b, c, S, S, Hh);
+  inner.set(P, -1.5, -1.5, 0, 3, 3, 3);
+  const A = P(a, b, c), B = P(a + S, b, c), C = P(a, b + S, c), D = P(a, b, c + Hh);
+  const f1 = q => q[0].toFixed(1) + ',' + q[1].toFixed(1);
+  hid.setAttribute('d', `M${f1(A)} L${f1(B)} M${f1(A)} L${f1(C)} M${f1(A)} L${f1(D)}`);
+  return t => {
+    const d = easeIO(win(t, 0, 0.45)), f = easeIO(win(t, 0.42, 0.9));
+    outer.draw(d);
+    for (const q of outer.f) q.style.fillOpacity = (1 - f).toFixed(3);
+    inner.draw(f > 0 ? 1 : 0).show(f);
+    hid.style.opacity = f.toFixed(3);
+  };
+}
+function figDurable(svg) {
+  /* le versioni si posano una sull'altra; l'ultima, quella in uso, è in ruggine */
+  const P = isoP(10.5, 130, 128), N = 5;
+  const slabs = [], tags = [];
+  for (let i = 0; i < N; i++) slabs.push(new Box(svg, i === N - 1 ? 'hi' : ''));
+  for (let i = 0; i < N; i++) { const [X, Y] = P(4.2, -4.2, i * 1.25 + 0.3); const tx = mk('text', { x: (X + 12).toFixed(1), y: (Y + 4).toFixed(1) }, svg); tx.textContent = 'v' + (i + 1); tags.push(tx); }
+  return t => {
+    for (let i = 0; i < N; i++) {
+      const e = easeOut(win(t, 0.08 + i * 0.15, 0.3 + i * 0.15));
+      const z = i * 1.25 + (1 - e) * 4.2;
+      slabs[i].set(P, -4.2, -4.2, z, 8.4, 8.4, 0.62).draw(1).show(e);
+      tags[i].style.opacity = (e * (i === N - 1 ? 1 : 0.7)).toFixed(3);
+      if (i === N - 1) tags[i].style.fill = 'var(--rust-n)';
+    }
+  };
+}
+{
+  const figs = $$('#figs svg');
+  const fns = [figSimple(figs[0]), figClear(figs[1]), figDurable(figs[2])];
+  const sec = $('#principii');
+  const o = part({ el: $('#figs'), key: 'figs', mode: 'enter', a: 0.95, b: 0.25, render(p) { fns.forEach((f, i) => f(clamp01((p - i * 0.07) / 0.86))); } });
+  io.observe(o.el);
+}
+
+/* ═════════════ comparse: gli elementi [data-rv] salgono e si accendono entrando ═════════════ */
+$$('[data-rv]').forEach(n => {
+  const sib = n.parentElement ? [...n.parentElement.querySelectorAll(':scope > [data-rv]')] : [n];
+  const i = Math.max(0, sib.indexOf(n));
+  const o = part({ el: n, key: 'rv', mode: 'enter', a: 0.98, b: 0.62, k: 9, render(p) {
+    const e = easeOut(clamp01((p - i * 0.12) / 0.88));
+    n.style.opacity = e.toFixed(3);
+    n.style.transform = e >= 1 ? 'none' : `translate3d(0,${((1 - e) * 26).toFixed(1)}px,0)`;
+  } });
+  io.observe(n);
+});
+
+/* ═════════════ 3 · la frase del motore ═════════════ */
+{
+  const el = $('.stmt'), p0 = $('#stmt-t');
+  const A = p0.dataset.a.split(' '), B = p0.dataset.b.split(' ');
+  p0.innerHTML = A.map(w => `<span data-c="1">${w}</span>`).join(' ') + ' ' + B.map(w => `<span data-c="2">${w}</span>`).join(' ');
+  const words = $$('span', p0), n = words.length;
+  const mix = (a, b, t) => `rgb(${a.map((v, i) => Math.round(v + (b[i] - v) * t)).join(',')})`;
+  const o = part({ el, key: 'stmt', mode: 'pin', render(p) {
+    words.forEach((w, i) => { const t = win(p, 0.08 + 0.66 * i / n, 0.08 + 0.66 * (i + 2.5) / n); w.style.color = mix([42, 45, 51], w.dataset.c === '1' ? [247, 248, 248] : [138, 143, 152], t); });
+  } });
+  io.observe(el);
+}
+
+/* ═════════════ 4 · il motore, esploso ═════════════ */
+{
+  const el = $('.arch'), svg = $('#arch-svg'), stg = $$('.stg'), num = $('#arch-n');
+  const s = 25, P = isoP(s, 360, 522);
+  const M = (X, Y) => `matrix(0.8660254 0.5 -0.8660254 0.5 ${X.toFixed(1)} ${Y.toFixed(1)})`;
+  const gA = mk('g', {}, svg), gB = mk('g', {}, svg), gC = mk('g', {}, svg), gS = mk('g', { class: 'scan' }, svg), gL = mk('g', { class: 'lbls' }, svg);
+  /* sul telefono le etichette laterali spariscono e la vista si stringe sulle lastre */
+  const fitView = () => svg.setAttribute('viewBox', innerWidth <= 900 ? '40 110 640 610' : '0 0 820 720');
+  fitView(); addEventListener('resize', fitView);
+  /* A · i dati, un compartimento per cliente */
+  const pA = new Box(gA, ''), cA = [0, 1, 2].map(() => new Box(gA, ''));
+  const cT = ['A', 'B', 'C'].map(c => { const t = mk('text', {}, gA); t.textContent = 'CLIENT ' + c; return t; });
+  /* B · il motore, sei moduli */
+  const pB = new Box(gB, ''), MOD = ['Clienți', 'Roluri', 'Versiuni', 'Registre', 'Termene', 'Jurnal'];
+  const tiles = [];
+  for (let j = 0; j < 2; j++) for (let i = 0; i < 3; i++) tiles.push({ i, j });
+  tiles.sort((a, b) => (a.i + a.j) - (b.i + b.j) || a.i - b.i);
+  for (const t of tiles) { t.g = mk('g', { class: 'tile' }, gB); t.b = new Box(t.g, ''); t.tx = mk('text', {}, t.g); t.tx.textContent = MOD[t.j * 3 + t.i]; t.idx = t.j * 3 + t.i; }
+  /* C · i prodotti: PrivacyBox (con la console stesa sopra) e il prossimo, tratteggiato */
+  const pC = new Box(gC, '');
+  const pb = new Box(gC, ''); const img = mk('image', { href: 'img/pb-phone-dark.webp', width: 1, height: 1, preserveAspectRatio: 'none' }, gC);
+  const nx = new Box(gC, 'ghost');
+  const nT = mk('text', {}, gC); nT.textContent = 'URMĂTORUL PRODUS';
+  const scan = mk('polygon', {}, gS);
+  /* le etichette a destra, con il segno della verifica */
+  const L = ['Date izolate', 'Motor comun', 'Produse'].map(txt => {
+    const g = mk('g', {}, gL); const l = mk('path', { class: 'lead-l' }, g); const tx = mk('text', { class: 'tag' }, g); tx.textContent = txt;
+    const ok = mk('text', { class: 'tag ok' }, g); ok.textContent = '✓'; return { g, l, tx, ok, w: 0 };
+  });
+  const zOf = gap => [0, 0.7 + gap, 1.4 + 2 * gap];
+  const o = part({ el, key: 'arch', mode: 'pin', render(p) {
+    /* testo: quattro tappe */
+    const k = Math.min(3, Math.floor(p * 4 + 0.02));
+    num.textContent = '0' + (k + 1);
+    stg.forEach((n, i) => {
+      const a = i * 0.25, b = (i + 1) * 0.25;
+      const op = REDUCE ? 1 : i === 0 ? 1 - win(p, b - 0.03, b + 0.02) : i === 3 ? win(p, a - 0.02, a + 0.04) : fade(p, a - 0.02, a + 0.04, b - 0.03, b + 0.02);
+      n.style.opacity = op.toFixed(3);
+      n.style.transform = REDUCE ? '' : `translate3d(0,${((1 - op) * (p < a + 0.04 ? 14 : -14)).toFixed(1)}px,0)`;
+      n.style.visibility = op < 0.01 ? 'hidden' : 'visible';
+    });
+    /* geometria */
+    const comp = easeIO(win(p, 0.9, 1)), gap = lerp(3.0, 2.3, comp);
+    const [zA, zB0, zC0] = zOf(gap);
+    const dropB = easeIO(win(p, 0.24, 0.38)), dropC = easeIO(win(p, 0.49, 0.63));
+    const zB = zB0 + (1 - dropB) * 5, zC = zC0 + (1 - dropC) * 6;
+    const dA = easeIO(win(p, 0.0, 0.14));
+    pA.set(P, -6, -6, zA, 12, 12, 0.55).draw(dA);
+    cA.forEach((b, i) => {
+      const r = easeOut(win(p, 0.06 + i * 0.03, 0.18 + i * 0.03)), h = 0.15 + r * 0.95, x0 = -5.4 + i * 3.75;
+      b.set(P, x0, -5.4, zA + 0.55, 3.3, 10.8, h).draw(dA).show(r);
+      const [X, Y] = P(x0 + 0.5, -5.4 + 9.9, zA + 0.55 + h);
+      cT[i].setAttribute('transform', M(X, Y)); cT[i].style.opacity = r.toFixed(3);
+    });
+    pB.set(P, -6, -6, zB, 12, 12, 0.55).draw(1).show(dropB);
+    tiles.forEach(t => {
+      const x0 = -5.4 + t.i * 3.75, y0 = -5.4 + t.j * 5.55;
+      t.b.set(P, x0, y0, zB + 0.55, 3.3, 5.0, 0.42).draw(1);
+      t.g.classList.toggle('on', p > 0.37 + t.idx * 0.017 && dropB > 0.99);
+      t.g.style.opacity = dropB.toFixed(3);
+      t.g.style.display = dropB <= 0.001 ? 'none' : '';
+      const [X, Y] = P(x0 + 0.45, y0 + 4.3, zB + 0.97);
+      t.tx.setAttribute('transform', M(X, Y));
+    });
+    pC.set(P, -6, -6, zC, 12, 12, 0.55).draw(1).show(dropC);
+    pb.set(P, -5.4, -5.4, zC + 0.55, 5.2, 10.8, 1.2).draw(1).show(dropC);
+    { const [X, Y] = P(-5.2, -5.2, zC + 1.75); img.setAttribute('transform', `matrix(${(0.8660254 * s * 4.8).toFixed(2)} ${(0.5 * s * 4.8).toFixed(2)} ${(-0.8660254 * s * 10.4).toFixed(2)} ${(0.5 * s * 10.4).toFixed(2)} ${X.toFixed(1)} ${Y.toFixed(1)})`); img.style.opacity = (easeOut(win(p, 0.58, 0.68)) * 0.94).toFixed(3); }
+    nx.set(P, 0.6, -5.4, zC + 0.55, 4.8, 10.8, 1.2).draw(easeIO(win(p, 0.6, 0.72))).show(dropC);
+    { const [X, Y] = P(1.1, 4.9, zC + 1.75); nT.setAttribute('transform', M(X, Y)); nT.style.opacity = (easeOut(win(p, 0.64, 0.74))).toFixed(3); }
+    /* la scansione dei test, dal basso in alto */
+    const sc = win(p, 0.76, 0.95), zs = lerp(-1.2, zC + 2.6, easeIO(sc));
+    scan.setAttribute('points', pts([P(-6.6, -6.6, zs), P(6.6, -6.6, zs), P(6.6, 6.6, zs), P(-6.6, 6.6, zs)]));
+    gS.style.opacity = (fade(p, 0.75, 0.78, 0.94, 0.97)).toFixed(3);
+    /* ordine di disegno: la scansione sta fra le lastre giuste */
+    const ref = zs < zA + 0.6 ? gA : zs < zB + 0.9 ? gB : zs < zC + 1.8 ? gC : gL;
+    if (gS.nextSibling !== ref) svg.insertBefore(gS, ref);
+    /* etichette */
+    const zz = [zA + 0.3, zB + 0.3, zC + 0.6], shown = [dA, dropB, dropC];
+    L.forEach((l, i) => {
+      const [X, Y] = P(6, -6, zz[i]);
+      l.l.setAttribute('d', `M${(X + 6).toFixed(1)},${Y.toFixed(1)} H${(X + 46).toFixed(1)}`);
+      l.tx.setAttribute('x', (X + 54).toFixed(1)); l.tx.setAttribute('y', (Y + 4).toFixed(1));
+      const passed = zs > zz[i] + 0.4 && sc > 0;
+      if (!l.w) l.w = l.tx.getComputedTextLength() || 90;
+      l.ok.setAttribute('x', (X + 54 + l.w + 10).toFixed(1)); l.ok.setAttribute('y', (Y + 4).toFixed(1));
+      l.ok.style.opacity = passed ? '1' : '0';
+      l.g.style.opacity = shown[i].toFixed(3);
+    });
+  } });
+  io.observe(el);
+}
+
+/* ═════════════ 5 · prodotti: la console entra, il telefono sale ═════════════ */
+{
+  const el = $('#prod'), w = $('#prod-win'), ph = $('#prod-ph');
+  const o = part({ el, key: 'prod', mode: 'enter', a: 1.0, b: 0.15, render(p) {
+    const e = easeIO(p);
+    w.style.transform = `perspective(1600px) translate3d(${lerp(7, 0, e).toFixed(2)}%,${lerp(4, 0, e).toFixed(2)}%,0) rotateY(${lerp(-14, 0, e).toFixed(2)}deg) rotateX(${lerp(6, 0, e).toFixed(2)}deg)`;
+    w.style.setProperty('--sh', (p * 1.1).toFixed(3));
+    ph.style.transform = `translate3d(0,${lerp(70, 0, easeOut(win(p, 0.15, 1))).toFixed(1)}px,0)`;
+  } });
+  io.observe(el);
+  /* il prossimo prodotto: una scatola tratteggiata che si disegna */
+  const svg = $('#next-svg'), P = isoP(8.2, 100, 82);
+  const g1 = new Box(svg, 'dim'), g2 = new Box(svg, 'ghost');
+  const o2 = part({ el: svg, key: 'next', mode: 'enter', a: 0.95, b: 0.45, render(p) {
+    g1.set(P, -5, -5, 0, 10, 10, 0.5).draw(easeIO(win(p, 0, 0.6)));
+    g2.set(P, -4.2, -4.2, 0.5, 8.4, 8.4, lerp(0.2, 3.4, easeOut(win(p, 0.35, 1)))).draw(easeIO(win(p, 0.3, 1)));
+  } });
+  io.observe(svg);
+}
+
+/* ═════════════ 6 · sicurezza: le icone si disegnano ═════════════ */
+{
+  const cells = $$('#grid4 .cell');
+  cells.forEach((c, i) => {
+    const lines = $$('svg *', c);
+    const o = part({ el: c, key: 'icons', mode: 'enter', a: 0.95, b: 0.5, render(p) {
+      const t = easeIO(clamp01((p - i * 0.08) / 0.8));
+      lines.forEach((l, j) => { const tt = clamp01((t - j * 0.12) / 0.7); l.style.strokeDasharray = tt >= 0.999 ? 'none' : `${tt.toFixed(3)} 1`; });
+    } });
+    io.observe(c);
+  });
+}
+
+/* ═════════════ 8 · finale: un'onda attraversa i fili, la frase resta ferma ═════════════ */
+{
+  const el = $('.close'), t = $('#close-t'), c = $('#contact-b');
+  const R = ribbon($('#gl-close'), 1.25);
+  const o = part({ el, key: 'close', mode: 'pin', rm: 1, k: 6,
+    resize() { if (R) R.resize(); },
+    render(p) {
+      const phone = isPhone(), vh = innerHeight;
+      const out = easeIO(win(p, 0.56, 0.7));
+      t.style.opacity = REDUCE ? 1 : (1 - out).toFixed(3);
+      if (!REDUCE) t.style.transform = `translate3d(0,${(-out * vh * 0.08).toFixed(1)}px,0)`;
+      const inn = easeOut(win(p, 0.66, 0.84));
+      c.style.opacity = REDUCE ? 1 : inn.toFixed(3);
+      if (!REDUCE) c.style.transform = `translate3d(0,${((1 - inn) * 30).toFixed(1)}px,0)`;
+      c.style.visibility = (!REDUCE && inn < 0.01) ? 'hidden' : 'visible';
+      if (R) {
+        const S = R.S;
+        S.uXs = phone ? 2.2 : 1; S.uTwist = 0; S.uTilt = 0; S.uAmp = 0.004; S.uPh = 0.5 + p * 1.2;
+        S.uBase = phone ? -0.24 : -0.23; S.uHW = phone ? 0.05 : 0.064;
+        /* l'onda: un pacchetto che attraversa i fili da sinistra a destra, poi tutto torna dritto */
+        const wv = win(p, 0.06, 0.56);
+        S.uWaveX = lerp(-1.4, 1.4, wv) * (phone ? 1 : S.uAspect * 0.6 + 0.2);
+        S.uWaveA = (phone ? 0.034 : 0.05) * Math.sin(Math.PI * wv);
+        S.uWaveW = 0.34;
+        S.uIntro = 1; S.uTop = 0.6; S.uLift = 0;
+        S.uDim = lerp(1, 0.42, win(p, 0.6, 0.8));
+        R.draw();
+      }
+    }
+  });
+  io.observe(el);
+  if (R) R.resize();
+}
+
+/* via: misura, disegna, poi la comparsa del primo schermo (una volta) */
+for (const o of parts) o.resize && o.resize();
+measure();
+for (const o of parts) { o.p = o.target; o.dirty = true; }
+kick();
+const go = () => requestAnimationFrame(() => root.classList.add('ready'));
+if (STILL || REDUCE) root.classList.add('ready');
+else if (document.fonts && document.fonts.ready) Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 900))]).then(go); else go();
+window.__parts = parts; window.__measure = measure; window.__kick = kick;
+})();
+</script>
+</body>
+</html>

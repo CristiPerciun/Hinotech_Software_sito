@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PrivacyBox — un produs Hinotech Software</title>
+<meta name="description" content="Protecția datelor pentru firme, după Legea nr. 195/2024: registrele, documentele și termenele unei firme, într-o singură consolă.">
+<meta name="theme-color" content="#0E0D0C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Hinotech Software · la pagina di PrivacyBox (grafica decisa sulla tela Claude Design «Hinotech · deschiderea»,
+   foglio «PrivacyBox · pagina»). Si apre dal menu «Software» della home.
+   Lo stile e i movimenti sono quelli di linear.app: pagina scura, titolo che entra sfocato una volta sola,
+   titoli fermi allo scroll, finestre di prodotto che si compongono quando entrano nello schermo (e si azzerano
+   quando escono), un filo di luce sul bordo che segue lo scroll, un bagliore fermo dentro le finestre.
+   I disegni sono nostri: la console vera con dati fittizi e finestre fatte con i dati della console.
+   Testi: il paragrafo PrivacyBox che stava nella home, più frasi prese da privacybox.md. */
+:root{
+  --bg:#0E0D0C;--bg2:#171614;
+  --t1:#F4F1EC;--t2:#CFC9BF;--t3:#9A9389;--t4:#827C73;
+  --dl:rgba(255,255,255,.08);--dl2:rgba(255,255,255,.12);
+  --rust:#9C4A38;--rust-n:#C06B54;--rust-l:#E7A28C;
+  --ink:#141311;--ink3:#5F5A52;--paper:#FBFAF8;
+  --inter:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"Cascadia Mono",monospace;
+  --ease:cubic-bezier(.2,.65,.2,1);
+  --wrap:1200px;--pad:clamp(20px,4.4vw,56px);--nav:64px;
+}
+*{box-sizing:border-box}
+html{background:var(--bg);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--t1);font:400 16px/1.6 var(--inter);font-optical-sizing:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4,p,ul,ol,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+img{display:block;max-width:100%;height:auto}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--rust-n);outline-offset:3px;border-radius:6px}
+::selection{background:rgba(192,107,84,.35)}
+.wrap{width:min(var(--wrap),100% - 2*var(--pad));margin-inline:auto}
+.skip{position:fixed;left:12px;top:-60px;z-index:100;padding:10px 14px;border-radius:8px;background:var(--t1);color:var(--ink);font-weight:500}
+.skip:focus{top:12px}
+section{position:relative}
+[id]{scroll-margin-top:var(--nav)}
+
+/* ── il menu: lo stesso della home, sempre su fondo scuro ── */
+.mark{display:block;flex:none;width:28px;height:28px}
+.brand{display:inline-flex;align-items:center;gap:11px;font-weight:600;font-size:15px;letter-spacing:-.015em;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 18px;border-radius:10px;font:500 15px/1 var(--inter);letter-spacing:-.01em;white-space:nowrap;transition:background-color .18s var(--ease),box-shadow .18s var(--ease),transform .18s var(--ease),color .18s}
+.btn:active{transform:translateY(1px)}
+.btn-s{height:34px;padding:0 14px;font-size:14px;border-radius:8px}
+.btn-d{background:var(--t1);color:var(--ink)}
+.nav{position:fixed;inset:0 0 auto;z-index:50;height:var(--nav);color:var(--t1);transition:transform .38s var(--ease),background-color .3s var(--ease),box-shadow .3s var(--ease)}
+.nav.up{transform:translateY(calc(-100% - 2px))}
+.nav.on-dark{background:rgba(14,13,12,.66);backdrop-filter:saturate(1.3) blur(14px);-webkit-backdrop-filter:saturate(1.3) blur(14px);box-shadow:0 1px 0 var(--dl)}
+.nav-in{display:flex;align-items:center;gap:28px;height:100%}
+.links{display:flex;align-items:center;gap:4px;margin-left:auto;font-size:14px}
+.links>a,.sw-b{padding:8px 12px;border-radius:8px;color:var(--t3);transition:color .15s var(--ease),background-color .15s var(--ease)}
+.links>a:hover,.sw-b:hover,.sw-b[aria-expanded="true"],.sw-b.here{color:var(--t1)}
+.links>a:hover,.sw-b:hover{background:rgba(255,255,255,.05)}
+.nav .btn-c{background:var(--t1);color:var(--ink)}
+.nav .btn-c:hover{background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.08)}
+/* «Software»: al clic scende un pannello con i prodotti (per ora PrivacyBox) */
+.sw{position:relative}
+.sw-b{display:inline-flex;align-items:center;gap:7px;font-size:14px;line-height:1.6}
+.sw-b[aria-expanded="true"]{background:rgba(255,255,255,.08)}
+.chev{flex:none;width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.75;transition:transform .22s var(--ease)}
+.sw-b[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.sw-p{position:absolute;left:-6px;top:calc(100% + 12px);width:372px;padding:6px;border-radius:14px;background:rgba(23,22,20,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 0 0 1px rgba(255,255,255,.09),0 26px 50px -14px rgba(0,0,0,.7);color:var(--t1);opacity:0;transform:translateY(-6px) scale(.98);transform-origin:28px 0;transition:opacity .16s var(--ease),transform .24s var(--ease)}
+.sw-p.open{opacity:1;transform:none}
+.sw-p[hidden]{display:none}
+.sw-i{display:grid;grid-template-columns:40px minmax(0,1fr);align-items:center;column-gap:14px;padding:12px;border-radius:10px;transition:background-color .15s var(--ease)}
+.sw-i:hover{background:rgba(255,255,255,.05)}
+.sw-ic{display:block;width:40px;height:40px;border-radius:10px;box-shadow:0 0 0 1px rgba(255,255,255,.12)}
+.sw-tx b{display:flex;align-items:center;gap:8px;font:500 14.5px/1.3 var(--inter);letter-spacing:-.01em;color:var(--t1)}
+.sw-tx>span{display:block;margin-top:3px;font-size:13.5px;line-height:1.45;color:var(--t3)}
+.sw-i[aria-current="page"] b::after{content:"";width:6px;height:6px;border-radius:2px;background:var(--rust-n)}
+.menu-b{display:none;margin-left:auto;height:34px;padding:0 14px;border-radius:8px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2);font-size:14px;font-weight:500}
+.menu{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;padding:calc(var(--nav) + 24px) var(--pad) 32px;overflow-y:auto;background:rgba(14,13,12,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);color:var(--t1)}
+.menu[hidden]{display:none}
+.menu>a,.menu-sw{padding:12px 0;border-bottom:1px solid var(--dl);font:600 28px/1.2 var(--inter);letter-spacing:-.03em}
+.menu-sw{display:flex;align-items:center;justify-content:space-between;width:100%;text-align:left}
+.pm{position:relative;flex:none;width:14px;height:14px;transition:transform .25s var(--ease)}
+.pm::before,.pm::after{content:"";position:absolute;left:0;top:6.4px;width:14px;height:1.4px;border-radius:1px;background:currentColor}
+.pm::after{transform:rotate(90deg)}
+[aria-expanded="true"]>.pm{transform:rotate(45deg)}
+.menu-sw-p{padding:8px 0 10px;border-bottom:1px solid var(--dl)}
+.menu-sw-p[hidden]{display:none}
+.menu-sw-p .sw-i{padding:10px 0}
+.menu .btn{margin-top:28px;height:50px;font-size:16px}
+.menu-x{position:absolute;right:var(--pad);top:15px;height:34px;padding:0 14px;border-radius:8px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2);font-size:14px;font-weight:500}
+
+/* ══ l'apertura: titolo a sinistra, la console sotto, su un piano illuminato dal basso ══ */
+.hero{padding-top:calc(var(--nav) + clamp(72px,14vh,140px))}
+.pb-tag{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--t3)}
+.pb-tag svg{flex:none;width:22px;height:22px;border-radius:6px;box-shadow:0 0 0 1px rgba(255,255,255,.14)}
+.pb-tag b{font-weight:600;letter-spacing:-.01em;color:var(--t1)}
+.pb-tag span::before{content:"·";margin-right:10px;color:var(--t4)}
+.pb-h1{margin-top:28px;font:600 clamp(38px,5.1vw,72px)/1.02 var(--inter);letter-spacing:-.042em}
+.pb-h1 .ln{display:block;width:fit-content;background:linear-gradient(180deg,#FFFFFF 15%,#E4DED4 70%,#C9C2B7 115%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pb-sub{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px 40px;margin-top:28px}
+.pb-sub p{max-width:34em;font-size:clamp(16px,1.25vw,18px);line-height:1.55;color:var(--t3)}
+.pb-new{display:inline-flex;align-items:baseline;gap:8px;font-size:15px;color:var(--t3);white-space:nowrap;transition:color .15s var(--ease)}
+.pb-new b{font-weight:500;color:var(--t1)}
+.pb-new i{font-style:normal;display:inline-block;transition:transform .22s var(--ease)}
+.pb-new:hover{color:var(--t1)}
+.pb-new:hover i{transform:translate(2px,-2px)}
+.hs{position:relative;width:min(1320px,100% - 24px);margin:clamp(56px,9vh,84px) auto 0;padding:clamp(12px,3.3vw,48px)}
+.hs-light{position:absolute;inset:0;border-radius:24px;pointer-events:none;background:radial-gradient(ellipse 62% 58% at 50% 100%,rgba(255,236,208,.2),rgba(255,236,208,.05) 48%,transparent 74%),linear-gradient(180deg,transparent 35%,rgba(255,255,255,.03));box-shadow:inset 0 -1px 0 rgba(255,255,255,.06);opacity:var(--hl,.6)}
+.hf{position:relative;margin:0;border-radius:12px;overflow:hidden;background:#1A1917;box-shadow:0 0 0 1px rgba(255,255,255,.1),0 40px 90px -30px rgba(0,0,0,.85)}
+.hf img{width:100%}
+.pb-note{margin-top:16px;font:400 12px/1 var(--mono);letter-spacing:.04em;color:var(--t3)}
+
+/* la frase: ferma, la prima parte chiara e il resto grigio */
+.lead-s{padding:clamp(120px,18vh,180px) 0 clamp(110px,16vh,160px)}
+.lead-s h2{max-width:1060px;font:500 clamp(28px,3.35vw,48px)/1.1 var(--inter);letter-spacing:-.03em;color:#7A746B;text-wrap:pretty}
+.lead-s h2 b{font-weight:500;color:var(--t1)}
+
+/* i capitoli: titolo a sinistra, il perché a destra, poi la finestra che si compone */
+.ch{padding:clamp(110px,15vh,150px) 0 clamp(96px,13vh,130px);border-top:1px solid var(--dl)}
+.ch-h{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:64px;row-gap:22px;align-items:start}
+.ch-t{font:500 clamp(34px,3.4vw,48px)/1.04 var(--inter);letter-spacing:-.032em;color:var(--t1)}
+.ch-p{max-width:28em;padding-top:6px;font:400 clamp(17px,1.45vw,21px)/1.5 var(--inter);letter-spacing:-.012em;color:var(--t2)}
+.ch-more{display:inline-flex;align-items:center;gap:8px;margin-top:28px;font:500 15px/1 var(--inter);color:var(--t3);transition:color .15s var(--ease)}
+.ch-more i{font-style:normal;display:inline-block;transition:transform .22s var(--ease)}
+.ch-more:hover{color:var(--t1)}
+.ch-more:hover i{transform:translateX(3px)}
+
+/* il palco: disegnato su 1440 px, rimpicciolito un poco sotto quella larghezza; i bordi escono dallo schermo */
+.stage{position:relative;height:calc(var(--sh) * var(--s,1));margin-top:clamp(64px,9vh,96px);overflow-x:clip}
+.canvas{position:absolute;left:50%;top:0;width:1440px;height:var(--sh);transform:translateX(-50%) scale(var(--s,1));transform-origin:50% 0}
+.win{position:absolute;border-radius:14px;background:linear-gradient(180deg,#1E1C1A,#161513 55%);color:var(--t1);overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),0 50px 100px -40px rgba(0,0,0,.9),0 20px 40px -24px rgba(0,0,0,.6)}
+.glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 55% 300px at 70% var(--gy,120px),rgba(255,236,208,.065),transparent 70%)}
+.shine{position:absolute;inset:0;z-index:3;border-radius:inherit;pointer-events:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.34);-webkit-mask-image:radial-gradient(ellipse 260px 260px at var(--mx,30%) var(--my,0%),#000 0%,rgba(0,0,0,.55) 30%,rgba(0,0,0,.18) 50%,transparent 70%);mask-image:radial-gradient(ellipse 260px 260px at var(--mx,30%) var(--my,0%),#000 0%,rgba(0,0,0,.55) 30%,rgba(0,0,0,.18) 50%,transparent 70%)}
+.bar{position:relative;display:flex;align-items:center;gap:10px;height:46px;padding:0 18px;border-bottom:1px solid rgba(255,255,255,.06);font:400 12px/1 var(--mono);letter-spacing:.03em;color:var(--t3)}
+.bar>span:not(.t):not(.r){min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.bar .t{flex:none;font:500 13.5px/1 var(--inter);letter-spacing:-.005em;color:var(--t1)}
+.bar .r{margin-left:auto;display:flex;gap:6px}
+.bar .r i{width:9px;height:9px;border-radius:3px;background:rgba(255,255,255,.1)}
+.k{font:500 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--t3)}
+.ic16{flex:none;width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+
+/* 01 · il dosar: dal questionario ai documenti */
+.w-q{left:60px;top:110px;width:420px;height:404px;z-index:2}
+.q{position:relative;padding:22px 22px 0}
+.q-t{margin-top:12px;font:500 19px/1.3 var(--inter);letter-spacing:-.018em}
+.q-a{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}
+.opt{position:relative;display:flex;align-items:center;justify-content:center;height:40px;border-radius:9px;background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(255,255,255,.09);font:500 14px/1 var(--inter);color:var(--t3)}
+.opt.sel{color:var(--t1)}
+.opt .on{position:absolute;inset:0;border-radius:inherit;background:rgba(192,107,84,.14);box-shadow:inset 0 0 0 1px rgba(192,107,84,.62)}
+.opt b{position:relative;font-weight:500}
+.q-k2{margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.06)}
+.q-g{margin-top:6px}
+.q-g li{display:grid;grid-template-columns:22px minmax(0,1fr);column-gap:8px;padding:9px 0}
+.q-g svg{margin-top:2px;color:var(--rust-n)}
+.q-g b{display:block;font:500 14px/1.3 var(--inter);letter-spacing:-.005em}
+.q-g span{display:block;margin-top:4px;font:400 12.5px/1.3 var(--mono);color:var(--t3)}
+.w-dos{left:490px;top:0;width:890px;height:524px}
+.dos{position:relative;padding-top:8px}
+.dos li{display:grid;grid-template-columns:26px minmax(0,1fr) 96px 58px 184px;align-items:center;column-gap:16px;height:78px;padding:0 22px;border-top:1px solid rgba(255,255,255,.05)}
+.dos li:first-child{border-top:0}
+.dos .n{font:400 12px/1 var(--mono);color:var(--t4)}
+.dos b{display:block;font:500 15px/1.25 var(--inter);letter-spacing:-.01em}
+.dos .d{display:block;margin-top:5px;font-size:13px;line-height:1.3;color:var(--t3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pr{position:relative;height:3px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden}
+.pr i{position:absolute;left:0;top:0;bottom:0;width:calc(var(--p) * 100%);border-radius:inherit;background:#CFC9BF;transform-origin:0 50%}
+.pr.part i{background:var(--rust-n)}
+.dos .c{font:400 12.5px/1 var(--mono);color:var(--t3);text-align:right}
+.tag{justify-self:start;display:inline-flex;align-items:center;gap:7px;height:28px;padding:0 10px;border-radius:7px;font:500 12.5px/1 var(--inter);white-space:nowrap}
+.tag.ok{color:var(--t2);background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.tag.ok svg{width:13px;height:13px}
+.tag.miss{color:var(--rust-l);background:rgba(192,107,84,.12);box-shadow:inset 0 0 0 1px rgba(192,107,84,.34)}
+.tag.sign{color:var(--t1);background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.dos-f{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:14px;height:64px;padding:0 22px;border-top:1px solid rgba(255,255,255,.06);font:400 12px/1 var(--mono);color:var(--t3)}
+.dos-f .dl{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px;border-radius:999px;background:#E9E4DC;color:var(--ink);font:500 13.5px/1 var(--inter)}
+.dos-f .r{margin-left:auto}
+
+/* i moduli, come l'elenco «Features» di linear.app: il «+» apre una riga di spiegazione */
+.feat{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:64px;margin-top:clamp(72px,10vh,104px)}
+.feat-l{font-size:15px;color:var(--t3);padding-top:5px}
+.feat-c{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.feat-col{padding-right:28px}
+.feat-col+.feat-col{padding:0 0 0 28px;border-left:1px solid var(--dl)}
+.fi>button{display:inline-flex;align-items:center;gap:10px;padding:5px 0;font-size:16px;line-height:1.4;text-align:left;color:var(--t3);transition:color .15s var(--ease)}
+.fi>button:hover,.fi>button[aria-expanded="true"]{color:var(--t1)}
+.fi .pm{width:10px;height:10px}
+.fi .pm::before,.fi .pm::after{top:4.4px;width:10px;height:1.2px}
+.fd{display:grid;grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows .32s var(--ease),visibility 0s .32s}
+.fd>div{overflow:hidden}
+.fd p{max-width:25em;padding:2px 0 12px;font-size:14.5px;line-height:1.55;color:var(--t3)}
+.fi.on .fd{grid-template-rows:1fr;visibility:visible;transition:grid-template-rows .32s var(--ease)}
+
+/* 02 · sul computer e sul telefono */
+.w-desk{left:60px;top:0;width:1080px;height:690px}
+.w-desk .shot{position:absolute;left:0;right:0;top:46px;bottom:0;overflow:hidden}
+.w-desk .shot img{position:absolute;left:-306px;top:-20px;width:1700px;max-width:none}
+.phone{position:absolute;left:1050px;top:110px;z-index:2;width:280px;padding:7px;border-radius:44px;background:linear-gradient(160deg,#3A3835,#1A1917 45%,#2A2826);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12),0 50px 90px -30px rgba(0,0,0,.9)}
+.phone img{width:100%;border-radius:37px}
+.w-mail{left:760px;top:548px;z-index:3;display:grid;grid-template-columns:34px minmax(0,1fr);column-gap:12px;width:332px;padding:16px 18px 17px}
+.w-mail .ic{display:grid;place-items:center;width:34px;height:34px;border-radius:9px;color:var(--rust-n);background:rgba(192,107,84,.14);box-shadow:inset 0 0 0 1px rgba(192,107,84,.4)}
+.w-mail b{display:block;margin-top:7px;font:500 14.5px/1.3 var(--inter);letter-spacing:-.008em}
+.w-mail .s{display:block;margin-top:6px;font:400 12.5px/1 var(--mono);color:var(--t3)}
+.st-note{position:absolute;left:60px;top:716px;font:400 12px/1 var(--mono);letter-spacing:.04em;color:var(--t3)}
+
+/* 03 · sul motore comune: sei finestre del motore e, al centro, quello che è solo di PrivacyBox */
+.row{position:absolute;inset:0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+.mw{top:40px;width:184px;height:300px}
+.mw-h{display:flex;align-items:center;gap:9px;height:46px;padding:0 16px;border-bottom:1px solid rgba(255,255,255,.06);font:500 13.5px/1 var(--inter);letter-spacing:-.005em}
+.mw-h .ic16{width:15px;height:15px;color:var(--t2)}
+.mw-l{padding:8px 16px 0}
+.mw-l li{padding:9px 0;border-top:1px solid rgba(255,255,255,.05);font-size:12.5px;line-height:1.35;color:var(--t2)}
+.mw-l li:first-child{border-top:0}
+.mw-l li.m{font:400 11.5px/1.35 var(--mono);color:var(--t3)}
+.mw-f{position:absolute;left:14px;right:14px;bottom:14px;display:flex;align-items:center;gap:8px;height:30px;padding:0 10px;border-radius:8px;background:rgba(192,107,84,.1);box-shadow:inset 0 0 0 1px rgba(192,107,84,.3);font:500 12px/1 var(--inter);color:var(--rust-l)}
+.mw-f .ic16{width:13px;height:13px;stroke-width:1.8}
+.mw.pb{top:16px;width:240px;height:348px;z-index:2;background:linear-gradient(180deg,#2A211D,#171513 62%);box-shadow:inset 0 0 0 1px rgba(192,107,84,.5),0 50px 100px -30px rgba(0,0,0,.9),0 0 90px -24px rgba(192,107,84,.3)}
+.mw.pb .mw-h svg{width:18px;height:18px;border-radius:5px}
+.pb-in{padding:20px 18px 0}
+.pb-big{margin-top:12px;font:500 21px/1.15 var(--inter);letter-spacing:-.02em}
+.pb-law{margin-top:8px;font:400 12.5px/1 var(--mono);color:var(--rust-l)}
+.pb-use{margin-top:26px;padding-top:18px;border-top:1px solid rgba(255,255,255,.07)}
+.dots{display:flex;gap:6px;margin-top:12px}
+.dots i{display:grid;place-items:center;width:22px;height:22px;border-radius:6px;background:rgba(192,107,84,.16);box-shadow:inset 0 0 0 1px rgba(192,107,84,.45)}
+.dots svg{width:12px;height:12px;fill:none;stroke:var(--rust-l);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pb-use p:not(.k){margin-top:12px;font-size:12.5px;line-height:1.4;color:var(--t2)}
+
+/* le storie delle finestre: finché non entrano nello schermo il contenuto aspetta */
+.js:not(.rm) .story:not(.on) [data-s]{opacity:0}
+
+/* la chiusa, come quella di linear.app: due righe e due bottoni tondi */
+.cl{padding:clamp(150px,22vh,220px) 0 clamp(140px,20vh,200px);border-top:1px solid var(--dl);text-align:center}
+.cl h2{font:600 clamp(34px,4.6vw,64px)/1.05 var(--inter);letter-spacing:-.04em;text-wrap:balance}
+.cl h2 span{display:block;width:fit-content;margin-inline:auto;text-wrap:balance;background:linear-gradient(180deg,#FFFFFF 20%,#CFC9BF 120%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:40px}
+.pill{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 20px;border-radius:999px;font:500 15px/1 var(--inter);letter-spacing:-.01em;white-space:nowrap;transition:background-color .18s var(--ease),box-shadow .18s var(--ease),transform .18s var(--ease)}
+.pill:active{transform:translateY(1px)}
+.pill i{font-style:normal;display:inline-block;transition:transform .22s var(--ease)}
+.pill:hover i{transform:translate(2px,-2px)}
+.pill-l{background:#E9E4DC;color:var(--ink)}
+.pill-l:hover{background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.08)}
+.pill-d{background:#1E1C1A;color:var(--t1);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)}
+.pill-d:hover{background:#272522}
+
+/* il piè di pagina, lo stesso della home */
+.ft{padding:72px 0 36px;border-top:1px solid var(--dl);color:var(--t2);font-size:14px}
+.ft-in{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(4,minmax(0,1fr));column-gap:32px;row-gap:36px}
+.ft-b p{margin-top:16px;max-width:20em;color:var(--t3)}
+.ft h4{margin-bottom:14px;font:500 13px/1 var(--inter);color:var(--t1)}
+.ft-c a,.ft-c span{display:block;padding:5px 0;color:var(--t3);transition:color .15s var(--ease)}
+.ft-c a:hover{color:var(--t1)}
+.ft-c .soon{color:var(--t4)}
+.ft-bot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 20px;margin-top:64px;padding-top:22px;border-top:1px solid var(--dl);font:400 12.5px/1 var(--mono);color:var(--t3)}
+.ft-bot b{font-weight:500;color:var(--t1)}
+
+/* ── la comparsa al primo caricamento (una volta), come il titolo di linear.app ── */
+.js .intro{opacity:0;transform:translateY(14px);filter:blur(8px)}
+.js .intro.hs{transform:translateY(40px) scale(.985);filter:blur(4px)}
+.js.ready .intro{opacity:1;transform:none;filter:none;transition:opacity .9s var(--ease),transform 1.1s var(--ease),filter .9s var(--ease);transition-delay:calc(var(--d,0) * 1ms)}
+.js .nav{opacity:0}
+.js.ready .nav{opacity:1;transition:opacity .8s var(--ease) .1s,transform .38s var(--ease),background-color .3s var(--ease),box-shadow .3s var(--ease)}
+
+/* ── telefono e tablet ── */
+@media (max-width:900px){
+  .links,.nav .btn-c{display:none}
+  .menu-b{display:inline-flex;align-items:center}
+  .ch-h,.feat{grid-template-columns:1fr}
+  .feat{row-gap:18px}
+  .feat-c{grid-template-columns:1fr}
+  .feat-col+.feat-col{padding:0;border-left:0}
+  .hf{aspect-ratio:4/3.1}
+  .hf img{width:190%;max-width:none}
+  /* le finestre una sotto l'altra, alla larghezza della colonna */
+  .stage{height:auto;padding:0 var(--pad);overflow:visible}
+  .canvas{position:relative;left:auto;top:auto;width:auto;height:auto;transform:none;display:flex;flex-direction:column;gap:14px}
+  .canvas>*{position:relative!important;left:auto!important;top:auto!important;width:auto!important;height:auto!important}
+  .w-q{padding-bottom:16px}
+  .dos li{grid-template-columns:22px minmax(0,1fr) 54px;row-gap:10px;height:auto;padding:14px 18px}
+  .dos .n{grid-column:1;grid-row:1}
+  .dos li>div{grid-column:2;grid-row:1}
+  .dos .d{white-space:normal}
+  .dos .pr{grid-column:2;grid-row:2}
+  .dos .c{grid-column:3;grid-row:1}
+  .dos .tag{grid-column:2/4;grid-row:3}
+  .dos-f{position:relative;flex-wrap:wrap;height:auto;padding:14px 18px}
+  .w-desk{order:3}
+  .w-desk .shot{position:relative;top:auto;aspect-ratio:4/3}
+  .w-desk .shot img{left:-30%;top:-1%;width:160%}
+  .phone{order:1;align-self:center;width:min(300px,78%)!important}
+  .w-mail{order:2;align-self:center;max-width:380px;width:100%!important}
+  .st-note{order:4}
+  .row{position:relative;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;-webkit-mask-image:none;mask-image:none}
+  .row>*{position:relative!important;left:auto!important;top:auto!important;width:auto!important;height:auto!important}
+  .mw{min-height:236px;padding-bottom:58px}
+  .mw.pb{grid-column:1/-1;order:-1;min-height:0;padding-bottom:20px}
+  .ft-in{grid-template-columns:1fr 1fr}
+  .ft-b{grid-column:1/-1}
+}
+@media (max-width:560px){
+  .pb-new{white-space:normal}
+  .q-t{font-size:17px}
+  .row{grid-template-columns:1fr}
+  .mw{min-height:0;padding-bottom:58px}
+  .ft-bot{flex-direction:column}
+}
+/* senza movimento: tutto è già al suo posto */
+.rm .intro{opacity:1!important;transform:none!important;filter:none!important}
+.rm .story [data-s]{opacity:1!important;filter:none!important;transform:none!important}
+</style>
+</head>
+<body>
+<a class="skip" href="#pb">Sari la conținut</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="home.html" aria-label="Hinotech Software, pagina principală">
+      <svg class="mark" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7.5" fill="#9C4A38"/><path d="M9.3 7.6v12.8M18.7 7.6v12.8M9.3 14.6h9.4" fill="none" stroke="#FBFAF8" stroke-width="2.8" stroke-linecap="round"/></svg>
+      <span>Hinotech Software</span></a>
+    <nav class="links" aria-label="Secțiuni">
+      <div class="sw">
+        <button class="sw-b here" type="button" aria-expanded="false" aria-controls="sw-p">Software<svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.6l3 3 3-3"/></svg></button>
+        <div class="sw-p" id="sw-p" hidden>
+          <a class="sw-i" href="privacybox.html" aria-current="page">
+            <svg class="sw-ic" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7.16" fill="#141311"/><g fill="#FBFAF8"><polygon points="11.65,7.07 24.31,9.20 22.80,10.55 12.91,8.77"/><polygon points="24.31,9.20 23.81,23.54 22.47,21.74 22.80,10.55"/><polygon points="23.81,23.54 11.90,20.31 13.05,19.27 22.47,21.74"/><polygon points="11.90,20.31 11.65,7.07 12.91,8.77 13.05,19.27"/><polygon points="8.01,8.28 21.08,10.67 19.53,12.08 9.33,10.09"/><polygon points="21.08,10.67 20.75,25.77 19.35,23.85 19.53,12.08"/><polygon points="20.75,25.77 8.48,22.16 9.64,21.10 19.35,23.85"/><polygon points="8.48,22.16 8.01,8.28 9.33,10.09 9.64,21.10"/></g></svg>
+            <span class="sw-tx"><b>PrivacyBox</b><span>Protecția datelor pentru firme, după Legea nr. 195/2024.</span></span>
+          </a>
+        </div>
+      </div>
+      <a href="home.html#principii">Principii</a><a href="home.html#arhitectura">Arhitectura</a><a href="home.html#securitate">Securitate</a><a href="home.html#despre">Despre noi</a>
+    </nav>
+    <a class="btn btn-c btn-s" href="#contact">Contact</a>
+    <button class="menu-b" type="button" aria-expanded="false" aria-controls="menu">Meniu</button>
+  </div>
+</header>
+<div class="menu" id="menu" hidden>
+  <button class="menu-x" type="button">Închide</button>
+  <button class="menu-sw" type="button" aria-expanded="false" aria-controls="menu-sw-p">Software<i class="pm" aria-hidden="true"></i></button>
+  <div class="menu-sw-p" id="menu-sw-p" hidden>
+    <a class="sw-i" href="privacybox.html" aria-current="page">
+      <svg class="sw-ic" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7.16" fill="#141311"/><g fill="#FBFAF8"><polygon points="11.65,7.07 24.31,9.20 22.80,10.55 12.91,8.77"/><polygon points="24.31,9.20 23.81,23.54 22.47,21.74 22.80,10.55"/><polygon points="23.81,23.54 11.90,20.31 13.05,19.27 22.47,21.74"/><polygon points="11.90,20.31 11.65,7.07 12.91,8.77 13.05,19.27"/><polygon points="8.01,8.28 21.08,10.67 19.53,12.08 9.33,10.09"/><polygon points="21.08,10.67 20.75,25.77 19.35,23.85 19.53,12.08"/><polygon points="20.75,25.77 8.48,22.16 9.64,21.10 19.35,23.85"/><polygon points="8.48,22.16 8.01,8.28 9.33,10.09 9.64,21.10"/></g></svg>
+      <span class="sw-tx"><b>PrivacyBox</b><span>Protecția datelor pentru firme, după Legea nr. 195/2024.</span></span>
+    </a>
+  </div>
+  <a href="home.html#principii">Principii</a><a href="home.html#arhitectura">Arhitectura</a><a href="home.html#securitate">Securitate</a><a href="home.html#despre">Despre noi</a>
+  <a class="btn btn-d" href="#contact">Contact</a>
+</div>
+
+<main id="pb">
+<!-- ═══ l'apertura ═══ -->
+<section class="hero" id="top" aria-labelledby="pb-h1">
+  <div class="wrap">
+    <p class="pb-tag intro" style="--d:40"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7.16" fill="#141311"/><g fill="#FBFAF8"><polygon points="11.65,7.07 24.31,9.20 22.80,10.55 12.91,8.77"/><polygon points="24.31,9.20 23.81,23.54 22.47,21.74 22.80,10.55"/><polygon points="23.81,23.54 11.90,20.31 13.05,19.27 22.47,21.74"/><polygon points="11.90,20.31 11.65,7.07 12.91,8.77 13.05,19.27"/><polygon points="8.01,8.28 21.08,10.67 19.53,12.08 9.33,10.09"/><polygon points="21.08,10.67 20.75,25.77 19.35,23.85 19.53,12.08"/><polygon points="20.75,25.77 8.48,22.16 9.64,21.10 19.35,23.85"/><polygon points="8.48,22.16 8.01,8.28 9.33,10.09 9.64,21.10"/></g></svg><b>PrivacyBox</b><span>Un produs Hinotech Software</span></p>
+    <h1 class="pb-h1" id="pb-h1"><span class="ln intro" style="--d:130">Protecția datelor pentru firme,</span> <span class="ln intro" style="--d:250">după Legea nr. 195/2024.</span></h1>
+    <div class="pb-sub">
+      <p class="intro" style="--d:380">Registrele, documentele și termenele unei firme, într-&#8288;o singură consolă.</p>
+      <a class="pb-new intro" style="--d:460" href="https://privacybox.md" target="_blank" rel="noopener"><b>Vizitați</b> privacybox.md <i aria-hidden="true">↗</i></a>
+    </div>
+  </div>
+  <div class="hs intro" id="hs" style="--d:560">
+    <div class="hs-light" aria-hidden="true"></div>
+    <figure class="hf win-like" data-mx="50%">
+      <img src="img/pb-dashboard-dark.webp" width="2400" height="1497" alt="Tabloul de bord PrivacyBox, cu date fictive">
+      <div class="glow" aria-hidden="true"></div><div class="shine" aria-hidden="true"></div>
+    </figure>
+  </div>
+  <p class="wrap pb-note">Date fictive</p>
+</section>
+
+<!-- la frase -->
+<section class="lead-s" aria-label="Pe scurt">
+  <div class="wrap">
+    <h2><b>Primul produs Hinotech Software.</b> Pentru propria companie sau, sub marca biroului, pentru fiecare client din portofoliu: dosarul rămâne la zi și gata pentru control.</h2>
+  </div>
+</section>
+
+<!-- ═══ 01 · il dosar ═══ -->
+<section class="ch" id="dosar" aria-labelledby="ch1">
+  <div class="wrap">
+    <div class="ch-h"><h2 class="ch-t" id="ch1">Dosarul,<br>gata pentru control</h2><p class="ch-p">Documentele se generează din răspunsuri, în cele cinci secțiuni ale unui dosar de conformitate. Tot dosarul se descarcă într-un singur fișier, cu un cuprins care spune ce lipsește.</p></div>
+  </div>
+  <div class="stage" style="--sh:540px">
+    <div class="canvas story" data-story>
+      <div class="win w-q" data-mx="28%" role="img" aria-label="Chestionarul: la întrebarea despre supravegherea video, răspunsul Da adaugă în dosar un rând în registru și o notă de informare">
+        <div class="glow"></div>
+        <div class="bar"><span class="t">Chestionar</span><span>întrebarea 7 din 14</span><span class="r" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="q">
+          <p class="k" data-s="1">Supraveghere video</p>
+          <p class="q-t" data-s="1">Firma folosește camere de supraveghere video?</p>
+          <div class="q-a" data-s="2"><span class="opt sel"><span class="on" data-s="4" data-k="sel"></span><b>Da</b></span><span class="opt"><b>Nu</b></span></div>
+          <p class="k q-k2" data-s="5">Se adaugă în dosar</p>
+          <ul class="q-g">
+            <li data-s="6"><svg class="ic16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9"/></svg><div><b>Registrul activităților</b><span>supraveghere video · 30 de zile</span></div></li>
+            <li data-s="7"><svg class="ic16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9"/></svg><div><b>Nota de supraveghere video</b><span>în română și în rusă</span></div></li>
+          </ul>
+        </div>
+        <div class="shine"></div>
+      </div>
+      <div class="win w-dos" data-mx="72%" role="img" aria-label="Dosarul unei firme, cu cele cinci secțiuni: ce este gata, ce lipsește și ce trebuie semnat">
+        <div class="glow"></div>
+        <div class="bar"><span class="t">Dosar</span><span>Alfa Impex SRL · date fictive</span><span class="r" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <ol class="dos">
+          <li data-s="2"><span class="n">01</span><div><b>Guvernanța</b><span class="d">Declarația conducerii · autorizarea persoanelor · decizia DPO</span></div><span class="pr part"><i style="--p:.67" data-s="5" data-k="bar"></i></span><span class="c">2 din 3</span><span class="tag miss" data-s="10">Lipsește: decizia DPO</span></li>
+          <li data-s="3"><span class="n">02</span><div><b>Registrele</b><span class="d">Activitățile · cererile persoanelor · încălcările</span></div><span class="pr"><i style="--p:1" data-s="6" data-k="bar"></i></span><span class="c">3 din 3</span><span class="tag ok" data-s="11"><svg class="ic16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3l6-7"/></svg>La zi</span></li>
+          <li data-s="4"><span class="n">03</span><div><b>Riscul și securitatea</b><span class="d">Măsurile · matricea accesului · evaluarea de impact</span></div><span class="pr"><i style="--p:1" data-s="7" data-k="bar"></i></span><span class="c">3 din 3</span><span class="tag ok" data-s="12"><svg class="ic16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3l6-7"/></svg>La zi</span></li>
+          <li data-s="5"><span class="n">04</span><div><b>Procedurile și transparența</b><span class="d">Politica internă · nota de informare · cookie-urile · încălcările</span></div><span class="pr"><i style="--p:1" data-s="8" data-k="bar"></i></span><span class="c">4 din 4</span><span class="tag ok" data-s="13"><svg class="ic16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3l6-7"/></svg>La zi</span></li>
+          <li data-s="6"><span class="n">05</span><div><b>Contractele, probele și instruirea</b><span class="d">Acordul cu furnizorii · clauzele · consimțământul · atestatele</span></div><span class="pr part"><i style="--p:.75" data-s="9" data-k="bar"></i></span><span class="c">3 din 4</span><span class="tag sign" data-s="14">De semnat: acordul DPA</span></li>
+        </ol>
+        <div class="dos-f" data-s="15"><span class="dl"><svg class="ic16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.5v8M4.5 7l3.5 3.5L11.5 7M3 13.5h10"/></svg>Descarcă dosarul</span><span>un singur fișier · cuprinsul spune ce lipsește</span><span class="r">PDF/A</span></div>
+        <div class="shine"></div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="feat">
+      <p class="feat-l">Modulele consolei</p>
+      <div class="feat-c">
+        <div class="feat-col">
+          <div class="fi"><button type="button" aria-expanded="false" aria-controls="fd1">Registrul activităților<i class="pm" aria-hidden="true"></i></button><div class="fd" id="fd1"><div><p>Ce date prelucrați, de ce, cât timp și cui le transmiteți. Se ține la zi și se exportă la control.</p></div></div></div>
+          <div class="fi"><button type="button" aria-expanded="false" aria-controls="fd2">Dosarul documentar<i class="pm" aria-hidden="true"></i></button><div class="fd" id="fd2"><div><p>Documentele generate din răspunsuri, în română și în rusă, în cele cinci secțiuni ale unui dosar de conformitate.</p></div></div></div>
+          <div class="fi"><button type="button" aria-expanded="false" aria-controls="fd3">Termene și cereri<i class="pm" aria-hidden="true"></i></button><div class="fd" id="fd3"><div><p>Fiecare cerere a persoanelor vizate, cu termenul de răspuns, prelungirea și răspunsul dat, cu avertizări pe e-mail înainte de scadență.</p></div></div></div>
+        </div>
+        <div class="feat-col">
+          <div class="fi"><button type="button" aria-expanded="false" aria-controls="fd4">Registrul incidentelor<i class="pm" aria-hidden="true"></i></button><div class="fd" id="fd4"><div><p>Fiecare încălcare, înscrisă cu ceasul de 72 de ore pornit: riscul, notificarea CNPDCP, informarea persoanelor.</p></div></div></div>
+          <div class="fi"><button type="button" aria-expanded="false" aria-controls="fd5">Jurnalul de audit<i class="pm" aria-hidden="true"></i></button><div class="fd" id="fd5"><div><p>Fiecare operațiune rămâne scrisă, cu dată și autor; o modificare făcută ulterior se vede la verificare.</p></div></div></div>
+          <div class="fi"><button type="button" aria-expanded="false" aria-controls="fd6">Parteneri și companii<i class="pm" aria-hidden="true"></i></button><div class="fd" id="fd6"><div><p>Fiecare client își vede doar dosarul lui. Treceți de la unul la altul dintr-un singur selector.</p></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 02 · sul computer e sul telefono (il contenuto che stava nella home) ═══ -->
+<section class="ch" id="dispozitive" aria-labelledby="ch2">
+  <div class="wrap">
+    <div class="ch-h"><h2 class="ch-t" id="ch2">Pe calculator<br>și pe telefon</h2><p class="ch-p">În română și în rusă, din același cod. Consola se instalează pe telefon și pe computer.</p></div>
+  </div>
+  <div class="stage" style="--sh:740px">
+    <div class="canvas story" data-story>
+      <div class="win w-desk" data-mx="64%" role="img" aria-label="PrivacyBox pe calculator, cu date fictive">
+        <div class="glow"></div>
+        <div class="bar"><span class="t">PrivacyBox</span><span>Tablou de bord</span><span class="r" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="shot"><img data-s="1" data-k="img" src="img/pb-dashboard-dark.webp" width="2400" height="1497" alt="" loading="lazy"></div>
+        <div class="shine"></div>
+      </div>
+      <figure class="phone" data-s="3" data-k="up"><img src="img/pb-phone-dark.webp" width="780" height="1694" alt="PrivacyBox pe telefon, cu date fictive" loading="lazy"></figure>
+      <div class="win w-mail" data-s="6" data-k="up" data-mx="30%">
+        <span class="ic"><svg class="ic16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 4h11v8.5h-11zM2.5 4.5L8 9l5.5-4.5"/></svg></span>
+        <div><p class="k">Alertă pe e-mail</p><b>Nota de informare pentru clienți</b><span class="s">termen 26.09 · peste 3 zile</span></div>
+        <div class="shine"></div>
+      </div>
+      <p class="st-note" data-s="7">Date fictive</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 03 · sul motore comune ═══ -->
+<section class="ch" id="motor" aria-labelledby="ch3">
+  <div class="wrap">
+    <div class="ch-h"><h2 class="ch-t" id="ch3">Pe motorul<br>comun</h2><div><p class="ch-p">Clienții, rolurile, versiunile, registrele, termenele și jurnalul sunt scrise o singură dată, în motorul Hinotech Software. PrivacyBox le folosește pe toate; specific produsului este protecția datelor, după Legea nr. 195/2024.</p><a class="ch-more" href="home.html#arhitectura">Arhitectura <i aria-hidden="true">→</i></a></div></div>
+  </div>
+  <div class="stage" style="--sh:400px">
+    <div class="canvas story" data-story role="img" aria-label="Cele șase module ale motorului comun și, la mijloc, PrivacyBox, care le folosește pe toate">
+      <div class="row">
+        <div class="win mw" style="left:6px" data-s="1" data-mx="50%"><div class="glow"></div><p class="mw-h"><svg class="ic16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 14V3.5h7V14M10 7h3v7M5.2 6h2.6M5.2 8.6h2.6M5.2 11.2h2.6M2 14h12"/></svg>Clienți</p><ul class="mw-l"><li>Moldova Tech Innovations SRL</li><li>Alfa Impex SRL</li><li class="m">portofoliu · 7 clienți</li></ul><p class="mw-f" data-s="8"><svg class="ic16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3l6-7"/></svg>în PrivacyBox</p><div class="shine"></div></div>
+        <div class="win mw" style="left:204px" data-s="2" data-mx="50%"><div class="glow"></div><p class="mw-h"><svg class="ic16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 2.5h9v11h-9zM6 10.5h4M6.5 5h3v3h-3z"/></svg>Roluri</p><ul class="mw-l"><li>Partener · vede tot portofoliul</li><li>Client · doar dosarul lui</li><li class="m">contabil → cititor</li></ul><p class="mw-f" data-s="9"><svg class="ic16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3l6-7"/></svg>în PrivacyBox</p><div class="shine"></div></div>
+        <div class="win mw" style="left:402px" data-s="3" data-mx="50%"><div class="glow"></div><p class="mw-h"><svg class="ic16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2l6 3-6 3-6-3zM2 8l6 3 6-3M2 11l6 3 6-3"/></svg>Versiuni</p><ul class="mw-l"><li>Registrul activităților · v7</li><li>Nota de supraveghere video · v2</li><li class="m">emise o dată, neschimbate</li></ul><p class="mw-f" data-s="10"><svg class="ic16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3l6-7"/></svg>în PrivacyBox</p><div class="shine"></div></div>
+        <div class="win mw pb" style="left:600px" data-s="7" data-k="up" data-mx="50%"><div class="glow"></div><p class="mw-h"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7.16" fill="#141311"/><g fill="#FBFAF8"><polygon points="11.65,7.07 24.31,9.20 22.80,10.55 12.91,8.77"/><polygon points="24.31,9.20 23.81,23.54 22.47,21.74 22.80,10.55"/><polygon points="23.81,23.54 11.90,20.31 13.05,19.27 22.47,21.74"/><polygon points="11.90,20.31 11.65,7.07 12.91,8.77 13.05,19.27"/><polygon points="8.01,8.28 21.08,10.67 19.53,12.08 9.33,10.09"/><polygon points="21.08,10.67 20.75,25.77 19.35,23.85 19.53,12.08"/><polygon points="20.75,25.77 8.48,22.16 9.64,21.10 19.35,23.85"/><polygon points="8.48,22.16 8.01,8.28 9.33,10.09 9.64,21.10"/></g></svg>PrivacyBox</p><div class="pb-in"><p class="k">Specific produsului</p><p class="pb-big">Protecția datelor</p><p class="pb-law">Legea nr. 195/2024</p><div class="pb-use"><p class="k">Din motor</p><div class="dots" data-s="14" aria-hidden="true"><i><svg viewBox="0 0 16 16"><path d="M4 8.5l2.5 2.5L12 5"/></svg></i><i><svg viewBox="0 0 16 16"><path d="M4 8.5l2.5 2.5L12 5"/></svg></i><i><svg viewBox="0 0 16 16"><path d="M4 8.5l2.5 2.5L12 5"/></svg></i><i><svg viewBox="0 0 16 16"><path d="M4 8.5l2.5 2.5L12 5"/></svg></i><i><svg viewBox="0 0 16 16"><path d="M4 8.5l2.5 2.5L12 5"/></svg></i><i><svg viewBox="0 0 16 16"><path d="M4 8.5l2.5 2.5L12 5"/></svg></i></div><p>Folosește toate cele șase module.</p></div></div><div class="shine"></div></div>
+        <div class="win mw" style="left:854px" data-s="4" data-mx="50%"><div class="glow"></div><p class="mw-h"><svg class="ic16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 2.5h11v11h-11zM2.5 6h11M2.5 9.7h11M6.5 2.5v11"/></svg>Registre</p><ul class="mw-l"><li>Activități · 24</li><li>Cereri · 2 deschise</li><li class="m">ținute la zi</li></ul><p class="mw-f" data-s="11"><svg class="ic16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3l6-7"/></svg>în PrivacyBox</p><div class="shine"></div></div>
+        <div class="win mw" style="left:1052px" data-s="5" data-mx="50%"><div class="glow"></div><p class="mw-h"><svg class="ic16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 4h11v9.5h-11zM2.5 7h11M5.5 2.5v3M10.5 2.5v3"/></svg>Termene</p><ul class="mw-l"><li>26.09 · nota de informare</li><li>30.09 · acordul DPA</li><li class="m">alerte înainte de scadență</li></ul><p class="mw-f" data-s="12"><svg class="ic16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3l6-7"/></svg>în PrivacyBox</p><div class="shine"></div></div>
+        <div class="win mw" style="left:1250px" data-s="6" data-mx="50%"><div class="glow"></div><p class="mw-h"><svg class="ic16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 5.5h4a2.5 2.5 0 0 1 0 5h-4a2.5 2.5 0 0 1 0-5zM8.5 5.5h4a2.5 2.5 0 0 1 0 5h-4"/></svg>Jurnal</p><ul class="mw-l"><li>09:12 · lanț verificat</li><li>1.284 de evenimente</li><li class="m">fără abateri</li></ul><p class="mw-f" data-s="13"><svg class="ic16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3l6-7"/></svg>în PrivacyBox</p><div class="shine"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- la chiusa -->
+<section class="cl" id="contact" aria-labelledby="cl-h">
+  <div class="wrap">
+    <h2 id="cl-h"><span>Dosarul rămâne la zi.</span> <span>Online din 3&nbsp;octombrie 2026.</span></h2>
+    <div class="ctas"><a class="pill pill-l" href="https://privacybox.md" target="_blank" rel="noopener">Vizitați privacybox.md <i aria-hidden="true">↗</i></a><a class="pill pill-d" href="mailto:contact@hinotech.md">Scrieți-ne</a></div>
+  </div>
+</section>
+</main>
+
+<footer class="ft">
+  <div class="wrap">
+    <div class="ft-in">
+      <div class="ft-b"><a class="brand" href="home.html"><svg class="mark" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7.5" fill="#9C4A38"/><path d="M9.3 7.6v12.8M18.7 7.6v12.8M9.3 14.6h9.4" fill="none" stroke="#FBFAF8" stroke-width="2.8" stroke-linecap="round"/></svg><span>Hinotech Software</span></a><p>Soluții software simple, clare, făcute să dureze.</p></div>
+      <nav class="ft-c" aria-label="Software"><h4>Software</h4><a href="privacybox.html" aria-current="page">PrivacyBox</a></nav>
+      <nav class="ft-c" aria-label="Companie"><h4>Companie</h4><a href="home.html#despre">Despre noi</a><a href="home.html#principii">Principii</a><a href="home.html#contact">Carieră</a></nav>
+      <nav class="ft-c" aria-label="Securitate"><h4>Securitate</h4><a href="home.html#securitate">Securitate</a><span class="soon">Confidențialitate</span><span class="soon">Cookie-uri</span></nav>
+      <div class="ft-c"><h4>Contact</h4><a href="mailto:contact@hinotech.md">contact@hinotech.md</a><span>Coteala, raionul Briceni</span><span>Republica Moldova</span></div>
+    </div>
+    <div class="ft-bot"><span>© 2026 Hinotech Software</span><span><b>RO</b> / RU</span></div>
+  </div>
+</footer>
+
+<script>
+(() => {
+const Q = new URLSearchParams(location.search);
+const STILL = Q.has('still');
+const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const root = document.documentElement;
+root.classList.add('js');
+if (REDUCE) root.classList.add('rm');
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const clamp01 = x => Math.min(1, Math.max(0, x));
+const lerp = (a, b, t) => a + (b - a) * t;
+
+/* ═════════════ il menu ═════════════ */
+const nav = $('#nav'), menu = $('#menu'), mb = $('.menu-b');
+/* «Software»: si apre e si chiude al clic; Esc, un clic fuori o lo scroll in giù lo chiudono */
+const swB = $('.sw-b'), swP = $('#sw-p');
+let swT = 0;
+const setSw = on => {
+  if (on === (swB.getAttribute('aria-expanded') === 'true')) return;
+  swB.setAttribute('aria-expanded', on);
+  clearTimeout(swT);
+  if (on) { swP.hidden = false; requestAnimationFrame(() => requestAnimationFrame(() => swP.classList.add('open'))); }
+  else { swP.classList.remove('open'); swT = setTimeout(() => { swP.hidden = true; }, REDUCE ? 0 : 240); }
+};
+swB.addEventListener('click', () => setSw(swB.getAttribute('aria-expanded') !== 'true'));
+document.addEventListener('click', e => { if (!e.target.closest('.sw')) setSw(false); });
+$('.sw').addEventListener('focusout', e => { if (!e.relatedTarget || !e.relatedTarget.closest('.sw')) setSw(false); });
+addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  if (swB.getAttribute('aria-expanded') === 'true') { setSw(false); swB.focus(); }
+  else if (!menu.hidden) { setMenu(false); mb.focus(); }
+});
+/* il menu del telefono, con la stessa tendina «Software» */
+const msB = $('.menu-sw'), msP = $('#menu-sw-p');
+msB.addEventListener('click', () => { const on = msB.getAttribute('aria-expanded') !== 'true'; msB.setAttribute('aria-expanded', on); msP.hidden = !on; });
+const setMenu = on => {
+  menu.hidden = !on; mb.setAttribute('aria-expanded', on); document.body.style.overflow = on ? 'hidden' : '';
+  if (on) msB.focus(); else { msB.setAttribute('aria-expanded', 'false'); msP.hidden = true; }
+};
+mb.addEventListener('click', () => setMenu(true));
+$('.menu-x').addEventListener('click', () => setMenu(false));
+$$('a', menu).forEach(a => a.addEventListener('click', () => setMenu(false)));
+/* il menu sparisce appena si scorre in giù e torna scorrendo in su (come nella home) */
+let lastY = Math.max(0, scrollY);
+const onNav = () => {
+  const y = Math.max(0, scrollY), dy = y - lastY;
+  lastY = y;
+  nav.classList.toggle('on-dark', y > 8);
+  if (!menu.hidden) return;
+  if (y <= 4 || dy < 0) nav.classList.toggle('up', false);
+  else if (dy > 0) { nav.classList.toggle('up', true); setSw(false); }
+};
+addEventListener('scroll', onNav, { passive: true }); onNav();
+nav.addEventListener('focusin', () => nav.classList.toggle('up', false));
+
+/* ═════════════ i palchi: disegnati su 1440 px ═════════════ */
+let S = 1;
+const fit = () => { S = innerWidth >= 1440 ? 1 : Math.max(0.74, innerWidth / 1440); root.style.setProperty('--s', S.toFixed(4)); };
+fit(); addEventListener('resize', fit);
+
+/* ═════════════ le finestre si compongono, come su linear.app ═════════════
+   Quando una finestra entra nello schermo, il suo contenuto arriva in sequenza (opacità 0, sfocatura 2 px,
+   8 px più in basso, 300 ms con una molla, un passo ogni 110 ms); quando esce del tutto si azzera, e la
+   volta dopo la storia riparte. Nessun ciclo infinito. */
+const SPRING = (() => {
+  const n = 30, w = 9.2, pts = [];
+  for (let i = 0; i <= n; i++) { const t = i / n; pts.push(i === n ? '1' : (1 - (1 + w * t) * Math.exp(-w * t)).toFixed(4)); }
+  const c = `linear(${pts.join(', ')})`;
+  return CSS.supports('transition-timing-function', c) ? c : 'cubic-bezier(.2,.65,.2,1)';
+})();
+const KIND = {
+  in: [{ opacity: 0, filter: 'blur(2px)', transform: 'translateY(8px)' }, { opacity: 1, filter: 'blur(0px)', transform: 'none' }, 300, SPRING],
+  up: [{ opacity: 0, transform: 'translateY(28px)' }, { opacity: 1, transform: 'none' }, 700, SPRING],
+  img: [{ opacity: 0, filter: 'blur(8px)', transform: 'scale(1.015)' }, { opacity: 1, filter: 'blur(0px)', transform: 'none' }, 700, SPRING],
+  bar: [{ opacity: 1, transform: 'scaleX(0)' }, { opacity: 1, transform: 'scaleX(1)' }, 520, 'cubic-bezier(.3,.7,.2,1)'],
+  sel: [{ opacity: 0, transform: 'scale(.94)' }, { opacity: 1, transform: 'none' }, 260, SPRING]
+};
+const STEP = 110;
+const stories = $$('[data-story]').map(st => ({ st, items: $$('[data-s]', st), anims: [], on: false }));
+const play = o => {
+  o.on = true; o.st.classList.add('on');
+  if (REDUCE || STILL) return;
+  o.anims = o.items.map(n => { const [a, b, dur, ease] = KIND[n.dataset.k || 'in']; return n.animate([a, b], { duration: dur, delay: +n.dataset.s * STEP, easing: ease, fill: 'backwards' }); });
+};
+const reset = o => { o.anims.forEach(a => a.cancel()); o.anims = []; o.on = false; o.st.classList.remove('on'); };
+const sio = new IntersectionObserver(es => {
+  for (const e of es) {
+    const o = stories.find(x => x.st === e.target);
+    if (!o) continue;
+    if (e.isIntersecting && e.intersectionRatio >= 0.25 && !o.on) play(o);
+    else if (!e.isIntersecting && o.on) reset(o);
+  }
+}, { threshold: [0, 0.25] });
+stories.forEach(o => { if (REDUCE || STILL) play(o); else sio.observe(o.st); });
+
+/* ═════════════ la luce ═════════════
+   Un filo di luce scende lungo il bordo delle finestre mentre salgono nello schermo; dentro, un bagliore
+   caldo resta fermo rispetto allo schermo. Sotto la console d'apertura il piano si illumina un poco. */
+const wins = $$('.win, .hf').map((w, i) => { w.style.setProperty('--mx', w.dataset.mx || (i % 2 ? '70%' : '30%')); return w; });
+const hs = $('#hs');
+let lraf = 0;
+const light = () => {
+  lraf = 0;
+  const vh = innerHeight;
+  for (const w of wins) {
+    const r = w.getBoundingClientRect();
+    if (r.bottom < -vh * 0.3 || r.top > vh * 1.3) continue;
+    const p = clamp01((vh * 1.0 - r.top) / (vh * 1.6));
+    w.style.setProperty('--my', lerp(-30, 130, p).toFixed(1) + '%');
+    w.style.setProperty('--gy', Math.round((vh * 0.35 - r.top) / (w.closest('.canvas') ? S : 1)) + 'px');
+  }
+  const hr = hs.getBoundingClientRect();
+  hs.style.setProperty('--hl', (0.55 + 0.45 * clamp01((vh - hr.top) / (vh * 0.9))).toFixed(3));
+};
+const kickLight = () => { if (!lraf) lraf = requestAnimationFrame(light); };
+addEventListener('scroll', kickLight, { passive: true }); addEventListener('resize', kickLight); light();
+
+/* ═════════════ i moduli: il «+» apre la spiegazione ═════════════ */
+$$('.fi>button').forEach(b => b.addEventListener('click', () => {
+  const on = b.getAttribute('aria-expanded') !== 'true';
+  b.setAttribute('aria-expanded', on); b.parentElement.classList.toggle('on', on);
+}));
+
+/* ── comparsa al primo caricamento ── */
+const go = () => requestAnimationFrame(() => root.classList.add('ready'));
+if (STILL || REDUCE) root.classList.add('ready');
+else if (document.fonts && document.fonts.ready) Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 900))]).then(go); else go();
+})();
+</script>
+</body>
+</html>

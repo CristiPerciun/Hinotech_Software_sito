@@ -9,9 +9,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+JP:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Schibsted+Grotesk:wght@400;500;600;700&family=Shippori+Mincho:wght@400;500;600&display=swap">
-<script type="importmap">
-{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
-</script>
 <style>
 /* ─── Rampa e accenti: identici a cos_palette.dart e al blocco 1 di site.css ─── */
 :root{
@@ -115,18 +112,9 @@ h2 .mincho,h3 .mincho{font-weight:500;letter-spacing:.02em}
 @media (max-width:900px){.spec{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.spec{grid-template-columns:1fr}}
 
-/* A · kigumi */
-.stage-a .sticky{background:radial-gradient(80% 70% at 72% 46%,#FDFCFA 0%,var(--n-000) 42%,var(--n-050) 100%)}
-.stage-a canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-.gl-msg{display:none;position:absolute;right:var(--gut);bottom:28px;margin:0;font:500 12px/1.4 var(--ff-mono);color:var(--muted)}
-.no-gl .gl-msg{display:block}
-@media (max-width:900px){
-  .stage-a .beat{align-items:flex-end;padding-bottom:7svh}
-  .stage-a .beat+.beat{height:125svh}
-  .stage-a .beat.hold{align-items:flex-start;padding-bottom:0;height:150svh}
-  .stage-a .beat.hold .beat-txt{top:58svh;margin-top:58svh}
-  .stage-a .beat-txt{max-width:none;width:100%;padding:18px 18px 16px;background:rgba(251,250,248,.86);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid var(--hair)}
-}
+.go{display:inline-flex;align-items:center;gap:10px;margin-top:6px;padding:15px 24px;border-radius:999px;background:var(--ink);color:var(--n-000);
+  text-decoration:none;font:500 15px/1 var(--ff-sans);transition:transform var(--t-fast) var(--ease),background-color var(--t-base) var(--ease)}
+.go:hover{background:var(--n-800)}.go:active{transform:scale(.97)}
 
 /* B · komorebi */
 .stage-b .sticky{background:var(--n-050)}
@@ -262,7 +250,7 @@ h2 .mincho,h3 .mincho{font-weight:500;letter-spacing:.02em}
   <div>
     <p class="kicker">Il sito della casa madre · tavola interna del 17.11.2026</p>
     <h1 style="margin-top:22px">Software costruito<br>come un tempio di legno.</h1>
-    <p class="deck">Qui decidiamo insieme la grafica e la tecnologia del sito di Hinotech Software. Le tre direzioni sono vive: scorri dentro ciascuna. I colori sono quelli della console: cambia la lettura, non i valori.</p>
+    <p class="deck">La direzione A è scelta (17/11) ed è diventata il tempio, che ha una pagina sua: <a href="tempio.html">tempio.html</a>. Qui restano le alternative, i caratteri, il movimento e la tecnologia ancora da decidere. I colori sono quelli della console: cambia la lettura, non i valori.</p>
   </div>
   <div class="intro-v" aria-hidden="true"><span class="big">檜</span><span class="small">ひのき · 히노키</span></div>
 </section>
@@ -309,43 +297,29 @@ h2 .mincho,h3 .mincho{font-weight:500;letter-spacing:.02em}
   <p class="note">Il ruggine della console e 檜皮色 sono quasi lo stesso colore: #965036 è il valore delle tavole dei colori tradizionali più diffuse, non un valore ufficiale. I nomi di muschio e indaco sono nomi d'uso. Versione notte: come nella console la rampa si rovescia e il ruggine si schiarisce a #C06B54.</p>
 </section>
 
-<!-- 03 · direzione A -->
-<section id="a">
-  <div class="sec wrap dir-head">
-    <div class="sec-head">
-      <p class="num">03 · Direzione A<br>la proposta</p>
-      <div>
-        <h2>Kigumi <span class="mincho">木組み</span>, l'incastro.</h2>
-        <p class="lead">Un reticolo di bastoncini di hinoki, come gli incastri <em>cidori</em> e <em>jigoku-gumi</em> di Kengo Kuma, sospeso sulla carta. Mentre scorri, i 48 pezzi scivolano lungo il proprio asse e si incastrano; il sole passa dal mattino al pomeriggio e le ombre si allungano. Muovi il mouse: l'oggetto ti segue appena.</p>
-      </div>
+<!-- 03 · direzione A: scelta, diventata il tempio -->
+<section class="sec wrap" id="a">
+  <div class="sec-head">
+    <p class="num">03 · Direzione A<br>scelta il 17/11</p>
+    <div>
+      <h2>Il tempio <span class="mincho">五重塔</span>.</h2>
+      <p class="lead">La direzione A è diventata una pagoda a cinque piani in hinoki, con il suo pilastro centrale (心柱): la struttura della SRL, un motore e molti verticali. All'apertura è tutta disegnata a inchiostro, il progetto; scorrendo si costruisce in legno ciò che esiste, e ciò che verrà resta disegno. Le frasi, il loro significato e le fonti sono nel README, «Le parole del sito».</p>
+      <p class="lead"><a class="go" href="tempio.html">Apri il tempio →</a></p>
     </div>
   </div>
-  <div class="stage stage-a" data-stage="a">
-    <div class="sticky">
-      <canvas role="img" aria-label="Un reticolo di bastoncini di hinoki che si incastrano mentre si scorre la pagina"></canvas>
-      <p class="gl-msg">Per l'oggetto 3D servono WebGL e la rete (Three.js da CDN).</p>
-    </div>
-    <div class="beats wrap">
-      <div class="beat"><div class="beat-txt"><p class="kicker">In romeno, la lingua del sito</p><h3 style="margin-top:16px">Fiecare piesă<br>are locul ei.</h3><p class="it">«Ogni pezzo ha il suo posto.»</p></div></div>
-      <div class="beat"><div class="beat-txt"><h3>Se îmbină fără cuie, ca templele din hinoki.</h3><p class="it">«Si incastra senza chiodi, come i templi di hinoki.»</p></div></div>
-      <div class="beat hold"><div class="beat-txt"><h3>Software făcut<br>să dureze.</h3><p class="it">«Software fatto per durare.»</p><p class="sign"><span class="seal" aria-hidden="true">檜</span>Hinotech Software</p></div></div>
-    </div>
-  </div>
-  <div class="wrap">
-    <dl class="spec">
-      <div><dt>Che cosa si muove</dt><dd>I pezzi, solo lungo il proprio asse, come in un incastro vero; la luce e le ombre. La pagina scorre normale.</dd></div>
-      <div><dt>Realismo</dt><dd>Venature e fibre di testa generate in codice, spigoli smussati che prendono la luce, ombre morbide sul foglio. Nel sito: texture fotografate (CC0) o un render di Blender.</dd></div>
-      <div><dt>Tecnologia</dt><dd>Three.js in tempo reale, un'isola sola nella pagina; si ferma quando esce dallo schermo.</dd></div>
-      <div><dt>Riferimenti</dt><dd>Kengo Kuma: <a href="https://www.archdaily.com/199442/gc-prostho-museum-research-center-kengo-kuma-associates" target="_blank" rel="noopener">GC Prostho Museum</a> (cidori), <a href="https://www.domusweb.it/en/architecture/2014/01/13/sunny_hills_and_thematterofbusiness.html" target="_blank" rel="noopener">SunnyHills</a> (jigoku-gumi, in hinoki).</dd></div>
-    </dl>
-  </div>
+  <dl class="spec" style="margin-top:48px">
+    <div><dt>Legno</dt><dd>Ciò che esiste: la base, il pilastro (il motore Compliance-OS), il primo piano (PrivacyBox, con il tetto di corteccia), il secondo in costruzione.</dd></div>
+    <div><dt>Inchiostro</dt><dd>Ciò che verrà: i piani dal terzo al quinto e la guglia, la visione.</dd></div>
+    <div><dt>Movimento</dt><dd>I pezzi crescono in giro, come chi monta un incastro; i piani oscillano mentre il pilastro resta fermo: «când legea se mișcă».</dd></div>
+    <div><dt>Tecnologia</dt><dd>Three.js in tempo reale, in una pagina sola; si ferma quando esce dallo schermo.</dd></div>
+  </dl>
 </section>
 
 <!-- 04 · direzione B -->
 <section id="b">
   <div class="sec wrap dir-head">
     <div class="sec-head">
-      <p class="num">04 · Direzione B</p>
+      <p class="num">04 · Direzione B<br>non scelta</p>
       <div>
         <h2>Komorebi <span class="mincho">木漏れ日</span>, la luce tra i rami.</h2>
         <p class="lead">Niente oggetti. A destra c'è la carta di un <em>ttisal</em> coreano (띠살: stecche verticali fitte e tre fasce orizzontali) illuminata da fuori. Scorrendo il sole si sposta: l'ombra dei rami di hinoki scivola sulla carta e la luce si scalda dal mattino alla sera. È il gusto per l'ombra di Tanizaki, «Libro d'ombra» (1933).</p>
@@ -383,7 +357,7 @@ h2 .mincho,h3 .mincho{font-weight:500;letter-spacing:.02em}
 <section id="c">
   <div class="sec wrap dir-head">
     <div class="sec-head">
-      <p class="num">05 · Direzione C</p>
+      <p class="num">05 · Direzione C<br>non scelta</p>
       <div>
         <h2>Sumi e sigillo <span class="mincho">墨と印</span>.</h2>
         <p class="lead">Un ensō (円相) a pennello si traccia mentre scorri, con il «bianco che vola» (飛白, <em>hihaku</em>) dove il pennello si asciuga; alla fine il sigillo color corteccia chiude la pagina. È la più grafica: parla la lingua della console (inchiostro, filo, sigillo), ma è la meno realistica, e il cerchio zen è un'immagine molto usata.</p>
@@ -558,10 +532,10 @@ h2 .mincho,h3 .mincho{font-weight:500;letter-spacing:.02em}
     <div><h2>Da decidere insieme.</h2></div>
   </div>
   <ol class="decide">
-    <li><span class="d">D1</span><span class="q">Direzione grafica</span><span>A, con la luce di B; il sigillo di C come firma</span></li>
+    <li><span class="d">D1</span><span class="q">Direzione grafica</span><span>A, scelta il 17/11: il tempio, in <a href="tempio.html">tempio.html</a>; da approvare</span></li>
     <li><span class="d">D2</span><span class="q">Tecnologia</span><span>Astro 6 + Three.js + GSAP, su Cloudflare</span></li>
     <li><span class="d">D3</span><span class="q">Realismo dell'oggetto</span><span>Tempo reale; render di Blender o scansione più avanti, se serve</span></li>
-    <li><span class="d">D4</span><span class="q">Caratteri</span><span>T1 o T2</span></li>
+    <li><span class="d">D4</span><span class="q">Caratteri</span><span>T2, editoriale: è quello del tempio</span></li>
     <li><span class="d">D5</span><span class="q">Lingue</span><span>Romeno, russo, inglese</span></li>
     <li><span class="d">D6</span><span class="q">Skill da installare</span><span>frontend-design, gsap-skills, threejs-skills, nel progetto</span></li>
   </ol>
@@ -586,8 +560,6 @@ h2 .mincho,h3 .mincho{font-weight:500;letter-spacing:.02em}
   addEventListener('resize', measure);
   measure();
   window.hinoRng = function(seed){ var s = (seed >>> 0) || 1; return function(){ s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; }; };
-  /* la scena A carica Three.js da CDN: se non arriva, lo diciamo */
-  setTimeout(function(){ if(!window.hinoGL) document.querySelector('.stage-a .sticky').classList.add('no-gl'); }, 6000);
 })();
 
 /* ─── rampa dei colori ─── */
@@ -768,164 +740,6 @@ h2 .mincho,h3 .mincho{font-weight:500;letter-spacing:.02em}
     b.addEventListener('pointermove', function(e){ var r = b.getBoundingClientRect(); b.style.setProperty('--mx', (e.clientX - r.left) + 'px'); b.style.setProperty('--my', (e.clientY - r.top) + 'px'); });
   });
 })();
-</script>
-
-<script type="module">
-/* ─── A · kigumi: 48 bastoncini di hinoki in un reticolo 4×4×4 ─── */
-import * as THREE from 'three';
-import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
-import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-
-const stage = document.querySelector('.stage-a');
-const host = stage.querySelector('.sticky');
-const canvas = host.querySelector('canvas');
-const reduce = window.hinoReduce;
-const rng = window.hinoRng;
-
-let renderer;
-try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' }); }
-catch (e) { host.classList.add('no-gl'); throw e; }
-window.hinoGL = true;
-renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
-renderer.toneMapping = THREE.NeutralToneMapping;
-renderer.toneMappingExposure = 1.0;
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
-const scene = new THREE.Scene();
-const pmrem = new THREE.PMREMGenerator(renderer);
-scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-scene.environmentIntensity = 0.78;
-
-const camera = new THREE.PerspectiveCamera(26, 1, 0.1, 100);
-camera.position.set(9.1, 6.2, 10.6);
-camera.lookAt(0, -0.2, 0);
-
-const sun = new THREE.DirectionalLight(0xffffff, 2.6);
-sun.castShadow = true;
-sun.shadow.mapSize.set(2048, 2048);
-Object.assign(sun.shadow.camera, { left: -7, right: 7, top: 7, bottom: -7, near: 1, far: 40 });
-sun.shadow.bias = -0.0004;
-sun.shadow.normalBias = 0.02;
-scene.add(sun, sun.target);
-scene.add(new THREE.HemisphereLight(0xf6f2ea, 0xd9d2c6, 0.42));
-
-const floor = new THREE.Mesh(new THREE.PlaneGeometry(80, 80), new THREE.ShadowMaterial({ color: 0x2b2a28, opacity: 0.22 }));
-floor.rotation.x = -Math.PI / 2; floor.position.y = -2.9; floor.receiveShadow = true;
-scene.add(floor);
-
-/* venature: fianchi a fibra dritta, teste con gli anelli */
-function sideGrain(seed) {
-  const W = 1024, H = 128, c = document.createElement('canvas'); c.width = W; c.height = H;
-  const g = c.getContext('2d'), r = rng(seed);
-  const base = g.createLinearGradient(0, 0, 0, H);
-  base.addColorStop(0, '#E8D5B2'); base.addColorStop(0.45, '#EDDDBF'); base.addColorStop(1, '#E3CDA6');
-  g.fillStyle = base; g.fillRect(0, 0, W, H);
-  for (let i = 0; i < 5; i++) {
-    const x = r() * W, w = 120 + r() * 380, gr = g.createLinearGradient(x - w, 0, x + w, 0);
-    gr.addColorStop(0, 'rgba(201,165,115,0)'); gr.addColorStop(0.5, `rgba(201,165,115,${0.06 + r() * 0.08})`); gr.addColorStop(1, 'rgba(201,165,115,0)');
-    g.fillStyle = gr; g.fillRect(x - w, 0, 2 * w, H);
-  }
-  for (let i = 0; i < 7; i++) { g.fillStyle = `rgba(190,150,98,${0.04 + r() * 0.07})`; g.fillRect(0, r() * H, W, 4 + r() * 16); }
-  for (let i = 0; i < 30; i++) {
-    const y0 = r() * H, amp = 0.4 + r() * 1.8, f = 0.0025 + r() * 0.006, ph = r() * 6.28;
-    g.strokeStyle = `rgba(146,100,56,${0.07 + r() * 0.17})`; g.lineWidth = 0.5 + r() * 1.5;
-    g.beginPath();
-    for (let x = 0; x <= W; x += 8) { const y = y0 + Math.sin(x * f + ph) * amp + Math.sin(x * f * 3.3 + ph) * amp * 0.35; if (x) g.lineTo(x, y); else g.moveTo(x, y); }
-    g.stroke();
-  }
-  for (let i = 0; i < 1600; i++) {
-    const x = r() * W, y = r() * H, l = 5 + r() * 36, dark = r() < 0.55;
-    g.strokeStyle = dark ? `rgba(118,84,46,${0.03 + r() * 0.06})` : `rgba(255,251,242,${0.05 + r() * 0.07})`;
-    g.lineWidth = 0.5; g.beginPath(); g.moveTo(x, y); g.lineTo(x + l, y + (r() - 0.5) * 0.6); g.stroke();
-  }
-  return c;
-}
-function endGrain(seed) {
-  const S = 256, c = document.createElement('canvas'); c.width = c.height = S;
-  const g = c.getContext('2d'), r = rng(seed);
-  g.fillStyle = '#D6BE95'; g.fillRect(0, 0, S, S);
-  const cx = S * (-0.4 + r() * 1.8), cy = S * (-0.4 + r() * 1.8);
-  for (let rad = 3; rad < S * 2.4; rad += 4 + r() * 7) {
-    g.strokeStyle = `rgba(132,92,50,${0.1 + r() * 0.16})`; g.lineWidth = 0.7 + r() * 1.3;
-    g.beginPath(); g.arc(cx, cy, rad, 0, Math.PI * 2); g.stroke();
-  }
-  for (let i = 0; i < 900; i++) { g.fillStyle = `rgba(100,70,40,${r() * 0.09})`; g.fillRect(r() * S, r() * S, 1.2, 1.2); }
-  return c;
-}
-const aniso = renderer.capabilities.getMaxAnisotropy();
-const toTex = (c, color) => { const t = new THREE.CanvasTexture(c); t.anisotropy = aniso; if (color) t.colorSpace = THREE.SRGBColorSpace; return t; };
-const sides = [0, 1, 2, 3].map(i => { const c = sideGrain(11 + i * 37); return new THREE.MeshStandardMaterial({ map: toTex(c, true), bumpMap: toTex(c, false), bumpScale: 0.4, roughness: 0.66, metalness: 0 }); });
-const ends = [0, 1].map(i => { const c = endGrain(71 + i * 13); return new THREE.MeshStandardMaterial({ map: toTex(c, true), bumpMap: toTex(c, false), bumpScale: 0.5, roughness: 0.85, metalness: 0 }); });
-
-/* il reticolo: 4 nodi per asse, 16 bastoncini per asse, sporgenze alle teste */
-const N = 4, S = 0.8, Wd = 0.14, OVER = 0.34, L = (N - 1) * S + 2 * OVER;
-const geo = new RoundedBoxGeometry(L, Wd, Wd, 2, 0.014);
-const coords = [...Array(N)].map((_, i) => (i - (N - 1) / 2) * S);
-const lattice = new THREE.Group(); scene.add(lattice);
-const r = rng(2026);
-const sticks = [];
-['x', 'y', 'z'].forEach((axis, ai) => {
-  const order = [...Array(N * N).keys()].sort(() => r() - 0.5);
-  let k = 0;
-  for (const a of coords) for (const b of coords) {
-    const holder = new THREE.Group();
-    const mesh = new THREE.Mesh(geo, [ends[k % 2], ends[(k + 1) % 2], sides[(k + ai) % 4], sides[(k + ai + 1) % 4], sides[(k + ai + 2) % 4], sides[(k + ai + 3) % 4]]);
-    mesh.castShadow = true; mesh.receiveShadow = true;
-    mesh.rotation.x = Math.floor(r() * 4) * Math.PI / 2;
-    holder.add(mesh);
-    const home = new THREE.Vector3(), dir = new THREE.Vector3();
-    if (axis === 'x') { home.set(0, a, b); dir.set(1, 0, 0); }
-    if (axis === 'y') { home.set(a, 0, b); dir.set(0, 1, 0); holder.rotation.z = Math.PI / 2; }
-    if (axis === 'z') { home.set(a, b, 0); dir.set(0, 0, 1); holder.rotation.y = -Math.PI / 2; }
-    lattice.add(holder);
-    sticks.push({ holder, mesh, home, dir, ai, rank: order[k], sign: r() < 0.5 ? -1 : 1, dist: 1.5 + r() * 2.1, tiltY: (r() - 0.5) * 0.5, tiltZ: (r() - 0.5) * 0.5 });
-    k++;
-  }
-});
-const ease = t => 1 - Math.pow(1 - t, 3);
-function place(p) {
-  for (const s of sticks) {
-    const start = [0.02, 0.17, 0.32][s.ai] + (s.rank / 15) * 0.22;
-    const t = ease(Math.min(1, Math.max(0, (p - start) / 0.2)));
-    s.holder.position.copy(s.home).addScaledVector(s.dir, (1 - t) * s.dist * s.sign);
-    s.mesh.rotation.y = s.tiltY * (1 - t);
-    s.mesh.rotation.z = s.tiltZ * (1 - t);
-  }
-}
-
-/* inquadratura: su schermi larghi l'oggetto sta a destra del testo, sul telefono in alto */
-function resize() {
-  const w = host.clientWidth, h = host.clientHeight; if (!w || !h) return;
-  renderer.setSize(w, h, false);
-  if (w > 900) { const fw = w * 1.5; camera.fov = 26; camera.aspect = fw / h; camera.setViewOffset(fw, h, 0, 0, w, h); }
-  else { const fh = h * 1.45; camera.fov = 40; camera.aspect = w / fh; camera.setViewOffset(w, fh, 0, h * 0.42, w, h); }
-  camera.updateProjectionMatrix();
-}
-addEventListener('resize', resize); resize();
-
-const dawn = new THREE.Color('#F3F1EB'), dusk = new THREE.Color('#FFDAB0');
-let shown = reduce ? 1 : 0, mx = 0, my = 0, ax = 0, ay = 0, visible = false, running = false;
-stage.addEventListener('pointermove', e => { mx = e.clientX / innerWidth - 0.5; my = e.clientY / innerHeight - 0.5; }, { passive: true });
-function draw() {
-  place(shown);
-  lattice.rotation.y = -0.42 + shown * 0.85 + ax * 0.18;
-  lattice.rotation.x = ay * 0.08;
-  sun.position.set(-6 + 4.5 * shown, 10 - 3.8 * shown, 5 + 3.5 * shown);
-  sun.color.lerpColors(dawn, dusk, shown);
-  sun.intensity = 2.6 - 0.4 * shown;
-  renderer.render(scene, camera);
-}
-function frame() {
-  if (!visible) { running = false; return; }
-  const target = reduce ? 1 : (window.hinoProg.a || 0);
-  shown += (target - shown) * (reduce ? 1 : 0.08);
-  if (!reduce) { ax += (mx - ax) * 0.05; ay += (my - ay) * 0.05; }
-  draw();
-  requestAnimationFrame(frame);
-}
-new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible && !running) { running = true; requestAnimationFrame(frame); } }, { rootMargin: '100px 0px' }).observe(stage);
-draw();
 </script>
 </body>
 </html>
