@@ -2,7 +2,7 @@
 
 Avvio: 17/11/2026. Pagine di progetto (si aprono nel browser, con internet: 3D e caratteri vengono dalla rete):
 
-- [`design/home.html`](design/home.html): **la home di adesso** (18/11). Si apre con un tunnel: la frase al centro, attorno i cinque principi, ognuno con il suo simbolo moldavo o giapponese; alla fine la frase diventa una maschera sulla pagina chiara, in stile linear.app. La grafica sta sulla tela Claude Design «Hinotech · deschiderea» (https://claude.ai/artifact/95NipTVRzS7wjLaswWmKFp, privata); il ritmo compatto del 19/11 sta sull'altra tela con lo stesso nome (https://claude.ai/artifact/7VHuB1hZBpUND2eoWt5W32, tavola «Tunelul · ritm compact (19/11)»).
+- [`design/home.html`](design/home.html): **la home di adesso** (18/11). Si apre con un tunnel: la frase al centro, attorno quattro parole (securitate, integrare, eficiență, simplitate), ognuna con il suo simbolo moldavo o giapponese; alla fine l'ultima frase, «Stau la baza soluțiilor noastre.», diventa una maschera sulla pagina chiara, in stile linear.app. La grafica sta sulla tela Claude Design «Hinotech · deschiderea» (https://claude.ai/artifact/95NipTVRzS7wjLaswWmKFp, privata); il ritmo compatto del 19/11 e le quattro parole del 20/11 stanno sull'altra tela con lo stesso nome (https://claude.ai/artifact/7VHuB1hZBpUND2eoWt5W32, tavole «Tunelul · ritm compact (19/11)» e «Tunelul · patru cuvinte și fraza de la bază (20/11)»).
 - [`design/apertura.html`](design/apertura.html), [`design/home-otel.html`](design/home-otel.html), [`design/home-fereastra.html`](design/home-fereastra.html): le prove del 18/11 da cui è nata la home.
 - [`design/sat.html`](design/sat.html): il villaggio di notte (17–18/11), messo da parte il 18/11.
 - [`design/proposte.html`](design/proposte.html): le tre proposte da cui è stata scelta (A villaggio, B cantiere di hinoki, C corte coreana).
@@ -145,7 +145,24 @@ Firma in fondo: il sigillo 檜, «Hinotech Software», «Coteala, raionul Bricen
 - Kengo Kuma usa incastri di hinoki senza chiodi: *cidori* al GC Prostho Museum, *jigoku-gumi* a
   SunnyHills.
 
-## Il tunnel: cinque principi, cinque simboli (18/11)
+## Il tunnel: quattro parole, quattro simboli (18–20/11)
+
+**20/11, le parole di adesso.** Il founder: al posto dei principi, quattro parole, **SECURITATE, INTEGRARE,
+EFICIENȚĂ, SIMPLITATE**, e alla fine l'ultima frase **«Stau la baza soluțiilor noastre.»** Sul sito sono
+scritte normali e diventano maiuscole con il CSS, così i lettori di schermo le leggono come parole. Ogni
+parola tiene un simbolo della tabella qui sotto, scelto per quello che la fonte dice del motivo: Securitate →
+kikkō (protezione), Integrare → shippō (cerchi legati ai vicini), Eficiență → cârligul ciobanului (lo
+strumento del pastore), Simplitate → șănătăul (l'acqua). Il chenar «dinții de lup» esce con «Siguranță
+juridică». Tavola sulla tela Claude Design: «Tunelul · patru cuvinte și fraza de la bază (20/11)»
+(https://claude.ai/artifact/7VHuB1hZBpUND2eoWt5W32).
+
+**Il finale, 20/11.** Dopo l'ultima parola il nocciolo («Soluții software…») svanisce; i quattro simboli
+arrivano dal fondo uno dopo l'altro e si mettono in fila in basso, ognuno con la sua parola: sono la base. Sopra
+si accende, sfocata e poi nitida, l'ultima frase, nel punto esatto in cui poi la ritaglia la maschera. I
+simboli salgono nella frase e svaniscono; la frase diventa la maschera e si entra nella pagina chiara dalla
+«l» di «la». Il titolo della pagina resta «Soluții software simple, clare, făcute să dureze.».
+
+Prima (18–19/11) il tunnel aveva cinque principi, nomi lunghi:
 
 Il founder, 18/11: il tunnel ha **una frase centrale** («Soluții software simple, clare, făcute să
 dureze.»); attorno compaiono, uno alla volta, i **cinque principi di Hinotech** e subito dopo ognuno il suo
@@ -155,13 +172,13 @@ descrizioni (né la didascalia del simbolo né la frase che spiega il principio)
 principio e il suo simbolo**; disposizione equilibrata e coerente per tutta l'animazione; via le linee
 dei quadranti; ogni modifica passa prima dalla tela Claude Design.
 
-| # | Principio (il founder) | Sul sito: il nome | Simbolo | Perché quel simbolo (nota nostra, non sul sito) | Fonte |
-|---|---|---|---|---|---|
-| 1 | Tecnologia al servizio dell'uomo | Tehnologie în serviciul omului | **Cârligul ciobanului**, Moldova, punto croce | rappresenta lo strumento del pastore: uno strumento che lavora per chi lo usa | [moldovenii.md, «Motive și simboluri în arta populară a moldovenilor»](https://www.moldovenii.md/md/section/691) |
-| 2 | Unificazione della frammentazione | Unificare, nu fragmentare | **Shippō**, Giappone, medaglione | cerchi uguali che si sovrappongono e si legano ai vicini: un disegno solo | [JAANUS, «shippōmon»](https://projects.mcah.columbia.edu/jaanus/node/1215) |
-| 3 | Trasparenza e usabilità | Transparență și ușurință | **Șănătăul**, Moldova, punto croce | la linea ondulata dei tappeti simboleggia l'acqua e le sue onde: chiaro come l'acqua | moldovenii.md, come sopra |
-| 4 | Sicurezza dei dati | Securitatea datelor | **Kikkō**, Giappone, medaglione | il guscio di tartaruga: lunga vita, buona sorte, protezione; ogni cella chiusa | [NGV, «Monyō: exploring traditional kimono patterns»](https://www.ngv.vic.gov.au/essay/monyo-exploring-traditional-kimono-patterns/) |
-| 5 | Sicurezza legale | Siguranță juridică | **Dinții de lup**, Moldova, punto croce | motivi usati come cornice sul bordo dei tappeti antichi: tutto dentro il quadro della legge | moldovenii.md, come sopra |
+| # | Principio (il founder) | Sul sito: il nome | Dal 20/11 | Simbolo | Perché quel simbolo (nota nostra, non sul sito) | Fonte |
+|---|---|---|---|---|---|---|
+| 1 | Tecnologia al servizio dell'uomo | Tehnologie în serviciul omului | **Eficiență** (3ª) | **Cârligul ciobanului**, Moldova, punto croce | rappresenta lo strumento del pastore: uno strumento che lavora per chi lo usa | [moldovenii.md, «Motive și simboluri în arta populară a moldovenilor»](https://www.moldovenii.md/md/section/691) |
+| 2 | Unificazione della frammentazione | Unificare, nu fragmentare | **Integrare** (2ª) | **Shippō**, Giappone, medaglione | cerchi uguali che si sovrappongono e si legano ai vicini: un disegno solo | [JAANUS, «shippōmon»](https://projects.mcah.columbia.edu/jaanus/node/1215) |
+| 3 | Trasparenza e usabilità | Transparență și ușurință | **Simplitate** (4ª) | **Șănătăul**, Moldova, punto croce | la linea ondulata dei tappeti simboleggia l'acqua e le sue onde: chiaro come l'acqua | moldovenii.md, come sopra |
+| 4 | Sicurezza dei dati | Securitatea datelor | **Securitate** (1ª) | **Kikkō**, Giappone, medaglione | il guscio di tartaruga: lunga vita, buona sorte, protezione; ogni cella chiusa | [NGV, «Monyō: exploring traditional kimono patterns»](https://www.ngv.vic.gov.au/essay/monyo-exploring-traditional-kimono-patterns/) |
+| 5 | Sicurezza legale | Siguranță juridică | esce | **Dinții de lup**, Moldova, punto croce | motivi usati come cornice sul bordo dei tappeti antichi: tutto dentro il quadro della legge | moldovenii.md, come sopra |
 
 **La disposizione** (tela Claude Design, tavole «Tunelul · principiul 1 și simbolul lui», «Ordinea și
 frecvența» e «Pagina deschisă · fraza se întunecă»). Il founder, 18/11 sera: il simbolo non deve stare sulla
@@ -172,7 +189,9 @@ simbolo nell'angolo opposto. Le diagonali cambiano: 1 il nome in alto a sinistra
 destra, 2 in alto a destra → in basso a sinistra, 3 in basso a destra → in alto a sinistra, 4 in basso a
 sinistra → in alto a destra, 5 in alto al centro → in basso al centro. L'equilibrio passa sempre per il
 centro. Posizioni in frazioni dello schermo nel codice (`COMP`), uguali a quelle della tela; sul telefono le
-stesse diagonali in verticale.
+stesse diagonali in verticale. Dal 20/11 le parole sono quattro e usano le prime quattro diagonali, in giro
+orario: Securitate in alto a sinistra, Integrare in alto a destra, Eficiență in basso a destra, Simplitate in
+basso a sinistra.
 
 **Come si muove** (ritmo compatto, 19/11). Il founder, 19/11: si scorreva troppo e non invogliava a leggere;
 le scritte e i simboli devono partire più dal centro; non uno, poi il vuoto, poi il successivo, ma uno dopo
@@ -184,12 +203,12 @@ fermo; quando parte il terzo, il primo è già sparito. Il nome è il doppio di 
 adattato allo schermo come prima; 44 px sul telefono invece di 24) e si accende parola per parola mentre
 arriva; il simbolo si cuce punto per punto (moldavi) o si disegna (giapponesi). Questa parte va a tempo, poco
 più di un secondo, così si completa anche se ci si ferma; con lo scroll veloce non resta indietro, perché
-quando la composizione si ferma nel suo angolo il disegno è già finito. Alla fine i cinque simboli tornano
-piccoli attorno alla frase, ognuno dalla parte in cui si era cucito, ed entrano in lei; la frase diventa una
-maschera (tre strati fissi: nero con le lettere bianche in moltiplica, il colore del tunnel in schiarisci, il
-bordo delle lettere). Dentro le lettere sale la pagina chiara e si entra dalla «l» di «clare»; lo zoom
-finisce quando la pagina arriva in alto: **4,75 schermi** (il tunnel è 575vh; prima 960vh, 8,6 schermi). Con
-«riduci movimento» i cinque stanno fermi, in griglia.
+quando la composizione si ferma nel suo angolo il disegno è già finito. Alla fine (dal 20/11) i quattro
+simboli scendono in fila alla base sotto l'ultima frase, poi salgono in lei; la frase diventa una maschera (tre
+strati fissi: nero con le lettere bianche in moltiplica, il colore del tunnel in schiarisci, il bordo delle
+lettere). Dentro le lettere sale la pagina chiara e si entra dalla «l» di «la»; lo zoom finisce quando la
+pagina arriva in alto: **4,75 schermi** (il tunnel è 575vh; prima 960vh, 8,6 schermi). Con «riduci
+movimento» le quattro parole stanno ferme in griglia, con l'ultima frase sotto.
 
 **Il lampo bianco** (il founder: «si nota molto quando lo scroll è veloce»). La maschera segue lo scroll con
 il piccolo ritardo di tutto il tunnel; la pagina chiara invece segue lo scroll vero. Con una spinta forte la
